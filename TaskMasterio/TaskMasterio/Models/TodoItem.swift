@@ -33,3 +33,13 @@ struct TodoItem {
         self.updatedOn = updatedOn
     }
 }
+
+extension TodoItem {
+    var json: Any {
+        ""
+    }
+    
+    static func parse(json: Any) -> TodoItem? {
+        return nil
+    }
+}
