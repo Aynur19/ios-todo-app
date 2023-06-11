@@ -16,6 +16,7 @@
 		98F283332A350E6C0008A526 /* TaskMasterioTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F283322A350E6C0008A526 /* TaskMasterioTests.swift */; };
 		98F2833D2A350E6C0008A526 /* TaskMasterioUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2833C2A350E6C0008A526 /* TaskMasterioUITests.swift */; };
 		98F2833F2A350E6C0008A526 /* TaskMasterioUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2833E2A350E6C0008A526 /* TaskMasterioUITestsLaunchTests.swift */; };
+		98F2834D2A359C7C0008A526 /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2834C2A359C7C0008A526 /* TodoItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		98F283382A350E6C0008A526 /* TaskMasterioUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TaskMasterioUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		98F2833C2A350E6C0008A526 /* TaskMasterioUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskMasterioUITests.swift; sourceTree = "<group>"; };
 		98F2833E2A350E6C0008A526 /* TaskMasterioUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskMasterioUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		98F2834C2A359C7C0008A526 /* TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 		98F2831A2A350E650008A526 /* TaskMasterio */ = {
 			isa = PBXGroup;
 			children = (
+				98F2834B2A359C580008A526 /* Models */,
 				98F2831B2A350E650008A526 /* AppDelegate.swift */,
 				98F2831D2A350E650008A526 /* SceneDelegate.swift */,
 				98F2831F2A350E650008A526 /* ViewController.swift */,
@@ -125,6 +128,14 @@
 				98F2833E2A350E6C0008A526 /* TaskMasterioUITestsLaunchTests.swift */,
 			);
 			path = TaskMasterioUITests;
+			sourceTree = "<group>";
+		};
+		98F2834B2A359C580008A526 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				98F2834C2A359C7C0008A526 /* TodoItem.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,6 +271,7 @@
 			files = (
 				98F283202A350E650008A526 /* ViewController.swift in Sources */,
 				98F2831C2A350E650008A526 /* AppDelegate.swift in Sources */,
+				98F2834D2A359C7C0008A526 /* TodoItem.swift in Sources */,
 				98F2831E2A350E650008A526 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
