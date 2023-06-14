@@ -10,7 +10,6 @@ import XCTest
 
 final class ToDoItemTests: XCTestCase {
     var task: TodoItem!
-    var task2: TodoItem!
     
     override func setUpWithError() throws {
         try super.setUpWithError()
@@ -18,12 +17,9 @@ final class ToDoItemTests: XCTestCase {
     
     override func tearDownWithError() throws {
         task = nil
-        task2 = nil
         try super.tearDownWithError()
     }
     
-    
-    static let id = "A5A600C6-9B8F-4B36-AD55-F49B3D55C975"
     static let createdOn = Date(timeIntervalSince1970: TimeInterval(168655000))
     static let updatedOn = Date(timeIntervalSince1970: TimeInterval(168655000))
     static let deadline = Date(timeIntervalSince1970: TimeInterval(168655000))
