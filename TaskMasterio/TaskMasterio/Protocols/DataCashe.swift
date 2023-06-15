@@ -7,6 +7,11 @@
 
 import Foundation
 
+enum DataFormat {
+    case json
+    case csv
+}
+
 protocol DataCache {
     associatedtype Element
     
