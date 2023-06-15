@@ -10,7 +10,7 @@ import Foundation
 protocol DataCache {
     associatedtype Element
     
-    func add(_ task: Element)
+    func add(_ task: Element) -> Bool
     
     func remove(by id: String) -> Bool
     

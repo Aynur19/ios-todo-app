@@ -20,6 +20,8 @@
 		98F2834F2A35AA610008A526 /* TodoItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2834E2A35AA610008A526 /* TodoItemTests.swift */; };
 		98F283522A3B77BF0008A526 /* FileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F283512A3B77BF0008A526 /* FileCache.swift */; };
 		98F283562A3B7E060008A526 /* DataCashe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F283552A3B7E060008A526 /* DataCashe.swift */; };
+		98F283582A3B82B90008A526 /* FileCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F283572A3B82B90008A526 /* FileCacheTests.swift */; };
+		98F2835A2A3B862E0008A526 /* TestsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F283592A3B862E0008A526 /* TestsData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,8 @@
 		98F2834E2A35AA610008A526 /* TodoItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemTests.swift; sourceTree = "<group>"; };
 		98F283512A3B77BF0008A526 /* FileCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCache.swift; sourceTree = "<group>"; };
 		98F283552A3B7E060008A526 /* DataCashe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCashe.swift; sourceTree = "<group>"; };
+		98F283572A3B82B90008A526 /* FileCacheTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCacheTests.swift; sourceTree = "<group>"; };
+		98F283592A3B862E0008A526 /* TestsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestsData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +129,8 @@
 			children = (
 				98F283322A350E6C0008A526 /* TaskMasterioTests.swift */,
 				98F2834E2A35AA610008A526 /* TodoItemTests.swift */,
+				98F283572A3B82B90008A526 /* FileCacheTests.swift */,
+				98F283592A3B862E0008A526 /* TestsData.swift */,
 			);
 			path = TaskMasterioTests;
 			sourceTree = "<group>";
@@ -301,6 +307,8 @@
 			files = (
 				98F2834F2A35AA610008A526 /* TodoItemTests.swift in Sources */,
 				98F283332A350E6C0008A526 /* TaskMasterioTests.swift in Sources */,
+				98F283582A3B82B90008A526 /* FileCacheTests.swift in Sources */,
+				98F2835A2A3B862E0008A526 /* TestsData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

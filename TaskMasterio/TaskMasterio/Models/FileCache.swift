@@ -12,12 +12,14 @@ class FileCache {
 }
  
 extension FileCache: DataCache {
-    func add(_ task: TodoItem) {
+    func add(_ task: TodoItem) -> Bool {
         if let idx = tasks.firstIndex(where: { $0.id == task.id }) {
             tasks[idx] = task
-        } else {
-            tasks.append(task)
+            return false
         }
+        
+        tasks.append(task)
+        return true
     }
     
     func remove(by id: String) -> Bool {
