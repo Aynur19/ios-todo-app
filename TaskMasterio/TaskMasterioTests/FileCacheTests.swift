@@ -94,12 +94,64 @@ final class FileCacheTests: XCTestCase {
             tasks.append(task)
         }
         
-        let testFilesDirUrl = URL(fileURLWithPath: #file).deletingLastPathComponent()
+        var testFilesDirUrl = URL(fileURLWithPath: #file).deletingLastPathComponent()
                                                     .appending(component: "TestFiles")
                                                     .appending(component: "Generated")
         
         XCTAssertTrue(fileCache.saveToJson(name: "TaskMasterio", to: testFilesDirUrl))
-        XCTAssertTrue(FileManager.default.fileExists(atPath: testFilesDirUrl.appending(path: "TaskMasterio").path))
+        testFilesDirUrl.append(path: "TaskMasterio.json")
+        XCTAssertTrue(FileManager.default.fileExists(atPath: testFilesDirUrl.path))
+        
+        fileCache.clear()
+        
+        let jsonData = try? Data(contentsOf: testFilesDirUrl)
+        XCTAssertNotNil(jsonData)
+              
+        let jsonObject = try? JSONSerialization.jsonObject(with: jsonData!) as? [Any]
+        XCTAssertNotNil(jsonObject)
+        
+        let tasksDict = jsonObject as? [[String: Any]]
+        XCTAssertNotNil(tasksDict)
+        
+        for taskDict in tasksDict! {
+            let taskFromJson = TodoItem.parse(json: taskDict)
+            XCTAssertNotNil(taskFromJson)
+            XCTAssertTrue(fileCache.add(taskFromJson!))
+            
+            let taskFromList = tasks.first(where: { $0.id == taskFromJson!.id })
+            XCTAssertNotNil(taskFromList)
+            XCTAssertEqual(taskFromJson!.id, taskFromList!.id)
+            XCTAssertEqual(taskFromJson!.text, taskFromList!.text)
+            XCTAssertEqual(taskFromJson!.priority, taskFromList!.priority)
+            XCTAssertEqual(taskFromJson!.deadline, taskFromList!.deadline)
+            XCTAssertEqual(taskFromJson!.isDone, taskFromList!.isDone)
+            XCTAssertEqual(taskFromJson!.createdOn, taskFromList!.createdOn)
+            XCTAssertEqual(taskFromJson!.updatedOn, taskFromList!.updatedOn)
+        }
+        
+        XCTAssertEqual(fileCache.tasks.count, tasks.count)
+    }
+    
+    func test_SaveToJson_NewFile() throws {
+        var tasks = [TodoItem]()
+        for data in TestsData.testCases_Id_Nil {
+            let task = TodoItem(text: data.text, priority: data.priority, deadline: data.deadline,
+                                isDone: data.isDone, createdOn: data.createdOn, updatedOn: data.updatedOn)
+            _ = fileCache.add(task)
+            tasks.append(task)
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd_HH-mm-ss"
+        let filename = "TaskMasterio_(\(dateFormatter.string(from: Date())))"
+        
+        var testFilesDirUrl = URL(fileURLWithPath: #file).deletingLastPathComponent()
+                                                    .appending(component: "TestFiles")
+                                                    .appending(component: "Generated")
+        
+        XCTAssertTrue(fileCache.saveToJson(name: filename, to: testFilesDirUrl))
+        testFilesDirUrl.append(path: "\(filename).json")
+        XCTAssertTrue(FileManager.default.fileExists(atPath: testFilesDirUrl.path))
         
         fileCache.clear()
         
