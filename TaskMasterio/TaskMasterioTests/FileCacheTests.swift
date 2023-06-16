@@ -91,7 +91,7 @@ final class FileCacheTests: XCTestCase {
             let task = TodoItem(text: data.text, priority: data.priority, deadline: data.deadline,
                                 isDone: data.isDone, createdOn: data.createdOn, updatedOn: data.updatedOn)
             _ = fileCache.add(task)
-            _ = tasks.append(task)
+            tasks.append(task)
         }
         
         let projectURL = URL(fileURLWithPath: #file).deletingLastPathComponent()
@@ -112,14 +112,23 @@ final class FileCacheTests: XCTestCase {
         let tasksDict = jsonObject as? [[String: Any]]
         XCTAssertNotNil(tasksDict)
         
-        for task in tasksDict! {
-            let taskFromJson = TodoItem.parse(json: task)
+        for taskDict in tasksDict! {
+            let taskFromJson = TodoItem.parse(json: taskDict)
             XCTAssertNotNil(taskFromJson)
             XCTAssertTrue(fileCache.add(taskFromJson!))
             
+            let taskFromList = tasks.first(where: { $0.id == taskFromJson!.id })
+            
+            XCTAssertNotNil(taskFromList)
+            XCTAssertEqual(taskFromJson!.id, taskFromList!.id)
+            XCTAssertEqual(taskFromJson!.text, taskFromList!.text)
+            XCTAssertEqual(taskFromJson!.priority, taskFromList!.priority)
+            XCTAssertEqual(taskFromJson!.deadline, taskFromList!.deadline)
+            XCTAssertEqual(taskFromJson!.isDone, taskFromList!.isDone)
+            XCTAssertEqual(taskFromJson!.createdOn, taskFromList!.createdOn)
+            XCTAssertEqual(taskFromJson!.updatedOn, taskFromList!.updatedOn)
         }
         
         XCTAssertEqual(fileCache.tasks.count, tasks.count)
-
     }
 }
