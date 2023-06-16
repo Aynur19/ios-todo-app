@@ -215,4 +215,48 @@ final class FileCacheTests: XCTestCase {
 
         XCTAssertEqual(fileCache.tasks.count, tasks.count)
     }
+    
+    // MARK: - Tests saveToJson()
+    func test_SaveToCsv_Rewriting() throws {
+        var tasks = [TodoItem]()
+        for data in TestsData.testCases_DeadlineAndUpdatedOn_IsNil {
+            let task = TodoItem(id: data.id, text: data.text, priority: data.priority, deadline: data.deadline,
+                                isDone: data.isDone, createdOn: data.createdOn, updatedOn: data.updatedOn)
+            _ = fileCache.add(task)
+            tasks.append(task)
+        }
+        
+        var testFilesDirUrl = URL(fileURLWithPath: #file).deletingLastPathComponent()
+                                                    .appending(component: "TestFiles")
+                                                    .appending(component: "Generated")
+        
+        XCTAssertTrue(fileCache.saveToCsv(name: "TaskMasterio", to: testFilesDirUrl))
+        testFilesDirUrl.append(path: "TaskMasterio.csv")
+        XCTAssertTrue(FileManager.default.fileExists(atPath: testFilesDirUrl.path))
+        
+        fileCache.clear()
+        
+        let csv = try? String(contentsOf: testFilesDirUrl, encoding: .utf8)
+        XCTAssertNotNil(csv)
+        
+        let rows = csv?.split(separator: "\n").map({ String($0) })
+        XCTAssertNotNil(csv)
+        
+        XCTAssertEqual(rows![0], TodoItem.getHeaders())
+        XCTAssertEqual(rows?.count, tasks.count + 1)
+        
+        for row in rows![1...] {
+            let task = TodoItem.parse(csv: row)
+            let taskFromList = tasks.first(where: { $0.id == task!.id })
+
+            XCTAssertNotNil(taskFromList)
+            XCTAssertEqual(task!.id, taskFromList!.id)
+            XCTAssertEqual(task!.text, taskFromList!.text)
+            XCTAssertEqual(task!.priority, taskFromList!.priority)
+            XCTAssertEqual(task!.deadline, taskFromList!.deadline)
+            XCTAssertEqual(task!.isDone, taskFromList!.isDone)
+            XCTAssertEqual(task!.createdOn, taskFromList!.createdOn)
+            XCTAssertEqual(task!.updatedOn, taskFromList!.updatedOn)
+        }
+    }
 }

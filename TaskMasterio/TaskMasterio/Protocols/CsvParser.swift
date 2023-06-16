@@ -7,10 +7,16 @@
 
 import Foundation
 
+enum CsvSeparator: String {
+    case comma = ","
+    case semicolon = ";"
+}
+
 protocol CsvParser {
     associatedtype Element
     
     static func parse(csv: String) -> Element?
     
     var csv: String { get }
+    
 }

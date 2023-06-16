@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 enum Priority: String {
     case high
     case medium
@@ -35,7 +36,7 @@ struct TodoItem {
         self.updatedOn = updatedOn
     }
     
-    enum CodingKeys: String {
+    enum TodoItemKeys: String {
         case id
         case text
         case priority
@@ -240,5 +241,13 @@ extension TodoItem: CsvParser {
         }
         
         return fields.joined(separator: ";").appending(";")
+    }
+    
+    static func getHeaders() -> String {
+        let separator = CsvSeparator.semicolon.rawValue
+        let fields = [TodoItemKeys.id.rawValue, TodoItemKeys.text.rawValue, TodoItemKeys.priority.rawValue,
+                      TodoItemKeys.deadline.rawValue, TodoItemKeys.isDone.rawValue, TodoItemKeys.createdOn.rawValue,
+                      TodoItemKeys.updatedOn.rawValue]
+        return fields.joined(separator: separator).appending(separator)
     }
 }

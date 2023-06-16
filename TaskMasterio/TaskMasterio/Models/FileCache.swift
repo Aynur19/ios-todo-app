@@ -85,6 +85,55 @@ extension FileCache: DataCache {
         return errorsCount
     }
     
+    func saveToCsv(name: String, to directoryUrl: URL?) -> Bool {
+        print("Serialization tasks to DATA...")
+        var data = TodoItem.getHeaders().appending("\n")
+        
+        for task in tasks {
+            data += task.csv.appending("\n")
+        }
+        
+        var result = false
+        do {
+            print("Getting filepath...")
+            var fileURL = directoryUrl ?? self.fileUrl
+            fileURL.append(path: "\(name).csv")
+            
+            print("Writing JSON to FILE: \(fileURL.path()) ...")
+            try data.write(toFile: fileURL.path(), atomically: true, encoding: .utf8)
+            
+            result = true
+        } catch {
+            print("ERROR: \(error.localizedDescription)")
+        }
+        
+        return result
+    }
+    
+    func loadFromCsv(name: String, from url: URL?) -> Int {
+        var errorsCount = 0
+        
+        let jsonUrl = url ?? fileUrl.appending(path: "\(name).json")
+        guard let jsonData = try? Data(contentsOf: jsonUrl),
+              let jsonObject = try? JSONSerialization.jsonObject(with: jsonData),
+              let tasks = jsonObject as? [[String: Any]]
+        else { return -1 }
+        
+        clear()
+        for task in tasks {
+            if let taskFromJson = TodoItem.parse(json: task) {
+                if !add(taskFromJson) {
+                    errorsCount += 1
+                }
+            } else {
+                errorsCount += 1
+            }
+        }
+        
+        return errorsCount
+    }
+    
+    
     func load(from path: String?) -> Bool {
         return false
     }
