@@ -14,6 +14,16 @@ enum Priority: String {
     case low
 }
 
+enum TodoItemKeys: String {
+    case id
+    case text
+    case priority
+    case deadline
+    case isDone
+    case createdOn
+    case updatedOn
+}
+
 struct TodoItem {
     static let idLenght = 36
     
@@ -34,16 +44,6 @@ struct TodoItem {
         self.isDone = isDone
         self.createdOn = createdOn
         self.updatedOn = updatedOn
-    }
-    
-    enum TodoItemKeys: String {
-        case id
-        case text
-        case priority
-        case deadline
-        case isDone
-        case createdOn
-        case updatedOn
     }
 }
 
@@ -80,62 +80,62 @@ extension TodoItem {
     }
 }
 
-extension TodoItem {
-    var json: Any {
-        var data = [String: Any]()
-        data["id"] = id
-        data["text"] = text
-        
-        if priority != .medium {
-            data["priority"] = "\(priority)"
-        }
-        
-        if let jsonDeadline = deadline {
-            data["deadline"] = Int(jsonDeadline.timeIntervalSince1970)
-        }
-        
-        data["isDone"] = isDone
-        data["createdOn"] = Int(createdOn.timeIntervalSince1970)
-        
-        if let jsonUpdatedOn = updatedOn {
-            data["updatedOn"] = Int(jsonUpdatedOn.timeIntervalSince1970)
-        } else {
-            data["updatedOn"] = nil
-        }
-        
-        return data
-    }
-    
-    static func parse(json: Any) -> TodoItem? {
-        guard let dict = json as? [String: Any] else { return nil }
-        
-        guard let id = dict["id"] as? String,
-              let text = dict["text"] as? String,
-              let createdOn = (dict["createdOn"] as? Int).flatMap({ Date(timeIntervalSince1970: TimeInterval($0)) })
-        else { return nil }
-        
-        var priority: Priority
-        if dict["priority"] != nil {
-            guard let priorityValue = (dict["priority"] as? String).flatMap({ Priority.init(rawValue: $0) })
-            else { return nil }
-            
-            priority = priorityValue
-        } else {
-            priority = Priority.medium
-        }
-        
-        let deadline = (dict["deadline"] as? Int).flatMap({ Date(timeIntervalSince1970: TimeInterval($0)) })
-        if dict["deadline"] != nil, deadline == nil { return nil }
-        
-        guard let isDone = (dict["isDone"] as? Bool) else { return nil }
-        
-        let updatedOn = (dict["updatedOn"] as? Int).flatMap({ Date(timeIntervalSince1970: TimeInterval($0)) })
-        if dict["updatedOn"] != nil, updatedOn == nil { return nil }
-        
-        return TodoItem(id: id, text: text, priority: priority, deadline: deadline, isDone: isDone,
-                        createdOn: createdOn, updatedOn: updatedOn)
-    }
-}
+//extension TodoItem {
+//    var json: Any {
+//        var data = [String: Any]()
+//        data["id"] = id
+//        data["text"] = text
+//        
+//        if priority != .medium {
+//            data["priority"] = "\(priority)"
+//        }
+//        
+//        if let jsonDeadline = deadline {
+//            data["deadline"] = Int(jsonDeadline.timeIntervalSince1970)
+//        }
+//        
+//        data["isDone"] = isDone
+//        data["createdOn"] = Int(createdOn.timeIntervalSince1970)
+//        
+//        if let jsonUpdatedOn = updatedOn {
+//            data["updatedOn"] = Int(jsonUpdatedOn.timeIntervalSince1970)
+//        } else {
+//            data["updatedOn"] = nil
+//        }
+//        
+//        return data
+//    }
+//    
+//    static func parse(json: Any) -> TodoItem? {
+//        guard let dict = json as? [String: Any] else { return nil }
+//        
+//        guard let id = dict["id"] as? String,
+//              let text = dict["text"] as? String,
+//              let createdOn = (dict["createdOn"] as? Int).flatMap({ Date(timeIntervalSince1970: TimeInterval($0)) })
+//        else { return nil }
+//        
+//        var priority: Priority
+//        if dict["priority"] != nil {
+//            guard let priorityValue = (dict["priority"] as? String).flatMap({ Priority.init(rawValue: $0) })
+//            else { return nil }
+//            
+//            priority = priorityValue
+//        } else {
+//            priority = Priority.medium
+//        }
+//        
+//        let deadline = (dict["deadline"] as? Int).flatMap({ Date(timeIntervalSince1970: TimeInterval($0)) })
+//        if dict["deadline"] != nil, deadline == nil { return nil }
+//        
+//        guard let isDone = (dict["isDone"] as? Bool) else { return nil }
+//        
+//        let updatedOn = (dict["updatedOn"] as? Int).flatMap({ Date(timeIntervalSince1970: TimeInterval($0)) })
+//        if dict["updatedOn"] != nil, updatedOn == nil { return nil }
+//        
+//        return TodoItem(id: id, text: text, priority: priority, deadline: deadline, isDone: isDone,
+//                        createdOn: createdOn, updatedOn: updatedOn)
+//    }
+//}
 
 extension TodoItem: CsvParser {
     static func parse(csv: String) -> TodoItem? {

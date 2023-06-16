@@ -26,7 +26,7 @@ final class FileCacheTests: XCTestCase {
     func test_AddElement_IdIsNew() throws {
         var count = 0
         XCTAssertEqual(fileCache.tasks.count, count)
-        for testCase in TestsData.testCases_Id_Nil {
+        for testCase in TestsData.testCases_ForInit {
             let task = TodoItem(text: testCase.text, priority: testCase.priority, deadline: testCase.deadline,
                                 isDone: testCase.isDone, createdOn: testCase.createdOn, updatedOn: testCase.updatedOn)
             
@@ -49,14 +49,14 @@ final class FileCacheTests: XCTestCase {
         XCTAssertTrue(fileCache.add(task))
         XCTAssertEqual(fileCache.tasks.count, 1)
         
-        let data = TestsData.testCases_Id_Nil[0]
+        let data = TestsData.testCases_ForInit[0]
         var taskSameId = TodoItem(id: TestsData.id, text: data.text, priority: data.priority, deadline: data.deadline,
                                   isDone: data.isDone, createdOn: data.createdOn, updatedOn: data.updatedOn)
         
         XCTAssertTrue(fileCache.add(taskSameId))
         XCTAssertEqual(fileCache.tasks.count, 2)
         
-        for testCase in TestsData.testCases_Id_Nil {
+        for testCase in TestsData.testCases_ForInit {
             taskSameId = TodoItem(id: TestsData.id, text: testCase.text, priority: testCase.priority,
                                 deadline: testCase.deadline, isDone: testCase.isDone,
                                 createdOn: testCase.createdOn, updatedOn: testCase.updatedOn)
@@ -87,7 +87,7 @@ final class FileCacheTests: XCTestCase {
     // MARK: - Tests saveToJson()
     func test_SaveToJson_Rewriting() throws {
         var tasks = [TodoItem]()
-        for data in TestsData.testCases_Id_Nil {
+        for data in TestsData.testCases_ForInit {
             let task = TodoItem(text: data.text, priority: data.priority, deadline: data.deadline,
                                 isDone: data.isDone, createdOn: data.createdOn, updatedOn: data.updatedOn)
             _ = fileCache.add(task)
@@ -134,7 +134,7 @@ final class FileCacheTests: XCTestCase {
     
     func test_SaveToJson_NewFile() throws {
         var tasks = [TodoItem]()
-        for data in TestsData.testCases_Id_Nil {
+        for data in TestsData.testCases_ForInit {
             let task = TodoItem(text: data.text, priority: data.priority, deadline: data.deadline,
                                 isDone: data.isDone, createdOn: data.createdOn, updatedOn: data.updatedOn)
             _ = fileCache.add(task)
@@ -186,7 +186,7 @@ final class FileCacheTests: XCTestCase {
     // MARK: - Tests loadFromJson()
     func test_LoadFromJson() throws {
         var tasks = [TodoItem]()
-        for data in TestsData.testCases_Id_Nil {
+        for data in TestsData.testCases_ForInit {
             let task = TodoItem(id: data.id, text: data.text, priority: data.priority, deadline: data.deadline,
                                 isDone: data.isDone, createdOn: data.createdOn, updatedOn: data.updatedOn)
             tasks.append(task)
