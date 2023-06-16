@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		98CE2A1C2A3C7FB800554B7A /* CsvParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CE2A1B2A3C7FB800554B7A /* CsvParser.swift */; };
+		98CE2A1F2A3C83F900554B7A /* DateExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CE2A1E2A3C83F900554B7A /* DateExt.swift */; };
+		98CE2A212A3C9A8900554B7A /* StringExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CE2A202A3C9A8900554B7A /* StringExt.swift */; };
 		98F2831C2A350E650008A526 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2831B2A350E650008A526 /* AppDelegate.swift */; };
 		98F2831E2A350E650008A526 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2831D2A350E650008A526 /* SceneDelegate.swift */; };
 		98F283202A350E650008A526 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2831F2A350E650008A526 /* ViewController.swift */; };
@@ -44,6 +46,8 @@
 
 /* Begin PBXFileReference section */
 		98CE2A1B2A3C7FB800554B7A /* CsvParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CsvParser.swift; sourceTree = "<group>"; };
+		98CE2A1E2A3C83F900554B7A /* DateExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExt.swift; sourceTree = "<group>"; };
+		98CE2A202A3C9A8900554B7A /* StringExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExt.swift; sourceTree = "<group>"; };
 		98F283182A350E650008A526 /* TaskMasterio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaskMasterio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98F2831B2A350E650008A526 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		98F2831D2A350E650008A526 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -90,6 +94,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		98CE2A1D2A3C83E700554B7A /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+				98CE2A1E2A3C83F900554B7A /* DateExt.swift */,
+				98CE2A202A3C9A8900554B7A /* StringExt.swift */,
+			);
+			path = Extentions;
+			sourceTree = "<group>";
+		};
 		98F2830F2A350E640008A526 = {
 			isa = PBXGroup;
 			children = (
@@ -113,6 +126,7 @@
 		98F2831A2A350E650008A526 /* TaskMasterio */ = {
 			isa = PBXGroup;
 			children = (
+				98CE2A1D2A3C83E700554B7A /* Extentions */,
 				98F283532A3B7C040008A526 /* Protocols */,
 				98F2834B2A359C580008A526 /* Models */,
 				98F2831B2A350E650008A526 /* AppDelegate.swift */,
@@ -299,9 +313,11 @@
 				98F2831C2A350E650008A526 /* AppDelegate.swift in Sources */,
 				98F283562A3B7E060008A526 /* DataCashe.swift in Sources */,
 				98F2834D2A359C7C0008A526 /* TodoItem.swift in Sources */,
+				98CE2A212A3C9A8900554B7A /* StringExt.swift in Sources */,
 				98CE2A1C2A3C7FB800554B7A /* CsvParser.swift in Sources */,
 				98F283522A3B77BF0008A526 /* FileCache.swift in Sources */,
 				98F2831E2A350E650008A526 /* SceneDelegate.swift in Sources */,
+				98CE2A1F2A3C83F900554B7A /* DateExt.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

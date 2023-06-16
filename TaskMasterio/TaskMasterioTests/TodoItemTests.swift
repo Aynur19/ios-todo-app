@@ -400,7 +400,7 @@ final class TodoItemTests: XCTestCase {
         ["id": id, "text": "test", "updatedOn valid 3": "low", "deadline": 168655000, "isDone": true, "createdOn": 168655000],
     ]
     
-    func testParse_TofoItem_IsNil() {
+    func testParse_TodoItem_IsNil() {
         for testCases in [testCases_Parse_Id_Invalid, testCases_Parse_Text_Invalid, testCases_Parse_Deadline_Invalid, testCases_Parse_Priority_Invalid, testCases_Parse_IsDone_Invalid, testCases_Parse_CreatedOn_Invalid, testCases_Parse_UpdatedOn_Invalid] {
             for testCase in testCases {
                 let task = TodoItem.parse(json: testCase)
@@ -410,7 +410,7 @@ final class TodoItemTests: XCTestCase {
         }
     }
     
-    func testParse_TofoItem_IsNotNil() {
+    func testParse_TodoItem_IsNotNil() {
         for testCases in [testCases_Parse_Id_Valid, testCases_Parse_Text_Valid, testCases_Parse_Deadline_Valid, testCases_Parse_Priority_Valid, testCases_Parse_IsDone_Valid, testCases_Parse_CreatedOn_Valid, testCases_Parse_UpdatedOn_Valid] {
             for testCase in testCases {
                 let task = TodoItem.parse(json: testCase)
@@ -444,6 +444,200 @@ final class TodoItemTests: XCTestCase {
                     XCTAssertEqual(task!.updatedOn, Date(timeIntervalSince1970: TimeInterval((json!["updatedOn"] as? Int ?? 0))))
                 }
             }
+        }
+    }
+    
+    
+    // MARK: Tests csv -> String
+    func test_Csv_IdGenerated_DeadlineAndUpdatedOn_IsNil() {
+        for testCase in TestsData.testCases_DeadlineAndUpdatedOn_IsNil {
+            task = TodoItem(id: testCase.id, text: testCase.text, priority: testCase.priority,
+                            deadline: testCase.deadline, isDone: testCase.isDone, createdOn: testCase.createdOn,
+                            updatedOn: testCase.updatedOn)
+            let csvStr = testCase.csv
+            let taskCsv = task.csv
+            
+            XCTAssertEqual(taskCsv, csvStr)
+        }
+    }
+    
+//    func testJson_IdPassed_DeadlineAndUpdatedOn_IsNil() {
+//        for testCase in testCases_DeadlineAndUpdatedOn_IsNil {
+//            let id = UUID().uuidString
+//            task = TodoItem(id: id, text: testCase.text, priority: testCase.priority, deadline: testCase.deadline, isDone: testCase.isDone, createdOn: testCase.createdOn, updatedOn: testCase.updatedOn)
+//
+//            let updatedOn: Int? = nil
+//            let json = task.json as? [String: Any]
+//
+//            XCTAssertNotNil(json)
+//            XCTAssertEqual(json!["id"] as? String, id)
+//            XCTAssertEqual(json!["text"] as? String, testCase.text)
+//            XCTAssertNil(json!["deadline"])
+//            XCTAssertEqual(json!["isDone"] as? Bool, testCase.isDone)
+//            XCTAssertEqual(json!["createdOn"] as? Int, Int(testCase.createdOn.timeIntervalSince1970))
+//            XCTAssertEqual(json!["updatedOn"] as? Int?, updatedOn)
+//
+//            if testCase.priority == .medium {
+//                XCTAssertNil(json!["priority"])
+//            } else {
+//                XCTAssertEqual(json!["priority"] as? String, "\(testCase.priority)")
+//            }
+//        }
+//    }
+//
+//    func testJson_IdGenerated_UpdatedOn_IsNil() {
+//        for testCase in testCases_UpdatedOn_IsNil {
+//            task = TodoItem(text: testCase.text, priority: testCase.priority, deadline: testCase.deadline, isDone: testCase.isDone, createdOn: testCase.createdOn, updatedOn: testCase.updatedOn)
+//
+//            let updatedOn: Int? = nil
+//            let json = task.json as? [String: Any]
+//
+//            XCTAssertNotNil(json)
+//            XCTAssertEqual(json!["id"] as? String, task.id)
+//            XCTAssertEqual(json!["text"] as? String, testCase.text)
+//            XCTAssertEqual(json!["deadline"] as? Int, Int(testCase.deadline!.timeIntervalSince1970))
+//            XCTAssertEqual(json!["isDone"] as? Bool, testCase.isDone)
+//            XCTAssertEqual(json!["createdOn"] as? Int, Int(testCase.createdOn.timeIntervalSince1970))
+//            XCTAssertEqual(json!["updatedOn"] as? Int?, updatedOn)
+//
+//            if testCase.priority == .medium {
+//                XCTAssertNil(json!["priority"])
+//            } else {
+//                XCTAssertEqual(json!["priority"] as? String, "\(testCase.priority)")
+//            }
+//        }
+//    }
+//
+//    func testJson_IdPassed_UpdatedOn_IsNil() {
+//        for testCase in testCases_UpdatedOn_IsNil {
+//            let id = UUID().uuidString
+//            task = TodoItem(id: id, text: testCase.text, priority: testCase.priority, deadline: testCase.deadline, isDone: testCase.isDone, createdOn: testCase.createdOn, updatedOn: testCase.updatedOn)
+//
+//            let updatedOn: Int? = nil
+//            let json = task.json as? [String: Any]
+//
+//            XCTAssertNotNil(json)
+//            XCTAssertEqual(json!["id"] as? String, id)
+//            XCTAssertEqual(json!["text"] as? String, testCase.text)
+//            XCTAssertEqual(json!["deadline"] as? Int, Int(testCase.deadline!.timeIntervalSince1970))
+//            XCTAssertEqual(json!["isDone"] as? Bool, testCase.isDone)
+//            XCTAssertEqual(json!["createdOn"] as? Int, Int(testCase.createdOn.timeIntervalSince1970))
+//            XCTAssertEqual(json!["updatedOn"] as? Int?, updatedOn)
+//
+//            if testCase.priority == .medium {
+//                XCTAssertNil(json!["priority"])
+//            } else {
+//                XCTAssertEqual(json!["priority"] as? String, "\(testCase.priority)")
+//            }
+//        }
+//    }
+//
+//    func testJson_IdGenerated_Deadline_IsNil() {
+//        for testCase in testCases_Deadline_IsNil {
+//            task = TodoItem(text: testCase.text, priority: testCase.priority, deadline: testCase.deadline, isDone: testCase.isDone, createdOn: testCase.createdOn, updatedOn: testCase.updatedOn)
+//
+//            let json = task.json as? [String: Any]
+//
+//            XCTAssertNotNil(json)
+//            XCTAssertEqual(json!["id"] as? String, task.id)
+//            XCTAssertEqual(json!["text"] as? String, testCase.text)
+//            XCTAssertNil(json!["deadline"])
+//            XCTAssertEqual(json!["isDone"] as? Bool, testCase.isDone)
+//            XCTAssertEqual(json!["createdOn"] as? Int, Int(testCase.createdOn.timeIntervalSince1970))
+//            XCTAssertEqual(json!["updatedOn"] as? Int, Int(testCase.updatedOn!.timeIntervalSince1970))
+//
+//            if testCase.priority == .medium {
+//                XCTAssertNil(json!["priority"])
+//            } else {
+//                XCTAssertEqual(json!["priority"] as? String, "\(testCase.priority)")
+//            }
+//        }
+//    }
+//
+//    func testJson_IdPassed_Deadline_IsNil() {
+//        for testCase in testCases_Deadline_IsNil {
+//            let id = UUID().uuidString
+//            task = TodoItem(id: id, text: testCase.text, priority: testCase.priority, deadline: testCase.deadline, isDone: testCase.isDone, createdOn: testCase.createdOn, updatedOn: testCase.updatedOn)
+//
+//            let json = task.json as? [String: Any]
+//
+//            XCTAssertNotNil(json)
+//            XCTAssertEqual(json!["id"] as? String, id)
+//            XCTAssertEqual(json!["text"] as? String, testCase.text)
+//            XCTAssertNil(json!["deadline"])
+//            XCTAssertEqual(json!["isDone"] as? Bool, testCase.isDone)
+//            XCTAssertEqual(json!["createdOn"] as? Int, Int(testCase.createdOn.timeIntervalSince1970))
+//            XCTAssertEqual(json!["updatedOn"] as? Int?, Int(testCase.updatedOn!.timeIntervalSince1970))
+//
+//            if testCase.priority == .medium {
+//                XCTAssertNil(json!["priority"])
+//            } else {
+//                XCTAssertEqual(json!["priority"] as? String, "\(testCase.priority)")
+//            }
+//        }
+//    }
+//
+//    func testJson_IdGenerated_Filled() {
+//        for testCase in testCases_Filled {
+//            task = TodoItem(text: testCase.text, priority: testCase.priority, deadline: testCase.deadline, isDone: testCase.isDone, createdOn: testCase.createdOn, updatedOn: testCase.updatedOn)
+//
+//            let json = task.json as? [String: Any]
+//
+//            XCTAssertNotNil(json)
+//            XCTAssertEqual(json!["id"] as? String, task.id)
+//            XCTAssertEqual(json!["text"] as? String, testCase.text)
+//            XCTAssertEqual(json!["deadline"] as? Int, Int(testCase.deadline!.timeIntervalSince1970))
+//            XCTAssertEqual(json!["isDone"] as? Bool, testCase.isDone)
+//            XCTAssertEqual(json!["createdOn"] as? Int, Int(testCase.createdOn.timeIntervalSince1970))
+//            XCTAssertEqual(json!["updatedOn"] as? Int, Int(testCase.updatedOn!.timeIntervalSince1970))
+//
+//            if testCase.priority == .medium {
+//                XCTAssertNil(json!["priority"])
+//            } else {
+//                XCTAssertEqual(json!["priority"] as? String, "\(testCase.priority)")
+//            }
+//        }
+//    }
+//
+//    func testJson_IdPassed_Filled() {
+//        for testCase in testCases_Filled {
+//            let id = UUID().uuidString
+//            task = TodoItem(id: id, text: testCase.text, priority: testCase.priority, deadline: testCase.deadline, isDone: testCase.isDone, createdOn: testCase.createdOn, updatedOn: testCase.updatedOn)
+//
+//            let json = task.json as? [String: Any]
+//
+//            XCTAssertNotNil(json)
+//            XCTAssertEqual(json!["id"] as? String, id)
+//            XCTAssertEqual(json!["text"] as? String, testCase.text)
+//            XCTAssertEqual(json!["deadline"] as? Int, Int(testCase.deadline!.timeIntervalSince1970))
+//            XCTAssertEqual(json!["isDone"] as? Bool, testCase.isDone)
+//            XCTAssertEqual(json!["createdOn"] as? Int, Int(testCase.createdOn.timeIntervalSince1970))
+//            XCTAssertEqual(json!["updatedOn"] as? Int?, Int(testCase.updatedOn!.timeIntervalSince1970))
+//
+//            if testCase.priority == .medium {
+//                XCTAssertNil(json!["priority"])
+//            } else {
+//                XCTAssertEqual(json!["priority"] as? String, "\(testCase.priority)")
+//            }
+//        }
+//    }
+    
+    // MARK: Tests csv -> String
+    func test_ParseCsv_IdGenerated_DeadlineAndUpdatedOn_IsNil() {
+        for testCase in TestsData.testCases_DeadlineAndUpdatedOn_IsNil {
+            task = TodoItem(id: testCase.id, text: testCase.text, priority: testCase.priority,
+                            deadline: testCase.deadline, isDone: testCase.isDone, createdOn: testCase.createdOn,
+                            updatedOn: testCase.updatedOn)
+            
+            let taskFromCsv = TodoItem.parse(csv: testCase.csv)
+            XCTAssertNotNil(taskFromCsv)
+            XCTAssertEqual(taskFromCsv!.id, task.id)
+            XCTAssertEqual(taskFromCsv!.text, task.text)
+            XCTAssertEqual(taskFromCsv!.priority, task.priority)
+            XCTAssertEqual(taskFromCsv!.deadline, task.deadline)
+            XCTAssertEqual(taskFromCsv!.isDone, task.isDone)
+            XCTAssertEqual(taskFromCsv!.createdOn, task.createdOn)
+            XCTAssertEqual(taskFromCsv!.updatedOn, task.updatedOn)
         }
     }
 }
