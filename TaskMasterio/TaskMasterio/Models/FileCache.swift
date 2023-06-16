@@ -112,22 +112,28 @@ extension FileCache: DataCache {
     
     func loadFromCsv(name: String, from url: URL?) -> Int {
         var errorsCount = 0
-        
         let jsonUrl = url ?? fileUrl.appending(path: "\(name).json")
-        guard let jsonData = try? Data(contentsOf: jsonUrl),
-              let jsonObject = try? JSONSerialization.jsonObject(with: jsonData),
-              let tasks = jsonObject as? [[String: Any]]
-        else { return -1 }
         
         clear()
-        for task in tasks {
-            if let taskFromJson = TodoItem.parse(json: task) {
-                if !add(taskFromJson) {
+        
+        do {
+            let csv = try String(contentsOf: jsonUrl, encoding: .utf8)
+            let rows = csv.split(separator: "\n").map({ String($0) })
+            
+            if rows.isEmpty { return 0 }
+            
+            let startRow = rows[0] == TodoItem.getHeaders() ? 1 : 0
+            
+            for row in rows[startRow...] {
+                if let task = TodoItem.parse(csv: row) {
+                    errorsCount += add(task) ? 0 : 1
+                } else {
                     errorsCount += 1
                 }
-            } else {
-                errorsCount += 1
             }
+        } catch {
+            print("ERROR: \(error.localizedDescription)")
+            errorsCount = -1
         }
         
         return errorsCount

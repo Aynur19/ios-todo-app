@@ -259,4 +259,38 @@ final class FileCacheTests: XCTestCase {
             XCTAssertEqual(task!.updatedOn, taskFromList!.updatedOn)
         }
     }
+    
+    // MARK: - Tests loadFromCsv()
+    func test_LoadFromCsv() throws {
+        var tasks = [TodoItem]()
+        for data in TestsData.testCases_DeadlineAndUpdatedOn_IsNil {
+            let task = TodoItem(id: data.id, text: data.text, priority: data.priority, deadline: data.deadline,
+                                isDone: data.isDone, createdOn: data.createdOn, updatedOn: data.updatedOn)
+            tasks.append(task)
+        }
+        
+        let projectURL = URL(fileURLWithPath: #file).deletingLastPathComponent()
+                                                    .appending(component: "TestFiles")
+                                                    .appending(path: "TaskMasterio_ForLoading.csv")
+        
+        XCTAssertTrue(FileManager.default.fileExists(atPath: projectURL.path))
+        
+        XCTAssertEqual(fileCache.loadFromCsv(name: "", from: projectURL), 0)
+        XCTAssertEqual(fileCache.tasks.count, tasks.count)
+        
+        for task in fileCache.tasks {
+            let taskFromList = tasks.first(where: { $0.id == task.id })
+            
+            XCTAssertNotNil(taskFromList)
+            XCTAssertEqual(task.id, taskFromList!.id)
+            XCTAssertEqual(task.text, taskFromList!.text)
+            XCTAssertEqual(task.priority, taskFromList!.priority)
+            XCTAssertEqual(task.deadline, taskFromList!.deadline)
+            XCTAssertEqual(task.isDone, taskFromList!.isDone)
+            XCTAssertEqual(task.createdOn, taskFromList!.createdOn)
+            XCTAssertEqual(task.updatedOn, taskFromList!.updatedOn)
+        }
+
+        XCTAssertEqual(fileCache.tasks.count, tasks.count)
+    }
 }
