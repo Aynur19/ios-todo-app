@@ -22,7 +22,7 @@ final class FileCacheTests: XCTestCase {
         try super.tearDownWithError()
     }
     
-    
+    // MARK: - Tests add()
     func test_AddElement_IdIsNew() throws {
         var count = 0
         XCTAssertEqual(fileCache.tasks.count, count)
@@ -81,5 +81,46 @@ final class FileCacheTests: XCTestCase {
             
             XCTAssertEqual(fileCache.tasks.count, 2)
         }
+    }
+    
+    
+    // MARK: - Tests saveToJson()
+    func test_SaveToJson() throws {
+        for data in TestsData.testCases_Id_Nil {
+            let task = TodoItem(text: data.text, priority: data.priority, deadline: data.deadline,
+                                isDone: data.isDone, createdOn: data.createdOn, updatedOn: data.updatedOn)
+            _ = fileCache.add(task)
+        }
+        
+        let tempDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory())
+        let fileURL = tempDirectoryURL.appending(path: "TaskMasterio.json")
+        
+        XCTAssertTrue(fileCache.saveToJson(name: "TaskMasterio", to: fileURL))
+        XCTAssertTrue(FileManager.default.fileExists(atPath: fileURL.path))
+        
+        fileCache.clear()
+        
+        let jsonData = try? Data(contentsOf: fileURL)
+        XCTAssertNotNil(jsonData)
+              
+        let jsonObject = try? JSONSerialization.jsonObject(with: jsonData!)
+        XCTAssertNotNil(jsonObject)
+        
+        let tasks = jsonObject as? [Any]
+        XCTAssertNotNil(jsonObject)
+        
+        
+        let taskDict = tasks as? [[String: Any]]
+        
+        XCTAssertNotNil(taskDict)
+        for task in taskDict! {
+            let taskFromJson = TodoItem.parse(json: task)
+            XCTAssertNotNil(taskFromJson)
+            XCTAssertTrue(fileCache.add(taskFromJson!))
+            
+        }
+        
+        XCTAssertEqual(fileCache.tasks.count, tasks!.count)
+
     }
 }
