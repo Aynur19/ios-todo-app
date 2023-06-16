@@ -90,5 +90,6 @@ fastlane/test_output
 iOSInjectionProject/
 
 
-TestFiles/
 
+TestFiles/
+!TestFiles/TaskMasterio_ForLoading.json

@@ -74,10 +74,10 @@ extension FileCache: DataCache {
         let jsonUrl = url ?? fileUrl.appending(path: "\(name).json")
         guard let jsonData = try? Data(contentsOf: jsonUrl),
               let jsonObject = try? JSONSerialization.jsonObject(with: jsonData),
-              let tasks = jsonObject as? [[Any]]
-        else { return errorsCount }
+              let tasks = jsonObject as? [[String: Any]]
+        else { return -1 }
         
-        
+        clear()
         for task in tasks {
             if let taskFromJson = TodoItem.parse(json: task) {
                 if !add(taskFromJson) {
