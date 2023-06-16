@@ -86,41 +86,40 @@ final class FileCacheTests: XCTestCase {
     
     // MARK: - Tests saveToJson()
     func test_SaveToJson() throws {
+        var tasks = [TodoItem]()
         for data in TestsData.testCases_Id_Nil {
             let task = TodoItem(text: data.text, priority: data.priority, deadline: data.deadline,
                                 isDone: data.isDone, createdOn: data.createdOn, updatedOn: data.updatedOn)
             _ = fileCache.add(task)
+            _ = tasks.append(task)
         }
         
-        let tempDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory())
-        let fileURL = tempDirectoryURL.appending(path: "TaskMasterio.json")
+        let projectURL = URL(fileURLWithPath: #file).deletingLastPathComponent()
+                                                    .appending(component: "TestFiles")
+                                                    .appending(path: "TaskMasterio.json")
         
-        XCTAssertTrue(fileCache.saveToJson(name: "TaskMasterio", to: fileURL))
-        XCTAssertTrue(FileManager.default.fileExists(atPath: fileURL.path))
+        XCTAssertTrue(fileCache.saveToJson(name: "TaskMasterio", to: projectURL))
+        XCTAssertTrue(FileManager.default.fileExists(atPath: projectURL.path))
         
         fileCache.clear()
         
-        let jsonData = try? Data(contentsOf: fileURL)
+        let jsonData = try? Data(contentsOf: projectURL)
         XCTAssertNotNil(jsonData)
               
-        let jsonObject = try? JSONSerialization.jsonObject(with: jsonData!)
+        let jsonObject = try? JSONSerialization.jsonObject(with: jsonData!) as? [Any]
         XCTAssertNotNil(jsonObject)
         
-        let tasks = jsonObject as? [Any]
-        XCTAssertNotNil(jsonObject)
+        let tasksDict = jsonObject as? [[String: Any]]
+        XCTAssertNotNil(tasksDict)
         
-        
-        let taskDict = tasks as? [[String: Any]]
-        
-        XCTAssertNotNil(taskDict)
-        for task in taskDict! {
+        for task in tasksDict! {
             let taskFromJson = TodoItem.parse(json: task)
             XCTAssertNotNil(taskFromJson)
             XCTAssertTrue(fileCache.add(taskFromJson!))
             
         }
         
-        XCTAssertEqual(fileCache.tasks.count, tasks!.count)
+        XCTAssertEqual(fileCache.tasks.count, tasks.count)
 
     }
 }

@@ -47,7 +47,7 @@ extension FileCache: DataCache {
         }
         
         print("Serialization tasks to DATA...")
-        guard let jsonData = try? JSONSerialization.data(withJSONObject: tasksList) else { return false }
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: tasksList, options: .prettyPrinted) else { return false }
 
         print("Serialization DATA to JSON...")
         guard let json = String(data: jsonData, encoding: .utf8) else { return false }
