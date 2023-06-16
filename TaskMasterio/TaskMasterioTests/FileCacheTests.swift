@@ -85,7 +85,7 @@ final class FileCacheTests: XCTestCase {
     
     
     // MARK: - Tests saveToJson()
-    func test_SaveToJson() throws {
+    func test_SaveToJson_Rewriting() throws {
         var tasks = [TodoItem]()
         for data in TestsData.testCases_Id_Nil {
             let task = TodoItem(text: data.text, priority: data.priority, deadline: data.deadline,
@@ -94,17 +94,16 @@ final class FileCacheTests: XCTestCase {
             tasks.append(task)
         }
         
-        let projectURL = URL(fileURLWithPath: #file).deletingLastPathComponent()
+        let testFilesDirUrl = URL(fileURLWithPath: #file).deletingLastPathComponent()
                                                     .appending(component: "TestFiles")
                                                     .appending(component: "Generated")
-                                                    .appending(path: "TaskMasterio.json")
         
-        XCTAssertTrue(fileCache.saveToJson(name: "TaskMasterio", to: projectURL))
-        XCTAssertTrue(FileManager.default.fileExists(atPath: projectURL.path))
+        XCTAssertTrue(fileCache.saveToJson(name: "TaskMasterio", to: testFilesDirUrl))
+        XCTAssertTrue(FileManager.default.fileExists(atPath: testFilesDirUrl.appending(path: "TaskMasterio").path))
         
         fileCache.clear()
         
-        let jsonData = try? Data(contentsOf: projectURL)
+        let jsonData = try? Data(contentsOf: testFilesDirUrl)
         XCTAssertNotNil(jsonData)
               
         let jsonObject = try? JSONSerialization.jsonObject(with: jsonData!) as? [Any]
@@ -119,7 +118,6 @@ final class FileCacheTests: XCTestCase {
             XCTAssertTrue(fileCache.add(taskFromJson!))
             
             let taskFromList = tasks.first(where: { $0.id == taskFromJson!.id })
-            
             XCTAssertNotNil(taskFromList)
             XCTAssertEqual(taskFromJson!.id, taskFromList!.id)
             XCTAssertEqual(taskFromJson!.text, taskFromList!.text)

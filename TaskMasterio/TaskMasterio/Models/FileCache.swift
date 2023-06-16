@@ -9,7 +9,6 @@ import Foundation
 
 class FileCache {
     private(set) var tasks = [TodoItem]()
-    
     private let fileUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     
     func clear() {
@@ -18,7 +17,6 @@ class FileCache {
 }
  
 extension FileCache: DataCache {
-    
     func add(_ task: TodoItem) -> Bool {
         if let idx = tasks.firstIndex(where: { $0.id == task.id }) {
             tasks[idx] = task
@@ -39,30 +37,26 @@ extension FileCache: DataCache {
         return false
     }
     
-    func saveToJson(name: String, to url: URL?) -> Bool {
-        var tasksList = [Any]()
-        
-        for task in tasks {
-            tasksList.append(task.json)
-        }
-        
+    func saveToJson(name: String, to directoryUrl: URL?) -> Bool {
         print("Serialization tasks to DATA...")
-        guard let jsonData = try? JSONSerialization.data(withJSONObject: tasksList, options: .prettyPrinted) else { return false }
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: tasksData, options: .prettyPrinted)
+        else { return false }
 
-        print("Serialization DATA to JSON...")
+        print("Serialization DATA to String (JSON)...")
         guard let json = String(data: jsonData, encoding: .utf8) else { return false }
         
         var result = false
         do {
-            print("Getting URL for filepath...")
-            let fileURL = url ?? fileUrl.appending(path: "\(name).json")
+            print("Getting filepath...")
+            var fileURL = directoryUrl ?? self.fileUrl
+            fileURL.append(path: "\(name).json")
             
-            print("Writing JSON to FILE...")
-            try json.write(to: fileURL, atomically: true, encoding: .utf8)
+            print("Writing JSON to FILE: \(fileURL.path()) ...")
+            try json.write(toFile: fileURL.path(), atomically: true, encoding: .utf8)
             
             result = true
         } catch {
-            print("ERROR \(error.localizedDescription)")
+            print("ERROR: \(error.localizedDescription)")
         }
         
         return result
@@ -93,5 +87,15 @@ extension FileCache: DataCache {
     
     func load(from path: String?) -> Bool {
         return false
+    }
+    
+    private var tasksData: [Any] {
+        var tasksList = [Any]()
+
+        for task in tasks {
+            tasksList.append(task.json)
+        }
+        
+        return tasksList
     }
 }
