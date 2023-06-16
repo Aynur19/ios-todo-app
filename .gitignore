@@ -91,5 +91,4 @@ iOSInjectionProject/
 
 
 
-TestFiles/
-!TestFiles/TaskMasterio_ForLoading.json
+/**/TestFiles/Generated/

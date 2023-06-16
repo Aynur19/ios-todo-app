@@ -96,6 +96,7 @@ final class FileCacheTests: XCTestCase {
         
         let projectURL = URL(fileURLWithPath: #file).deletingLastPathComponent()
                                                     .appending(component: "TestFiles")
+                                                    .appending(component: "Generated")
                                                     .appending(path: "TaskMasterio.json")
         
         XCTAssertTrue(fileCache.saveToJson(name: "TaskMasterio", to: projectURL))
