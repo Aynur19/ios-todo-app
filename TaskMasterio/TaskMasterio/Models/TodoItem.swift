@@ -89,3 +89,13 @@ extension TodoItem {
                         createdOn: createdOn, updatedOn: updatedOn)
     }
 }
+
+extension TodoItem: CsvParser {
+    static func parse(csv: String) -> TodoItem? {
+        return nil
+    }
+    
+    var csv: String {
+        return ""
+    }
+}
