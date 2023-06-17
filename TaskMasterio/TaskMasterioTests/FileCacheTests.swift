@@ -23,12 +23,12 @@ final class FileCacheTests: XCTestCase {
     }
     
     // MARK: - Tests add()
-    func test_AddElement_IdIsNew() throws {
+    func test_Add_IdIsNew() throws {
         var count = 0
         XCTAssertEqual(fileCache.tasks.count, count)
-        for testCase in TestsData.testCases_ForInit {
-            let task = TodoItem(text: testCase.text, priority: testCase.priority, deadline: testCase.deadline,
-                                isDone: testCase.isDone, createdOn: testCase.createdOn, updatedOn: testCase.updatedOn)
+        for data in TestsData.testCases_ForInit {
+            let task = TodoItem(text: data.text, priority: data.priority, deadline: data.deadline,
+                                isDone: data.isDone, createdOn: data.createdOn, updatedOn: data.updatedOn)
             
             XCTAssertTrue(fileCache.add(task))
             XCTAssertEqual(fileCache.tasks[count].id, task.id)
@@ -44,7 +44,7 @@ final class FileCacheTests: XCTestCase {
         }
     }
     
-    func test_AddElement_IdIsSame() throws {
+    func test_Add_IdIsSame() throws {
         let task = TodoItem(text: "test", priority: .low, deadline: nil, isDone: false, createdOn: Date(), updatedOn: nil)
         XCTAssertTrue(fileCache.add(task))
         XCTAssertEqual(fileCache.tasks.count, 1)
@@ -58,8 +58,8 @@ final class FileCacheTests: XCTestCase {
         
         for testCase in TestsData.testCases_ForInit {
             taskSameId = TodoItem(id: TestsData.id, text: testCase.text, priority: testCase.priority,
-                                deadline: testCase.deadline, isDone: testCase.isDone,
-                                createdOn: testCase.createdOn, updatedOn: testCase.updatedOn)
+                                  deadline: testCase.deadline, isDone: testCase.isDone,
+                                  createdOn: testCase.createdOn, updatedOn: testCase.updatedOn)
             
             XCTAssertFalse(fileCache.add(taskSameId))
             
@@ -95,8 +95,8 @@ final class FileCacheTests: XCTestCase {
         }
         
         var testFilesDirUrl = URL(fileURLWithPath: #file).deletingLastPathComponent()
-                                                    .appending(component: "TestFiles")
-                                                    .appending(component: "Generated")
+            .appending(component: "TestFiles")
+            .appending(component: "Generated")
         
         XCTAssertTrue(fileCache.saveToJson(name: "TaskMasterio", to: testFilesDirUrl))
         testFilesDirUrl.append(path: "TaskMasterio.json")
@@ -135,7 +135,7 @@ final class FileCacheTests: XCTestCase {
     func test_SaveToJson_NewFile() throws {
         var tasks = [TodoItem]()
         for data in TestsData.testCases_ForInit {
-            let task = TodoItem(text: data.text, priority: data.priority, deadline: data.deadline,
+            let task = TodoItem(id: data.id, text: data.text, priority: data.priority, deadline: data.deadline,
                                 isDone: data.isDone, createdOn: data.createdOn, updatedOn: data.updatedOn)
             _ = fileCache.add(task)
             tasks.append(task)
@@ -183,6 +183,7 @@ final class FileCacheTests: XCTestCase {
         XCTAssertEqual(fileCache.tasks.count, tasks.count)
     }
     
+
     // MARK: - Tests loadFromJson()
     func test_LoadFromJson() throws {
         var tasks = [TodoItem]()
@@ -194,10 +195,9 @@ final class FileCacheTests: XCTestCase {
         
         let projectURL = URL(fileURLWithPath: #file).deletingLastPathComponent()
                                                     .appending(component: "TestFiles")
-                                                    .appending(path: "TaskMasterio_ForLoading.json")
         
         XCTAssertTrue(FileManager.default.fileExists(atPath: projectURL.path))
-        XCTAssertEqual(fileCache.loadFromJson(name: "", to: projectURL), 0)
+        XCTAssertEqual(fileCache.loadFromJson(name: "TaskMasterio_ForLoading", to: projectURL), 0)
         XCTAssertEqual(fileCache.tasks.count, tasks.count)
         
         for task in fileCache.tasks {
@@ -216,10 +216,11 @@ final class FileCacheTests: XCTestCase {
         XCTAssertEqual(fileCache.tasks.count, tasks.count)
     }
     
-    // MARK: - Tests saveToJson()
+    
+    // MARK: - Tests saveToCsv()
     func test_SaveToCsv_Rewriting() throws {
         var tasks = [TodoItem]()
-        for data in TestsData.testCases_DeadlineAndUpdatedOn_IsNil {
+        for data in TestsData.testCases_ForInit {
             let task = TodoItem(id: data.id, text: data.text, priority: data.priority, deadline: data.deadline,
                                 isDone: data.isDone, createdOn: data.createdOn, updatedOn: data.updatedOn)
             _ = fileCache.add(task)
@@ -260,10 +261,57 @@ final class FileCacheTests: XCTestCase {
         }
     }
     
+    func test_SaveToCsv_NewFile() throws {
+        var tasks = [TodoItem]()
+        for data in TestsData.testCases_ForInit {
+            let task = TodoItem(id: data.id, text: data.text, priority: data.priority, deadline: data.deadline,
+                                isDone: data.isDone, createdOn: data.createdOn, updatedOn: data.updatedOn)
+            _ = fileCache.add(task)
+            tasks.append(task)
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd_HH-mm-ss"
+        let filename = "TaskMasterio_(\(dateFormatter.string(from: Date())))"
+        
+        var testFilesDirUrl = URL(fileURLWithPath: #file).deletingLastPathComponent()
+                                                    .appending(component: "TestFiles")
+                                                    .appending(component: "Generated")
+        
+        XCTAssertTrue(fileCache.saveToCsv(name: filename, to: testFilesDirUrl))
+        testFilesDirUrl.append(path: "\(filename).csv")
+        XCTAssertTrue(FileManager.default.fileExists(atPath: testFilesDirUrl.path))
+        
+        fileCache.clear()
+        
+        let csv = try? String(contentsOf: testFilesDirUrl, encoding: .utf8)
+        XCTAssertNotNil(csv)
+        
+        let rows = csv?.split(separator: "\n").map({ String($0) })
+        XCTAssertNotNil(csv)
+        
+        XCTAssertEqual(rows![0], TodoItem.getHeaders())
+        XCTAssertEqual(rows?.count, tasks.count + 1)
+        
+        for row in rows![1...] {
+            let task = TodoItem.parse(csv: row)
+            let taskFromList = tasks.first(where: { $0.id == task!.id })
+
+            XCTAssertNotNil(taskFromList)
+            XCTAssertEqual(task!.id, taskFromList!.id)
+            XCTAssertEqual(task!.text, taskFromList!.text)
+            XCTAssertEqual(task!.priority, taskFromList!.priority)
+            XCTAssertEqual(task!.deadline, taskFromList!.deadline)
+            XCTAssertEqual(task!.isDone, taskFromList!.isDone)
+            XCTAssertEqual(task!.createdOn, taskFromList!.createdOn)
+            XCTAssertEqual(task!.updatedOn, taskFromList!.updatedOn)
+        }
+    }
+    
     // MARK: - Tests loadFromCsv()
     func test_LoadFromCsv() throws {
         var tasks = [TodoItem]()
-        for data in TestsData.testCases_DeadlineAndUpdatedOn_IsNil {
+        for data in TestsData.testCases_ForInit {
             let task = TodoItem(id: data.id, text: data.text, priority: data.priority, deadline: data.deadline,
                                 isDone: data.isDone, createdOn: data.createdOn, updatedOn: data.updatedOn)
             tasks.append(task)
@@ -271,11 +319,10 @@ final class FileCacheTests: XCTestCase {
         
         let projectURL = URL(fileURLWithPath: #file).deletingLastPathComponent()
                                                     .appending(component: "TestFiles")
-                                                    .appending(path: "TaskMasterio_ForLoading.csv")
         
         XCTAssertTrue(FileManager.default.fileExists(atPath: projectURL.path))
         
-        XCTAssertEqual(fileCache.loadFromCsv(name: "", from: projectURL), 0)
+        XCTAssertEqual(fileCache.loadFromCsv(name: "TaskMasterio_ForLoading", from: projectURL), 0)
         XCTAssertEqual(fileCache.tasks.count, tasks.count)
         
         for task in fileCache.tasks {

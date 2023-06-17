@@ -176,7 +176,7 @@ final class TodoItem_JsonTests: XCTestCase {
         }
     }
 
-    func testJson_IdPassed_Filled() throws  {
+    func test_Json_IdPassed_Filled() throws  {
         for data in TestsData.testCases_Filled {
             let id = TestsData.id
             let task = TodoItem(id: id, text: data.text, priority: data.priority, deadline: data.deadline,

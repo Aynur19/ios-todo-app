@@ -11,11 +11,9 @@ class FileCache {
     private(set) var tasks = [TodoItem]()
     private let fileUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     
-    func clear() {
-        tasks.removeAll()
-    }
+    func clear() { tasks.removeAll() }
 }
- 
+
 extension FileCache: DataCache {
     func add(_ task: TodoItem) -> Bool {
         if let idx = tasks.firstIndex(where: { $0.id == task.id }) {
@@ -33,25 +31,36 @@ extension FileCache: DataCache {
         return true
     }
     
-    func save(to path: String?) -> Bool {
-        return false
+    // MARK: - Save Data
+    func save(name: String, to directoryUrl: URL?, as format: DataFormat) -> Bool {
+        switch format {
+        case .json: return saveToJson(name: name, to: directoryUrl)
+        case .csv: return saveToJson(name: name, to: directoryUrl)
+        default: return saveToJson(name: name, to: directoryUrl)
+        }
     }
     
     func saveToJson(name: String, to directoryUrl: URL?) -> Bool {
         print("Serialization tasks to DATA...")
         guard let jsonData = try? JSONSerialization.data(withJSONObject: tasksData, options: .prettyPrinted)
         else { return false }
-
-        print("Serialization DATA to String (JSON)...")
+        
+        print("Getting String (JSON) from DATA...")
         guard let json = String(data: jsonData, encoding: .utf8) else { return false }
         
         var result = false
         do {
+            let fileManager = FileManager.default
+            
             print("Getting filepath...")
             var fileURL = directoryUrl ?? self.fileUrl
-            fileURL.append(path: "\(name).json")
             
-            print("Writing JSON to FILE: \(fileURL.path()) ...")
+            if !fileManager.fileExists(atPath: fileURL.path()) {
+                try fileManager.createDirectory(atPath: fileURL.path(), withIntermediateDirectories: true, attributes: nil)
+            }
+            fileURL.append(path: "\(name).\(DataFormat.json.rawValue)")
+            
+            print("Writing JSON to FILE (.json): \(fileURL.path()) ...")
             try json.write(toFile: fileURL.path(), atomically: true, encoding: .utf8)
             
             result = true
@@ -62,44 +71,26 @@ extension FileCache: DataCache {
         return result
     }
     
-    func loadFromJson(name: String, to url: URL?) -> Int {
-        var errorsCount = 0
-        
-        let jsonUrl = url ?? fileUrl.appending(path: "\(name).json")
-        guard let jsonData = try? Data(contentsOf: jsonUrl),
-              let jsonObject = try? JSONSerialization.jsonObject(with: jsonData),
-              let tasks = jsonObject as? [[String: Any]]
-        else { return -1 }
-        
-        clear()
-        for task in tasks {
-            if let taskFromJson = TodoItem.parse(json: task) {
-                if !add(taskFromJson) {
-                    errorsCount += 1
-                }
-            } else {
-                errorsCount += 1
-            }
-        }
-        
-        return errorsCount
-    }
-    
     func saveToCsv(name: String, to directoryUrl: URL?) -> Bool {
-        print("Serialization tasks to DATA...")
-        var data = TodoItem.getHeaders().appending("\n")
+        let lineSeparator = "\n"
+        var data = TodoItem.getHeaders().appending(lineSeparator)
         
         for task in tasks {
-            data += task.csv.appending("\n")
+            data += task.csv.appending(lineSeparator)
         }
         
         var result = false
         do {
             print("Getting filepath...")
             var fileURL = directoryUrl ?? self.fileUrl
-            fileURL.append(path: "\(name).csv")
             
-            print("Writing JSON to FILE: \(fileURL.path()) ...")
+            let fileManager = FileManager.default
+            if !fileManager.fileExists(atPath: fileURL.path()) {
+                try fileManager.createDirectory(atPath: fileURL.path(), withIntermediateDirectories: true, attributes: nil)
+            }
+            fileURL.append(path: "\(name).\(DataFormat.csv.rawValue)")
+            
+            print("Writing JSON to FILE (.csv): \(fileURL.path()) ...")
             try data.write(toFile: fileURL.path(), atomically: true, encoding: .utf8)
             
             result = true
@@ -110,15 +101,58 @@ extension FileCache: DataCache {
         return result
     }
     
-    func loadFromCsv(name: String, from url: URL?) -> Int {
+    // MARK: - Load Data
+    func load(name: String, from directoryUrl: URL?, as format: DataFormat) -> Int {
+        switch format {
+        case .json: return loadFromJson(name: name, to: directoryUrl)
+        case .csv: return loadFromCsv(name: name, from: directoryUrl)
+        default: return loadFromJson(name: name, to: directoryUrl)
+        }
+    }
+    
+    func loadFromJson(name: String, to directoryUrl: URL?) -> Int {
         var errorsCount = 0
-        let jsonUrl = url ?? fileUrl.appending(path: "\(name).json")
+        var jsonUrl = directoryUrl ?? self.fileUrl
+        jsonUrl.append(path: "\(name).\(DataFormat.json.rawValue)")
+        
+        let fileManager = FileManager.default
+        if !fileManager.fileExists(atPath: jsonUrl.path()) { return -1 }
+        
+        do {
+            let jsonData = try Data(contentsOf: jsonUrl)
+            let jsonObject = try JSONSerialization.jsonObject(with: jsonData)
+            guard let tasks = jsonObject as? [[String: Any]] else { return -1 }
+            
+            clear()
+            for task in tasks {
+                if let taskFromJson = TodoItem.parse(json: task) {
+                    if !add(taskFromJson) {
+                        errorsCount += 1
+                    }
+                } else { errorsCount += 1 }
+            }
+        } catch {
+            print("ERROR: \(error.localizedDescription)")
+            errorsCount = -1
+        }
+        
+        return errorsCount
+    }
+    
+    func loadFromCsv(name: String, from url: URL?) -> Int {
+        let lineSeparator = "\n"
+        var errorsCount = 0
+        var csvUrl = url ?? fileUrl
+        csvUrl.append(path: "\(name).\(DataFormat.csv.rawValue)")
+        
+        let fileManager = FileManager.default
+        if !fileManager.fileExists(atPath: csvUrl.path()) { return -1 }
         
         clear()
         
         do {
-            let csv = try String(contentsOf: jsonUrl, encoding: .utf8)
-            let rows = csv.split(separator: "\n").map({ String($0) })
+            let csv = try String(contentsOf: csvUrl, encoding: .utf8)
+            let rows = csv.split(separator: lineSeparator).map({ String($0) })
             
             if rows.isEmpty { return 0 }
             
@@ -127,9 +161,8 @@ extension FileCache: DataCache {
             for row in rows[startRow...] {
                 if let task = TodoItem.parse(csv: row) {
                     errorsCount += add(task) ? 0 : 1
-                } else {
-                    errorsCount += 1
                 }
+                else { errorsCount += 1 }
             }
         } catch {
             print("ERROR: \(error.localizedDescription)")
@@ -146,7 +179,7 @@ extension FileCache: DataCache {
     
     private var tasksData: [Any] {
         var tasksList = [Any]()
-
+        
         for task in tasks {
             tasksList.append(task.json)
         }

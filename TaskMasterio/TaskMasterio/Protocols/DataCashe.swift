@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum DataFormat {
+enum DataFormat: String {
     case json
     case csv
 }
@@ -19,7 +19,7 @@ protocol DataCache {
     
     func remove(by id: String) -> Bool
     
-    func save(to path: String?) -> Bool
+    func save(name: String, to directoryUrl: URL?, as format: DataFormat) -> Bool
     
-    func load(from path: String?) -> Bool
+    func load(name: String, from directoryUrl: URL?, as format: DataFormat) -> Int
 }

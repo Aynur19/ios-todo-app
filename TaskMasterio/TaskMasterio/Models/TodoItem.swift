@@ -72,10 +72,10 @@ extension TodoItem {
     
     static func getBool(data: String?) -> Bool? {
         guard let boolData = data else { return nil }
-        
+
         if boolData == "\(false)" { return false }
         else if boolData == "\(true)" { return true }
-        
+
         return nil
     }
 }
