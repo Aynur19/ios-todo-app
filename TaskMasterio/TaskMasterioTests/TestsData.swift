@@ -102,11 +102,7 @@ struct TestsData {
         ("840E3E53-96FD-4DC5-9515-BFE7B4B76449", "test 24", .low,    deadline, true, createdOn, updatedOn,
          "\"840E3E53-96FD-4DC5-9515-BFE7B4B76449\";\"test 24\";low;\(deadlineTime);true;\(createdOnTime);\(updatedOnTime);"),
     ]
-    
-    
-    static let testCases_Json_Invalid = testCases_ParseJson_Id_Invalid + testCases_ParseJson_Text_Invalid +
-    testCases_ParseJson_Priority_Invalid + testCases_ParseJson_Deadline_Invalid + testCases_ParseJson_IsDone_Invalid +
-    testCases_ParseJson_CreatedOn_Invalid + testCases_ParseJson_UpdatedOn_Invalid
+
     
     static let testCases_ParseJson_Id_Invalid: [[String: Any]] = [
         ["id": 1, "text": "id is Int()", "priority": "low", "deadline": 168655000, "isDone": false, "createdOn": 168655000, "updatedOn": 168655000],
@@ -171,7 +167,7 @@ struct TestsData {
     "\"\(id)\";\"\";low;168655000;false;168655000;168655000;"
     
     
-    static let testCases_ParseJson_Priority_Invalid: [Any] = [
+    static let testCases_ParseJson_Priority_Invalid: [[String: Any]] = [
         ["id": id, "text": "priority invalid 1", "priority": 8, "deadline": 168655000, "isDone": false, "createdOn": 168655000, "updatedOn": 168655000],
         ["id": id, "text": "priority invalid 2", "priority": "hard", "deadline": 168655000, "isDone": false, "createdOn": 168655000, "updatedOn": 168655000],
         ["id": id, "text": "priority invalid 3", "priority": "   ", "deadline": 168655000, "isDone": false, "createdOn": 168655000, "updatedOn": 168655000],
@@ -193,7 +189,7 @@ struct TestsData {
     "\"\(id)\";\"priority invalid 8\";[String: Any]();168655000;false;168655000;168655000;"
     
     
-    static let testCases_ParseJson_Priority_Valid: [Any] = [
+    static let testCases_ParseJson_Priority_Valid: [[String: Any]] = [
         ["id": id, "text": "priority valid 1", "priority": "medium", "deadline": 168655000, "isDone": false, "createdOn": 168655000, "updatedOn": 168655000],
         ["id": id, "text": "priority valid 2", "priority": "low", "deadline": 168655000, "isDone": false, "createdOn": 168655000, "updatedOn": 168655000],
         ["id": id, "text": "priority valid 3", "priority": "high", "deadline": 168655000, "isDone": false, "createdOn": 168655000, "updatedOn": 168655000],
@@ -206,7 +202,7 @@ struct TestsData {
     "\"\(id)\";\"priority valid 3\";high;168655000;false;168655000;168655000;\n" +
     "\"\(id)\";\"priority valid 4\";168655000;false;168655000;168655000;"
     
-    static let testCases_ParseJson_Deadline_Invalid: [Any] = [
+    static let testCases_ParseJson_Deadline_Invalid: [[String: Any]] = [
         ["id": id, "text": "deadline invalid 1", "priority": "low", "deadline": "168655000", "isDone": false, "createdOn": 168655000, "updatedOn": 168655000],
         ["id": id, "text": "deadline invalid 2", "priority": "high", "deadline": "   ", "isDone": false, "createdOn": 168655000, "updatedOn": 168655000],
         ["id": id, "text": "deadline invalid 3", "priority": "high", "deadline": "", "isDone": false, "createdOn": 168655000, "updatedOn": 168655000],
@@ -225,7 +221,7 @@ struct TestsData {
     "\"\(id)\";\"deadline invalid 6\";low;[String: Any]();false;168655000;168655000;\n" +
     "\"\(id)\";\"deadline invalid 7\";high;168655000.55;false;168655000;168655000;"
     
-    static let testCases_ParseJson_Deadline_Valid: [Any] = [
+    static let testCases_ParseJson_Deadline_Valid: [[String: Any]] = [
         ["id": id, "text": "deadline valid 1", "priority": "low", "deadline": 168655000, "isDone": false, "createdOn": 168655000, "updatedOn": 168655000],
         ["id": id, "text": "deadline valid 2", "priority": "low", "isDone": false, "createdOn": 168655000, "updatedOn": 168655000],
     ]
@@ -234,7 +230,7 @@ struct TestsData {
     "\"\(id)\";\"deadline valid 1\";low;168655000;false;168655000;168655000;\n" +
     "\"\(id)\";\"deadline valid 2\";low;false;168655000;168655000;"
     
-    static let testCases_ParseJson_IsDone_Invalid: [Any] = [
+    static let testCases_ParseJson_IsDone_Invalid: [[String: Any]] = [
         ["id": id, "text": "isDone invalid 1", "priority": "low", "deadline": 168655000, "isDone": "false", "createdOn": 168655000, "updatedOn": 168655000],
         ["id": id, "text": "isDone invalid 2", "priority": "low", "deadline": 168655000, "isDone": "  ", "createdOn": 168655000, "updatedOn": 168655000],
         ["id": id, "text": "isDone invalid 3", "priority": "low", "deadline": 168655000, "isDone": "", "createdOn": 168655000, "updatedOn": 168655000],
@@ -255,7 +251,7 @@ struct TestsData {
     "\"\(id)\";\"isDone invalid 7\";low;168655000;[String: Any]();168655000;168655000;\n" +
     "\"\(id)\";\"isDone invalid 8\";low;168655000,;168655000;168655000;"
     
-    static let testCases_ParseJson_IsDone_Valid: [Any] = [
+    static let testCases_ParseJson_IsDone_Valid: [[String: Any]] = [
         ["id": id, "text": "isDone valid 1", "priority": "low", "deadline": 168655000, "isDone": false, "createdOn": 168655000, "updatedOn": 168655000],
         ["id": id, "text": "isDone valid 2", "priority": "low", "deadline": 168655000, "isDone": true, "createdOn": 168655000, "updatedOn": 168655000],
     ]
@@ -264,7 +260,7 @@ struct TestsData {
     "\"\(id)\";\"isDone valid 1\";low;168655000;false;168655000;168655000;\n" +
     "\"\(id)\";\"isDone valid 2\";low;168655000;true;168655000;168655000;"
     
-    static let testCases_ParseJson_CreatedOn_Invalid: [Any] = [
+    static let testCases_ParseJson_CreatedOn_Invalid: [[String: Any]] = [
         ["id": id, "text": "createdOn invalid 1", "priority": "low", "deadline": 168655000, "isDone": false, "createdOn": "168655000", "updatedOn": 168655000],
         ["id": id, "text": "createdOn invalid 2", "priority": "low", "deadline": 168655000, "isDone": true, "createdOn": "   ", "updatedOn": 168655000],
         ["id": id, "text": "createdOn invalid 3", "priority": "low", "deadline": 168655000, "isDone": true, "createdOn": "", "updatedOn": 168655000],
@@ -285,7 +281,7 @@ struct TestsData {
     "\"\(id)\";\"createdOn invalid 7\";low;168655000;true;168655000.55;168655000;\n" +
     "\"\(id)\";\"createdOn invalid 8\";low;168655000;true;168655000;"
     
-    static let testCases_ParseJson_CreatedOn_Valid: [Any] = [
+    static let testCases_ParseJson_CreatedOn_Valid: [[String: Any]] = [
         ["id": id, "text": "createdOn valid 1", "priority": "low", "deadline": 168655000, "isDone": false, "createdOn": 168655000, "updatedOn": 168655000],
     ]
     
@@ -293,7 +289,7 @@ struct TestsData {
     "\"\(id)\";\"createdOn valid 1\";low;168655000;false;168655000;168655000;"
     
     
-    static let testCases_ParseJson_UpdatedOn_Invalid: [Any] = [
+    static let testCases_ParseJson_UpdatedOn_Invalid: [[String: Any]] = [
         ["id": id, "text": "updatedOn invalid 1", "priority": "low", "deadline": 168655000, "isDone": false, "createdOn": 168655000, "updatedOn": "168655000"],
         ["id": id, "text": "updatedOn invalid 2", "priority": "low", "deadline": 168655000, "isDone": true, "createdOn": 168655000, "updatedOn": "   "],
         ["id": id, "text": "updatedOn invalid 3", "priority": "low", "deadline": 168655000, "isDone": true, "createdOn": 168655000, "updatedOn": ""],
@@ -312,7 +308,7 @@ struct TestsData {
     "\"\(id)\";\"updatedOn invalid 6\";low;168655000;true;168655000;[String: Any]();\n" +
     "\"\(id)\";\"updatedOn invalid 7\";low;168655000;false;168655000;168655000.55;"
     
-    static let testCases_ParseJson_UpdatedOn_Valid: [Any] = [
+    static let testCases_ParseJson_UpdatedOn_Valid: [[String: Any]] = [
         ["id": id, "text": "test, updatedOn valid 1", "priority": "low", "deadline": 168655000, "isDone": false, "createdOn": 168655000, "updatedOn": 168655000],
         ["id": id, "text": "test, updatedOn valid 2", "priority": "low", "deadline": 168655000, "isDone": true, "createdOn": 168655000, "updatedOn": 168655000],
         ["id": id, "text": "test, updatedOn valid 3", "priority": "low", "deadline": 168655000, "isDone": true, "createdOn": 168655000],

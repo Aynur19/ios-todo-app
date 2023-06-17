@@ -31,16 +31,45 @@ extension TodoItem: JsonParser {
         else { return nil }
         
         guard let taskId = getId(data: dictId),
-              let taskPriority = getPriority(data: dict[TodoItemKeys.priority.rawValue] as? String)
+              let dictPriority = getPriorityJson(data: dict)
         else { return nil }
         
-        let taskDeadline = getDate(data: dict[TodoItemKeys.deadline.rawValue] as? String)
-        let taskUpdatedOn = getDate(data: dict[TodoItemKeys.updatedOn.rawValue] as? String)
+        var deadlineValue: Date?
+        if dict[TodoItemKeys.deadline.rawValue] == nil {
+            deadlineValue = nil
+        } else {
+            guard let dictDeadline = getOptionalDateJson(data: dict, key: TodoItemKeys.deadline.rawValue)
+            else { return nil}
+            deadlineValue = dictDeadline
+        }
         
-        guard taskDeadline.isValid, taskUpdatedOn.isValid else { return nil }
+        var updatedOnValue: Date?
+        if dict[TodoItemKeys.updatedOn.rawValue] == nil {
+            updatedOnValue = nil
+        } else {
+            guard let dictUpdatedOn = getOptionalDateJson(data: dict, key: TodoItemKeys.updatedOn.rawValue)
+            else { return nil}
+            updatedOnValue = dictUpdatedOn
+        }
+
         let createdOnValue = Date(timeIntervalSince1970: TimeInterval(dictCreatedOn))
-        
-        return TodoItem(id: taskId, text: dictText, priority: taskPriority, deadline: taskDeadline.result,
-                        isDone: dictIsDone, createdOn: createdOnValue, updatedOn: taskUpdatedOn.result)
+        return TodoItem(id: taskId, text: dictText, priority: dictPriority, deadline: deadlineValue,
+                        isDone: dictIsDone, createdOn: createdOnValue, updatedOn: updatedOnValue)
+    }
+    
+    static func getPriorityJson(data: [String: Any]) -> Priority? {
+        if data[TodoItemKeys.priority.rawValue] == nil { return .medium }
+        else {
+            if let priorityData = data[TodoItemKeys.priority.rawValue] as? String {
+                guard let priorityValue = Priority.init(rawValue: priorityData) else { return nil }
+                return priorityValue
+            }
+            else { return nil }
+        }
+    }
+    
+    static func getOptionalDateJson(data: [String: Any], key: String) -> Date? {
+        guard let dateData = data[key] as? Int else { return nil }
+        return Date(timeIntervalSince1970: TimeInterval(dateData))
     }
 }
