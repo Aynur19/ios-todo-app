@@ -15,8 +15,9 @@ enum CsvSeparator: String {
 protocol CsvParser {
     associatedtype Element
     
+    static var separator: CsvSeparator { get }
+    
     static func parse(csv: String) -> Element?
     
     var csv: String { get }
-    
 }

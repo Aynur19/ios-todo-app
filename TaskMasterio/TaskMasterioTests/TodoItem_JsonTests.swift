@@ -18,7 +18,7 @@ final class TodoItem_JsonTests: XCTestCase {
     }
     
     // MARK: - Tests json -> Any
-    func test_Json_IdGenerated_DeadlineAndUpdatedOn_IsNil() {
+    func test_Json_IdGenerated_DeadlineAndUpdatedOn_IsNil() throws  {
         for data in TestsData.testCases_DeadlineAndUpdatedOn_IsNil {
             let task = TodoItem(text: data.text, priority: data.priority, deadline: data.deadline, isDone: data.isDone,
                             createdOn: data.createdOn, updatedOn: data.updatedOn)
@@ -40,7 +40,7 @@ final class TodoItem_JsonTests: XCTestCase {
         }
     }
 
-    func test_Json_IdPassed_DeadlineAndUpdatedOn_IsNil() {
+    func test_Json_IdPassed_DeadlineAndUpdatedOn_IsNil() throws  {
         for data in TestsData.testCases_DeadlineAndUpdatedOn_IsNil {
             let id = TestsData.id
             let task = TodoItem(id: id, text: data.text, priority: data.priority, deadline: data.deadline,
@@ -63,7 +63,7 @@ final class TodoItem_JsonTests: XCTestCase {
         }
     }
 
-    func test_Json_IdGenerated_UpdatedOn_IsNil() {
+    func test_Json_IdGenerated_UpdatedOn_IsNil() throws  {
         for data in TestsData.testCases_UpdatedOn_IsNil {
             let task = TodoItem(text: data.text, priority: data.priority, deadline: data.deadline, isDone: data.isDone,
                             createdOn: data.createdOn, updatedOn: data.updatedOn)
@@ -86,7 +86,7 @@ final class TodoItem_JsonTests: XCTestCase {
         }
     }
 
-    func test_Json_IdPassed_UpdatedOn_IsNil() {
+    func test_Json_IdPassed_UpdatedOn_IsNil() throws  {
         for data in TestsData.testCases_UpdatedOn_IsNil {
             let id = TestsData.id
             let task = TodoItem(id: id, text: data.text, priority: data.priority, deadline: data.deadline,
@@ -109,7 +109,7 @@ final class TodoItem_JsonTests: XCTestCase {
         }
     }
 
-    func test_Json_IdGenerated_Deadline_IsNil() {
+    func test_Json_IdGenerated_Deadline_IsNil() throws  {
         for data in TestsData.testCases_Deadline_IsNil {
             let task = TodoItem(text: data.text, priority: data.priority, deadline: data.deadline, isDone: data.isDone,
                             createdOn: data.createdOn, updatedOn: data.updatedOn)
@@ -131,7 +131,7 @@ final class TodoItem_JsonTests: XCTestCase {
         }
     }
 
-    func test_Json_IdPassed_Deadline_IsNil() {
+    func test_Json_IdPassed_Deadline_IsNil() throws  {
         for data in TestsData.testCases_Deadline_IsNil {
             let id = TestsData.id
             let task = TodoItem(id: id, text: data.text, priority: data.priority, deadline: data.deadline,
@@ -154,7 +154,7 @@ final class TodoItem_JsonTests: XCTestCase {
         }
     }
 
-    func test_Json_IdGenerated_Filled() {
+    func test_Json_IdGenerated_Filled() throws  {
         for data in TestsData.testCases_Filled {
             let task = TodoItem(text: data.text, priority: data.priority, deadline: data.deadline, isDone: data.isDone,
                             createdOn: data.createdOn, updatedOn: data.updatedOn)
@@ -176,7 +176,7 @@ final class TodoItem_JsonTests: XCTestCase {
         }
     }
 
-    func testJson_IdPassed_Filled() {
+    func testJson_IdPassed_Filled() throws  {
         for data in TestsData.testCases_Filled {
             let id = TestsData.id
             let task = TodoItem(id: id, text: data.text, priority: data.priority, deadline: data.deadline,
@@ -201,98 +201,98 @@ final class TodoItem_JsonTests: XCTestCase {
 
 
     // MARK: - Tests parse(json:) -> TodoItem?
-    func test_Parse_Id_Invalid() {
+    func test_Parse_Id_Invalid() throws  {
         for data in TestsData.testCases_ParseJson_Id_Invalid {
             let task = TodoItem.parse(json: data)
             XCTAssertNil(task)
         }
     }
     
-    func test_Parse_Text_Invalid() {
+    func test_Parse_Text_Invalid() throws  {
         for data in TestsData.testCases_ParseJson_Text_Invalid {
             let task = TodoItem.parse(json: data)
             XCTAssertNil(task)
         }
     }
     
-    func test_Parse_Priotiry_Invalid() {
+    func test_Parse_Priotiry_Invalid() throws  {
         for data in TestsData.testCases_ParseJson_Priority_Invalid {
             let task = TodoItem.parse(json: data)
             XCTAssertNil(task)
         }
     }
     
-    func test_Parse_Deadline_Invalid() {
+    func test_Parse_Deadline_Invalid() throws  {
         for data in TestsData.testCases_ParseJson_Deadline_Invalid {
             let task = TodoItem.parse(json: data)
             XCTAssertNil(task)
         }
     }
     
-    func test_Parse_IsDone_Invalid() {
+    func test_Parse_IsDone_Invalid() throws  {
         for data in TestsData.testCases_ParseJson_IsDone_Invalid {
             let task = TodoItem.parse(json: data)
             XCTAssertNil(task)
         }
     }
     
-    func test_Parse_CreatedOn_Invalid() {
+    func test_Parse_CreatedOn_Invalid() throws  {
         for data in TestsData.testCases_ParseJson_CreatedOn_Invalid {
             let task = TodoItem.parse(json: data)
             XCTAssertNil(task)
         }
     }
     
-    func test_Parse_UpdatedOn_Invalid() {
+    func test_Parse_UpdatedOn_Invalid() throws  {
         for data in TestsData.testCases_ParseJson_UpdatedOn_Invalid {
             let task = TodoItem.parse(json: data)
             XCTAssertNil(task)
         }
     }
     
-    func test_Parse_Id_Valid() {
+    func test_Parse_Id_Valid() throws  {
         for data in TestsData.testCases_ParseJson_Id_Valid {
             let task = TodoItem.parse(json: data)
             XCTAssertNotNil(task)
         }
     }
     
-    func test_Parse_Text_Valid() {
+    func test_Parse_Text_Valid() throws  {
         for data in TestsData.testCases_ParseJson_Text_Valid {
             let task = TodoItem.parse(json: data)
             XCTAssertNotNil(task)
         }
     }
     
-    func test_Parse_Priotiry_Valid() {
+    func test_Parse_Priotiry_Valid() throws  {
         for data in TestsData.testCases_ParseJson_Priority_Valid {
             let task = TodoItem.parse(json: data)
             XCTAssertNotNil(task)
         }
     }
     
-    func test_Parse_Deadline_Valid() {
+    func test_Parse_Deadline_Valid() throws  {
         for data in TestsData.testCases_ParseJson_Deadline_Valid {
             let task = TodoItem.parse(json: data)
             XCTAssertNotNil(task)
         }
     }
     
-    func test_Parse_IsDone_Valid() {
+    func test_Parse_IsDone_Valid() throws  {
         for data in TestsData.testCases_ParseJson_IsDone_Valid {
             let task = TodoItem.parse(json: data)
             XCTAssertNotNil(task)
         }
     }
     
-    func test_Parse_CreatedOn_Valid() {
+    func test_Parse_CreatedOn_Valid() throws {
         for data in TestsData.testCases_ParseJson_CreatedOn_Valid {
             let task = TodoItem.parse(json: data)
             XCTAssertNotNil(task)
         }
     }
     
-    func test_Parse_UpdatedOn_Valid() {
+    func test_Parse_UpdatedOn_Valid() throws  {
         for data in TestsData.testCases_ParseJson_UpdatedOn_Valid {
             let task = TodoItem.parse(json: data)
             XCTAssertNotNil(task)
