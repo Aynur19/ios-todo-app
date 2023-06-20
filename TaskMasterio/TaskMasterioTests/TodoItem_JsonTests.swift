@@ -25,17 +25,17 @@ final class TodoItem_JsonTests: XCTestCase {
 
             let json = task.json as? [String: Any]
             XCTAssertNotNil(json)
-            XCTAssertEqual(json![TodoItemKeys.id.rawValue] as? String, task.id)
-            XCTAssertEqual(json![TodoItemKeys.text.rawValue] as? String, data.text)
-            XCTAssertNil(json![TodoItemKeys.deadline.rawValue] as? Int)
-            XCTAssertEqual(json![TodoItemKeys.isDone.rawValue] as? Bool, data.isDone)
-            XCTAssertEqual(json![TodoItemKeys.createdOn.rawValue] as? Int, Int(data.createdOn.timeIntervalSince1970))
-            XCTAssertNil(json![TodoItemKeys.updatedOn.rawValue] as? Int)
+            XCTAssertEqual(json![TodoItem.Keys.id] as? String, task.id)
+            XCTAssertEqual(json![TodoItem.Keys.text] as? String, data.text)
+            XCTAssertNil(json![TodoItem.Keys.deadline] as? Int)
+            XCTAssertEqual(json![TodoItem.Keys.isDone] as? Bool, data.isDone)
+            XCTAssertEqual(json![TodoItem.Keys.createdOn] as? Int, Int(data.createdOn.timeIntervalSince1970))
+            XCTAssertNil(json![TodoItem.Keys.updatedOn] as? Int)
 
             if data.priority == .medium {
-                XCTAssertNil(json![TodoItemKeys.priority.rawValue])
+                XCTAssertNil(json![TodoItem.Keys.priority])
             } else {
-                XCTAssertEqual(json![TodoItemKeys.priority.rawValue] as? String, data.priority.rawValue)
+                XCTAssertEqual(json![TodoItem.Keys.priority] as? String, data.priority.rawValue)
             }
         }
     }
@@ -48,17 +48,17 @@ final class TodoItem_JsonTests: XCTestCase {
 
             let json = task.json as? [String: Any]
             XCTAssertNotNil(json)
-            XCTAssertEqual(json![TodoItemKeys.id.rawValue] as? String, id)
-            XCTAssertEqual(json![TodoItemKeys.text.rawValue] as? String, data.text)
-            XCTAssertNil(json![TodoItemKeys.deadline.rawValue])
-            XCTAssertEqual(json![TodoItemKeys.isDone.rawValue] as? Bool, data.isDone)
-            XCTAssertEqual(json![TodoItemKeys.createdOn.rawValue] as? Int, Int(data.createdOn.timeIntervalSince1970))
-            XCTAssertNil(json![TodoItemKeys.updatedOn.rawValue])
+            XCTAssertEqual(json![TodoItem.Keys.id] as? String, id)
+            XCTAssertEqual(json![TodoItem.Keys.text] as? String, data.text)
+            XCTAssertNil(json![TodoItem.Keys.deadline])
+            XCTAssertEqual(json![TodoItem.Keys.isDone] as? Bool, data.isDone)
+            XCTAssertEqual(json![TodoItem.Keys.createdOn] as? Int, Int(data.createdOn.timeIntervalSince1970))
+            XCTAssertNil(json![TodoItem.Keys.updatedOn])
 
             if data.priority == .medium {
-                XCTAssertNil(json![TodoItemKeys.priority.rawValue])
+                XCTAssertNil(json![TodoItem.Keys.priority])
             } else {
-                XCTAssertEqual(json![TodoItemKeys.priority.rawValue] as? String, data.priority.rawValue)
+                XCTAssertEqual(json![TodoItem.Keys.priority] as? String, data.priority.rawValue)
             }
         }
     }
@@ -71,17 +71,17 @@ final class TodoItem_JsonTests: XCTestCase {
             let json = task.json as? [String: Any]
 
             XCTAssertNotNil(json)
-            XCTAssertEqual(json![TodoItemKeys.id.rawValue] as? String, task.id)
-            XCTAssertEqual(json![TodoItemKeys.text.rawValue] as? String, data.text)
-            XCTAssertEqual(json![TodoItemKeys.deadline.rawValue] as? Int, Int(data.deadline!.timeIntervalSince1970))
-            XCTAssertEqual(json![TodoItemKeys.isDone.rawValue] as? Bool, data.isDone)
-            XCTAssertEqual(json![TodoItemKeys.createdOn.rawValue] as? Int, Int(data.createdOn.timeIntervalSince1970))
-            XCTAssertNil(json![TodoItemKeys.updatedOn.rawValue])
+            XCTAssertEqual(json![TodoItem.Keys.id] as? String, task.id)
+            XCTAssertEqual(json![TodoItem.Keys.text] as? String, data.text)
+            XCTAssertEqual(json![TodoItem.Keys.deadline] as? Int, Int(data.deadline!.timeIntervalSince1970))
+            XCTAssertEqual(json![TodoItem.Keys.isDone] as? Bool, data.isDone)
+            XCTAssertEqual(json![TodoItem.Keys.createdOn] as? Int, Int(data.createdOn.timeIntervalSince1970))
+            XCTAssertNil(json![TodoItem.Keys.updatedOn])
 
             if data.priority == .medium {
-                XCTAssertNil(json![TodoItemKeys.priority.rawValue])
+                XCTAssertNil(json![TodoItem.Keys.priority])
             } else {
-                XCTAssertEqual(json![TodoItemKeys.priority.rawValue] as? String, data.priority.rawValue)
+                XCTAssertEqual(json![TodoItem.Keys.priority] as? String, data.priority.rawValue)
             }
         }
     }
@@ -94,17 +94,17 @@ final class TodoItem_JsonTests: XCTestCase {
 
             let json = task.json as? [String: Any]
             XCTAssertNotNil(json)
-            XCTAssertEqual(json![TodoItemKeys.id.rawValue] as? String, id)
-            XCTAssertEqual(json![TodoItemKeys.text.rawValue] as? String, data.text)
-            XCTAssertEqual(json![TodoItemKeys.deadline.rawValue] as? Int, Int(data.deadline!.timeIntervalSince1970))
-            XCTAssertEqual(json![TodoItemKeys.isDone.rawValue] as? Bool, data.isDone)
-            XCTAssertEqual(json![TodoItemKeys.createdOn.rawValue] as? Int, Int(data.createdOn.timeIntervalSince1970))
-            XCTAssertNil(json![TodoItemKeys.updatedOn.rawValue])
+            XCTAssertEqual(json![TodoItem.Keys.id] as? String, id)
+            XCTAssertEqual(json![TodoItem.Keys.text] as? String, data.text)
+            XCTAssertEqual(json![TodoItem.Keys.deadline] as? Int, Int(data.deadline!.timeIntervalSince1970))
+            XCTAssertEqual(json![TodoItem.Keys.isDone] as? Bool, data.isDone)
+            XCTAssertEqual(json![TodoItem.Keys.createdOn] as? Int, Int(data.createdOn.timeIntervalSince1970))
+            XCTAssertNil(json![TodoItem.Keys.updatedOn])
 
             if data.priority == .medium {
-                XCTAssertNil(json![TodoItemKeys.priority.rawValue])
+                XCTAssertNil(json![TodoItem.Keys.priority])
             } else {
-                XCTAssertEqual(json![TodoItemKeys.priority.rawValue] as? String, data.priority.rawValue)
+                XCTAssertEqual(json![TodoItem.Keys.priority] as? String, data.priority.rawValue)
             }
         }
     }
@@ -116,17 +116,17 @@ final class TodoItem_JsonTests: XCTestCase {
 
             let json = task.json as? [String: Any]
             XCTAssertNotNil(json)
-            XCTAssertEqual(json![TodoItemKeys.id.rawValue] as? String, task.id)
-            XCTAssertEqual(json![TodoItemKeys.text.rawValue] as? String, data.text)
-            XCTAssertNil(json![TodoItemKeys.deadline.rawValue] as? Int)
-            XCTAssertEqual(json![TodoItemKeys.isDone.rawValue] as? Bool, data.isDone)
-            XCTAssertEqual(json![TodoItemKeys.createdOn.rawValue] as? Int, Int(data.createdOn.timeIntervalSince1970))
-            XCTAssertEqual(json![TodoItemKeys.updatedOn.rawValue] as? Int, Int(data.updatedOn!.timeIntervalSince1970))
+            XCTAssertEqual(json![TodoItem.Keys.id] as? String, task.id)
+            XCTAssertEqual(json![TodoItem.Keys.text] as? String, data.text)
+            XCTAssertNil(json![TodoItem.Keys.deadline] as? Int)
+            XCTAssertEqual(json![TodoItem.Keys.isDone] as? Bool, data.isDone)
+            XCTAssertEqual(json![TodoItem.Keys.createdOn] as? Int, Int(data.createdOn.timeIntervalSince1970))
+            XCTAssertEqual(json![TodoItem.Keys.updatedOn] as? Int, Int(data.updatedOn!.timeIntervalSince1970))
 
             if data.priority == .medium {
-                XCTAssertNil(json![TodoItemKeys.priority.rawValue])
+                XCTAssertNil(json![TodoItem.Keys.priority])
             } else {
-                XCTAssertEqual(json![TodoItemKeys.priority.rawValue] as? String, data.priority.rawValue)
+                XCTAssertEqual(json![TodoItem.Keys.priority] as? String, data.priority.rawValue)
             }
         }
     }
@@ -139,17 +139,17 @@ final class TodoItem_JsonTests: XCTestCase {
 
             let json = task.json as? [String: Any]
             XCTAssertNotNil(json)
-            XCTAssertEqual(json![TodoItemKeys.id.rawValue] as? String, id)
-            XCTAssertEqual(json![TodoItemKeys.text.rawValue] as? String, data.text)
-            XCTAssertNil(json![TodoItemKeys.deadline.rawValue] as? Int)
-            XCTAssertEqual(json![TodoItemKeys.isDone.rawValue] as? Bool, data.isDone)
-            XCTAssertEqual(json![TodoItemKeys.createdOn.rawValue] as? Int, Int(data.createdOn.timeIntervalSince1970))
-            XCTAssertEqual(json![TodoItemKeys.updatedOn.rawValue] as? Int, Int(data.updatedOn!.timeIntervalSince1970))
+            XCTAssertEqual(json![TodoItem.Keys.id] as? String, id)
+            XCTAssertEqual(json![TodoItem.Keys.text] as? String, data.text)
+            XCTAssertNil(json![TodoItem.Keys.deadline] as? Int)
+            XCTAssertEqual(json![TodoItem.Keys.isDone] as? Bool, data.isDone)
+            XCTAssertEqual(json![TodoItem.Keys.createdOn] as? Int, Int(data.createdOn.timeIntervalSince1970))
+            XCTAssertEqual(json![TodoItem.Keys.updatedOn] as? Int, Int(data.updatedOn!.timeIntervalSince1970))
 
             if data.priority == .medium {
-                XCTAssertNil(json![TodoItemKeys.priority.rawValue])
+                XCTAssertNil(json![TodoItem.Keys.priority])
             } else {
-                XCTAssertEqual(json![TodoItemKeys.priority.rawValue] as? String, data.priority.rawValue)
+                XCTAssertEqual(json![TodoItem.Keys.priority] as? String, data.priority.rawValue)
             }
         }
     }
@@ -161,17 +161,17 @@ final class TodoItem_JsonTests: XCTestCase {
 
             let json = task.json as? [String: Any]
             XCTAssertNotNil(json)
-            XCTAssertEqual(json![TodoItemKeys.id.rawValue] as? String, task.id)
-            XCTAssertEqual(json![TodoItemKeys.text.rawValue] as? String, data.text)
-            XCTAssertEqual(json![TodoItemKeys.deadline.rawValue] as? Int, Int(data.deadline!.timeIntervalSince1970))
-            XCTAssertEqual(json![TodoItemKeys.isDone.rawValue] as? Bool, data.isDone)
-            XCTAssertEqual(json![TodoItemKeys.createdOn.rawValue] as? Int, Int(data.createdOn.timeIntervalSince1970))
-            XCTAssertEqual(json![TodoItemKeys.updatedOn.rawValue] as? Int, Int(data.updatedOn!.timeIntervalSince1970))
+            XCTAssertEqual(json![TodoItem.Keys.id] as? String, task.id)
+            XCTAssertEqual(json![TodoItem.Keys.text] as? String, data.text)
+            XCTAssertEqual(json![TodoItem.Keys.deadline] as? Int, Int(data.deadline!.timeIntervalSince1970))
+            XCTAssertEqual(json![TodoItem.Keys.isDone] as? Bool, data.isDone)
+            XCTAssertEqual(json![TodoItem.Keys.createdOn] as? Int, Int(data.createdOn.timeIntervalSince1970))
+            XCTAssertEqual(json![TodoItem.Keys.updatedOn] as? Int, Int(data.updatedOn!.timeIntervalSince1970))
 
             if data.priority == .medium {
-                XCTAssertNil(json![TodoItemKeys.priority.rawValue])
+                XCTAssertNil(json![TodoItem.Keys.priority])
             } else {
-                XCTAssertEqual(json![TodoItemKeys.priority.rawValue] as? String, data.priority.rawValue)
+                XCTAssertEqual(json![TodoItem.Keys.priority] as? String, data.priority.rawValue)
             }
         }
     }
@@ -184,17 +184,17 @@ final class TodoItem_JsonTests: XCTestCase {
 
             let json = task.json as? [String: Any]
             XCTAssertNotNil(json)
-            XCTAssertEqual(json![TodoItemKeys.id.rawValue] as? String, id)
-            XCTAssertEqual(json![TodoItemKeys.text.rawValue] as? String, data.text)
-            XCTAssertEqual(json![TodoItemKeys.deadline.rawValue] as? Int, Int(data.deadline!.timeIntervalSince1970))
-            XCTAssertEqual(json![TodoItemKeys.isDone.rawValue] as? Bool, data.isDone)
-            XCTAssertEqual(json![TodoItemKeys.createdOn.rawValue] as? Int, Int(data.createdOn.timeIntervalSince1970))
-            XCTAssertEqual(json![TodoItemKeys.updatedOn.rawValue] as? Int, Int(data.updatedOn!.timeIntervalSince1970))
+            XCTAssertEqual(json![TodoItem.Keys.id] as? String, id)
+            XCTAssertEqual(json![TodoItem.Keys.text] as? String, data.text)
+            XCTAssertEqual(json![TodoItem.Keys.deadline] as? Int, Int(data.deadline!.timeIntervalSince1970))
+            XCTAssertEqual(json![TodoItem.Keys.isDone] as? Bool, data.isDone)
+            XCTAssertEqual(json![TodoItem.Keys.createdOn] as? Int, Int(data.createdOn.timeIntervalSince1970))
+            XCTAssertEqual(json![TodoItem.Keys.updatedOn] as? Int, Int(data.updatedOn!.timeIntervalSince1970))
 
             if data.priority == .medium {
-                XCTAssertNil(json![TodoItemKeys.priority.rawValue])
+                XCTAssertNil(json![TodoItem.Keys.priority])
             } else {
-                XCTAssertEqual(json![TodoItemKeys.priority.rawValue] as? String, data.priority.rawValue)
+                XCTAssertEqual(json![TodoItem.Keys.priority] as? String, data.priority.rawValue)
             }
         }
     }

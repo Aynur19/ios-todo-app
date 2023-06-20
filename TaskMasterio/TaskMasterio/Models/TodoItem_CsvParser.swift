@@ -67,9 +67,8 @@ extension TodoItem: CsvParser {
     
     static func getHeaders() -> String {
         let separator = CsvSeparator.semicolon.rawValue
-        let fields = [TodoItemKeys.id.rawValue, TodoItemKeys.text.rawValue, TodoItemKeys.priority.rawValue,
-                      TodoItemKeys.deadline.rawValue, TodoItemKeys.isDone.rawValue, TodoItemKeys.createdOn.rawValue,
-                      TodoItemKeys.updatedOn.rawValue]
+        let fields = [TodoItem.Keys.id, TodoItem.Keys.text, TodoItem.Keys.priority, TodoItem.Keys.deadline,
+                      TodoItem.Keys.isDone, TodoItem.Keys.createdOn, TodoItem.Keys.updatedOn]
         return fields.joined(separator: separator).appending(separator)
     }
 }

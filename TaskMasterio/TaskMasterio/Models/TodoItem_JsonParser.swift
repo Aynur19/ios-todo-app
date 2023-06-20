@@ -11,23 +11,23 @@ import Foundation
 extension TodoItem: JsonParser {
     var json: Any {
         var data = [String: Any]()
-        data[TodoItemKeys.id.rawValue] = id
-        data[TodoItemKeys.text.rawValue] = text
-        data[TodoItemKeys.priority.rawValue] = priority != .medium ? priority.rawValue : nil
-        data[TodoItemKeys.deadline.rawValue] = deadline?.datetime
-        data[TodoItemKeys.isDone.rawValue] = isDone
-        data[TodoItemKeys.createdOn.rawValue] = createdOn.datetime
-        data[TodoItemKeys.updatedOn.rawValue] = updatedOn?.datetime
+        data[TodoItem.Keys.id] = id
+        data[TodoItem.Keys.text] = text
+        data[TodoItem.Keys.priority] = priority != .medium ? priority.rawValue : nil
+        data[TodoItem.Keys.deadline] = deadline?.datetime
+        data[TodoItem.Keys.isDone] = isDone
+        data[TodoItem.Keys.createdOn] = createdOn.datetime
+        data[TodoItem.Keys.updatedOn] = updatedOn?.datetime
         
         return data
     }
     
     static func parse(json: Any) -> TodoItem? {
         guard let dict = json as? [String: Any],
-              let dictId = dict[TodoItemKeys.id.rawValue] as? String,
-              let dictText = dict[TodoItemKeys.text.rawValue] as? String,
-              let dictCreatedOn = dict[TodoItemKeys.createdOn.rawValue] as? Int,
-              let dictIsDone = dict[TodoItemKeys.isDone.rawValue] as? Bool
+              let dictId = dict[TodoItem.Keys.id] as? String,
+              let dictText = dict[TodoItem.Keys.text] as? String,
+              let dictCreatedOn = dict[TodoItem.Keys.createdOn] as? Int,
+              let dictIsDone = dict[TodoItem.Keys.isDone] as? Bool
         else { return nil }
         
         guard let taskId = getId(data: dictId),
@@ -35,19 +35,19 @@ extension TodoItem: JsonParser {
         else { return nil }
         
         var deadlineValue: Date?
-        if dict[TodoItemKeys.deadline.rawValue] == nil {
+        if dict[TodoItem.Keys.deadline] == nil {
             deadlineValue = nil
         } else {
-            guard let dictDeadline = getOptionalDateJson(data: dict, key: TodoItemKeys.deadline.rawValue)
+            guard let dictDeadline = getOptionalDateJson(data: dict, key: TodoItem.Keys.deadline)
             else { return nil}
             deadlineValue = dictDeadline
         }
         
         var updatedOnValue: Date?
-        if dict[TodoItemKeys.updatedOn.rawValue] == nil {
+        if dict[TodoItem.Keys.updatedOn] == nil {
             updatedOnValue = nil
         } else {
-            guard let dictUpdatedOn = getOptionalDateJson(data: dict, key: TodoItemKeys.updatedOn.rawValue)
+            guard let dictUpdatedOn = getOptionalDateJson(data: dict, key: TodoItem.Keys.updatedOn)
             else { return nil}
             updatedOnValue = dictUpdatedOn
         }
@@ -58,9 +58,9 @@ extension TodoItem: JsonParser {
     }
     
     static func getPriorityJson(data: [String: Any]) -> Priority? {
-        if data[TodoItemKeys.priority.rawValue] == nil { return .medium }
+        if data[TodoItem.Keys.priority] == nil { return .medium }
         else {
-            if let priorityData = data[TodoItemKeys.priority.rawValue] as? String {
+            if let priorityData = data[TodoItem.Keys.priority] as? String {
                 guard let priorityValue = Priority.init(rawValue: priorityData) else { return nil }
                 return priorityValue
             }

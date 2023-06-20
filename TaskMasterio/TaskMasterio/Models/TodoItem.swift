@@ -14,16 +14,6 @@ enum Priority: String {
     case low
 }
 
-enum TodoItemKeys: String {
-    case id
-    case text
-    case priority
-    case deadline
-    case isDone
-    case createdOn
-    case updatedOn
-}
-
 struct TodoItem {
     static let idLenght = 36
     
@@ -44,6 +34,16 @@ struct TodoItem {
         self.isDone = isDone
         self.createdOn = createdOn
         self.updatedOn = updatedOn
+    }
+    
+    enum Keys {
+        static let id = "id"
+        static let text = "text"
+        static let priority = "priority"
+        static let deadline = "deadline"
+        static let isDone = "isDone"
+        static let createdOn = "createdOn"
+        static let updatedOn = "updatedOn"
     }
 }
 
