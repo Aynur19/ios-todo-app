@@ -92,3 +92,8 @@ iOSInjectionProject/
 
 
 /**/TestFiles/Generated/
+
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
