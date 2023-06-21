@@ -55,7 +55,7 @@ extension FileCache: DataCache {
         do{
             try jsonData.write(to: fileURL)
         } catch {
-            throw FileCacheError.jsonWritingToFileFailed(path: fileURL.path(), error: error)
+            throw FileCacheError.jsonWritingToFileFailed(path: fileURL.path, error: error)
         }
     }
     
@@ -64,9 +64,9 @@ extension FileCache: DataCache {
         let fileURL = try getFileURL(name: name, url: url, as: DataFormat.csv.rawValue)
         
         do {
-            try tasksCsv.write(toFile: fileURL.path(), atomically: true, encoding: .utf8)
+            try tasksCsv.write(toFile: fileURL.path, atomically: true, encoding: .utf8)
         } catch {
-            throw FileCacheError.csvWritingToFileFailed(path: fileURL.path(), error: error)
+            throw FileCacheError.csvWritingToFileFailed(path: fileURL.path, error: error)
         }
     }
     
@@ -94,7 +94,7 @@ extension FileCache: DataCache {
         do {
             jsonData = try Data(contentsOf: jsonURL)
         } catch {
-            throw FileCacheError.jsonReadingFromFileFailed(path: jsonURL.path(), error: error)
+            throw FileCacheError.jsonReadingFromFileFailed(path: jsonURL.path, error: error)
         }
         
         var parsingErrorsCount = 0
@@ -120,7 +120,7 @@ extension FileCache: DataCache {
         }
         
         if parsingErrorsCount > 0 {
-            throw FileCacheError.jsonObjectParsingFailed(path: jsonURL.path(), count: parsingErrorsCount)
+            throw FileCacheError.jsonObjectParsingFailed(path: jsonURL.path, count: parsingErrorsCount)
         }
     }
     
@@ -129,12 +129,12 @@ extension FileCache: DataCache {
         
         var csvData: String
         do {
-            csvData =  try String(contentsOf: csvURL, encoding: .utf8)
+            csvData = try String(contentsOf: csvURL, encoding: .utf8)
         } catch {
-            throw FileCacheError.csvReadingFromFileFailed(path: csvURL.path(), error: error)
+            throw FileCacheError.csvReadingFromFileFailed(path: csvURL.path, error: error)
         }
         
-        let rows = csvData.split(separator: CsvSeparator.newLine.rawValue).map({ String($0) })
+        let rows = csvData.split(separator: Character(CsvSeparator.newLine.rawValue)).map({ String($0) })
         if rows.isEmpty { return }
         
         let startRow = rows[0] == TodoItem.getHeaders() ? 1 : 0
@@ -150,7 +150,7 @@ extension FileCache: DataCache {
         }
         
         if parsingErrorsCount > 0 {
-            throw FileCacheError.csvObjectParsingFailed(path: csvURL.path(), count: parsingErrorsCount)
+            throw FileCacheError.csvObjectParsingFailed(path: csvURL.path, count: parsingErrorsCount)
         }
     }
     
@@ -161,22 +161,22 @@ extension FileCache: DataCache {
         }
         
         if forSaving {
-            if !fileManager.fileExists(atPath: fileURL.path()) {
+            if !fileManager.fileExists(atPath: fileURL.path) {
                 do {
-                    try fileManager.createDirectory(atPath: fileURL.path(),
+                    try fileManager.createDirectory(atPath: fileURL.path,
                                                     withIntermediateDirectories: true,
                                                     attributes: nil)
                 }
-                catch { throw FileCacheError.folderCreatingFailed(path: fileURL.path(), error: error) }
+                catch { throw FileCacheError.folderCreatingFailed(path: fileURL.path, error: error) }
             }
         }
         
-        fileURL.append(path: name)
+        fileURL.appendPathComponent(name)
         fileURL.appendPathExtension(format)
         
         if !forSaving {
-            guard fileManager.fileExists(atPath: fileURL.path()) else {
-                throw FileCacheError.notExistsFile(path: fileURL.path())
+            guard fileManager.fileExists(atPath: fileURL.path) else {
+                throw FileCacheError.notExistsFile(path: fileURL.path)
             }
         }
         
