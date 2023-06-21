@@ -1,5 +1,5 @@
 //
-//  TodoItem_CsvParser.swift
+//  TodoItem.CsvParser.swift
 //  TaskMasterio
 //
 //  Created by Aynur Nasybullin on 17.06.2023.
@@ -8,8 +8,7 @@
 import Foundation
 
 extension TodoItem: CsvParser {
-    static private var _separator: CsvSeparator = .semicolon
-    static var separator: CsvSeparator { get { _separator } }
+    static var separator: CsvSeparator = .semicolon
     
     var csv: String {
         var fields = [String]()

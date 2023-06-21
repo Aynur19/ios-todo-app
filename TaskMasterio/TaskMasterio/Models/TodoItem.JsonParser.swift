@@ -57,7 +57,7 @@ extension TodoItem: JsonParser {
                         isDone: dictIsDone, createdOn: createdOnValue, updatedOn: updatedOnValue)
     }
     
-    static func getPriorityJson(data: [String: Any]) -> Priority? {
+    static private func getPriorityJson(data: [String: Any]) -> Priority? {
         if data[TodoItem.Keys.priority] == nil { return .medium }
         else {
             if let priorityData = data[TodoItem.Keys.priority] as? String {
@@ -68,7 +68,7 @@ extension TodoItem: JsonParser {
         }
     }
     
-    static func getOptionalDateJson(data: [String: Any], key: String) -> Date? {
+    static private func getOptionalDateJson(data: [String: Any], key: String) -> Date? {
         guard let dateData = data[key] as? Int else { return nil }
         return Date(timeIntervalSince1970: TimeInterval(dateData))
     }
