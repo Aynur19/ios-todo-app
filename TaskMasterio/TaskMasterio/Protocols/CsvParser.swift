@@ -10,6 +10,7 @@ import Foundation
 enum CsvSeparator: String {
     case comma = ","
     case semicolon = ";"
+    case newLine = "\n"
 }
 
 protocol CsvParser {

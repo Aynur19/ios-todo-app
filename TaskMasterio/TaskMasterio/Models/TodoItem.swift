@@ -25,8 +25,15 @@ struct TodoItem {
     let createdOn: Date
     let updatedOn: Date?
     
-    init(id: String = UUID().uuidString, text: String, priority: Priority, deadline: Date?, isDone: Bool,
-         createdOn: Date, updatedOn: Date?) {
+    init(
+        id: String = UUID().uuidString,
+        text: String,
+        priority: Priority,
+        deadline: Date? = nil,
+        isDone: Bool = false,
+        createdOn: Date = Date(),
+        updatedOn: Date? = nil
+    ) {
         self.id = id
         self.text = text
         self.priority = priority
@@ -72,10 +79,10 @@ extension TodoItem {
     
     static func getBool(data: String?) -> Bool? {
         guard let boolData = data else { return nil }
-
+        
         if boolData == "\(false)" { return false }
         else if boolData == "\(true)" { return true }
-
+        
         return nil
     }
 }

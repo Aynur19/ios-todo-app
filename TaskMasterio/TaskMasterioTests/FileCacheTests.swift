@@ -102,7 +102,7 @@ final class FileCacheTests: XCTestCase {
         testFilesDirUrl.append(path: "TaskMasterio.json")
         XCTAssertTrue(FileManager.default.fileExists(atPath: testFilesDirUrl.path))
         
-        fileCache.clear()
+        fileCache.clearTasks()
         
         let jsonData = try? Data(contentsOf: testFilesDirUrl)
         XCTAssertNotNil(jsonData)
@@ -153,7 +153,7 @@ final class FileCacheTests: XCTestCase {
         testFilesDirUrl.append(path: "\(filename).json")
         XCTAssertTrue(FileManager.default.fileExists(atPath: testFilesDirUrl.path))
         
-        fileCache.clear()
+        fileCache.clearTasks()
         
         let jsonData = try? Data(contentsOf: testFilesDirUrl)
         XCTAssertNotNil(jsonData)
@@ -235,7 +235,7 @@ final class FileCacheTests: XCTestCase {
         testFilesDirUrl.append(path: "TaskMasterio.csv")
         XCTAssertTrue(FileManager.default.fileExists(atPath: testFilesDirUrl.path))
         
-        fileCache.clear()
+        fileCache.clearTasks()
         
         let csv = try? String(contentsOf: testFilesDirUrl, encoding: .utf8)
         XCTAssertNotNil(csv)
@@ -282,7 +282,7 @@ final class FileCacheTests: XCTestCase {
         testFilesDirUrl.append(path: "\(filename).csv")
         XCTAssertTrue(FileManager.default.fileExists(atPath: testFilesDirUrl.path))
         
-        fileCache.clear()
+        fileCache.clearTasks()
         
         let csv = try? String(contentsOf: testFilesDirUrl, encoding: .utf8)
         XCTAssertNotNil(csv)
