@@ -43,14 +43,14 @@ extension FileCache: DataCache {
     }
     
     func saveToJson(name: String, to url: URL? = nil) throws {
-        let tasksJson = getTasksJson()
+        let tasksJson = tasks.map({ $0.json })
         var jsonData: Data
         do {
             jsonData = try JSONSerialization.data(withJSONObject: tasksJson, options: .prettyPrinted)
         } catch {
             throw FileCacheError.jsonSerializationFailed(error: error)
         }
-
+        
         let fileURL = try getFileURL(name: name, url: url, as: DataFormat.json.rawValue)
         do{
             try jsonData.write(to: fileURL)
@@ -68,11 +68,6 @@ extension FileCache: DataCache {
         } catch {
             throw FileCacheError.csvWritingToFileFailed(path: fileURL.path(), error: error)
         }
-    }
-    
-    private func getTasksJson() -> [Any] {
-        let tasksList: [Any] = tasks.map({ $0 })
-        return tasksList
     }
     
     private func getTasksCsv() -> String {
@@ -115,7 +110,7 @@ extension FileCache: DataCache {
                 if let parsedTask = TodoItem.parse(json: task) {
                     if add(parsedTask) == nil { continue }
                 }
-        
+                
                 parsingErrorsCount += 1
             }
         } catch let dataCacheError as FileCacheError {
@@ -130,7 +125,7 @@ extension FileCache: DataCache {
     }
     
     func loadFromCsv(name: String, from url: URL?) throws {
-        let csvURL = try getFileURL(name: name, url: url, as: DataFormat.csv.rawValue)
+        let csvURL = try getFileURL(name: name, url: url, as: DataFormat.csv.rawValue, forSaving: false)
         
         var csvData: String
         do {
@@ -141,7 +136,7 @@ extension FileCache: DataCache {
         
         let rows = csvData.split(separator: CsvSeparator.newLine.rawValue).map({ String($0) })
         if rows.isEmpty { return }
-            
+        
         let startRow = rows[0] == TodoItem.getHeaders() ? 1 : 0
         var parsingErrorsCount = 0
         clearTasks()
@@ -174,10 +169,12 @@ extension FileCache: DataCache {
                 }
                 catch { throw FileCacheError.folderCreatingFailed(path: fileURL.path(), error: error) }
             }
-        } else {
-            fileURL.append(path: name)
-            fileURL.appendPathExtension(format)
-            
+        }
+        
+        fileURL.append(path: name)
+        fileURL.appendPathExtension(format)
+        
+        if !forSaving {
             guard fileManager.fileExists(atPath: fileURL.path()) else {
                 throw FileCacheError.notExistsFile(path: fileURL.path())
             }
