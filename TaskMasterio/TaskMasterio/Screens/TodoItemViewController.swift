@@ -15,7 +15,7 @@ final class TodoItemViewController: UIViewController {
     private let descriptionView = UITextView()
     private let descriptionPlaceholder = UILabel()
     
-    private let deleteButton = UIButton()
+    private let deleteButton = UIButton(type: .system)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,10 +30,10 @@ final class TodoItemViewController: UIViewController {
             title = taskTitle
             navigationController.navigationBar.barStyle = .default
             
-            let cancelButton = UIBarButtonItem(title: Titles.cancelButton, style: .plain, target: self,
+            let cancelButton = UIBarButtonItem(title: Titles.cancel, style: .plain, target: self,
                                                action: #selector(cancelButtonTapped))
             
-            let saveButton = UIBarButtonItem(title: Titles.saveButton, style: .plain, target: self,
+            let saveButton = UIBarButtonItem(title: Titles.save, style: .plain, target: self,
                                              action: #selector(saveButtonTapped))
             
             navigationItem.leftBarButtonItem = cancelButton
@@ -49,6 +49,7 @@ final class TodoItemViewController: UIViewController {
         prepareScrollView()
         prepareDescriptionView()
         prepareDescriptionPlaceholder()
+        prepareDeleteButton()
         
         NotificationCenter.default.addObserver(self, selector: #selector(textDidChange),
                                                name: UITextView.textDidChangeNotification, object: nil)
@@ -62,6 +63,7 @@ final class TodoItemViewController: UIViewController {
     private func prepareScrollView() {
         view.addSubview(scrollView)
         scrollView.addSubview(descriptionView)
+        scrollView.addSubview(deleteButton)
         
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -75,7 +77,7 @@ final class TodoItemViewController: UIViewController {
     private func prepareDescriptionView() {
         descriptionView.font = UIFont.systemFont(ofSize: Sizes.textViewFontSize)
         descriptionView.tintColor = UIColor(named: AccentColors.backSecondary)
-        descriptionView.layer.cornerRadius = Sizes.textViewCornerRadius
+        descriptionView.layer.cornerRadius = Sizes.cornerRadius
         descriptionView.textColor = UIColor(named: AccentColors.labelPrimary)
         descriptionView.isScrollEnabled = false
         descriptionView.textContainerInset = UIEdgeInsets(top: Sizes.marginV, left: Sizes.marginH,
@@ -86,7 +88,7 @@ final class TodoItemViewController: UIViewController {
         NSLayoutConstraint.activate([
             descriptionView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: Sizes.marginH),
             descriptionView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -Sizes.marginH),
-            descriptionView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: Sizes.marginH),
+            descriptionView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: Sizes.marginTxB),
             
             descriptionView.heightAnchor.constraint(greaterThanOrEqualToConstant: Sizes.textViewMinHeight),
             descriptionView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -Sizes.margin2xH),
@@ -109,6 +111,25 @@ final class TodoItemViewController: UIViewController {
             descriptionPlaceholder.topAnchor.constraint(equalTo: descriptionView.topAnchor, constant: Sizes.marginV),
         ])
         
+    }
+    
+    private func prepareDeleteButton() {
+        deleteButton.setTitle(Titles.delete, for: .normal)
+        deleteButton.backgroundColor = UIColor(named: AccentColors.backSecondary)
+        deleteButton.setTitleColor(UIColor(named: AccentColors.colorRed), for: .normal)
+        deleteButton.setTitleColor(UIColor(named: AccentColors.labelTertiary), for: .disabled)
+        deleteButton.layer.cornerRadius = Sizes.cornerRadius
+        
+        deleteButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            deleteButton.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: Sizes.marginH),
+            deleteButton.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -Sizes.marginH),
+            deleteButton.bottomAnchor.constraint(lessThanOrEqualTo: scrollView.bottomAnchor, constant: Sizes.zero),
+            deleteButton.topAnchor.constraint(equalTo: descriptionView.bottomAnchor, constant: Sizes.marginTxB),
+            
+            deleteButton.heightAnchor.constraint(equalToConstant: Sizes.deleteButtonHeight),
+            deleteButton.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -Sizes.margin2xH),
+        ])
     }
 }
 

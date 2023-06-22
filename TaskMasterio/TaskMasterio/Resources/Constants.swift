@@ -12,19 +12,23 @@ enum Values {
 }
 
 enum Titles {
-    static let cancelButton = "Отменить"
-    static let saveButton = "Сохранить"
+    static let cancel = "Отменить"
+    static let save = "Сохранить"
+    static let delete = "Удалить"
 }
 
 enum Sizes {
-    
-    static let marginV: CGFloat = 12
-    static let marginH: CGFloat = 16
-    static let margin2xH = 2 * marginH
+    static let zero: CGFloat = 0
+    static let marginV: CGFloat = 12    // margin vertically
+    static let marginH: CGFloat = 16    // margin horizontally
+    static let marginTxB: CGFloat = 16  // margin between top and bottom
+    static let margin2xH = 2 * marginH  // margin of 2 horizontally
     
     static let textViewMinHeight: CGFloat = 120
     static let textViewFontSize: CGFloat = 17
-    static let textViewCornerRadius: CGFloat = 16
+    static let cornerRadius: CGFloat = 16
+    
+    static let deleteButtonHeight: CGFloat = 56
 }
 
 enum AccentColors {
