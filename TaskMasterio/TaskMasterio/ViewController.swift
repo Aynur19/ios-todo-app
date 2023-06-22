@@ -35,7 +35,10 @@ class ViewController: UIViewController {
     }
     
     @objc func testButtonTapped() {
-        print("Button tapped!")
+        let todoItemViewController = TodoItemViewController()
+        todoItemViewController.modalPresentationStyle = .automatic
+        
+        present(todoItemViewController, animated: true, completion: nil)
     }
 }
 
