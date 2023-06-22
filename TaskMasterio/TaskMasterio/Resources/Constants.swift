@@ -12,6 +12,16 @@ enum Titles {
     static let saveButton = "Сохранить"
 }
 
+enum Sizes {
+    
+    static let marginV: CGFloat = 12
+    static let marginH: CGFloat = 16
+    static let margin2xH = 2 * marginH
+    
+    static let textViewMinHeight: CGFloat = 120
+    static let textViewFontSize: CGFloat = 17
+    static let textViewCornerRadius: CGFloat = 16
+}
 
 enum AccentColors {
     static let backElevated = "Back Elevated"

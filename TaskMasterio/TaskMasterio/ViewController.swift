@@ -21,7 +21,7 @@ class ViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle("Show Task View", for: .normal)
         button.addTarget(self, action: #selector(testButtonTapped), for: .touchUpInside)
-//        button.tintColor = UIColor(named: "Themes") // using AssentsColor
+//        button.tintColor = .red // UIColor(named: "Themes") // using AssentsColor
         
         view.addSubview(button)
         

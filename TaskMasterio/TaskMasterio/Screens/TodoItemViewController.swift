@@ -14,10 +14,26 @@ final class TodoItemViewController: UIViewController, UITextViewDelegate {
     private var scrollView: UIScrollView?
     private var taskDescriptionView: UITextView?
     
+    @IBOutlet private weak var taskDescriptionViewHeightConstraint: NSLayoutConstraint!
     
+    private func updateTextViewHeight() {
+        if let descriptionView = taskDescriptionView {
+            let contentSize = descriptionView.sizeThatFits(descriptionView.bounds.size)
+            let newSize = contentSize.height > Sizes.textViewMinHeight ? contentSize.height : Sizes.textViewMinHeight
+            taskDescriptionViewHeightConstraint.constant = newSize
+        }
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        updateTextViewHeight()
+        //            scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: textViewHeightConstraint.constant)
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         
         
         view.backgroundColor = UIColor(named: AccentColors.backPrimary)
@@ -32,10 +48,10 @@ final class TodoItemViewController: UIViewController, UITextViewDelegate {
             navigationController.navigationBar.barStyle = .default
             
             let cancelButton = UIBarButtonItem(title: Titles.cancelButton, style: .plain, target: self,
-                                             action: #selector(cancelButtonTapped))
+                                               action: #selector(cancelButtonTapped))
             
             let saveButton = UIBarButtonItem(title: Titles.saveButton, style: .plain, target: self,
-                                              action: #selector(saveButtonTapped))
+                                             action: #selector(saveButtonTapped))
             
             navigationItem.leftBarButtonItem = cancelButton
             navigationItem.rightBarButtonItem = saveButton
@@ -61,18 +77,15 @@ final class TodoItemViewController: UIViewController, UITextViewDelegate {
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-
-            taskDescriptionView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
-            taskDescriptionView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
-            taskDescriptionView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 16),
-            taskDescriptionView.bottomAnchor.constraint(lessThanOrEqualTo: scrollView.bottomAnchor, constant: -16),
-          
-            taskDescriptionView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -32),
-            taskDescriptionView.heightAnchor.constraint(greaterThanOrEqualToConstant: 120).with(priority: .defaultLow),
+            
+            taskDescriptionView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: Sizes.marginH),
+            taskDescriptionView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -Sizes.marginH),
+            taskDescriptionView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: Sizes.marginH),
+            taskDescriptionView.bottomAnchor.constraint(lessThanOrEqualTo: scrollView.bottomAnchor, constant: -Sizes.marginH),
+            
+            taskDescriptionView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -Sizes.margin2xH),
         ])
         
-        //taskDescriptionView.addObserver(self, forKeyPath: "text", options: .new, context: nil)
-
         self.taskDescriptionView = taskDescriptionView
         self.scrollView = scrollView
         
@@ -81,24 +94,24 @@ final class TodoItemViewController: UIViewController, UITextViewDelegate {
     private func getTaskDescriptionView() -> UITextView {
         let textView = UITextView()
         
-        textView.font = UIFont.systemFont(ofSize: 17)
+        textView.font = UIFont.systemFont(ofSize: Sizes.textViewFontSize)
         textView.tintColor = UIColor(named: AccentColors.backSecondary)
         textView.text = "Что надо сделать?"
+        textView.layer.cornerRadius = Sizes.textViewCornerRadius
+        
+        textView.textContainerInset = UIEdgeInsets(top: Sizes.marginV, left: Sizes.marginH,
+                                                   bottom: Sizes.marginH, right: Sizes.marginH)
+        
         textView.delegate = self
+        
+        let textViewHeightConstraint = textView.heightAnchor
+            .constraint(equalToConstant: Sizes.textViewMinHeight)
+            .with(priority: .defaultLow)
+        textViewHeightConstraint.isActive = true
+        
+        self.taskDescriptionViewHeightConstraint = textViewHeightConstraint
         
         return textView
     }
-    
-//    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?,
-//                               context: UnsafeMutableRawPointer?) {
-//        if keyPath == "text", let textView = object as? UITextView {
-//            let contentSize = textView.contentSize
-//            let newHeight = contentSize.height > 120 ? contentSize.height : 120 // Minimum height
-//
-////            taskDescriptionView.heightAnchor.constraint(equalToConstant: newHeight)
-//            scrollView.layoutIfNeeded()
-//        }
-//    }
-
 }
 
