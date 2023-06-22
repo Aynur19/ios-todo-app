@@ -25,7 +25,19 @@ final class TodoItemViewController: UIViewController {
             title = taskTitle
             navigationController.navigationBar.barStyle = .default
             
+            let cancelButton = UIBarButtonItem(title: Titles.cancelButton, style: .plain, target: self,
+                                             action: #selector(cancelButtonTapped))
             
+            let saveButton = UIBarButtonItem(title: Titles.saveButton, style: .plain, target: self,
+                                              action: #selector(saveButtonTapped))
+            
+            navigationItem.leftBarButtonItem = cancelButton
+            navigationItem.rightBarButtonItem = saveButton
         }
     }
+    
+    @objc func cancelButtonTapped() { }
+    
+    @objc func saveButtonTapped() { }
 }
+
