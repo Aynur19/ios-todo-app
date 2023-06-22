@@ -16,6 +16,7 @@ enum Titles {
     static let save = "Сохранить"
     static let delete = "Удалить"
     static let priority = "Важность"
+    static let deadline = "Сделать до"
 }
 
 enum Sizes {

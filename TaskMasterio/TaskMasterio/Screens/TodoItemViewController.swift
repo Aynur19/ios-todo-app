@@ -16,14 +16,15 @@ final class TodoItemViewController: UIViewController {
     private let descriptionView = UITextView()
     private let descriptionPlaceholder = UILabel()
     
-    private let stackView = UIStackView()
-    
+    private let optionsContainer = UIView()
+
     private let priorityContainer = UIView()
-    private let priorityStackView = UIStackView()
     private let priorityLabel = UILabel()
     private let priorutySegmentedControl = UISegmentedControl()
     
+    private let deadlineContainer = UIView()
     private let deadlineSwitcher = UISwitch()
+    private let deadlineLabel = UILabel()
     
     private let deleteButton = UIButton(type: .system)
     
@@ -31,8 +32,8 @@ final class TodoItemViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: AccentColors.backPrimary)
         
-        prepareNavigationBar()
-        prepareContent()
+        navigationBarPreparing()
+        contentPreparing(view)
         
         descriptionView.delegate = self
         
@@ -41,15 +42,22 @@ final class TodoItemViewController: UIViewController {
         updatePlaceholderVisibility()
     }
     
-    private func prepareNavigationBar() {
-        print("1. Prepearing Navigation Bar...")
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func cancelButtonTapped() { }
+    
+    @objc func saveButtonTapped() { }
+    
+    private func navigationBarPreparing() {
+        print("Navigation Bar Preparing...")
         if let navigationController = self.navigationController {
             title = taskTitle
             navigationController.navigationBar.barStyle = .default
             
             let cancelButton = UIBarButtonItem(title: Titles.cancel, style: .plain, target: self,
                                                action: #selector(cancelButtonTapped))
-            
             let saveButton = UIBarButtonItem(title: Titles.save, style: .plain, target: self,
                                              action: #selector(saveButtonTapped))
             
@@ -58,54 +66,58 @@ final class TodoItemViewController: UIViewController {
         }
     }
     
-    @objc func cancelButtonTapped() { }
-    
-    @objc func saveButtonTapped() { }
-    
-    private func prepareContent() {
-        print("2. Prepearing content...")
-        view.addSubview(scrollView)
+
+    private func contentPreparing(_ contentView: UIView) {
+        print("Content Preparing...")
+        contentView.addSubview(scrollView)
         
         scrollView.addSubview(descriptionView)
-        scrollView.addSubview(priorityContainer)
+        scrollView.addSubview(optionsContainer)
         scrollView.addSubview(deleteButton)
         
         descriptionView.addSubview(descriptionPlaceholder)
-        priorityContainer.addSubview(priorityStackView)
-        priorityStackView.addSubview(priorityLabel)
-        priorityStackView.addSubview(priorutySegmentedControl)
+
+        optionsContainer.addSubview(priorityContainer)
+        optionsContainer.addSubview(deadlineContainer)
         
-        prepareScrollView()
-        prepareDescriptionView()
-        prepareDescriptionPlaceholder()
+        priorityContainer.addSubview(priorityLabel)
+        priorityContainer.addSubview(priorutySegmentedControl)
         
-        //        scrollView.addSubview(stackView)
-        //        prepareStackView()
+        deadlineContainer.addSubview(deadlineLabel)
+        deadlineContainer.addSubview(deadlineSwitcher)
         
-        preparePriorityContainer()
-        preparePriorityStackView()
-        preparePriorityLabel()
-        preparePrioritySegmentedControl()
-        prepareDeleteButton()
+        scrollViewPreparing(scrollView, ownerView: view)
+        descriptionViewPreparing(descriptionView, ownerView: scrollView)
+        descriptionPlaceholderPreparing(descriptionPlaceholder, ownerView: descriptionView)
+        
+        optionsContainerPreparing(optionsContainer, ownerView: scrollView, topView: descriptionView, bottomView: deadlineContainer)
+        
+        priorityContainerPreparing(priorityContainer, ownerView: optionsContainer)
+        priorityLabelPreparing(priorityLabel, ownerView: priorityContainer)
+        prioritySegmentedControlPreparing(priorutySegmentedControl, ownerView: priorityContainer)
+        
+        deadlineContainerPreparing(deadlineContainer, ownerView: optionsContainer, topView: priorityContainer)
+        deadlineLabelPreparing(deadlineLabel, ownerView: deadlineContainer)
+        deadlineSwitcherPreparing(deadlineSwitcher, ownerView: deadlineContainer)
+        
+        deleteButtonPreparing(deleteButton, ownerView: scrollView, topView: optionsContainer)
     }
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    private func prepareScrollView() {
-        print("3. Prepearing Scroll View...")
+    private func scrollViewPreparing(_ scrollView: UIScrollView, ownerView: UIView) {
+        print("Scroll View Preparing...")
+        
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: ownerView.safeAreaLayoutGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: ownerView.safeAreaLayoutGuide.trailingAnchor),
+            scrollView.topAnchor.constraint(equalTo: ownerView.safeAreaLayoutGuide.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: ownerView.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
     
-    private func prepareDescriptionView() {
-        print("4. Prepearing Description View...")
+    private func descriptionViewPreparing(_ descriptionView: UITextView, ownerView: UIView) {
+        print("Description View Preparing...")
+    
         descriptionView.font = UIFont.systemFont(ofSize: Sizes.textViewFontSize)
         descriptionView.tintColor = UIColor(named: AccentColors.backSecondary)
         descriptionView.layer.cornerRadius = Sizes.cornerRadius
@@ -114,21 +126,20 @@ final class TodoItemViewController: UIViewController {
         descriptionView.textContainerInset = UIEdgeInsets(top: Sizes.marginV, left: Sizes.marginH,
                                                           bottom: Sizes.marginH, right: Sizes.marginH)
         
-        
         descriptionView.clipsToBounds = true
         descriptionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            descriptionView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: Sizes.marginH),
-            descriptionView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -Sizes.marginH),
-            descriptionView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: Sizes.marginTxB),
+            descriptionView.leadingAnchor.constraint(equalTo: ownerView.leadingAnchor, constant: Sizes.marginH),
+            descriptionView.trailingAnchor.constraint(equalTo: ownerView.trailingAnchor, constant: -Sizes.marginH),
+            descriptionView.topAnchor.constraint(equalTo: ownerView.topAnchor, constant: Sizes.marginTxB),
             
             descriptionView.heightAnchor.constraint(greaterThanOrEqualToConstant: Sizes.textViewMinHeight),
-            descriptionView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -Sizes.margin2xH),
+            descriptionView.widthAnchor.constraint(equalTo: ownerView.widthAnchor, constant: -Sizes.margin2xH),
         ])
     }
     
-    private func prepareDescriptionPlaceholder() {
-        print("5. Prepearing Description Placeholder...")
+    private func descriptionPlaceholderPreparing(_ descriptionPlaceholder: UILabel, ownerView: UIView) {
+        print("Description Placeholder Preparing...")
         descriptionPlaceholder.font = UIFont.systemFont(ofSize: Sizes.textViewFontSize)
         descriptionPlaceholder.tintColor = UIColor(named: AccentColors.backSecondary)
         descriptionPlaceholder.text = Values.taskDescriptionPlacholder
@@ -136,115 +147,42 @@ final class TodoItemViewController: UIViewController {
         
         descriptionPlaceholder.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            descriptionPlaceholder.leadingAnchor.constraint(equalTo: descriptionView.leadingAnchor, constant: Sizes.marginH),
-            descriptionPlaceholder.trailingAnchor.constraint(equalTo: descriptionView.trailingAnchor, constant: -Sizes.marginH),
-            descriptionPlaceholder.topAnchor.constraint(equalTo: descriptionView.topAnchor, constant: Sizes.marginV),
+            descriptionPlaceholder.leadingAnchor.constraint(equalTo: ownerView.leadingAnchor, constant: Sizes.marginH),
+            descriptionPlaceholder.trailingAnchor.constraint(equalTo: ownerView.trailingAnchor, constant: -Sizes.marginH),
+            descriptionPlaceholder.topAnchor.constraint(equalTo: ownerView.topAnchor, constant: Sizes.marginV),
         ])
-        
     }
     
-    private func prepareStackView() {
-        print("6. Prepearing Scack View...")
-        stackView.axis = .vertical
-        stackView.tintColor = UIColor(named: AccentColors.backSecondary)
-        //        stackView.alignment = .
-        stackView.addSubview(priorityStackView)
-        stackView.layer.cornerRadius = Sizes.cornerRadius
-        
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+    private func optionsContainerPreparing(_ optionsContainer: UIView, ownerView: UIView, topView: UIView, bottomView: UIView) {
+        print("Options Container Preparing...")
+
+        optionsContainer.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: Sizes.marginH),
-            stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -Sizes.marginH),
-            stackView.topAnchor.constraint(equalTo: descriptionView.bottomAnchor, constant: Sizes.marginTxB),
-            
-            stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -Sizes.margin2xH),
+            optionsContainer.leadingAnchor.constraint(equalTo: ownerView.leadingAnchor, constant: Sizes.marginH),
+            optionsContainer.trailingAnchor.constraint(equalTo: ownerView.trailingAnchor, constant: -Sizes.marginH),
+            optionsContainer.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: Sizes.marginTxB),
+            optionsContainer.bottomAnchor.constraint(equalTo: bottomView.bottomAnchor),
+
+            optionsContainer.widthAnchor.constraint(equalTo: ownerView.widthAnchor, constant: -Sizes.margin2xH),
         ])
     }
     
-    private func preparePriorityContainer() {
-        print("6. Prepearing Priority Container...")
-        priorityContainer.backgroundColor = UIColor(named: AccentColors.backSecondary)
-        //        priorityContainer.tintColor = UIColor(named: AccentColors.backSecondary)
-        priorityContainer.translatesAutoresizingMaskIntoConstraints = false
+    private func optionsStackViewPreparing(_ optionsStackView: UIStackView, ownerView: UIView) {
+        print("Options Stack View Preparing...")
+        optionsStackView.axis = .vertical
+        
+        optionsStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            priorityContainer.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: Sizes.marginH),
-            priorityContainer.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -Sizes.marginH),
-            priorityContainer.topAnchor.constraint(equalTo: descriptionView.bottomAnchor, constant: Sizes.marginTxB),
-            priorityContainer.bottomAnchor.constraint(equalTo: deleteButton.topAnchor, constant: -Sizes.marginTxB),
-            
-            priorityContainer.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -Sizes.margin2xH),
+            optionsStackView.leadingAnchor.constraint(equalTo: ownerView.leadingAnchor),
+            optionsStackView.trailingAnchor.constraint(equalTo: ownerView.trailingAnchor),
+            optionsStackView.topAnchor.constraint(equalTo: ownerView.topAnchor),
+            optionsStackView.bottomAnchor.constraint(equalTo: ownerView.bottomAnchor, constant: -Sizes.marginV_10),
         ])
     }
     
-    private func preparePriorityStackView() {
+    private func deleteButtonPreparing(_ deleteButton: UIButton, ownerView: UIView, topView: UIView) {
+        print("Delete Button Preparing...")
         
-        print("8. Prepearing Priority Stack View...")
-        priorityStackView.axis = .horizontal
-        priorityStackView.spacing = Sizes.marginH
-        //        priorityStackView.distribution = .fill
-        //        priorityStackView.alignment = .fill
-        //        priorityStackView.tintColor = UIColor(named: AccentColors.backSecondary)
-        //        stackView.alignment = .
-        //        priorityStackView.addSubview(priorutySegmentedControl)
-        
-        
-        priorityStackView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            priorityStackView.leadingAnchor.constraint(equalTo: priorityContainer.leadingAnchor, constant: Sizes.marginH),
-            priorityStackView.trailingAnchor.constraint(equalTo: priorityContainer.trailingAnchor, constant: -Sizes.marginH),
-            priorityStackView.topAnchor.constraint(equalTo: priorityContainer.topAnchor, constant: Sizes.marginV_10),
-            priorityStackView.bottomAnchor.constraint(equalTo: priorityContainer.bottomAnchor, constant: -Sizes.marginV_10),
-            
-            //            priorityStackView.widthAnchor.constraint(equalTo: priorityContainer.widthAnchor, constant: -Sizes.margin2xH),
-            
-            //            priorityStackView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
-            //            priorityStackView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
-            //            priorityStackView.topAnchor.constraint(equalTo: stackView.bottomAnchor),
-            //
-            //            priorityStackView.widthAnchor.constraint(equalTo: stackView.widthAnchor),
-        ])
-        
-        
-        //        preparePrioritySegmentedControl()
-    }
-    
-    private func preparePriorityLabel() {
-        
-        print("9. Prepearing Priority Label...")
-        priorityLabel.text = Titles.priority
-        priorityLabel.font = UIFont.systemFont(ofSize: Sizes.textViewFontSize)
-        priorityLabel.textColor = UIColor(named: AccentColors.labelPrimary)
-        
-        priorityLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            priorityLabel.leadingAnchor.constraint(equalTo: priorityStackView.leadingAnchor),
-            priorityLabel.topAnchor.constraint(equalTo: priorityStackView.topAnchor),
-            priorityLabel.bottomAnchor.constraint(equalTo: priorityStackView.bottomAnchor),
-            
-            //            priorityLabel.widthAnchor.constraint(equalTo: stackView.widthAnchor),
-        ])
-    }
-    
-    private func preparePrioritySegmentedControl() {
-        print("10. Prepearing Priority Segment Control...")
-        priorutySegmentedControl.insertSegment(withTitle: "low", at: 0, animated: false)
-        priorutySegmentedControl.insertSegment(withTitle: "medium", at: 1, animated: false)
-        priorutySegmentedControl.insertSegment(withTitle: "high", at: 2, animated: false)
-        
-        priorutySegmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            priorutySegmentedControl.trailingAnchor.constraint(equalTo: priorityStackView.trailingAnchor),
-            priorutySegmentedControl.topAnchor.constraint(equalTo: priorityStackView.topAnchor),//, constant: Sizes.marginV_10),
-            priorutySegmentedControl.bottomAnchor.constraint(equalTo: priorityStackView.bottomAnchor),//, constant: -Sizes.marginV_10),
-            
-            priorutySegmentedControl.heightAnchor.constraint(equalToConstant: 36),
-            priorutySegmentedControl.widthAnchor.constraint(greaterThanOrEqualToConstant: 150),
-            
-        ])
-    }
-    
-    private func prepareDeleteButton() {
-        print("11. Prepearing Delete Button...")
         deleteButton.setTitle(Titles.delete, for: .normal)
         deleteButton.backgroundColor = UIColor(named: AccentColors.backSecondary)
         deleteButton.setTitleColor(UIColor(named: AccentColors.colorRed), for: .normal)
@@ -253,17 +191,101 @@ final class TodoItemViewController: UIViewController {
         
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            deleteButton.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: Sizes.marginH),
-            deleteButton.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -Sizes.marginH),
-            deleteButton.bottomAnchor.constraint(lessThanOrEqualTo: scrollView.bottomAnchor, constant: Sizes.zero),
-            deleteButton.topAnchor.constraint(equalTo: priorityContainer.bottomAnchor, constant: Sizes.marginTxB),
-            //            deleteButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: Sizes.marginTxB),
+            deleteButton.leadingAnchor.constraint(equalTo: ownerView.leadingAnchor, constant: Sizes.marginH),
+            deleteButton.trailingAnchor.constraint(equalTo: ownerView.trailingAnchor, constant: -Sizes.marginH),
+            deleteButton.bottomAnchor.constraint(lessThanOrEqualTo: ownerView.bottomAnchor, constant: Sizes.zero),
+            deleteButton.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: Sizes.marginTxB),
             
             deleteButton.heightAnchor.constraint(equalToConstant: Sizes.deleteButtonHeight),
-            deleteButton.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -Sizes.margin2xH),
+            deleteButton.widthAnchor.constraint(equalTo: ownerView.widthAnchor, constant: -Sizes.margin2xH),
         ])
     }
 }
+
+
+extension TodoItemViewController {
+    private func priorityContainerPreparing(_ priorityContainer: UIView, ownerView: UIView) {
+        print("Priority Container Preparing...")
+        priorityContainer.backgroundColor = UIColor(named: AccentColors.backSecondary)
+
+        priorityContainer.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            priorityContainer.leadingAnchor.constraint(equalTo: ownerView.leadingAnchor),
+            priorityContainer.trailingAnchor.constraint(equalTo: ownerView.trailingAnchor),
+            priorityContainer.topAnchor.constraint(equalTo: ownerView.topAnchor),
+        ])
+    }
+    
+    private func priorityLabelPreparing(_ priorityLabel: UILabel, ownerView: UIView) {
+        print("Priority Label Preparing...")
+        priorityLabel.text = Titles.priority
+        priorityLabel.font = UIFont.systemFont(ofSize: Sizes.textViewFontSize)
+        priorityLabel.textColor = UIColor(named: AccentColors.labelPrimary)
+        
+        priorityLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            priorityLabel.leadingAnchor.constraint(equalTo: ownerView.leadingAnchor, constant: Sizes.marginH),
+            priorityLabel.centerYAnchor.constraint(equalTo: ownerView.centerYAnchor),
+        ])
+    }
+    
+    private func prioritySegmentedControlPreparing(_ priorutySegmentedControl: UISegmentedControl, ownerView: UIView) {
+        print("Priority Segmented Control Preparing...")
+        priorutySegmentedControl.insertSegment(withTitle: "low", at: 0, animated: false)
+        priorutySegmentedControl.insertSegment(withTitle: "medium", at: 1, animated: false)
+        priorutySegmentedControl.insertSegment(withTitle: "high", at: 2, animated: false)
+        
+        priorutySegmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            priorutySegmentedControl.trailingAnchor.constraint(equalTo: ownerView.trailingAnchor, constant: -Sizes.marginH),
+            priorutySegmentedControl.topAnchor.constraint(equalTo: ownerView.topAnchor, constant: Sizes.marginV_10),
+            priorutySegmentedControl.bottomAnchor.constraint(equalTo: ownerView.bottomAnchor, constant: -Sizes.marginV_10),
+            
+            priorutySegmentedControl.heightAnchor.constraint(equalToConstant: 36),
+            priorutySegmentedControl.widthAnchor.constraint(greaterThanOrEqualToConstant: 150),
+        ])
+    }
+}
+
+extension TodoItemViewController {
+    private func deadlineContainerPreparing(_ deadlineContainer: UIView, ownerView: UIView, topView: UIView) {
+        print("Deadline Container Preparing...")
+        deadlineContainer.backgroundColor = UIColor(named: AccentColors.backSecondary)
+        deadlineContainer.backgroundColor = .orange
+
+        deadlineContainer.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            deadlineContainer.leadingAnchor.constraint(equalTo: ownerView.leadingAnchor),
+            deadlineContainer.trailingAnchor.constraint(equalTo: ownerView.trailingAnchor),
+            deadlineContainer.topAnchor.constraint(equalTo: topView.bottomAnchor),
+        ])
+    }
+    
+    private func deadlineLabelPreparing(_ deadlineLabel: UILabel, ownerView: UIView) {
+        print("Deadline Label Preparing...")
+        deadlineLabel.text = Titles.priority
+        deadlineLabel.font = UIFont.systemFont(ofSize: Sizes.textViewFontSize)
+        deadlineLabel.textColor = UIColor(named: AccentColors.labelPrimary)
+        
+        deadlineLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            deadlineLabel.leadingAnchor.constraint(equalTo: ownerView.leadingAnchor, constant: Sizes.marginH),
+            deadlineLabel.centerYAnchor.constraint(equalTo: ownerView.centerYAnchor),
+        ])
+    }
+    
+    private func deadlineSwitcherPreparing(_ deadlineSwitcher: UISwitch, ownerView: UIView) {
+        print("Deadline Switcher Preparing...")
+        
+        deadlineSwitcher.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            deadlineSwitcher.trailingAnchor.constraint(equalTo: ownerView.trailingAnchor, constant: -Sizes.marginH),
+            deadlineSwitcher.topAnchor.constraint(equalTo: ownerView.topAnchor, constant: Sizes.marginV_10),
+            deadlineSwitcher.bottomAnchor.constraint(equalTo: ownerView.bottomAnchor, constant: -Sizes.marginV_10),
+        ])
+    }
+}
+
 
 // MARK: - UITextViewDelegate
 extension TodoItemViewController: UITextViewDelegate {
