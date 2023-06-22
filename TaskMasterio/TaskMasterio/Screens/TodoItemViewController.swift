@@ -9,9 +9,23 @@ import UIKit
 
 final class TodoItemViewController: UIViewController {
     
+    let taskTitle = "Дело"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .orange
+        
+        view.backgroundColor = .systemBackground
+        
+        prepareNavigationBar()
+    }
+    
+    private func prepareNavigationBar() {
+        if let navigationController = self.navigationController {
+            title = taskTitle
+            navigationController.navigationBar.barStyle = .default
+            
+            
+        }
     }
 }

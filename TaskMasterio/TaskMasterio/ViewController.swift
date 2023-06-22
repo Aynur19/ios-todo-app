@@ -12,7 +12,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         
         addTestButton()
     }
@@ -21,6 +21,7 @@ class ViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle("Show Task View", for: .normal)
         button.addTarget(self, action: #selector(testButtonTapped), for: .touchUpInside)
+//        button.tintColor = UIColor(named: "Themes") // using AssentsColor
         
         view.addSubview(button)
         
@@ -35,10 +36,10 @@ class ViewController: UIViewController {
     }
     
     @objc func testButtonTapped() {
-        let todoItemViewController = TodoItemViewController()
-        todoItemViewController.modalPresentationStyle = .automatic
-        
-        present(todoItemViewController, animated: true, completion: nil)
+        let todoItemNavigationController = UINavigationController(rootViewController: TodoItemViewController())
+
+        todoItemNavigationController.modalPresentationStyle = .automatic
+        present(todoItemNavigationController, animated: true, completion: nil)
     }
 }
 
