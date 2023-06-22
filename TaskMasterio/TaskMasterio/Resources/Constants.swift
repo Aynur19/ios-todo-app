@@ -7,6 +7,10 @@
 
 import Foundation
 
+enum Values {
+    static let taskDescriptionPlacholder = "Что надо сделать?"
+}
+
 enum Titles {
     static let cancelButton = "Отменить"
     static let saveButton = "Сохранить"

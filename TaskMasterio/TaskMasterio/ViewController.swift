@@ -38,7 +38,6 @@ class ViewController: UIViewController {
     @objc func testButtonTapped() {
         let todoItemNavigationController = UINavigationController(rootViewController: TodoItemViewController())
 
-        todoItemNavigationController.modalPresentationStyle = .automatic
         present(todoItemNavigationController, animated: true, completion: nil)
     }
 }

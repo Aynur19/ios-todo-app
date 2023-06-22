@@ -7,35 +7,18 @@
 
 import UIKit
 
-final class TodoItemViewController: UIViewController, UITextViewDelegate {
+final class TodoItemViewController: UIViewController {
     
     let taskTitle = "Дело"
     
-    private var scrollView: UIScrollView?
-    private var taskDescriptionView: UITextView?
+    private let scrollView = UIScrollView()
+    private let descriptionView = UITextView()
+    private let descriptionPlaceholder = UILabel()
     
-    @IBOutlet private weak var taskDescriptionViewHeightConstraint: NSLayoutConstraint!
-    
-    private func updateTextViewHeight() {
-        if let descriptionView = taskDescriptionView {
-            let contentSize = descriptionView.sizeThatFits(descriptionView.bounds.size)
-            let newSize = contentSize.height > Sizes.textViewMinHeight ? contentSize.height : Sizes.textViewMinHeight
-            taskDescriptionViewHeightConstraint.constant = newSize
-        }
-    }
-    
-    func textViewDidChange(_ textView: UITextView) {
-        updateTextViewHeight()
-        //            scrollView.contentSize = CGSize(width: scrollView.bounds.width, height: textViewHeightConstraint.constant)
-        
-    }
+    private let deleteButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
-        
         view.backgroundColor = UIColor(named: AccentColors.backPrimary)
         
         prepareNavigationBar()
@@ -63,55 +46,87 @@ final class TodoItemViewController: UIViewController, UITextViewDelegate {
     @objc func saveButtonTapped() { }
     
     private func prepareContent() {
-        let scrollView = UIScrollView()
-        view.addSubview(scrollView)
+        prepareScrollView()
+        prepareDescriptionView()
+        prepareDescriptionPlaceholder()
         
-        let taskDescriptionView = getTaskDescriptionView()
-        scrollView.addSubview(taskDescriptionView)
-        
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        taskDescriptionView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
-            taskDescriptionView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: Sizes.marginH),
-            taskDescriptionView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -Sizes.marginH),
-            taskDescriptionView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: Sizes.marginH),
-            taskDescriptionView.bottomAnchor.constraint(lessThanOrEqualTo: scrollView.bottomAnchor, constant: -Sizes.marginH),
-            
-            taskDescriptionView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -Sizes.margin2xH),
-        ])
-        
-        self.taskDescriptionView = taskDescriptionView
-        self.scrollView = scrollView
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(textDidChange),
+                                               name: UITextView.textDidChangeNotification, object: nil)
+        updatePlaceholderVisibility()
     }
     
-    private func getTaskDescriptionView() -> UITextView {
-        let textView = UITextView()
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    private func prepareScrollView() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(descriptionView)
         
-        textView.font = UIFont.systemFont(ofSize: Sizes.textViewFontSize)
-        textView.tintColor = UIColor(named: AccentColors.backSecondary)
-        textView.text = "Что надо сделать?"
-        textView.layer.cornerRadius = Sizes.textViewCornerRadius
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+        ])
+    }
+    
+    private func prepareDescriptionView() {
+        descriptionView.font = UIFont.systemFont(ofSize: Sizes.textViewFontSize)
+        descriptionView.tintColor = UIColor(named: AccentColors.backSecondary)
+        descriptionView.layer.cornerRadius = Sizes.textViewCornerRadius
+        descriptionView.textColor = UIColor(named: AccentColors.labelPrimary)
+        descriptionView.isScrollEnabled = false
+        descriptionView.textContainerInset = UIEdgeInsets(top: Sizes.marginV, left: Sizes.marginH,
+                                                          bottom: Sizes.marginH, right: Sizes.marginH)
+        descriptionView.delegate = self
         
-        textView.textContainerInset = UIEdgeInsets(top: Sizes.marginV, left: Sizes.marginH,
-                                                   bottom: Sizes.marginH, right: Sizes.marginH)
+        descriptionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            descriptionView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: Sizes.marginH),
+            descriptionView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -Sizes.marginH),
+            descriptionView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: Sizes.marginH),
+            
+            descriptionView.heightAnchor.constraint(greaterThanOrEqualToConstant: Sizes.textViewMinHeight),
+            descriptionView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -Sizes.margin2xH),
+        ])
         
-        textView.delegate = self
+        descriptionView.clipsToBounds = true
+        descriptionView.addSubview(descriptionPlaceholder)
+    }
+    
+    private func prepareDescriptionPlaceholder() {
+        descriptionPlaceholder.font = UIFont.systemFont(ofSize: Sizes.textViewFontSize)
+        descriptionPlaceholder.tintColor = UIColor(named: AccentColors.backSecondary)
+        descriptionPlaceholder.text = Values.taskDescriptionPlacholder
+        descriptionPlaceholder.textColor = UIColor(named: AccentColors.labelTertiary)
         
-        let textViewHeightConstraint = textView.heightAnchor
-            .constraint(equalToConstant: Sizes.textViewMinHeight)
-            .with(priority: .defaultLow)
-        textViewHeightConstraint.isActive = true
+        descriptionPlaceholder.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            descriptionPlaceholder.leadingAnchor.constraint(equalTo: descriptionView.leadingAnchor, constant: Sizes.marginH),
+            descriptionPlaceholder.trailingAnchor.constraint(equalTo: descriptionView.trailingAnchor, constant: -Sizes.marginH),
+            descriptionPlaceholder.topAnchor.constraint(equalTo: descriptionView.topAnchor, constant: Sizes.marginV),
+        ])
         
-        self.taskDescriptionViewHeightConstraint = textViewHeightConstraint
-        
-        return textView
     }
 }
 
+// MARK: - UITextViewDelegate
+extension TodoItemViewController: UITextViewDelegate {
+    @objc private func textDidChange() {
+        updatePlaceholderVisibility()
+    }
+    
+    private func updatePlaceholderVisibility() {
+        descriptionPlaceholder.isHidden = !descriptionView.text.isEmpty
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        updatePlaceholderVisibility()
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        updatePlaceholderVisibility()
+    }
+}
