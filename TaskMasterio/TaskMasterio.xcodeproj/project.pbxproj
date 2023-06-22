@@ -12,6 +12,7 @@
 		9858714F2A43311F00066B2E /* FileCache.Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9858714E2A43311F00066B2E /* FileCache.Errors.swift */; };
 		985871582A443A5700066B2E /* TodoItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985871572A443A5700066B2E /* TodoItemViewController.swift */; };
 		9858715B2A444D9800066B2E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9858715A2A444D9800066B2E /* Constants.swift */; };
+		9858715D2A44557700066B2E /* NSLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9858715C2A44557700066B2E /* NSLayoutConstraint.swift */; };
 		98BE0E7F2A3CD61B00EE3B7C /* JsonParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BE0E7E2A3CD61B00EE3B7C /* JsonParser.swift */; };
 		98BE0E812A3CD65300EE3B7C /* TodoItem.JsonParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BE0E802A3CD65300EE3B7C /* TodoItem.JsonParser.swift */; };
 		98BE0E832A3CE3DC00EE3B7C /* TodoItem_JsonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BE0E822A3CE3DC00EE3B7C /* TodoItem_JsonTests.swift */; };
@@ -56,6 +57,7 @@
 		9858714E2A43311F00066B2E /* FileCache.Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCache.Errors.swift; sourceTree = "<group>"; };
 		985871572A443A5700066B2E /* TodoItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemViewController.swift; sourceTree = "<group>"; };
 		9858715A2A444D9800066B2E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		9858715C2A44557700066B2E /* NSLayoutConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraint.swift; sourceTree = "<group>"; };
 		98BE0E7E2A3CD61B00EE3B7C /* JsonParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonParser.swift; sourceTree = "<group>"; };
 		98BE0E802A3CD65300EE3B7C /* TodoItem.JsonParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.JsonParser.swift; sourceTree = "<group>"; };
 		98BE0E822A3CE3DC00EE3B7C /* TodoItem_JsonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem_JsonTests.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 			children = (
 				98CE2A1E2A3C83F900554B7A /* DateExt.swift */,
 				98CE2A202A3C9A8900554B7A /* StringExt.swift */,
+				9858715C2A44557700066B2E /* NSLayoutConstraint.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -373,6 +376,7 @@
 				98F283562A3B7E060008A526 /* DataCashe.swift in Sources */,
 				9858715B2A444D9800066B2E /* Constants.swift in Sources */,
 				98F2834D2A359C7C0008A526 /* TodoItem.swift in Sources */,
+				9858715D2A44557700066B2E /* NSLayoutConstraint.swift in Sources */,
 				98CE2A212A3C9A8900554B7A /* StringExt.swift in Sources */,
 				98CE2A1C2A3C7FB800554B7A /* CsvParser.swift in Sources */,
 				98BE0E7F2A3CD61B00EE3B7C /* JsonParser.swift in Sources */,
