@@ -20,7 +20,7 @@ final class TodoItemViewController: UIViewController, UITextViewDelegate {
         super.viewDidLoad()
         
         
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(named: AccentColors.backPrimary)
         
         prepareNavigationBar()
         prepareContent()
@@ -82,7 +82,7 @@ final class TodoItemViewController: UIViewController, UITextViewDelegate {
         let textView = UITextView()
         
         textView.font = UIFont.systemFont(ofSize: 17)
-        textView.tintColor = .black
+        textView.tintColor = UIColor(named: AccentColors.backSecondary)
         textView.text = "Что надо сделать?"
         textView.delegate = self
         
