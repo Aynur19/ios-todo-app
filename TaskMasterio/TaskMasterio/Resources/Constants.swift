@@ -15,14 +15,16 @@ enum Titles {
     static let cancel = "Отменить"
     static let save = "Сохранить"
     static let delete = "Удалить"
+    static let priority = "Важность"
 }
 
 enum Sizes {
     static let zero: CGFloat = 0
-    static let marginV: CGFloat = 12    // margin vertically
-    static let marginH: CGFloat = 16    // margin horizontally
-    static let marginTxB: CGFloat = 16  // margin between top and bottom
-    static let margin2xH = 2 * marginH  // margin of 2 horizontally
+    static let marginV: CGFloat = 12        // margin vertically
+    static let marginV_10: CGFloat = 10     // margin vertically
+    static let marginH: CGFloat = 16        // margin horizontally
+    static let marginTxB: CGFloat = 16      // margin between top and bottom
+    static let margin2xH = 2 * marginH      // margin of 2 horizontally
     
     static let textViewMinHeight: CGFloat = 120
     static let textViewFontSize: CGFloat = 17
