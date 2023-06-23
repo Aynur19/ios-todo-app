@@ -263,7 +263,7 @@ final class TodoItemViewController: UIViewController {
     }
     
     @objc func onDeadlineDateLabelTapped() {
-        updateDeadlineCalendarVisibility(isHidden: false)
+        updateDeadlineCalendarVisibility(isHidden: !deadlineDatePicker.isHidden)
     }
     
     @objc func onDeadlineDateChanged(_ sender: UIDatePicker) {
