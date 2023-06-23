@@ -17,6 +17,7 @@ enum Values {
 }
 
 enum Titles {
+    static let task = "Дело"
     static let cancel = "Отменить"
     static let save = "Сохранить"
     static let delete = "Удалить"

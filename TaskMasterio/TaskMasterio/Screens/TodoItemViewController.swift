@@ -8,8 +8,6 @@
 import UIKit
 
 final class TodoItemViewController: UIViewController {
-    let taskTitle = "Дело"
-    
     var task: TodoItem!
     
     private var taskIsModified = false {
@@ -71,7 +69,6 @@ final class TodoItemViewController: UIViewController {
         descriptionView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
         
         updatePlaceholderVisibility()
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -105,7 +102,7 @@ final class TodoItemViewController: UIViewController {
     private func navigationBarPreparing() {
         print("Navigation Bar Preparing...")
         if let navigationController = self.navigationController {
-            title = taskTitle
+            title = Titles.task
             navigationController.navigationBar.barStyle = .default
             
             cancelButton = UIBarButtonItem(title: Titles.cancel, style: .plain, target: self, action: #selector(cancelButtonTapped))
@@ -239,15 +236,14 @@ final class TodoItemViewController: UIViewController {
             deadlineStackView.topAnchor.constraint(equalTo: deadlineContainer.topAnchor, constant: Sizes.marginH),
             deadlineStackView.bottomAnchor.constraint(equalTo: deadlineContainer.bottomAnchor, constant: -Sizes.marginH),
             
+            // deadline labels container
             deadlineLabelContainer.centerYAnchor.constraint(equalTo: deadlineStackView.centerYAnchor),
             
             // deadline label
-//            deadlineLabel.centerYAnchor.constraint(equalTo: deadlineStackView.centerYAnchor),
             deadlineLabel.leadingAnchor.constraint(equalTo: deadlineLabelContainer.leadingAnchor),
             deadlineLabel.topAnchor.constraint(equalTo: deadlineLabelContainer.topAnchor),
             
-            // deadline label
-//            deadlineLabel.centerYAnchor.constraint(equalTo: deadlineStackView.centerYAnchor),
+            // deadline date label
             deadlineDateLabel.leadingAnchor.constraint(equalTo: deadlineLabelContainer.leadingAnchor),
             deadlineDateLabel.topAnchor.constraint(equalTo: deadlineLabel.bottomAnchor),
             
@@ -264,7 +260,6 @@ final class TodoItemViewController: UIViewController {
             deleteButton.heightAnchor.constraint(equalToConstant: Sizes.deleteButtonHeight),
         ])
     }
-    
     
     private func getContentScrollView() -> UIScrollView {
         let scrollView = UIScrollView()
@@ -409,7 +404,7 @@ final class TodoItemViewController: UIViewController {
     
     private func getDeadlineDateLabel() -> UILabel {
         let label = UILabel()
-        label.text = "test"
+        label.text = ""
         label.font = Fonts.sfPro_13
         label.textColor = UIColor(named: AccentColors.colorBlue)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -435,6 +430,8 @@ final class TodoItemViewController: UIViewController {
         datePicker.isHidden = true
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         
+        datePicker.addTarget(self, action: #selector(onDeadlineDateChanged(_:)), for: .valueChanged)
+        
         return datePicker
     }
     
@@ -452,10 +449,18 @@ final class TodoItemViewController: UIViewController {
     
     @objc func deadlineSwitched(_ sender: UISwitch) {
         deadlineDatePicker.isHidden = !sender.isOn
+        deadlineDateLabel.text = ""
     }
     
     @objc func onDeadlineDateLabelTapped() {
         deadlineDatePicker.isHidden = false
+    }
+    
+    @objc func onDeadlineDateChanged(_ sender: UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "d MMMM yyyy"
+        
+        deadlineDateLabel.text = dateFormatter.string(from: sender.date)
     }
 }
 
