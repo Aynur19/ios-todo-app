@@ -42,6 +42,8 @@ final class TodoItemViewController: UIViewController {
     private let deadlineLabelContainer = UIView()
     private let deadlineLabel = UILabel()
     private let deadlineDateLabel = UILabel()
+    
+    private let deadlineCalendarSeparator = UIView()
     private let deadlineDatePicker = UIDatePicker()
     
     private let deleteButton = UIButton(type: .system)
@@ -146,6 +148,7 @@ final class TodoItemViewController: UIViewController {
         deadlineLabelContainer.addSubview(buildDeadlineLabel(deadlineLabel))
         deadlineLabelContainer.addSubview(buildDeadlineDateLabel(deadlineDateLabel))
         
+        optionsStackView.addArrangedSubview(buildDeadlineCalendarSeparator(deadlineCalendarSeparator))
         optionsStackView.addArrangedSubview(buildDeadlineDatePicker(deadlineDatePicker))
         contentStackView.addArrangedSubview(buildDeleteButton(deleteButton))
     }
@@ -223,6 +226,11 @@ final class TodoItemViewController: UIViewController {
             // deadline switcher
             deadlineSwitcher.centerYAnchor.constraint(equalTo: deadlineStackView.centerYAnchor),
             
+            // separator between deadline switcher and deadline date picker
+            deadlineCalendarSeparator.heightAnchor.constraint(equalToConstant: Sizes.separatorW).with(priority: .defaultHigh),
+            deadlineCalendarSeparator.widthAnchor.constraint(equalTo: optionsStackView.widthAnchor, constant: -Sizes.margin2xH),
+            deadlineCalendarSeparator.centerXAnchor.constraint(equalTo: optionsStackView.centerXAnchor),
+            
             // date picker
             deadlineDatePicker.centerXAnchor.constraint(equalTo: optionsStackView.centerXAnchor),
             deadlineDatePicker.widthAnchor.constraint(equalTo: optionsStackView.widthAnchor, multiplier: 1),
@@ -240,15 +248,22 @@ final class TodoItemViewController: UIViewController {
         deadlineDateLabel.isUserInteractionEnabled = true
         
         deadlineDatePicker.addTarget(self, action: #selector(onDeadlineDateChanged(_:)), for: .valueChanged)
+        
+        updateDeadlineCalendarVisibility()
+    }
+    
+    private func updateDeadlineCalendarVisibility(isHidden: Bool = true) {
+        deadlineCalendarSeparator.isHidden = isHidden
+        deadlineDatePicker.isHidden = isHidden
     }
     
     @objc func deadlineSwitched(_ sender: UISwitch) {
-        deadlineDatePicker.isHidden = !sender.isOn
+        updateDeadlineCalendarVisibility(isHidden: !sender.isOn)
         deadlineDateLabel.text = ""
     }
     
     @objc func onDeadlineDateLabelTapped() {
-        deadlineDatePicker.isHidden = false
+        updateDeadlineCalendarVisibility(isHidden: false)
     }
     
     @objc func onDeadlineDateChanged(_ sender: UIDatePicker) {

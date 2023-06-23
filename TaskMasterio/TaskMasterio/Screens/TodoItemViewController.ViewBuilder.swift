@@ -164,6 +164,14 @@ extension TodoItemViewController {
         return switcher
     }
     
+    func buildDeadlineCalendarSeparator(_ separator: UIView) -> UIView {
+        separator.backgroundColor = UIColor(named: AccentColors.supportSeparator)
+        separator.translatesAutoresizingMaskIntoConstraints = false
+        separator.isHidden = true
+        
+        return separator
+    }
+    
     func buildDeadlineDatePicker(_ datePicker: UIDatePicker) -> UIDatePicker {
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .inline
