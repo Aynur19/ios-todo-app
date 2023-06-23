@@ -191,7 +191,7 @@ final class TodoItemViewController: UIViewController {
             
             // options stack view
             optionsStackView.centerXAnchor.constraint(equalTo: contentStackView.centerXAnchor),
-            optionsStackView.widthAnchor.constraint(equalTo: contentStackView.widthAnchor, constant: -Sizes.margin2xH),
+            optionsStackView.widthAnchor.constraint(equalTo: contentStackView.widthAnchor),
             
             // priority container
             priorityContainer.widthAnchor.constraint(equalTo: optionsStackView.widthAnchor),
