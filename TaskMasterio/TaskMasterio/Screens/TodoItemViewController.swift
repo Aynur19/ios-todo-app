@@ -162,7 +162,7 @@ final class TodoItemViewController: UIViewController {
         deadlineStackView.addArrangedSubview(deadlineSwitcher)
         
         optionsStackView.addArrangedSubview(deadlineDatePicker)
-        optionsStackView.addArrangedSubview(deleteButton)
+        contentStackView.addArrangedSubview(deleteButton)
     }
     
     private func settingConstraints() {
@@ -368,7 +368,7 @@ final class TodoItemViewController: UIViewController {
     
     private func getDeadlineLabel() -> UILabel {
         let label = UILabel()
-        label.text = Titles.priority
+        label.text = Titles.deadline
         label.font = UIFont.systemFont(ofSize: Sizes.textViewFontSize)
         label.textColor = UIColor(named: AccentColors.labelPrimary)
         label.translatesAutoresizingMaskIntoConstraints = false
