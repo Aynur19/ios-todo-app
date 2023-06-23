@@ -111,6 +111,7 @@ final class TodoItemViewController: UIViewController {
         
         scrollView.addSubview(contentStackView)
         contentStackView.addArrangedSubview(descriptionView)
+        contentStackView.addArrangedSubview(deleteButton)
         
         descriptionView.addSubview(descriptionPlaceholder)
         
@@ -119,6 +120,8 @@ final class TodoItemViewController: UIViewController {
         
         descriptionViewPreparing(descriptionView, ownerView: contentStackView)
         descriptionPlaceholderPreparing(descriptionPlaceholder, ownerView: descriptionView)
+        
+        deleteButtonPreparing(deleteButton, ownerView: contentStackView, topView: descriptionView)
         //        contentStackView.addArrangedSubview(deleteButton)
         //        contentStackView.addArrangedSubview(optionsStackView)
         //        contentStackView.addArrangedSubview(deleteButton)
@@ -179,6 +182,7 @@ final class TodoItemViewController: UIViewController {
     
     private func contentStackViewPreparing(_ contentStackView: UIStackView, ownerView: UIView) {
         contentStackView.axis = .vertical
+        contentStackView.spacing = 16
         //        contentStackView.clipsToBounds = true
         
         contentStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -275,13 +279,13 @@ final class TodoItemViewController: UIViewController {
         
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            deleteButton.leadingAnchor.constraint(equalTo: ownerView.leadingAnchor, constant: Sizes.marginH),
-            deleteButton.trailingAnchor.constraint(equalTo: ownerView.trailingAnchor, constant: -Sizes.marginH),
+            deleteButton.leadingAnchor.constraint(equalTo: ownerView.leadingAnchor),
+            deleteButton.trailingAnchor.constraint(equalTo: ownerView.trailingAnchor),
             //            deleteButton.bottomAnchor.constraint(lessThanOrEqualTo: ownerView.bottomAnchor, constant: Sizes.zero),
-            deleteButton.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: Sizes.marginTxB),
+//            deleteButton.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: Sizes.marginTxB),
             
             deleteButton.heightAnchor.constraint(equalToConstant: Sizes.deleteButtonHeight),
-            deleteButton.widthAnchor.constraint(equalTo: ownerView.widthAnchor, constant: -Sizes.margin2xH),
+//            deleteButton.widthAnchor.constraint(equalTo: ownerView.widthAnchor, constant: -Sizes.margin2xH),
         ])
     }
 }
