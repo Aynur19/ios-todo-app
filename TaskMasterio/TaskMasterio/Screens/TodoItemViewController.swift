@@ -51,9 +51,9 @@ final class TodoItemViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: AccentColors.backPrimary)
         
-//        if task == nil {
-//            task = TodoItem(text: "Первая задача", priority: .)
-//        }
+        //        if task == nil {
+        //            task = TodoItem(text: "Первая задача", priority: .)
+        //        }
         
         navigationBarPreparing()
         contentPreparing(view)
@@ -67,7 +67,7 @@ final class TodoItemViewController: UIViewController {
         descriptionView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
         
         updatePlaceholderVisibility()
-    
+        
     }
     
     deinit {
@@ -121,9 +121,9 @@ final class TodoItemViewController: UIViewController {
         
         descriptionView = getDescriptionView()
         descriptionPlaceholder = getDescriptionPlaceholder()
-
+        
         optionsStackView = getOptionsStackView()
-
+        
         priorityContainer = getPriorityContainer()
         priorityStackView = getPriorityStackView()
         priorityLabel = getPriorityLabel()
@@ -240,7 +240,7 @@ final class TodoItemViewController: UIViewController {
             deleteButton.heightAnchor.constraint(equalToConstant: Sizes.deleteButtonHeight),
         ])
     }
-
+    
     
     private func getContentScrollView() -> UIScrollView {
         let scrollView = UIScrollView()
@@ -320,10 +320,23 @@ final class TodoItemViewController: UIViewController {
     }
     
     private func getPrioritySegmentedControl() -> UISegmentedControl {
+        
         let segmentedControl = UISegmentedControl()
-        segmentedControl.insertSegment(with: UIImage(named: Values.priorityLow), at: 0, animated: false)
+        let low = UIImage(named: Priority.low.rawValue)?
+            .withTintColor(UIColor(named: AccentColors.colorGrey) ?? .gray, renderingMode: .alwaysOriginal)
+        let high = UIImage(named: Priority.high.rawValue)?
+            .withTintColor(UIColor(named: AccentColors.colorRed) ?? .red, renderingMode: .alwaysOriginal)
+        
+        segmentedControl.insertSegment(with: low, at: 0, animated: false)
         segmentedControl.insertSegment(withTitle: Values.priorityMedium, at: 1, animated: false)
-        segmentedControl.insertSegment(with: UIImage(named: Values.priorityHigh), at: 2, animated: false)
+        segmentedControl.insertSegment(with: high, at: 2, animated: false)
+        
+        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: Fonts.sfPro_15], for: .normal)
+        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: Fonts.sfPro_15], for: .selected)
+        
+        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor(named: AccentColors.labelPrimary) ?? .label], for: .normal)
+        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor(named: AccentColors.labelPrimary) ?? .label], for: .selected)
+        
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         
         return segmentedControl

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum Values {
     static let taskDescriptionPlacholder = "Что надо сделать?"
@@ -56,4 +57,9 @@ enum AccentColors {
     static let supportOverlay = "Support Overlay"
     static let supportSeparator = "Support Separator"
     
+}
+
+enum Fonts {
+    static let sfPro_15 = UIFont(name: "SF Pro", size: 15) ?? UIFont.systemFont(ofSize: 15)
+    static let sfPro_17 = UIFont(name: "SF Pro", size: 17) ?? UIFont.systemFont(ofSize: 17)
 }
