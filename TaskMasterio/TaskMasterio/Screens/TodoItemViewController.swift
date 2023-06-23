@@ -41,7 +41,9 @@ final class TodoItemViewController: UIViewController {
     private var deadlineContainer: UIView!
     private var deadlineStackView: UIStackView!
     private var deadlineSwitcher: UISwitch!
+    private var deadlineLabelContainer: UIView!
     private var deadlineLabel: UILabel!
+    private var deadlineDateLabel: UILabel!
     private var deadlineDatePicker: UIDatePicker!
     
     private var deleteButton: UIButton! //(type: .system)
@@ -133,7 +135,9 @@ final class TodoItemViewController: UIViewController {
         
         deadlineContainer = getDeadlineContainer()
         deadlineStackView = getDeadlineStackView()
+        deadlineLabelContainer = getDeadlineLabelContainer()
         deadlineLabel = getDeadlineLabel()
+        deadlineDateLabel = getDeadlineDateLabel()
         deadlineSwitcher = getDeadlineSwitcher()
         deadlineDatePicker = getDeadlineDatePicker()
         
@@ -158,8 +162,11 @@ final class TodoItemViewController: UIViewController {
         
         optionsStackView.addArrangedSubview(deadlineContainer)
         deadlineContainer.addSubview(deadlineStackView)
-        deadlineStackView.addArrangedSubview(deadlineLabel)
+        deadlineStackView.addArrangedSubview(deadlineLabelContainer)
         deadlineStackView.addArrangedSubview(deadlineSwitcher)
+        
+        deadlineLabelContainer.addSubview(deadlineLabel)
+        deadlineLabelContainer.addSubview(deadlineDateLabel)
         
         optionsStackView.addArrangedSubview(deadlineDatePicker)
         contentStackView.addArrangedSubview(deleteButton)
@@ -224,8 +231,17 @@ final class TodoItemViewController: UIViewController {
             deadlineStackView.topAnchor.constraint(equalTo: deadlineContainer.topAnchor, constant: Sizes.marginH),
             deadlineStackView.bottomAnchor.constraint(equalTo: deadlineContainer.bottomAnchor, constant: -Sizes.marginH),
             
+            deadlineLabelContainer.centerYAnchor.constraint(equalTo: deadlineStackView.centerYAnchor),
+            
             // deadline label
-            deadlineLabel.centerYAnchor.constraint(equalTo: deadlineStackView.centerYAnchor),
+//            deadlineLabel.centerYAnchor.constraint(equalTo: deadlineStackView.centerYAnchor),
+            deadlineLabel.leadingAnchor.constraint(equalTo: deadlineLabelContainer.leadingAnchor),
+            deadlineLabel.topAnchor.constraint(equalTo: deadlineLabelContainer.topAnchor),
+            
+            // deadline label
+//            deadlineLabel.centerYAnchor.constraint(equalTo: deadlineStackView.centerYAnchor),
+            deadlineDateLabel.leadingAnchor.constraint(equalTo: deadlineLabelContainer.leadingAnchor),
+            deadlineDateLabel.topAnchor.constraint(equalTo: deadlineLabel.bottomAnchor),
             
             // deadline switcher
             deadlineSwitcher.centerYAnchor.constraint(equalTo: deadlineStackView.centerYAnchor),
@@ -366,11 +382,28 @@ final class TodoItemViewController: UIViewController {
         return stackView
     }
     
+    private func getDeadlineLabelContainer() -> UIView {
+        let container = UIView()
+        container.translatesAutoresizingMaskIntoConstraints = false
+        
+        return container
+    }
+    
     private func getDeadlineLabel() -> UILabel {
         let label = UILabel()
         label.text = Titles.deadline
         label.font = UIFont.systemFont(ofSize: Sizes.textViewFontSize)
         label.textColor = UIColor(named: AccentColors.labelPrimary)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }
+    
+    private func getDeadlineDateLabel() -> UILabel {
+        let label = UILabel()
+        label.text = "test"
+        label.font = Fonts.sfPro_13
+        label.textColor = UIColor(named: AccentColors.colorBlue)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -387,6 +420,7 @@ final class TodoItemViewController: UIViewController {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .inline
+        datePicker.isHidden = true
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         
         return datePicker
