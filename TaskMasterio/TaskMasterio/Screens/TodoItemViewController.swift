@@ -164,8 +164,6 @@ final class TodoItemViewController: UIViewController {
     
     private func scrollViewPreparing(_ scrollView: UIScrollView, ownerView: UIView) {
         print("Scroll View Preparing...")
-        //        scrollView.showsHorizontalScrollIndicator = false
-        //        scrollView.isScrollEnabled = false
         
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -175,26 +173,20 @@ final class TodoItemViewController: UIViewController {
             scrollView.bottomAnchor.constraint(equalTo: ownerView.safeAreaLayoutGuide.bottomAnchor),
             
             scrollView.heightAnchor.constraint(greaterThanOrEqualTo: ownerView.safeAreaLayoutGuide.heightAnchor),
-            
-            //            scrollView.heightAnchor.constraint(equalTo: contentStackView.safeAreaLayoutGuide.heightAnchor),
         ])
     }
     
     private func contentStackViewPreparing(_ contentStackView: UIStackView, ownerView: UIView) {
         contentStackView.axis = .vertical
         contentStackView.spacing = 16
-        //        contentStackView.clipsToBounds = true
         
         contentStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             contentStackView.centerXAnchor.constraint(equalTo: ownerView.centerXAnchor),
-            //            contentStackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: Sizes.marginH),
-            //            contentStackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+
             contentStackView.topAnchor.constraint(equalTo: ownerView.topAnchor),
             contentStackView.bottomAnchor.constraint(equalTo: ownerView.bottomAnchor),
             
-            
-            //            contentStackView.heightAnchor.constraint(greaterThanOrEqualTo: ownerView.heightAnchor),
             contentStackView.widthAnchor.constraint(equalTo: ownerView.widthAnchor, constant: -Sizes.margin2xH),
         ])
     }
@@ -210,15 +202,13 @@ final class TodoItemViewController: UIViewController {
         descriptionView.textContainerInset = UIEdgeInsets(top: Sizes.marginV, left: Sizes.marginH,
                                                           bottom: Sizes.marginH, right: Sizes.marginH)
         
-        //        descriptionView.clipsToBounds = true
         descriptionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            descriptionView.leadingAnchor.constraint(equalTo: ownerView.leadingAnchor),// constant: Sizes.marginH),
-            descriptionView.trailingAnchor.constraint(equalTo: ownerView.trailingAnchor),// constant: -Sizes.marginH),
-            //            descriptionView.topAnchor.constraint(equalTo: ownerView.topAnchor, constant: Sizes.marginTxB),
+            descriptionView.leadingAnchor.constraint(equalTo: ownerView.leadingAnchor),
+            descriptionView.trailingAnchor.constraint(equalTo: ownerView.trailingAnchor),
             
             descriptionView.heightAnchor.constraint(greaterThanOrEqualToConstant: Sizes.textViewMinHeight),
-            descriptionView.widthAnchor.constraint(equalTo: ownerView.widthAnchor),// constant: -Sizes.margin2xH),
+            descriptionView.widthAnchor.constraint(equalTo: ownerView.widthAnchor),
         ])
         
     }
@@ -281,11 +271,8 @@ final class TodoItemViewController: UIViewController {
         NSLayoutConstraint.activate([
             deleteButton.leadingAnchor.constraint(equalTo: ownerView.leadingAnchor),
             deleteButton.trailingAnchor.constraint(equalTo: ownerView.trailingAnchor),
-            //            deleteButton.bottomAnchor.constraint(lessThanOrEqualTo: ownerView.bottomAnchor, constant: Sizes.zero),
-//            deleteButton.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: Sizes.marginTxB),
             
             deleteButton.heightAnchor.constraint(equalToConstant: Sizes.deleteButtonHeight),
-//            deleteButton.widthAnchor.constraint(equalTo: ownerView.widthAnchor, constant: -Sizes.margin2xH),
         ])
     }
 }
