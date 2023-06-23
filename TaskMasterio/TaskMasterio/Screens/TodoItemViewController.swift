@@ -10,7 +10,19 @@ import UIKit
 final class TodoItemViewController: UIViewController {
     let taskTitle = "Дело"
     
+    var task: TodoItem!
+    
+    private var taskIsModified = false {
+        didSet {
+            saveButton.isEnabled = taskIsModified
+        }
+    }
+    private var taskDesciption = ""
+    
     // MARK: - UI Elements
+    private var cancelButton: UIBarButtonItem!
+    private var saveButton: UIBarButtonItem!
+    
     private var contentScrollView: UIScrollView!
     private var contentStackView: UIStackView!
     
@@ -39,6 +51,10 @@ final class TodoItemViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: AccentColors.backPrimary)
         
+//        if task == nil {
+//            task = TodoItem(text: "Первая задача", priority: .)
+//        }
+        
         navigationBarPreparing()
         contentPreparing(view)
         
@@ -51,6 +67,7 @@ final class TodoItemViewController: UIViewController {
         descriptionView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
         
         updatePlaceholderVisibility()
+    
     }
     
     deinit {
@@ -81,8 +98,10 @@ final class TodoItemViewController: UIViewController {
             title = taskTitle
             navigationController.navigationBar.barStyle = .default
             
-            let cancelButton = UIBarButtonItem(title: Titles.cancel, style: .plain, target: self, action: #selector(cancelButtonTapped))
-            let saveButton = UIBarButtonItem(title: Titles.save, style: .plain, target: self, action: #selector(saveButtonTapped))
+            cancelButton = UIBarButtonItem(title: Titles.cancel, style: .plain, target: self, action: #selector(cancelButtonTapped))
+            saveButton = UIBarButtonItem(title: Titles.save, style: .plain, target: self, action: #selector(saveButtonTapped))
+            
+            saveButton.isEnabled = taskIsModified
             
             navigationItem.leftBarButtonItem = cancelButton
             navigationItem.rightBarButtonItem = saveButton
@@ -382,6 +401,8 @@ final class TodoItemViewController: UIViewController {
 extension TodoItemViewController: UITextViewDelegate {
     @objc private func textDidChange() {
         updatePlaceholderVisibility()
+        
+        taskIsModified = descriptionPlaceholder.isHidden
     }
     
     private func updatePlaceholderVisibility() {
