@@ -272,6 +272,10 @@ final class TodoItemViewController: UIViewController {
         
         deadlineDateLabel.text = dateFormatter.string(from: sender.date)
     }
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
 }
 
 
