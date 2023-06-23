@@ -9,6 +9,10 @@ import Foundation
 
 enum Values {
     static let taskDescriptionPlacholder = "Что надо сделать?"
+    
+    static let priorityLow = "arrow.down"
+    static let priorityMedium = "нет"
+    static let priorityHigh = "exclamationmark.2"
 }
 
 enum Titles {
@@ -26,12 +30,18 @@ enum Sizes {
     static let marginH: CGFloat = 16        // margin horizontally
     static let marginTxB: CGFloat = 16      // margin between top and bottom
     static let margin2xH = 2 * marginH      // margin of 2 horizontally
+    static let spacingV: CGFloat = 16
+    static let spacingH: CGFloat = 16
+    static let separatorW: CGFloat = 1
     
     static let textViewMinHeight: CGFloat = 120
     static let textViewFontSize: CGFloat = 17
     static let cornerRadius: CGFloat = 16
     
     static let deleteButtonHeight: CGFloat = 56
+    
+    static let prioritySegmentedControlH: CGFloat = 36
+    static let prioritySegmentedControlW: CGFloat = 150
 }
 
 enum AccentColors {

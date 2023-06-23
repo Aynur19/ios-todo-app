@@ -8,7 +8,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -18,10 +18,10 @@ class ViewController: UIViewController {
     }
 
     private func addTestButton() {
+        
         let button = UIButton(type: .system)
         button.setTitle("Show Task View", for: .normal)
         button.addTarget(self, action: #selector(testButtonTapped), for: .touchUpInside)
-//        button.tintColor = .red // UIColor(named: "Themes") // using AssentsColor
         
         view.addSubview(button)
         
