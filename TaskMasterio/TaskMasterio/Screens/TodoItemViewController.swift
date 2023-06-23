@@ -21,30 +21,30 @@ final class TodoItemViewController: UIViewController {
     private var cancelButton: UIBarButtonItem!
     private var saveButton: UIBarButtonItem!
     
-    private var contentScrollView: UIScrollView!
-    private var contentStackView: UIStackView!
+    private let contentScrollView = UIScrollView()
+    private let contentStackView = UIStackView()
     
-    private var descriptionView: UITextView!
-    private var descriptionPlaceholder: UILabel!
+    private let descriptionView = UITextView()
+    private let descriptionPlaceholder = UILabel()
     
-    private var optionsStackView: UIStackView!
+    private let optionsStackView = UIStackView()
     
-    private var priorityStackView: UIStackView!
-    private var priorityContainer: UIView!
-    private var priorityLabel: UILabel!
-    private var prioritySegmentedControl: UISegmentedControl!
+    private let priorityStackView = UIStackView()
+    private let priorityContainer = UIView()
+    private let priorityLabel = UILabel()
+    private let prioritySegmentedControl = UISegmentedControl()
     
-    private var priorityAndDeadlineSeparator: UIView!
+    private let priorityAndDeadlineSeparator = UIView()
     
-    private var deadlineContainer: UIView!
-    private var deadlineStackView: UIStackView!
-    private var deadlineSwitcher: UISwitch!
-    private var deadlineLabelContainer: UIView!
-    private var deadlineLabel: UILabel!
-    private var deadlineDateLabel: UILabel!
-    private var deadlineDatePicker: UIDatePicker!
+    private let deadlineContainer = UIView()
+    private let deadlineStackView = UIStackView()
+    private let deadlineSwitcher = UISwitch()
+    private let deadlineLabelContainer = UIView()
+    private let deadlineLabel = UILabel()
+    private let deadlineDateLabel = UILabel()
+    private let deadlineDatePicker = UIDatePicker()
     
-    private var deleteButton: UIButton! //(type: .system)
+    private let deleteButton = UIButton(type: .system)
     
     private var deadlineDateLabelTapGesture: UITapGestureRecognizer!
     
@@ -117,64 +117,37 @@ final class TodoItemViewController: UIViewController {
     
     
     private func contentPreparing(_ contentView: UIView) {
-        creatingUIElements()
         buildingUIElements()
         settingConstraints()
-    }
-    
-    private func creatingUIElements() {
-        contentScrollView = getContentScrollView()
-        contentStackView = getContentStackView()
-        
-        descriptionView = getDescriptionView()
-        descriptionPlaceholder = getDescriptionPlaceholder()
-        
-        optionsStackView = getOptionsStackView()
-        
-        priorityContainer = getPriorityContainer()
-        priorityStackView = getPriorityStackView()
-        priorityLabel = getPriorityLabel()
-        prioritySegmentedControl = getPrioritySegmentedControl()
-        
-        priorityAndDeadlineSeparator = getOptionsStackSeparator()
-        
-        deadlineContainer = getDeadlineContainer()
-        deadlineStackView = getDeadlineStackView()
-        deadlineLabelContainer = getDeadlineLabelContainer()
-        deadlineLabel = getDeadlineLabel()
-        deadlineDateLabel = getDeadlineDateLabel()
-        deadlineSwitcher = getDeadlineSwitcher()
-        deadlineDatePicker = getDeadlineDatePicker()
-        
-        deleteButton = getDeleteButton()
+        configureUIEliments()
     }
     
     private func buildingUIElements() {
-        view.addSubview(contentScrollView)
-        contentScrollView.addSubview(contentStackView)
+        view.addSubview(buildContentScrollView(contentScrollView))
+        contentScrollView.addSubview(buildContentStackView(contentStackView))
         
-        contentStackView.addArrangedSubview(descriptionView)
-        descriptionView.addSubview(descriptionPlaceholder)
+        contentStackView.addArrangedSubview(buildDescriptionView(descriptionView))
+        descriptionView.addSubview(buildDescriptionPlaceholder(descriptionPlaceholder))
         
-        contentStackView.addArrangedSubview(optionsStackView)
+        contentStackView.addArrangedSubview(buildOptionsStackView(optionsStackView))
         
-        optionsStackView.addArrangedSubview(priorityContainer)
-        priorityContainer.addSubview(priorityStackView)
-        priorityStackView.addArrangedSubview(priorityLabel)
-        priorityStackView.addArrangedSubview(prioritySegmentedControl)
+        optionsStackView.addArrangedSubview(buildPriorityContainer(priorityContainer))
+        priorityContainer.addSubview(buildPriorityStackView(priorityStackView))
+        priorityStackView.addArrangedSubview(buildPriorityLabel(priorityLabel))
+        priorityStackView.addArrangedSubview(buildPrioritySegmentedControl(prioritySegmentedControl))
         
-        optionsStackView.addArrangedSubview(priorityAndDeadlineSeparator)
+        optionsStackView.addArrangedSubview(buildOptionsStackSeparator(priorityAndDeadlineSeparator))
         
-        optionsStackView.addArrangedSubview(deadlineContainer)
-        deadlineContainer.addSubview(deadlineStackView)
-        deadlineStackView.addArrangedSubview(deadlineLabelContainer)
-        deadlineStackView.addArrangedSubview(deadlineSwitcher)
+        optionsStackView.addArrangedSubview(buildDeadlineContainer(deadlineContainer))
+        deadlineContainer.addSubview(buildDeadlineStackView(deadlineStackView))
+        deadlineStackView.addArrangedSubview(buildDeadlineLabelContainer(deadlineLabelContainer))
+        deadlineStackView.addArrangedSubview(buildDeadlineSwitcher(deadlineSwitcher))
         
-        deadlineLabelContainer.addSubview(deadlineLabel)
-        deadlineLabelContainer.addSubview(deadlineDateLabel)
+        deadlineLabelContainer.addSubview(buildDeadlineLabel(deadlineLabel))
+        deadlineLabelContainer.addSubview(buildDeadlineDateLabel(deadlineDateLabel))
         
-        optionsStackView.addArrangedSubview(deadlineDatePicker)
-        contentStackView.addArrangedSubview(deleteButton)
+        optionsStackView.addArrangedSubview(buildDeadlineDatePicker(deadlineDatePicker))
+        contentStackView.addArrangedSubview(buildDeleteButton(deleteButton))
     }
     
     private func settingConstraints() {
@@ -261,190 +234,12 @@ final class TodoItemViewController: UIViewController {
         ])
     }
     
-    private func getContentScrollView() -> UIScrollView {
-        let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return scrollView
-    }
-    
-    private func getContentStackView() -> UIStackView {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.spacing = Sizes.spacingV
-        stackView.alignment = .center
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return stackView
-    }
-    
-    private func getDescriptionView() -> UITextView {
-        let textView = UITextView()
-        textView.font = UIFont.systemFont(ofSize: Sizes.textViewFontSize)
-        textView.tintColor = UIColor(named: AccentColors.backSecondary)
-        textView.layer.cornerRadius = Sizes.cornerRadius
-        textView.textColor = UIColor(named: AccentColors.labelPrimary)
-        textView.isScrollEnabled = false
-        textView.textContainerInset = UIEdgeInsets(top: Sizes.marginV, left: Sizes.marginH, bottom: Sizes.marginH, right: Sizes.marginH)
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return textView
-    }
-    
-    private func getDescriptionPlaceholder() -> UILabel {
-        let placeholder = UILabel()
-        placeholder.tintColor = UIColor(named: AccentColors.backSecondary)
-        placeholder.text = Values.taskDescriptionPlacholder
-        placeholder.textColor = UIColor(named: AccentColors.labelTertiary)
-        placeholder.translatesAutoresizingMaskIntoConstraints = false
-        
-        return placeholder
-    }
-    
-    private func getOptionsStackView() -> UIStackView {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.alignment = .center
-        stackView.backgroundColor = .white
-        stackView.layer.cornerRadius = Sizes.cornerRadius
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return stackView
-    }
-    
-    private func getPriorityContainer() -> UIView {
-        let container = UIView()
-        container.translatesAutoresizingMaskIntoConstraints = false
-        
-        return container
-    }
-    
-    private func getPriorityStackView() -> UIStackView {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = Sizes.spacingH
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return stackView
-    }
-    
-    private func getPriorityLabel() -> UILabel {
-        let label = UILabel()
-        label.text = Titles.priority
-        label.font = UIFont.systemFont(ofSize: Sizes.textViewFontSize)
-        label.textColor = UIColor(named: AccentColors.labelPrimary)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
-        return label
-    }
-    
-    private func getPrioritySegmentedControl() -> UISegmentedControl {
-        
-        let segmentedControl = UISegmentedControl()
-        let low = UIImage(named: Priority.low.rawValue)?
-            .withTintColor(UIColor(named: AccentColors.colorGrey) ?? .gray, renderingMode: .alwaysOriginal)
-        let high = UIImage(named: Priority.high.rawValue)?
-            .withTintColor(UIColor(named: AccentColors.colorRed) ?? .red, renderingMode: .alwaysOriginal)
-        
-        segmentedControl.insertSegment(with: low, at: 0, animated: false)
-        segmentedControl.insertSegment(withTitle: Values.priorityMedium, at: 1, animated: false)
-        segmentedControl.insertSegment(with: high, at: 2, animated: false)
-        
-        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: Fonts.sfPro_15], for: .normal)
-        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: Fonts.sfPro_15], for: .selected)
-        
-        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor(named: AccentColors.labelPrimary) ?? .label], for: .normal)
-        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor(named: AccentColors.labelPrimary) ?? .label], for: .selected)
-        
-        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        
-        return segmentedControl
-    }
-    
-    private func getOptionsStackSeparator() -> UIView {
-        let separator = UIView()
-        separator.backgroundColor = UIColor(named: AccentColors.supportSeparator)
-        separator.translatesAutoresizingMaskIntoConstraints = false
-        
-        return separator
-    }
-    
-    private func getDeadlineContainer() -> UIView {
-        let container = UIView()
-        container.translatesAutoresizingMaskIntoConstraints = false
-        
-        return container
-    }
-    
-    private func getDeadlineStackView() -> UIStackView {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = Sizes.spacingV
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return stackView
-    }
-    
-    private func getDeadlineLabelContainer() -> UIView {
-        let container = UIView()
-        container.translatesAutoresizingMaskIntoConstraints = false
-        
-        return container
-    }
-    
-    private func getDeadlineLabel() -> UILabel {
-        let label = UILabel()
-        label.text = Titles.deadline
-        label.font = UIFont.systemFont(ofSize: Sizes.textViewFontSize)
-        label.textColor = UIColor(named: AccentColors.labelPrimary)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
-        return label
-    }
-    
-    private func getDeadlineDateLabel() -> UILabel {
-        let label = UILabel()
-        label.text = ""
-        label.font = Fonts.sfPro_13
-        label.textColor = UIColor(named: AccentColors.colorBlue)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
+    private func configureUIEliments() {
         deadlineDateLabelTapGesture = UITapGestureRecognizer(target: self, action: #selector(onDeadlineDateLabelTapped))
-        label.addGestureRecognizer(deadlineDateLabelTapGesture)
-        label.isUserInteractionEnabled = true
+        deadlineDateLabel.addGestureRecognizer(deadlineDateLabelTapGesture)
+        deadlineDateLabel.isUserInteractionEnabled = true
         
-        return label
-    }
-    
-    private func getDeadlineSwitcher() -> UISwitch {
-        let switcher = UISwitch()
-        switcher.translatesAutoresizingMaskIntoConstraints = false
-        
-        return switcher
-    }
-    
-    private func getDeadlineDatePicker() -> UIDatePicker {
-        let datePicker = UIDatePicker()
-        datePicker.datePickerMode = .date
-        datePicker.preferredDatePickerStyle = .inline
-        datePicker.isHidden = true
-        datePicker.translatesAutoresizingMaskIntoConstraints = false
-        
-        datePicker.addTarget(self, action: #selector(onDeadlineDateChanged(_:)), for: .valueChanged)
-        
-        return datePicker
-    }
-    
-    private func getDeleteButton() -> UIButton {
-        let button = UIButton(type: .system)
-        button.setTitle(Titles.delete, for: .normal)
-        button.backgroundColor = UIColor(named: AccentColors.backSecondary)
-        button.setTitleColor(UIColor(named: AccentColors.colorRed), for: .normal)
-        button.setTitleColor(UIColor(named: AccentColors.labelTertiary), for: .disabled)
-        button.layer.cornerRadius = Sizes.cornerRadius
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        return button
+        deadlineDatePicker.addTarget(self, action: #selector(onDeadlineDateChanged(_:)), for: .valueChanged)
     }
     
     @objc func deadlineSwitched(_ sender: UISwitch) {

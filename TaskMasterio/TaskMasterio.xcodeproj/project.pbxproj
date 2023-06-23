@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		983AD75C2A462EC2008EA93A /* TodoItemViewController.ViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983AD75B2A462EC2008EA93A /* TodoItemViewController.ViewBuilder.swift */; };
 		985871482A3D499D00066B2E /* TodoItem.CsvParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985871472A3D499D00066B2E /* TodoItem.CsvParser.swift */; };
 		9858714A2A3D4CB200066B2E /* TodoItem_CsvTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985871492A3D4CB200066B2E /* TodoItem_CsvTests.swift */; };
 		9858714F2A43311F00066B2E /* FileCache.Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9858714E2A43311F00066B2E /* FileCache.Errors.swift */; };
@@ -52,6 +53,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		983AD75B2A462EC2008EA93A /* TodoItemViewController.ViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemViewController.ViewBuilder.swift; sourceTree = "<group>"; };
 		985871472A3D499D00066B2E /* TodoItem.CsvParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.CsvParser.swift; sourceTree = "<group>"; };
 		985871492A3D4CB200066B2E /* TodoItem_CsvTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem_CsvTests.swift; sourceTree = "<group>"; };
 		9858714E2A43311F00066B2E /* FileCache.Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCache.Errors.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				985871572A443A5700066B2E /* TodoItemViewController.swift */,
+				983AD75B2A462EC2008EA93A /* TodoItemViewController.ViewBuilder.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -384,6 +387,7 @@
 				98F2831E2A350E650008A526 /* SceneDelegate.swift in Sources */,
 				985871582A443A5700066B2E /* TodoItemViewController.swift in Sources */,
 				98BE0E812A3CD65300EE3B7C /* TodoItem.JsonParser.swift in Sources */,
+				983AD75C2A462EC2008EA93A /* TodoItemViewController.ViewBuilder.swift in Sources */,
 				98CE2A1F2A3C83F900554B7A /* DateExt.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
