@@ -48,6 +48,8 @@ final class TodoItemViewController: UIViewController {
     
     private var deleteButton: UIButton! //(type: .system)
     
+    private var deadlineDateLabelTapGesture: UITapGestureRecognizer!
+    
     var datePickerHeightConstraint: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,6 +72,12 @@ final class TodoItemViewController: UIViewController {
         
         updatePlaceholderVisibility()
         
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        deadlineLabel.removeGestureRecognizer(deadlineDateLabelTapGesture)
     }
     
     deinit {
@@ -406,6 +414,10 @@ final class TodoItemViewController: UIViewController {
         label.textColor = UIColor(named: AccentColors.colorBlue)
         label.translatesAutoresizingMaskIntoConstraints = false
         
+        deadlineDateLabelTapGesture = UITapGestureRecognizer(target: self, action: #selector(onDeadlineDateLabelTapped))
+        label.addGestureRecognizer(deadlineDateLabelTapGesture)
+        label.isUserInteractionEnabled = true
+        
         return label
     }
     
@@ -440,6 +452,10 @@ final class TodoItemViewController: UIViewController {
     
     @objc func deadlineSwitched(_ sender: UISwitch) {
         deadlineDatePicker.isHidden = !sender.isOn
+    }
+    
+    @objc func onDeadlineDateLabelTapped() {
+        deadlineDatePicker.isHidden = false
     }
 }
 
