@@ -61,12 +61,6 @@ final class TodoItemViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: AccentColors.backPrimary)
         
-        if let currentTask = task {
-            print(currentTask)
-        } else {
-            print("uupss...")
-        }
-        
         navigationBarPreparing()
         contentPreparing(view)
         
@@ -79,6 +73,7 @@ final class TodoItemViewController: UIViewController {
         descriptionView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
         
         updatePlaceholderVisibility()
+        deleteButton.isEnabled = task != nil
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -303,6 +298,7 @@ final class TodoItemViewController: UIViewController {
         if let currentTask = task {
             fileCache.remove(by: currentTask.id)
             try? fileCache.save(name: "Test data", as: .json)
+            deleteButton.isEnabled = false
         }
     }
     
@@ -382,6 +378,7 @@ final class TodoItemViewController: UIViewController {
         
         do {
             try fileCache.save(name: "Test data", as: .json)
+            deleteButton.isEnabled = true
         } catch {
             print(error)
         }
