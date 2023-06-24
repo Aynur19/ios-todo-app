@@ -80,8 +80,8 @@ final class TodoItemViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tapGesture)
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+//        view.addGestureRecognizer(tapGesture)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -266,7 +266,16 @@ final class TodoItemViewController: UIViewController {
     
     private func updateDeadlineCalendarVisibility(isHidden: Bool = true) {
         deadlineCalendarSeparator.isHidden = isHidden
-        deadlineDatePicker.isHidden = isHidden
+        
+//        deadlineDatePicker.isHidden = isHidden
+        
+        UIView.animate(withDuration: 2.3) {
+            self.deadlineDatePicker.isHidden = isHidden
+        }
+//        UIView.animate(withDuration: 1.0) {
+//            self.deadlineDatePicker.isHidden = isHidden
+////            self.deadlineDatePicker.alpha = isHidden ? 0.0 : 1.0
+//                }
     }
     
     @objc func deadlineSwitched(_ sender: UISwitch) {
@@ -391,17 +400,6 @@ extension TodoItemViewController: UITextViewDelegate {
         updatePlaceholderVisibility()
         
         taskIsModified = descriptionPlaceholder.isHidden
-        
-        guard let keyboardSizeCurrent = keyboardSize else { return }
-        contentScrollView.contentInset.bottom = view.convert(keyboardSizeCurrent, from: nil).size.height
-        contentScrollView.verticalScrollIndicatorInsets.bottom = contentScrollView.contentInset.bottom
-        
-        let visibleRect = CGRect(x: 0, y: 0, width: contentScrollView.frame.width,
-                                 height: contentScrollView.frame.height - contentScrollView.contentInset.bottom)
-        
-        if !visibleRect.contains(descriptionView.frame.origin) {
-            contentScrollView.scrollRectToVisible(descriptionView.frame, animated: true)
-        }
     }
     
     private func updatePlaceholderVisibility() {
