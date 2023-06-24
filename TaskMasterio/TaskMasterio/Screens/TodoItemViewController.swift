@@ -55,7 +55,9 @@ final class TodoItemViewController: UIViewController {
     private let deleteButton = UIButton(type: .system)
     
     private var deadlineDateLabelTapGesture: UITapGestureRecognizer!
+    private var viewTapGesture: UITapGestureRecognizer!
     
+    private var keyboardSize: CGRect!
     var datePickerHeightConstraint: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,37 +72,31 @@ final class TodoItemViewController: UIViewController {
                                                name: UITextView.textDidChangeNotification, object: nil)
         
         deadlineSwitcher.addTarget(self, action: #selector(deadlineSwitched(_:)), for: .valueChanged)
-        descriptionView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
         
         updatePlaceholderVisibility()
         deleteButton.isEnabled = task != nil
+        descriptionView.becomeFirstResponder()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
     }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
         deadlineLabel.removeGestureRecognizer(deadlineDateLabelTapGesture)
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
         descriptionView.removeObserver(self, forKeyPath: "contentSize")
-    }
-    
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath == "contentSize" {
-            scrollToBottom()
-        }
-    }
-    
-    private func scrollToBottom() {
-        let contentHeight = descriptionView.contentSize.height
-        let scrollOffset = CGPoint(x: 0, y: max(contentHeight - contentScrollView.bounds.height, 0))
-        contentScrollView.setContentOffset(scrollOffset, animated: true)
     }
     
     @objc func cancelButtonTapped() {
@@ -110,7 +106,6 @@ final class TodoItemViewController: UIViewController {
     @objc func saveButtonTapped() {
         saveTask()
     }
-    
     
     private func navigationBarPreparing() {
         print("Navigation Bar Preparing...")
@@ -172,6 +167,7 @@ final class TodoItemViewController: UIViewController {
             contentScrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             contentScrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             contentScrollView.heightAnchor.constraint(greaterThanOrEqualTo: view.safeAreaLayoutGuide.heightAnchor),
+            
             
             // content stack view
             contentStackView.centerXAnchor.constraint(equalTo: contentScrollView.centerXAnchor),
@@ -251,6 +247,8 @@ final class TodoItemViewController: UIViewController {
             deleteButton.trailingAnchor.constraint(equalTo: optionsStackView.trailingAnchor),
             deleteButton.heightAnchor.constraint(equalToConstant: Sizes.deleteButtonHeight),
         ])
+        
+        //        contentScrollView.contentSize = view.bounds.size
     }
     
     private func configureUIEliments() {
@@ -293,6 +291,7 @@ final class TodoItemViewController: UIViewController {
     @objc func onDeleteButtonTapped(_ sender: UIButton) {
         deleteTask()
     }
+    
     
     private func deleteTask() {
         if let currentTask = task {
@@ -392,6 +391,17 @@ extension TodoItemViewController: UITextViewDelegate {
         updatePlaceholderVisibility()
         
         taskIsModified = descriptionPlaceholder.isHidden
+        
+        guard let keyboardSizeCurrent = keyboardSize else { return }
+        contentScrollView.contentInset.bottom = view.convert(keyboardSizeCurrent, from: nil).size.height
+        contentScrollView.verticalScrollIndicatorInsets.bottom = contentScrollView.contentInset.bottom
+        
+        let visibleRect = CGRect(x: 0, y: 0, width: contentScrollView.frame.width,
+                                 height: contentScrollView.frame.height - contentScrollView.contentInset.bottom)
+        
+        if !visibleRect.contains(descriptionView.frame.origin) {
+            contentScrollView.scrollRectToVisible(descriptionView.frame, animated: true)
+        }
     }
     
     private func updatePlaceholderVisibility() {
@@ -404,5 +414,50 @@ extension TodoItemViewController: UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         updatePlaceholderVisibility()
+        dismissKeyboard()
+    }
+    
+    @objc func keyboardWillShow(_ notification: Notification) {
+        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+            return
+        }
+        
+        keyboardSize = keyboardFrame
+        contentScrollView.contentInset.bottom = view.convert(keyboardFrame, from: nil).size.height
+        contentScrollView.verticalScrollIndicatorInsets.bottom = contentScrollView.contentInset.bottom
+        
+        let visibleRect = CGRect(x: 0, y: 0, width: contentScrollView.frame.width,
+                                 height: contentScrollView.frame.height - contentScrollView.contentInset.bottom)
+        
+        if !visibleRect.contains(descriptionView.frame.origin) {
+            contentScrollView.scrollRectToVisible(descriptionView.frame, animated: true)
+        }
+        
+        //        let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardFrame.height, right: 0)
+        //        contentScrollView.contentInset = contentInsets
+        //        contentScrollView.scrollIndicatorInsets = contentInsets
+        //
+        //        // Calculate the visible area by subtracting the keyboard height from the scrollView's height
+        //        let visibleHeight = contentScrollView.frame.height - keyboardFrame.height
+        //
+        //        // Check if the textView's bottom is below the visible area
+        //        if descriptionView.frame.maxY > visibleHeight {
+        //            // Calculate the scroll offset to make the textView fully visible
+        //            let scrollOffset = CGPoint(x: 0, y: descriptionView.frame.maxY - visibleHeight)
+        //            contentScrollView.setContentOffset(scrollOffset, animated: true)
+        //        } else {
+        //            contentScrollView.setContentOffset(.zero, animated: true)
+        //        }
+        
+    }
+    
+    @objc func keyboardWillHide(_ notification: Notification) {
+        let contentInsets = UIEdgeInsets.zero
+        contentScrollView.contentInset = contentInsets
+        contentScrollView.scrollIndicatorInsets = contentInsets
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
