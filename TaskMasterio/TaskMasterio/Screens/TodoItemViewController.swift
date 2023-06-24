@@ -10,6 +10,12 @@ import UIKit
 final class TodoItemViewController: UIViewController {
     var task: TodoItem!
     
+    private let fileCache = FileCache()
+    
+    private var text: String = ""
+    private var priority: Priority = .medium
+    private var deadline: Date?
+    
     private var taskIsModified = false {
         didSet {
             saveButton.isEnabled = taskIsModified
@@ -55,9 +61,11 @@ final class TodoItemViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: AccentColors.backPrimary)
         
-        //        if task == nil {
-        //            task = TodoItem(text: "Первая задача", priority: .)
-        //        }
+        if let currentTask = task {
+            print(currentTask)
+        } else {
+            print("uupss...")
+        }
         
         navigationBarPreparing()
         contentPreparing(view)
@@ -71,6 +79,10 @@ final class TodoItemViewController: UIViewController {
         descriptionView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
         
         updatePlaceholderVisibility()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -98,7 +110,9 @@ final class TodoItemViewController: UIViewController {
     
     @objc func cancelButtonTapped() { }
     
-    @objc func saveButtonTapped() { }
+    @objc func saveButtonTapped() {
+        saveTask()
+    }
     
     
     private func navigationBarPreparing() {
@@ -250,6 +264,8 @@ final class TodoItemViewController: UIViewController {
         deadlineDatePicker.addTarget(self, action: #selector(onDeadlineDateChanged(_:)), for: .valueChanged)
         
         updateDeadlineCalendarVisibility()
+//        setDefaultPriority()
+        setDefaultValues()
     }
     
     private func updateDeadlineCalendarVisibility(isHidden: Bool = true) {
@@ -259,7 +275,13 @@ final class TodoItemViewController: UIViewController {
     
     @objc func deadlineSwitched(_ sender: UISwitch) {
         updateDeadlineCalendarVisibility(isHidden: !sender.isOn)
-        deadlineDateLabel.text = ""
+        
+        if sender.isOn {
+            setDefaultDeadline()
+        } else {
+            deadlineDateLabel.text = ""
+            deadline = nil
+        }
     }
     
     @objc func onDeadlineDateLabelTapped() {
@@ -267,14 +289,88 @@ final class TodoItemViewController: UIViewController {
     }
     
     @objc func onDeadlineDateChanged(_ sender: UIDatePicker) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "d MMMM yyyy"
-        
-        deadlineDateLabel.text = dateFormatter.string(from: sender.date)
+        updateDeadlineDate(date: sender.date)
     }
     
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .portrait
+    private func updateDeadlineDate(date: Date) {
+        deadline = date
+        deadlineDateLabel.text = dateToString(date: date)
+        deadlineSwitcher.isOn = true
+    }
+    
+    private func dateToString(date: Date, format: String = Values.deadlineDateFormat) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        return dateFormatter.string(from: date)
+    }
+    
+    private func setDefaultDeadline(for date: Date = Date(), addingDays: Int = 1) {
+        let deadlineDate = Calendar.current.date(byAdding: .day, value: addingDays, to: date) ?? Date()
+        deadlineDatePicker.date = deadlineDate
+        updateDeadlineDate(date: deadlineDate)
+    }
+    
+    private func setDefaultPriority(_ priority: Priority = .medium) {
+        switch priority {
+        case .low:
+            prioritySegmentedControl.selectedSegmentIndex = 0
+            break
+        case .medium:
+            prioritySegmentedControl.selectedSegmentIndex = 1
+            break
+        case .high:
+            prioritySegmentedControl.selectedSegmentIndex = 2
+            break
+        }
+    }
+    
+    private func setDefaultValues() {
+        if let currentTask = task {
+            text = currentTask.text
+            priority = currentTask.priority
+            deadline = currentTask.deadline
+        }
+        
+        descriptionView.text = text
+        setDefaultPriority(priority)
+        
+        if let deadlineDate = deadline {
+            setDefaultDeadline(for: deadlineDate, addingDays: 0)
+        }
+    }
+    
+    private func saveTask() {
+        var savedTask: TodoItem
+        text = descriptionView.text
+        switch prioritySegmentedControl.selectedSegmentIndex {
+        case 0:
+            priority = .low
+            break
+        case 1:
+            priority = .medium
+            break
+        case 2:
+            priority = .high
+            break
+        default:
+            priority = .medium
+            break
+        }
+        
+        if let currentTask = task {
+            savedTask = TodoItem(id: currentTask.id, text: text, priority: priority, deadline: deadline,
+                                 isDone: task.isDone, createdOn: task.createdOn, updatedOn: Date())
+        } else {
+            savedTask = TodoItem(text: text, priority: priority, deadline: deadline)
+        }
+        
+        fileCache.add(savedTask)
+        
+        do {
+            try fileCache.save(name: "Test data", as: .json)
+        } catch {
+            print(error)
+        }
     }
 }
 

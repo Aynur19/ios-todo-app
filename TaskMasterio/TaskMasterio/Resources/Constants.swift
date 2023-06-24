@@ -14,6 +14,8 @@ enum Values {
     static let priorityLow = "arrow.down"
     static let priorityMedium = "нет"
     static let priorityHigh = "exclamationmark.2"
+    
+    static let deadlineDateFormat = "d MMMM yyyy"
 }
 
 enum Titles {

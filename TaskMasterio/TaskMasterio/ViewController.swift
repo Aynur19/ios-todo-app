@@ -8,23 +8,19 @@
 import UIKit
 
 class ViewController: UIViewController {
-//    private var fileCache: FileCache!
-//    private var task: TodoItem!
+    private var fileCache: FileCache!
+    private var task: TodoItem?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        fileCache = FileCache()
         view.backgroundColor = .systemBackground
-        
         addTestButton()
-        
-//        fileCache = FileCache()
     }
 
     private func addTestButton() {
         
-//        url
-//        try? fileCache.load(name: "TaskMasterio", from: <#T##URL?#>, as: <#T##DataFormat#>)
         
         let button = UIButton(type: .system)
         button.setTitle("Show Task View", for: .normal)
@@ -43,7 +39,16 @@ class ViewController: UIViewController {
     }
     
     @objc func testButtonTapped() {
-        let todoItemNavigationController = UINavigationController(rootViewController: TodoItemViewController())
+        let todoItemController = TodoItemViewController()
+        let todoItemNavigationController = UINavigationController(rootViewController: todoItemController)
+        
+        do {
+            try fileCache.load(name: "Test data", from: nil, as: .json)
+            
+            todoItemController.task = fileCache.tasks.first
+        } catch {
+            print(error)
+        }
 
         present(todoItemNavigationController, animated: true, completion: nil)
     }
