@@ -9,22 +9,6 @@
 import UIKit
 
 extension TodoItemViewController {
-//    private func navigationBarPreparing() {
-//        if let navigationController = self.navigationController {
-//            title = Titles.task
-//            navigationController.navigationBar.barStyle = .default
-//
-//            cancelButton = UIBarButtonItem(title: Titles.cancel, style: .plain, target: self, action: #selector(cancelButtonTapped))
-//            saveButton = UIBarButtonItem(title: Titles.save, style: .plain, target: self, action: #selector(saveButtonTapped))
-//
-//            saveButton.isEnabled = taskIsModified
-//
-//            navigationItem.leftBarButtonItem = cancelButton
-//            navigationItem.rightBarButtonItem = saveButton
-//        }
-//    }
-    
-    
     func buildContentScrollView(_ scrollView: UIScrollView) -> UIScrollView {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
@@ -64,7 +48,7 @@ extension TodoItemViewController {
     func buildOptionsStackView(_ stackView: UIStackView) -> UIStackView {
         stackView.axis = .vertical
         stackView.alignment = .center
-        stackView.backgroundColor = .white
+        stackView.backgroundColor = UIColor(named: AccentColors.backSecondary)
         stackView.layer.cornerRadius = Sizes.cornerRadius
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -105,6 +89,8 @@ extension TodoItemViewController {
         
         segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: Fonts.sfPro_15], for: .normal)
         segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: Fonts.sfPro_15], for: .selected)
+        
+        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.gray], for: .disabled)
         
         segmentedControl.setTitleTextAttributes(
             [NSAttributedString.Key.foregroundColor: UIColor(named: AccentColors.labelPrimary) ?? .label], for: .normal)
@@ -161,6 +147,7 @@ extension TodoItemViewController {
     
     func buildDeadlineSwitcher(_ switcher: UISwitch) -> UISwitch {
         switcher.translatesAutoresizingMaskIntoConstraints = false
+        switcher.tintColor = UIColor(named: AccentColors.labelPrimary)
         return switcher
     }
     
