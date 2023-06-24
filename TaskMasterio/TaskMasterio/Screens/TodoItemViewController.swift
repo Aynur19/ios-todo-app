@@ -108,7 +108,9 @@ final class TodoItemViewController: UIViewController {
         contentScrollView.setContentOffset(scrollOffset, animated: true)
     }
     
-    @objc func cancelButtonTapped() { }
+    @objc func cancelButtonTapped() {
+        dismiss(animated: true, completion: nil)
+    }
     
     @objc func saveButtonTapped() {
         saveTask()
@@ -264,7 +266,7 @@ final class TodoItemViewController: UIViewController {
         deadlineDatePicker.addTarget(self, action: #selector(onDeadlineDateChanged(_:)), for: .valueChanged)
         
         updateDeadlineCalendarVisibility()
-//        setDefaultPriority()
+        //        setDefaultPriority()
         setDefaultValues()
     }
     
