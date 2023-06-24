@@ -264,6 +264,7 @@ final class TodoItemViewController: UIViewController {
         deadlineDateLabel.isUserInteractionEnabled = true
         
         deadlineDatePicker.addTarget(self, action: #selector(onDeadlineDateChanged(_:)), for: .valueChanged)
+        deleteButton.addTarget(self, action: #selector(onDeleteButtonTapped(_:)), for: .touchUpInside)
         
         updateDeadlineCalendarVisibility()
         //        setDefaultPriority()
@@ -292,6 +293,17 @@ final class TodoItemViewController: UIViewController {
     
     @objc func onDeadlineDateChanged(_ sender: UIDatePicker) {
         updateDeadlineDate(date: sender.date)
+    }
+    
+    @objc func onDeleteButtonTapped(_ sender: UIButton) {
+        deleteTask()
+    }
+    
+    private func deleteTask() {
+        if let currentTask = task {
+            fileCache.remove(by: currentTask.id)
+            try? fileCache.save(name: "Test data", as: .json)
+        }
     }
     
     private func updateDeadlineDate(date: Date) {
