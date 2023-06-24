@@ -80,8 +80,9 @@ final class TodoItemViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-//        view.addGestureRecognizer(tapGesture)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -459,3 +460,19 @@ extension TodoItemViewController: UITextViewDelegate {
         view.endEditing(true)
     }
 }
+
+//extension UIView {
+//    func findActiveResponder() -> UIResponder? {
+//        if isFirstResponder {
+//            return self
+//        }
+//
+//        for subview in subviews {
+//            if let responder = subview.findActiveResponder() {
+//                return responder
+//            }
+//        }
+//
+//        return nil
+//    }
+//}
