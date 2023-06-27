@@ -24,7 +24,6 @@ final class TodoItemContentStackView: UIStackView {
     private func setupDescriptionView() {
         addArrangedSubview(descriptionView)
         
-        descriptionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             descriptionView.widthAnchor.constraint(equalTo: self.widthAnchor),
             descriptionView.heightAnchor.constraint(greaterThanOrEqualToConstant: Sizes.descriptionMinHeight)
@@ -38,8 +37,8 @@ final class TodoItemContentStackView: UIStackView {
         textView.layer.cornerRadius = Sizes.cornerRadius
         textView.textColor = UIColor(named: AccentColors.labelPrimary)
         textView.isScrollEnabled = false
+        textView.translatesAutoresizingMaskIntoConstraints = false
         
         return textView
-        
     }()
 }

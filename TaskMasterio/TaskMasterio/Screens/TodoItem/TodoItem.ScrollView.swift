@@ -24,7 +24,6 @@ final class TodoItemScrollView: UIScrollView {
     private func setupContentStackView() {
         addSubview(contentStackView)
         
-        contentStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             contentStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             contentStackView.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -Sizes.margin2xH),
@@ -38,8 +37,7 @@ final class TodoItemScrollView: UIScrollView {
         stackView.axis = .vertical
         stackView.spacing = Sizes.spacingV
         stackView.alignment = .center
-
-//        stackView.backgroundColor = .red
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
     }()

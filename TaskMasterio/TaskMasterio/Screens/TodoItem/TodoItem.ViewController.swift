@@ -15,6 +15,8 @@ final class TodoItemViewController2: UIViewController {
         setupView()
         setupNavBar()
         setupContentScrollView()
+        
+        setupTapGestureRecognizer()
     }
     
     private func setupView() {
@@ -34,7 +36,7 @@ final class TodoItemViewController2: UIViewController {
     private func setupContentScrollView() {
         view.addSubview(contentScrollView)
         
-        contentScrollView.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             contentScrollView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor),
             contentScrollView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
@@ -44,11 +46,16 @@ final class TodoItemViewController2: UIViewController {
         ])
     }
     
+    private func setupTapGestureRecognizer() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        view.addGestureRecognizer(tapGestureRecognizer)
+    }
     
     private lazy var contentScrollView: UIScrollView = {
-        let contentScrollView = TodoItemScrollView(frame: .zero)
+        let scrollView = TodoItemScrollView(frame: .zero)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
         
-        return contentScrollView
+        return scrollView
     }()
     
     private lazy var cancelButton: UIBarButtonItem = {
@@ -68,4 +75,8 @@ final class TodoItemViewController2: UIViewController {
     @objc private func onCancelButtonTapped() { }
     
     @objc private func onSaveButtonTapped() { }
+    
+    @objc private func handleTap() {
+        view.endEditing(true)
+    }
 }
