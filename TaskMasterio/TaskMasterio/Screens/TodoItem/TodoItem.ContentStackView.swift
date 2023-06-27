@@ -37,6 +37,8 @@ final class TodoItemContentStackView: UIStackView {
         textView.layer.cornerRadius = Sizes.cornerRadius
         textView.textColor = UIColor(named: AccentColors.labelPrimary)
         textView.isScrollEnabled = false
+        textView.textContainerInset = UIEdgeInsets(top: Sizes.margin_12, left: Sizes.margin_16,
+                                                   bottom: Sizes.margin_12, right: Sizes.margin_16)
         textView.translatesAutoresizingMaskIntoConstraints = false
         
         return textView

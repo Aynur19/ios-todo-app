@@ -39,9 +39,9 @@ final class TodoItemDescriptionView: UITextView {
         addSubview(placeholderLabel)
         
         NSLayoutConstraint.activate([
-            placeholderLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Sizes.marginH),
-            placeholderLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Sizes.marginH),
-            placeholderLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: Sizes.marginV),
+            placeholderLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Sizes.margin_16),
+            placeholderLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Sizes.margin_16),
+            placeholderLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: Sizes.margin_12),
         ])
     }
     

@@ -36,7 +36,6 @@ final class TodoItemViewController2: UIViewController {
     private func setupContentScrollView() {
         view.addSubview(contentScrollView)
         
-        
         NSLayoutConstraint.activate([
             contentScrollView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor),
             contentScrollView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),

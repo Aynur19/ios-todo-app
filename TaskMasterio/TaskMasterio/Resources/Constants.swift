@@ -29,7 +29,9 @@ enum Titles {
 
 enum Sizes {
     static let sero: CGFloat = 0
+    static let margin_12: CGFloat = 12
     static let margin_16: CGFloat = 16
+
     static let zero: CGFloat = 0
     static let marginV: CGFloat = 12        // margin vertically
     static let marginV_10: CGFloat = 10     // margin vertically
