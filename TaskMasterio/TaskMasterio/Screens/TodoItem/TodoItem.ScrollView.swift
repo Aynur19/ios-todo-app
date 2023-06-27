@@ -27,17 +27,19 @@ final class TodoItemScrollView: UIScrollView {
         contentStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             contentStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            contentStackView.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -Sizes.marginH),
-            contentStackView.topAnchor.constraint(equalTo: self.topAnchor),
-            contentStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            contentStackView.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -Sizes.margin2xH),
+            contentStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: Sizes.spacingV),
+            contentStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -Sizes.spacingV),
         ])
     }
     
     private lazy var contentStackView: UIStackView = {
-        let stackView = UIStackView()
+        let stackView = TodoItemContentStackView(frame: .zero)
         stackView.axis = .vertical
         stackView.spacing = Sizes.spacingV
         stackView.alignment = .center
+
+//        stackView.backgroundColor = .red
         
         return stackView
     }()

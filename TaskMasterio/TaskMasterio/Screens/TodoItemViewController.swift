@@ -177,7 +177,7 @@ final class TodoItemViewController: UIViewController {
             contentStackView.widthAnchor.constraint(equalTo: contentScrollView.widthAnchor, constant: -Sizes.margin2xH),
             
             // description text view
-            descriptionView.heightAnchor.constraint(greaterThanOrEqualToConstant: Sizes.textViewMinHeight),
+            descriptionView.heightAnchor.constraint(greaterThanOrEqualToConstant: Sizes.descriptionMinHeight),
             descriptionView.widthAnchor.constraint(equalTo: contentStackView.widthAnchor),
             
             // description placeholder

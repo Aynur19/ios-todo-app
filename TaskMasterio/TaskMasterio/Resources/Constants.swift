@@ -28,6 +28,8 @@ enum Titles {
 }
 
 enum Sizes {
+    static let sero: CGFloat = 0
+    static let margin_16: CGFloat = 16
     static let zero: CGFloat = 0
     static let marginV: CGFloat = 12        // margin vertically
     static let marginV_10: CGFloat = 10     // margin vertically
@@ -38,7 +40,7 @@ enum Sizes {
     static let spacingH: CGFloat = 16
     static let separatorW: CGFloat = 1
     
-    static let textViewMinHeight: CGFloat = 120
+    static let descriptionMinHeight: CGFloat = 120
     static let textViewFontSize: CGFloat = 17
     static let cornerRadius: CGFloat = 16
     
