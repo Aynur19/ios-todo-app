@@ -26,7 +26,7 @@ final class TodoItemContentStackView: UIStackView {
         
         NSLayoutConstraint.activate([
             descriptionView.widthAnchor.constraint(equalTo: self.widthAnchor),
-            descriptionView.heightAnchor.constraint(greaterThanOrEqualToConstant: Sizes.descriptionMinHeight)
+            descriptionView.heightAnchor.constraint(greaterThanOrEqualToConstant: Sizes.descriptionMinHeight),
         ])
     }
     
