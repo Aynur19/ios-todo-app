@@ -39,16 +39,16 @@ class ViewController: UIViewController {
     }
     
     @objc func testButtonTapped() {
-        let todoItemController = TodoItemViewController()
+        let todoItemController = TodoItemViewController2()
         let todoItemNavigationController = UINavigationController(rootViewController: todoItemController)
         
-        do {
-            try fileCache.load(name: "Test data", from: nil, as: .json)
-            
-            todoItemController.task = fileCache.tasks.first
-        } catch {
-            print(error)
-        }
+//        do {
+//            try fileCache.load(name: "Test data", from: nil, as: .json)
+//
+//            todoItemController.task = fileCache.tasks.first
+//        } catch {
+//            print(error)
+//        }
 
         present(todoItemNavigationController, animated: true, completion: nil)
     }
