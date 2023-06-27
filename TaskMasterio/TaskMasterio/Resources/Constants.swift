@@ -63,7 +63,35 @@ enum AccentColors {
 }
 
 enum Fonts {
+    case largeTitle
+    case title
+    case headline
+    case body
+    case subhead
+    case footnote
+    
+    static func getFont(named: Fonts) -> UIFont {
+        var font: UIFont
+        switch named {
+        case .largeTitle:
+            font = UIFont.systemFont(ofSize: 38, weight: .bold)
+        case .title:
+            font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        case .headline:
+            font = UIFont(name: "SFProText-Semibold", size: 17) ?? UIFont.systemFont(ofSize: 17, weight: .semibold)
+        case .body:
+            font = UIFont(name: "SFProText-Regular", size: 17) ?? UIFont.systemFont(ofSize: 17, weight: .regular)
+        case .subhead:
+            font = UIFont(name: "SFProText-Regular", size: 15) ?? UIFont.systemFont(ofSize: 15, weight: .regular)
+        case .footnote:
+            font = UIFont(name: "SFProText-Semibold", size: 13) ?? UIFont.systemFont(ofSize: 13, weight: .semibold)
+        }
+
+        return font
+    }
+    
     static let sfPro_13 = UIFont(name: "SF Pro", size: 13) ?? UIFont.systemFont(ofSize: 13)
     static let sfPro_15 = UIFont(name: "SF Pro", size: 15) ?? UIFont.systemFont(ofSize: 15)
     static let sfPro_17 = UIFont(name: "SF Pro", size: 17) ?? UIFont.systemFont(ofSize: 17)
+    
 }

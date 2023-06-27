@@ -12,6 +12,15 @@ final class TodoItemViewController2: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        for familyName in UIFont.familyNames {
+            print("Font Family: \(familyName)")
+            let fontNames = UIFont.fontNames(forFamilyName: familyName)
+            for fontName in fontNames {
+                print("Font Name: \(fontName)")
+            }
+            print("\n")
+        }
+        
         setupView()
         setupNavBar()
         setupContentScrollView()
