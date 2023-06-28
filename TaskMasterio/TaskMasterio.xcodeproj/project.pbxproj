@@ -37,6 +37,7 @@
 		98F283562A3B7E060008A526 /* DataCashe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F283552A3B7E060008A526 /* DataCashe.swift */; };
 		98F283582A3B82B90008A526 /* FileCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F283572A3B82B90008A526 /* FileCacheTests.swift */; };
 		98F2835A2A3B862E0008A526 /* TestsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F283592A3B862E0008A526 /* TestsData.swift */; };
+		98F94A102A4C10BF00B72704 /* TodoItem.PriorityStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F94A0F2A4C10BF00B72704 /* TodoItem.PriorityStackView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +92,7 @@
 		98F283552A3B7E060008A526 /* DataCashe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCashe.swift; sourceTree = "<group>"; };
 		98F283572A3B82B90008A526 /* FileCacheTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCacheTests.swift; sourceTree = "<group>"; };
 		98F283592A3B862E0008A526 /* TestsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestsData.swift; sourceTree = "<group>"; };
+		98F94A0F2A4C10BF00B72704 /* TodoItem.PriorityStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.PriorityStackView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +174,7 @@
 				987D4E6A2A4B01F400E9507D /* TodoItem.ViewController.swift */,
 				987D4E6C2A4B471300E9507D /* TodoItem.DetailsStackView.swift */,
 				987D4E6E2A4B534500E9507D /* TodoItem.DescriptionView.swift */,
+				98F94A0F2A4C10BF00B72704 /* TodoItem.PriorityStackView.swift */,
 			);
 			path = TodoItem;
 			sourceTree = "<group>";
@@ -396,6 +399,7 @@
 				985871482A3D499D00066B2E /* TodoItem.CsvParser.swift in Sources */,
 				98F283202A350E650008A526 /* ViewController.swift in Sources */,
 				98F2831C2A350E650008A526 /* AppDelegate.swift in Sources */,
+				98F94A102A4C10BF00B72704 /* TodoItem.PriorityStackView.swift in Sources */,
 				9858714F2A43311F00066B2E /* FileCache.Errors.swift in Sources */,
 				987D4E6F2A4B534500E9507D /* TodoItem.DescriptionView.swift in Sources */,
 				98F283562A3B7E060008A526 /* DataCashe.swift in Sources */,

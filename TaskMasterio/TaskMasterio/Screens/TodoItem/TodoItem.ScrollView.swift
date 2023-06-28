@@ -15,6 +15,7 @@ final class TodoItemScrollView: UIScrollView {
         
         setupScrollView()
         setupDescriptionView()
+        setupDetailsStackView(topView: descriptionView)
     }
     
     @available(*, unavailable)
@@ -39,12 +40,13 @@ final class TodoItemScrollView: UIScrollView {
     }
     
     
-    private func setupDetailsStackView() {
+    private func setupDetailsStackView(topView: UIView) {
         self.addSubview(detailsStackView)
         
         NSLayoutConstraint.activate([
             detailsStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             detailsStackView.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -Sizes.margin_2x16),
+            detailsStackView.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: Sizes.margin_16)
         ])
     }
     

@@ -29,6 +29,12 @@ final class TodoItemDetailsStackView: UIStackView {
         self.backgroundColor = UIColor(named: AccentColors.backSecondary)
         self.layer.cornerRadius = Sizes.cornerRadius
         self.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        self.addArrangedSubview(priorityStackView)
     }
+    
+    // MARK: - UI Elements
+    private lazy var priorityStackView = TodoItemPriorityStackView()
 }
 
