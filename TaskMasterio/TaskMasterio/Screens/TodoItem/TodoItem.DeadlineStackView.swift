@@ -46,6 +46,7 @@ final class TodoItemDeadlineStackView: UIStackView {
         self.addArrangedSubview(deadlineLabelsStackView)
         
         deadlineLabelsStackView.addArrangedSubview(deadlineLabel)
+        deadlineLabelsStackView.addArrangedSubview(deadlineDateLabel)
         
         NSLayoutConstraint.activate([
             deadlineLabelsStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
@@ -74,6 +75,16 @@ final class TodoItemDeadlineStackView: UIStackView {
         label.text = Titles.deadline
         label.font = Fonts.getFont(named: .body)
         label.textColor = UIColor(named: AccentColors.labelPrimary)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
+    private lazy var deadlineDateLabel: UILabel = {
+        var label = UILabel()
+        label.text = "test"
+        label.font = Fonts.getFont(named: .footnote)
+        label.textColor = UIColor(named: AccentColors.colorBlue)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
