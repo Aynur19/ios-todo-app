@@ -30,7 +30,7 @@ final class TodoItemPriorityStackView: UIStackView {
         self.alignment = .fill
         self.distribution = .fill
         self.isLayoutMarginsRelativeArrangement = true
-        self.layoutMargins = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 12)
+        self.layoutMargins = UIEdgeInsets(top: Sizes.margin_10, left: Sizes.margin_16, bottom: Sizes.margin_10, right: Sizes.margin_12)
         self.translatesAutoresizingMaskIntoConstraints = false
     }
     

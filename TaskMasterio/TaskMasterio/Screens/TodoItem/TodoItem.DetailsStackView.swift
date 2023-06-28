@@ -15,6 +15,7 @@ final class TodoItemDetailsStackView: UIStackView {
         
         setupDetailsStackView()
         setupPriorityStackView()
+        setupDeadlineStackView()
     }
     
     @available(*, unavailable)
@@ -40,7 +41,17 @@ final class TodoItemDetailsStackView: UIStackView {
         ])
     }
     
+    private func setupDeadlineStackView() {
+        self.addArrangedSubview(deadlineStackView)
+        
+        NSLayoutConstraint.activate([
+            deadlineStackView.widthAnchor.constraint(equalTo: self.widthAnchor),
+        ])
+    }
+    
     // MARK: - UI Elements
     private lazy var priorityStackView = TodoItemPriorityStackView()
+    
+    private lazy var deadlineStackView = TodoItemDeadlineStackView()
 }
 

@@ -27,6 +27,14 @@ enum Titles {
     static let deadline = "Сделать до"
 }
 
+enum Margins {
+    static let _0: CGFloat = 0
+    static let _10: CGFloat = 10
+    static let _12: CGFloat = 12
+    static let _16: CGFloat = 16
+    static let _2x16: CGFloat = 2 * _16
+}
+
 enum Sizes {
     static let sero: CGFloat = 0
     static let margin_10: CGFloat = 10
