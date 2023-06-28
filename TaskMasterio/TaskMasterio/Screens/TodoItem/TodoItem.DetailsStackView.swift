@@ -14,6 +14,7 @@ final class TodoItemDetailsStackView: UIStackView {
         super.init(frame: .zero)
         
         setupDetailsStackView()
+        setupPriorityStackView()
     }
     
     @available(*, unavailable)
@@ -29,9 +30,14 @@ final class TodoItemDetailsStackView: UIStackView {
         self.backgroundColor = UIColor(named: AccentColors.backSecondary)
         self.layer.cornerRadius = Sizes.cornerRadius
         self.translatesAutoresizingMaskIntoConstraints = false
-        
-        
+    }
+    
+    private func setupPriorityStackView() {
         self.addArrangedSubview(priorityStackView)
+        
+        NSLayoutConstraint.activate([
+            priorityStackView.widthAnchor.constraint(equalTo: self.widthAnchor),
+        ])
     }
     
     // MARK: - UI Elements
