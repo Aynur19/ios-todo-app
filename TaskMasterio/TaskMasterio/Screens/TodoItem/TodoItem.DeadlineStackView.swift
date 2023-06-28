@@ -14,6 +14,7 @@ final class TodoItemDeadlineStackView: UIStackView {
         super.init(frame: .zero)
         
         setupDeadlineStackView()
+        setupDeadlineLabelsStackView()
         setupDeadlineSwitcher()
     }
     
@@ -41,6 +42,16 @@ final class TodoItemDeadlineStackView: UIStackView {
         ])
     }
     
+    private func setupDeadlineLabelsStackView() {
+        self.addArrangedSubview(deadlineLabelsStackView)
+        
+        deadlineLabelsStackView.addArrangedSubview(deadlineLabel)
+        
+        NSLayoutConstraint.activate([
+            deadlineLabelsStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+        ])
+    }
+    
     // MARK: - UI Elements
     private lazy var deadlineSwitcher: UISwitch = {
         let switcher = UISwitch()
@@ -48,5 +59,23 @@ final class TodoItemDeadlineStackView: UIStackView {
         switcher.translatesAutoresizingMaskIntoConstraints = false
         
         return switcher
+    }()
+    
+    private lazy var deadlineLabelsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stackView
+    }()
+    
+    private lazy var deadlineLabel: UILabel = {
+        let label = UILabel()
+        label.text = Titles.deadline
+        label.font = Fonts.getFont(named: .body)
+        label.textColor = UIColor(named: AccentColors.labelPrimary)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
     }()
 }
