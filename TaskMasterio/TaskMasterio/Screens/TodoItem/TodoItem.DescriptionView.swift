@@ -50,7 +50,7 @@ final class TodoItemDescriptionView: UITextView {
     }
     
     private func setupPlaceHolderLabel() {
-        addSubview(placeholderLabel)
+        self.addSubview(placeholderLabel)
         
         NSLayoutConstraint.activate([
             placeholderLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Sizes.margin_16),

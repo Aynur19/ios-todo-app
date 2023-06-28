@@ -9,6 +9,7 @@ import UIKit
 
 final class TodoItemViewController2: UIViewController {
     
+    // MARK: - Lifesycle Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -17,8 +18,6 @@ final class TodoItemViewController2: UIViewController {
         setupContentScrollView()
         
         setupTapGestureRecognizer()
-        
-//        onViewTapped()
     }
     
     // MARK: - Setup Functions
@@ -55,17 +54,10 @@ final class TodoItemViewController2: UIViewController {
     }
     
     // MARK: - UI Elements
-    private lazy var contentScrollView =  TodoItemScrollView(frame: .zero)
-//    : UIScrollView = {
-//        let scrollView =
-//        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        
-//        return scrollView
-//    }()
+    private lazy var contentScrollView = TodoItemScrollView(frame: .zero)
     
     private lazy var cancelButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: Titles.cancel, style: .plain, target: self, action: #selector(onCancelButtonTapped))
-        
         return button
     }()
     

@@ -31,6 +31,7 @@ enum Sizes {
     static let sero: CGFloat = 0
     static let margin_12: CGFloat = 12
     static let margin_16: CGFloat = 16
+    static let margin_2x16: CGFloat = 2 * margin_16
 
     static let zero: CGFloat = 0
     static let marginV: CGFloat = 12        // margin vertically

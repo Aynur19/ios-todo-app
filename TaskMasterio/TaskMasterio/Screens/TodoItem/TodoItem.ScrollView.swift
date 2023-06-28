@@ -32,7 +32,7 @@ final class TodoItemScrollView: UIScrollView {
         
         NSLayoutConstraint.activate([
             descriptionView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            descriptionView.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -2 * Sizes.margin_16),
+            descriptionView.widthAnchor.constraint(equalTo: self.widthAnchor, constant: Sizes.margin_2x16),
             descriptionView.topAnchor.constraint(equalTo: self.topAnchor),
             descriptionView.heightAnchor.constraint(greaterThanOrEqualToConstant: Sizes.descriptionMinHeight),
         ])
