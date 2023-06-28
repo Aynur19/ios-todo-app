@@ -50,7 +50,7 @@ enum Sizes {
     static let margin2xH = 2 * marginH      // margin of 2 horizontally
     static let spacingV: CGFloat = 16
     static let spacingH: CGFloat = 16
-    static let separatorW: CGFloat = 1
+    static let separatorH: CGFloat = 1
     
     static let descriptionMinHeight: CGFloat = 120
     static let textViewFontSize: CGFloat = 17

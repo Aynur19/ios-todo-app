@@ -15,6 +15,7 @@ final class TodoItemDetailsStackView: UIStackView {
         
         setupDetailsStackView()
         setupPriorityStackView()
+        setupSeparator_1()
         setupDeadlineStackView()
     }
     
@@ -27,7 +28,7 @@ final class TodoItemDetailsStackView: UIStackView {
     private func setupDetailsStackView() {
         self.axis = .vertical
         self.alignment = .center
-        self.spacing = Sizes.margin_16
+//        self.spacing = Sizes.margin_16
         self.backgroundColor = UIColor(named: AccentColors.backSecondary)
         self.layer.cornerRadius = Sizes.cornerRadius
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -38,6 +39,16 @@ final class TodoItemDetailsStackView: UIStackView {
         
         NSLayoutConstraint.activate([
             priorityStackView.widthAnchor.constraint(equalTo: self.widthAnchor),
+        ])
+    }
+    
+    private func setupSeparator_1() {
+        self.addArrangedSubview(separator_1)
+    
+        NSLayoutConstraint.activate([
+            separator_1.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -Margins._2x16),
+            separator_1.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            separator_1.heightAnchor.constraint(equalToConstant: Sizes.separatorH),
         ])
     }
     
@@ -53,5 +64,15 @@ final class TodoItemDetailsStackView: UIStackView {
     private lazy var priorityStackView = TodoItemPriorityStackView()
     
     private lazy var deadlineStackView = TodoItemDeadlineStackView()
+    
+    private lazy var separator_1 = getSeparator()
+    
+    private func getSeparator() -> UIView {
+        let separator = UIView()
+        separator.backgroundColor = UIColor(named: AccentColors.supportSeparator)
+        separator.translatesAutoresizingMaskIntoConstraints = false
+        
+        return separator
+    }
 }
 
