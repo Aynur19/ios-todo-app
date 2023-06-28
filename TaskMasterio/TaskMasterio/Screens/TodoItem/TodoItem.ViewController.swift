@@ -17,8 +17,11 @@ final class TodoItemViewController2: UIViewController {
         setupContentScrollView()
         
         setupTapGestureRecognizer()
+        
+//        onViewTapped()
     }
     
+    // MARK: - Setup Functions
     private func setupView() {
         view.backgroundColor = UIColor(named: AccentColors.backPrimary)
     }
@@ -46,16 +49,19 @@ final class TodoItemViewController2: UIViewController {
     }
     
     private func setupTapGestureRecognizer() {
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onViewTapped))
+        tapGestureRecognizer.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGestureRecognizer)
     }
     
-    private lazy var contentScrollView: UIScrollView = {
-        let scrollView = TodoItemScrollView(frame: .zero)
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
+    // MARK: - UI Elements
+    private lazy var contentScrollView =  TodoItemScrollView(frame: .zero)
+//    : UIScrollView = {
+//        let scrollView =
+//        scrollView.translatesAutoresizingMaskIntoConstraints = false
         
-        return scrollView
-    }()
+//        return scrollView
+//    }()
     
     private lazy var cancelButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: Titles.cancel, style: .plain, target: self, action: #selector(onCancelButtonTapped))
@@ -70,12 +76,12 @@ final class TodoItemViewController2: UIViewController {
         return button
     }()
     
-    
+    // MARK: - Handlers
     @objc private func onCancelButtonTapped() { }
     
     @objc private func onSaveButtonTapped() { }
     
-    @objc private func handleTap() {
+    @objc private func onViewTapped() {
         view.endEditing(true)
     }
 }

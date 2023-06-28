@@ -31,7 +31,7 @@ final class TodoItemContentStackView: UIStackView {
     }
     
     private lazy var descriptionView: UITextView = {
-        let textView = TodoItemDescriptionView(frame: .zero)
+        let textView = TodoItemDescriptionView()
         textView.font = Fonts.getFont(named: .body)
         textView.tintColor = UIColor(named: AccentColors.backSecondary)
         textView.layer.cornerRadius = Sizes.cornerRadius

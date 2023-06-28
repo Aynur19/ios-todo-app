@@ -9,16 +9,17 @@ import UIKit
 
 final class TodoItemDescriptionView: UITextView {
     
-    override init(frame: CGRect, textContainer: NSTextContainer?) {
-        super.init(frame: frame, textContainer: textContainer)
+    // MARK: - Lifesycle Functions
+    init() {
+        super.init(frame: .zero, textContainer: .none)
         
+        setupTextView()
         setupPlaceHolderLabel()
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        
-        setupPlaceHolderLabel()
+        fatalError("Trying to initialize Todo Item Description View...")
     }
     
     override func becomeFirstResponder() -> Bool {
@@ -35,6 +36,19 @@ final class TodoItemDescriptionView: UITextView {
         return didResignFirstResponder
     }
     
+    // MARK: - Setup Functions
+    private func setupTextView() {
+        self.font = Fonts.getFont(named: .body)
+        self.tintColor = UIColor(named: AccentColors.backSecondary)
+        self.textColor = UIColor(named: AccentColors.labelPrimary)
+        self.autocorrectionType = .no
+        self.layer.cornerRadius = Sizes.cornerRadius
+        self.isScrollEnabled = false
+        self.textContainerInset = UIEdgeInsets(top: Sizes.margin_12, left: Sizes.margin_16,
+                                               bottom: Sizes.margin_12, right: Sizes.margin_16)
+        self.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
     private func setupPlaceHolderLabel() {
         addSubview(placeholderLabel)
         
@@ -45,6 +59,7 @@ final class TodoItemDescriptionView: UITextView {
         ])
     }
     
+    // MARK: - UI Elements
     private lazy var placeholderLabel: UILabel = {
         let label = UILabel()
         label.tintColor = UIColor(named: AccentColors.backSecondary)
