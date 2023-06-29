@@ -88,7 +88,9 @@ final class TodoItemViewController2: UIViewController {
     // MARK: - Handlers
     @objc private func onCancelButtonTapped() { }
     
-    @objc private func onSaveButtonTapped() { }
+    @objc private func onSaveButtonTapped() {
+        viewModel.saveTask()
+    }
     
     @objc private func onViewTapped() {
         view.endEditing(true)

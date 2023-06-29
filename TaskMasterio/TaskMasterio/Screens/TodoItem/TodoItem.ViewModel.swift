@@ -13,25 +13,28 @@ final class TodoItemViewModel: ObservableObject {
     
     @Published var description: String
     @Published var deadline: Date?
-    @Published var priority: Priority?
+    @Published var priority: Priority
     
     @Published var calendarIsHidden = true
     @Published var isSwitchOn = false
+    @Published var taskExists: Bool
     
     private var cancellables = Set<AnyCancellable>()
     private var task: TodoItem
     
-    init(currentTask: TodoItem) {
-        self.task = currentTask
+    private let dataCache: FileCache
+    
+    init(_ currentTask: TodoItem?, with dataCache: FileCache) {
+        self.taskExists = currentTask != nil
+        
+        self.task = currentTask ?? TodoItem(text: "", priority: .medium)
+        self.dataCache = dataCache
         
         description = task.text
         deadline = task.deadline
         priority = task.priority
         
-        $isSwitchOn
-            .map { return self.getDefaultDeadline(isOn: $0) }
-            .assign(to: &$deadline)
-
+        print("task: \(task)\n")
         print("description: \(description)")
         print("deadline: \(deadline)")
         print("priority: \(priority)")
@@ -80,9 +83,49 @@ final class TodoItemViewModel: ObservableObject {
             .eraseToAnyPublisher()
     }
     
-    private func getDefaultDeadline(isOn: Bool) -> Date? {
-        let deadlineDate = isOn ? Calendar.current.date(byAdding: .day, value: 1, to: Date()) : nil
-        print("deadlineDate \(deadlineDate)")
-        return deadlineDate
+    func setDeadline(_ date: Date? = nil) {
+        if let deadlineDate = date {
+            deadline = Calendar.current.date(byAdding: .day, value: 1, to: deadlineDate)
+        } else {
+            deadline = date
+        }
+    }
+    
+    func showDeadlineCalendar(_ isOn: Bool) {
+        isSwitchOn = isOn
+    }
+    
+    func updatePriority(priorityIndex: Int) {
+        priority = Priority.getPriority(priorityIndex) ?? .medium
+    }
+    
+    func saveTask() {
+        var writtenTask: TodoItem
+        if taskExists {
+            writtenTask = TodoItem(id: task.id,
+                                   text: description,
+                                   priority: priority,
+                                   deadline: deadline,
+                                   isDone: task.isDone,
+                                   createdOn: task.createdOn,
+                                   updatedOn: Date())
+        } else {
+            writtenTask = TodoItem(text: description,
+                                   priority: priority,
+                                   deadline: deadline,
+                                   createdOn: Date(),
+                                   updatedOn: Date())
+        }
+        
+        print("task: \(writtenTask)\n")
+        dataCache.add(writtenTask)
+        try? dataCache.save(name: "Tasks", as: .json)
+        
+        taskExists = true
+    }
+    
+    func removeTask() {
+        dataCache.remove(by: task.id)
+        try? dataCache.save(name: "Tasks", as: .json)
     }
 }

@@ -35,11 +35,17 @@ final class TodoItemRemoveButton: UIButton {
         self.setTitleColor(UIColor(named: AccentColors.labelTertiary), for: .disabled)
         self.layer.cornerRadius = Sizes.cornerRadius
         self.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.addTarget(self, action: #selector(onRemoveButtonTapped(_:)), for: .touchUpInside)
     }
     
     private func bindViewModel() {
-        viewModel.taskIsChanged
+        viewModel.$taskExists
             .assign(to: \.isEnabled, on: self)
             .store(in: &cancellables)
+    }
+    
+    @objc func onRemoveButtonTapped(_ sender: UIButton) {
+        viewModel.removeTask()
     }
 }

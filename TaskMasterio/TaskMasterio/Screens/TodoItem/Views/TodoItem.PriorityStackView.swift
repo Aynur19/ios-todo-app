@@ -85,7 +85,7 @@ final class TodoItemPriorityStackView: UIStackView {
         
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         
-        segmentedControl.selectedSegmentIndex = viewModel?.priority?.index ?? Priority.medium.index
+        segmentedControl.selectedSegmentIndex = viewModel?.priority.index ?? Priority.medium.index
         
         segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged(_:)), for: .valueChanged)
         
@@ -94,7 +94,6 @@ final class TodoItemPriorityStackView: UIStackView {
     
     @objc func segmentedControlValueChanged(_ sender: UISegmentedControl) {
         let selectedIndex = sender.selectedSegmentIndex
-        
-        viewModel.priority = Priority.getPriority(selectedIndex)
+        viewModel.updatePriority(priorityIndex: selectedIndex)
     }
 }

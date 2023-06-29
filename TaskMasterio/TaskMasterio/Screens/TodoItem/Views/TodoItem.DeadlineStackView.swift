@@ -110,12 +110,10 @@ final class TodoItemDeadlineStackView: UIStackView {
     }()
     
     @objc private func onSwitchTapped(_ sender: UISwitch) {
-        viewModel.isSwitchOn = sender.isOn
-        
-        if !sender.isOn { viewModel.calendarIsHidden = !sender.isOn }
+        viewModel.setDeadline()
     }
     
     @objc private func onDeadlineDateLabelTapped() {
-        viewModel.calendarIsHidden = !viewModel.calendarIsHidden
+        viewModel.showDeadlineCalendar(!viewModel.calendarIsHidden)
     }
 }
