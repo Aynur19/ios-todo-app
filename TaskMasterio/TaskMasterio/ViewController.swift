@@ -42,13 +42,14 @@ class ViewController: UIViewController {
         let todoItemController = TodoItemViewController2()
         let todoItemNavigationController = UINavigationController(rootViewController: todoItemController)
         
-//        do {
-//            try fileCache.load(name: "Test data", from: nil, as: .json)
-//
-//            todoItemController.task = fileCache.tasks.first
-//        } catch {
-//            print(error)
-//        }
+        do {
+            try fileCache.load(name: "Test data", from: nil, as: .json)
+
+            todoItemController.viewModel = TodoItemViewModel(currentTask: fileCache.tasks.first ?? TodoItem(text: "Task #1", priority: .low))
+        } catch {
+            todoItemController.viewModel = TodoItemViewModel(currentTask: TodoItem(text: "Task #1", priority: .low))
+            print(error)
+        }
 
         present(todoItemNavigationController, animated: true, completion: nil)
     }

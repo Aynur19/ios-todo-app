@@ -6,8 +6,13 @@
 //
 
 import UIKit
+import Combine
 
 final class TodoItemViewController2: UIViewController {
+    
+    var viewModel: TodoItemViewModel!
+    
+    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Lifesycle Functions
     override func viewDidLoad() {
@@ -18,6 +23,8 @@ final class TodoItemViewController2: UIViewController {
         setupContentScrollView()
         
         setupTapGestureRecognizer()
+        
+        configure()
     }
     
     // MARK: - Setup Functions
@@ -53,8 +60,16 @@ final class TodoItemViewController2: UIViewController {
         view.addGestureRecognizer(tapGestureRecognizer)
     }
     
+    private func configure() {
+//        contentScrollView.configure(with: viewModel)
+        
+        viewModel.taskIsChanged
+            .assign(to: \.isEnabled, on: saveButton)
+            .store(in: &cancellables)
+    }
+    
     // MARK: - UI Elements
-    private lazy var contentScrollView = TodoItemScrollView(frame: .zero)
+    private lazy var contentScrollView = TodoItemScrollView(with: viewModel)
     
     private lazy var cancelButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: Titles.cancel, style: .plain, target: self, action: #selector(onCancelButtonTapped))

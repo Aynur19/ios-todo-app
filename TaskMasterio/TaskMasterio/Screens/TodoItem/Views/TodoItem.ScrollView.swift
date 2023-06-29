@@ -6,12 +6,16 @@
 //
 
 import UIKit
+//import Combine
 
 final class TodoItemScrollView: UIScrollView {
+  
+    private var viewModel: TodoItemViewModel!
     
     // MARK: - Lifesycle Functions
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(with viewModel: TodoItemViewModel) {
+        super.init(frame: .zero)
+        self.viewModel = viewModel
         
         setupScrollView()
         setupDescriptionView()
@@ -39,7 +43,6 @@ final class TodoItemScrollView: UIScrollView {
         ])
     }
     
-    
     private func setupDetailsStackView(topView: UIView) {
         self.addSubview(detailsStackView)
         
@@ -50,8 +53,13 @@ final class TodoItemScrollView: UIScrollView {
         ])
     }
     
-    // MARK: - UI Elements
-    private lazy var descriptionView = TodoItemDescriptionView()
+//    func configure(with viewModel: TodoItemViewModel) {
+//        descriptionView.configure(with: viewModel)
+//        detailsStackView.configure(with: viewModel)
+//    }
     
-    private lazy var detailsStackView = TodoItemDetailsStackView()
+    // MARK: - UI Elements
+    private lazy var descriptionView = TodoItemDescriptionView(with: viewModel)
+    
+    private lazy var detailsStackView = TodoItemDetailsStackView(with: viewModel)
 }

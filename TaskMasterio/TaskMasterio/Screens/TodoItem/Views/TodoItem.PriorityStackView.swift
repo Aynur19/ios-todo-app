@@ -9,9 +9,12 @@ import UIKit
 
 final class TodoItemPriorityStackView: UIStackView {
     
+    private var viewModel: TodoItemViewModel!
+    
     // MARK: - Lifesycle Functions
-    init() {
+    init(with viewModel: TodoItemViewModel) {
         super.init(frame: .zero)
+        self.viewModel = viewModel
         
         setupPriorityStackView()
         setupPriorityLabel()
@@ -82,6 +85,16 @@ final class TodoItemPriorityStackView: UIStackView {
         
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         
+        segmentedControl.selectedSegmentIndex = viewModel?.priority?.index ?? Priority.medium.index
+        
+        segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged(_:)), for: .valueChanged)
+        
         return segmentedControl
     }()
+    
+    @objc func segmentedControlValueChanged(_ sender: UISegmentedControl) {
+        let selectedIndex = sender.selectedSegmentIndex
+        
+        viewModel.priority = Priority.getPriority(selectedIndex)
+    }
 }

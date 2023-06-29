@@ -6,34 +6,27 @@
 //
 
 import UIKit
+import Combine
 
 final class TodoItemDescriptionView: UITextView {
+   
+    private var viewModel: TodoItemViewModel!
+    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Lifesycle Functions
-    init() {
+    init(with viewModel: TodoItemViewModel) {
         super.init(frame: .zero, textContainer: .none)
+        self.viewModel = viewModel
         
         setupTextView()
         setupPlaceHolderLabel()
+        
+        bindViewModel()
     }
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("Trying to initialize Todo Item Description View...")
-    }
-    
-    override func becomeFirstResponder() -> Bool {
-        let didBecomeFirstResponder = super.becomeFirstResponder()
-        placeholderLabel.isHidden = true
-        
-        return didBecomeFirstResponder
-    }
-    
-    override func resignFirstResponder() -> Bool {
-        let didResignFirstResponder = super.resignFirstResponder()
-        placeholderLabel.isHidden = !text.isEmpty
-        
-        return didResignFirstResponder
     }
     
     // MARK: - Setup Functions
@@ -47,6 +40,8 @@ final class TodoItemDescriptionView: UITextView {
         self.textContainerInset = UIEdgeInsets(top: Sizes.margin_12, left: Sizes.margin_16,
                                                bottom: Sizes.margin_12, right: Sizes.margin_16)
         self.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.text = viewModel.description
     }
     
     private func setupPlaceHolderLabel() {
@@ -57,6 +52,18 @@ final class TodoItemDescriptionView: UITextView {
             placeholderLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Sizes.margin_16),
             placeholderLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: Sizes.margin_12),
         ])
+    }
+    
+    func bindViewModel() {
+        NotificationCenter.default
+            .publisher(for: UITextView.textDidChangeNotification, object: self)
+            .map { ($0.object as? UITextView)?.text ?? "" }
+            .assign(to: \.description, on: viewModel)
+            .store(in: &cancellables)
+        
+        viewModel.descriptionIsNotEmpty
+            .assign(to: \.isHidden, on: placeholderLabel)
+            .store(in: &cancellables)
     }
     
     // MARK: - UI Elements

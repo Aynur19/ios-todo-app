@@ -9,9 +9,12 @@ import UIKit
 
 final class TodoItemDeadlineStackView: UIStackView {
     
+    private var viewModel: TodoItemViewModel!
+    
     // MARK: - Lifesycle Functions
-    init() {
+    init(with viewModel: TodoItemViewModel) {
         super.init(frame: .zero)
+        self.viewModel = viewModel
         
         setupDeadlineStackView()
         setupDeadlineLabelsStackView()
@@ -59,6 +62,9 @@ final class TodoItemDeadlineStackView: UIStackView {
         switcher.tintColor = UIColor(named: AccentColors.labelPrimary)
         switcher.translatesAutoresizingMaskIntoConstraints = false
         
+        switcher.addTarget(self, action: #selector(onSwitchTapped(_:)), for: .valueChanged)
+        switcher.isOn = viewModel.deadline != nil
+        
         return switcher
     }()
     
@@ -89,4 +95,14 @@ final class TodoItemDeadlineStackView: UIStackView {
         
         return label
     }()
+    
+    @objc private func onSwitchTapped(_ sender: UISwitch) {
+        if sender.isOn {
+            viewModel.deadline = Date()
+        } else {
+            viewModel.deadline = nil
+        }
+        
+        print("deadline: \(String(describing: viewModel.deadline))")
+    }
 }

@@ -9,13 +9,17 @@ import UIKit
 
 final class TodoItemDetailsStackView: UIStackView {
     
+    private var viewModel: TodoItemViewModel!
+    
     // MARK: - Lifesycle Functions
-    init() {
+    init(with viewModel: TodoItemViewModel) {
         super.init(frame: .zero)
+        self.viewModel = viewModel
         
         setupDetailsStackView()
         setupPriorityStackView()
         setupSeparator_1()
+        
         setupDeadlineStackView()
     }
     
@@ -28,7 +32,6 @@ final class TodoItemDetailsStackView: UIStackView {
     private func setupDetailsStackView() {
         self.axis = .vertical
         self.alignment = .center
-//        self.spacing = Sizes.margin_16
         self.backgroundColor = UIColor(named: AccentColors.backSecondary)
         self.layer.cornerRadius = Sizes.cornerRadius
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -44,7 +47,7 @@ final class TodoItemDetailsStackView: UIStackView {
     
     private func setupSeparator_1() {
         self.addArrangedSubview(separator_1)
-    
+        
         NSLayoutConstraint.activate([
             separator_1.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -Margins._2x16),
             separator_1.centerXAnchor.constraint(equalTo: self.centerXAnchor),
@@ -61,9 +64,9 @@ final class TodoItemDetailsStackView: UIStackView {
     }
     
     // MARK: - UI Elements
-    private lazy var priorityStackView = TodoItemPriorityStackView()
+    private lazy var priorityStackView = TodoItemPriorityStackView(with: viewModel)
     
-    private lazy var deadlineStackView = TodoItemDeadlineStackView()
+    private lazy var deadlineStackView = TodoItemDeadlineStackView(with: viewModel)
     
     private lazy var separator_1 = getSeparator()
     
