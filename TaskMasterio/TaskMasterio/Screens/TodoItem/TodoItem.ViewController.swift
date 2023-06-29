@@ -28,12 +28,12 @@ final class TodoItemViewController2: UIViewController {
     
     // MARK: - Setup Functions
     private func setupView() {
+        title = Titles.task
         view.backgroundColor = UIColor(named: AccentColors.backPrimary)
     }
     
     private func setupNavBar() {
         if let navigationController = self.navigationController {
-            navigationController.title = Titles.task
             navigationController.navigationBar.barStyle = .default
             
             navigationItem.leftBarButtonItem = cancelButton
