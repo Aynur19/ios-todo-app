@@ -42,6 +42,9 @@
 		98F94A192A4C85D000B72704 /* TodoItem.ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F94A182A4C85D000B72704 /* TodoItem.ViewModel.swift */; };
 		98F94A1C2A4D228800B72704 /* TodoItem.DeadlineDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F94A1B2A4D228800B72704 /* TodoItem.DeadlineDatePickerView.swift */; };
 		98F94A1E2A4D820C00B72704 /* TodoItem.RemoveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F94A1D2A4D820C00B72704 /* TodoItem.RemoveButton.swift */; };
+		98F94A262A4DBC5700B72704 /* TodoList.ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F94A252A4DBC5700B72704 /* TodoList.ViewController.swift */; };
+		98F94A282A4DBE3200B72704 /* TodoList.ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F94A272A4DBE3200B72704 /* TodoList.ViewModel.swift */; };
+		98F94A2A2A4DE25000B72704 /* TodoList.TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F94A292A4DE24F00B72704 /* TodoList.TableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +104,9 @@
 		98F94A182A4C85D000B72704 /* TodoItem.ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.ViewModel.swift; sourceTree = "<group>"; };
 		98F94A1B2A4D228800B72704 /* TodoItem.DeadlineDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.DeadlineDatePickerView.swift; sourceTree = "<group>"; };
 		98F94A1D2A4D820C00B72704 /* TodoItem.RemoveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.RemoveButton.swift; sourceTree = "<group>"; };
+		98F94A252A4DBC5700B72704 /* TodoList.ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.ViewController.swift; sourceTree = "<group>"; };
+		98F94A272A4DBE3200B72704 /* TodoList.ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.ViewModel.swift; sourceTree = "<group>"; };
+		98F94A292A4DE24F00B72704 /* TodoList.TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.TableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,8 +227,8 @@
 				98F94A202A4DA82200B72704 /* Temp */,
 				98F94A132A4C57B800B72704 /* Structs */,
 				985871592A444D7500066B2E /* Resources */,
-				985871532A442F3C00066B2E /* Screens */,
 				985871502A439C1100066B2E /* Application */,
+				985871532A442F3C00066B2E /* Screens */,
 				9858714D2A4330DA00066B2E /* Cache */,
 				98CE2A1D2A3C83E700554B7A /* Extentions */,
 				98F283532A3B7C040008A526 /* Protocols */,
@@ -305,6 +311,9 @@
 		98F94A242A4DBC1200B72704 /* TodoList */ = {
 			isa = PBXGroup;
 			children = (
+				98F94A272A4DBE3200B72704 /* TodoList.ViewModel.swift */,
+				98F94A252A4DBC5700B72704 /* TodoList.ViewController.swift */,
+				98F94A292A4DE24F00B72704 /* TodoList.TableViewCell.swift */,
 			);
 			path = TodoList;
 			sourceTree = "<group>";
@@ -450,6 +459,7 @@
 				987D4E692A4ABE2F00E9507D /* TodoItem.ScrollView.swift in Sources */,
 				9858715B2A444D9800066B2E /* Constants.swift in Sources */,
 				98F2834D2A359C7C0008A526 /* TodoItem.swift in Sources */,
+				98F94A282A4DBE3200B72704 /* TodoList.ViewModel.swift in Sources */,
 				98F94A122A4C38F400B72704 /* TodoItem.DeadlineStackView.swift in Sources */,
 				987D4E6D2A4B471300E9507D /* TodoItem.DetailsStackView.swift in Sources */,
 				9858715D2A44557700066B2E /* NSLayoutConstraint.swift in Sources */,
@@ -458,7 +468,9 @@
 				98BE0E7F2A3CD61B00EE3B7C /* JsonParser.swift in Sources */,
 				98F283522A3B77BF0008A526 /* FileCache.swift in Sources */,
 				98F94A1E2A4D820C00B72704 /* TodoItem.RemoveButton.swift in Sources */,
+				98F94A2A2A4DE25000B72704 /* TodoList.TableViewCell.swift in Sources */,
 				98F94A192A4C85D000B72704 /* TodoItem.ViewModel.swift in Sources */,
+				98F94A262A4DBC5700B72704 /* TodoList.ViewController.swift in Sources */,
 				98F94A1C2A4D228800B72704 /* TodoItem.DeadlineDatePickerView.swift in Sources */,
 				98F2831E2A350E650008A526 /* SceneDelegate.swift in Sources */,
 				985871582A443A5700066B2E /* TodoItemViewController.swift in Sources */,

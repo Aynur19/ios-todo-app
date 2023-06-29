@@ -78,7 +78,7 @@ extension FileCache: DataCache {
     }
     
     // MARK: - Load Data
-    func load(name: String, from url: URL?, as format: DataFormat) throws {
+    func load(name: String, from url: URL? = nil, as format: DataFormat) throws {
         switch format {
         case .json:
             try loadFromJson(name: name, to: url)
@@ -87,7 +87,7 @@ extension FileCache: DataCache {
         }
     }
     
-    func loadFromJson(name: String, to url: URL?) throws {
+    func loadFromJson(name: String, to url: URL? = nil) throws {
         let jsonURL = try getFileURL(name: name, url: url, as: DataFormat.json.rawValue, forSaving: false)
         
         var jsonData: Data
@@ -124,7 +124,7 @@ extension FileCache: DataCache {
         }
     }
     
-    func loadFromCsv(name: String, from url: URL?) throws {
+    func loadFromCsv(name: String, from url: URL? = nil) throws {
         let csvURL = try getFileURL(name: name, url: url, as: DataFormat.csv.rawValue, forSaving: false)
         
         var csvData: String
