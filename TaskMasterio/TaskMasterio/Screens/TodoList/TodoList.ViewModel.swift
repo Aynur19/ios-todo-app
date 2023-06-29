@@ -11,7 +11,7 @@ import Combine
 final class TodoListViewModel: ObservableObject {
     
     private var cancellables = Set<AnyCancellable>()
-    var tasks = [TodoItemViewModel] ()
+    var tasks = [TodoItemViewModel]()
     
     private let dataCache: FileCache
     
@@ -24,8 +24,8 @@ final class TodoListViewModel: ObservableObject {
     private func loadData() {
         try? dataCache.load(name: "Tasks", as: .json)
         
-        for task in dataCache.tasks {
-            tasks.append(TodoItemViewModel(task, with: dataCache))
+        for _ in 1...30 {
+            tasks.append(TodoItemViewModel(dataCache.tasks.first, with: dataCache))
         }
     }
 }

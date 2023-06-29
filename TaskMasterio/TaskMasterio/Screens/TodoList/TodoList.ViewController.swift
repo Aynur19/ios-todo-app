@@ -14,13 +14,24 @@ final class TodoListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setup()
+        setupNavBar()
         setupTasksTableView()
+    }
+    
+    private func setup() {
+        title = "Мои дела"
+        view.backgroundColor = UIColor(named: AccentColors.backPrimary)
+    }
+    
+    private func setupNavBar() {
+        navigationItem.largeTitleDisplayMode = .always
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     private func setupTasksTableView() {
         view.addSubview(tasksTableView)
-        
-         }
+    }
     
     private var tasksTableView: UITableView {
         let tableView = UITableView(frame: view.bounds, style: .plain)
@@ -29,7 +40,7 @@ final class TodoListViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
- 
+        
         return tableView
     }
 }

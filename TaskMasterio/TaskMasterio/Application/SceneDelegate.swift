@@ -18,12 +18,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let todoListViewModel = TodoListViewModel(with: FileCache())
         let startController = TodoListViewController()
         startController.viewModel = todoListViewModel
+        
+        let todoListNavigationController = UINavigationController(rootViewController: startController)
 //        let startController = ViewController()
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = startController
+        window?.rootViewController = todoListNavigationController
         window?.makeKeyAndVisible()
     }
 }
