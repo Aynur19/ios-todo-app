@@ -180,8 +180,6 @@
 			isa = PBXGroup;
 			children = (
 				98F94A1A2A4CE6DD00B72704 /* Views */,
-				98F94A182A4C85D000B72704 /* TodoItem.ViewModel.swift */,
-				987D4E6A2A4B01F400E9507D /* TodoItem.ViewController.swift */,
 			);
 			path = TodoItem;
 			sourceTree = "<group>";
@@ -219,6 +217,7 @@
 		98F2831A2A350E650008A526 /* TaskMasterio */ = {
 			isa = PBXGroup;
 			children = (
+				98F94A202A4DA82200B72704 /* Temp */,
 				98F94A132A4C57B800B72704 /* Structs */,
 				985871592A444D7500066B2E /* Resources */,
 				985871532A442F3C00066B2E /* Screens */,
@@ -291,6 +290,15 @@
 				98F94A1D2A4D820C00B72704 /* TodoItem.RemoveButton.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		98F94A202A4DA82200B72704 /* Temp */ = {
+			isa = PBXGroup;
+			children = (
+				98F94A182A4C85D000B72704 /* TodoItem.ViewModel.swift */,
+				987D4E6A2A4B01F400E9507D /* TodoItem.ViewController.swift */,
+			);
+			path = Temp;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
