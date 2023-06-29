@@ -17,13 +17,22 @@ final class TodoListViewController: UIViewController {
         
         setup()
         setupNavBar()
-        setupTasksTableView()
     }
     
     // MARK: - Setup Functions
     private func setup() {
         title = Titles.todoList
         view.backgroundColor = UIColor(named: AccentColors.backPrimary)
+        
+        view.addSubview(tasksTableContainer)
+        NSLayoutConstraint.activate([
+            tasksTableContainer.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            tasksTableContainer.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -Sizes.margin_2x16),
+            tasksTableContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tasksTableContainer.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+        ])
+        
+        setupTasksTableView(for: tasksTableContainer)
     }
     
     private func setupNavBar() {
@@ -31,8 +40,15 @@ final class TodoListViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
-    private func setupTasksTableView() {
-        view.addSubview(tasksTableView)
+    private func setupTasksTableView(for owner: UIView) {
+        owner.addSubview(tasksTableView)
+        
+        NSLayoutConstraint.activate([
+            tasksTableView.centerXAnchor.constraint(equalTo: owner.centerXAnchor),
+            tasksTableView.widthAnchor.constraint(equalTo: owner.widthAnchor),
+            tasksTableView.topAnchor.constraint(equalTo: owner.topAnchor),
+            tasksTableView.bottomAnchor.constraint(equalTo: owner.bottomAnchor),
+        ])
         
         tasksTableView.delegate = self
         tasksTableView.dataSource = self
@@ -40,6 +56,13 @@ final class TodoListViewController: UIViewController {
     
     // MARK: - UI Elements
     private lazy var tasksTableView = TodoListTableView(for: self.view)
+    
+    private lazy var tasksTableContainer: UIView = {
+        let container = UIView()
+        container.translatesAutoresizingMaskIntoConstraints = false
+        
+        return container
+    }()
 }
 
 extension TodoListViewController: UITableViewDataSource, UITableViewDelegate {
@@ -56,4 +79,5 @@ extension TodoListViewController: UITableViewDataSource, UITableViewDelegate {
         
         return cell
     }
+    
 }

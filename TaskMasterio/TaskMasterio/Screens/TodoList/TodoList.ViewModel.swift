@@ -24,7 +24,7 @@ final class TodoListViewModel: ObservableObject {
     private func loadData() {
         try? dataCache.load(name: "Tasks", as: .json)
         
-        for _ in 1...30 {
+        for _ in 1...5 {
             tasks.append(TodoItemViewModel(dataCache.tasks.first, with: dataCache))
         }
     }

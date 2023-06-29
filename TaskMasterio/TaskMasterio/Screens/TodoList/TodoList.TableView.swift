@@ -11,7 +11,7 @@ final class TodoListTableView: UITableView {
     
     // MARK: - Lifesycle Functions
     init(for view: UIView) {
-        super.init(frame: view.bounds, style: .plain)
+        super.init(frame: view.bounds, style: .insetGrouped)
         
         setup()
     }
@@ -25,5 +25,7 @@ final class TodoListTableView: UITableView {
     private func setup() {
         self.register(TodoListTableViewCell.self, forCellReuseIdentifier: Titles.todoListCellId)
         self.backgroundColor = UIColor(named: AccentColors.backPrimary)
+        self.layer.cornerRadius = Sizes.cornerRadius
+        self.translatesAutoresizingMaskIntoConstraints = false
     }
 }
