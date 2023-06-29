@@ -18,7 +18,7 @@ final class TodoItemDeadlineStackView: UIStackView {
         super.init(frame: .zero)
         self.viewModel = viewModel
         
-        setupDeadlineStackView()
+        setup()
         setupDeadlineLabelsStackView()
         setupDeadlineSwitcher()
         
@@ -31,7 +31,7 @@ final class TodoItemDeadlineStackView: UIStackView {
     }
     
     // MARK: - Setup Functions
-    private func setupDeadlineStackView() {
+    private func setup() {
         self.axis = .horizontal
         self.spacing = Margins._16
         self.alignment = .fill

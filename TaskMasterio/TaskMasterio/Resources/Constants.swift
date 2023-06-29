@@ -42,6 +42,8 @@ enum Sizes {
     static let margin_16: CGFloat = 16
     static let margin_2x16: CGFloat = 2 * margin_16
 
+    static let buttonH: CGFloat = 56
+    
     static let zero: CGFloat = 0
     static let marginV: CGFloat = 12        // margin vertically
     static let marginV_10: CGFloat = 10     // margin vertically
@@ -81,6 +83,7 @@ enum Fonts {
     case title
     case headline
     case body
+    case bodyBold
     case subhead
     case footnote
     
@@ -95,6 +98,8 @@ enum Fonts {
             font = UIFont(name: "SFProText-Semibold", size: 17) ?? UIFont.systemFont(ofSize: 17, weight: .semibold)
         case .body:
             font = UIFont(name: "SFProText-Regular", size: 17) ?? UIFont.systemFont(ofSize: 17, weight: .regular)
+        case .bodyBold:
+            font = UIFont(name: "SFProText-Bold", size: 17) ?? UIFont.systemFont(ofSize: 17, weight: .bold)
         case .subhead:
             font = UIFont(name: "SFProText-Regular", size: 15) ?? UIFont.systemFont(ofSize: 15, weight: .regular)
         case .footnote:

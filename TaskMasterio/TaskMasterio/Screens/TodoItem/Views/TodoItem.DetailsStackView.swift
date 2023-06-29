@@ -18,7 +18,7 @@ final class TodoItemDetailsStackView: UIStackView {
         super.init(frame: .zero)
         self.viewModel = viewModel
         
-        setupDetailsStackView()
+        setup()
         
         setupPriorityStackView()
         setupSeparator_1()
@@ -35,7 +35,7 @@ final class TodoItemDetailsStackView: UIStackView {
     }
     
     // MARK: - Setup Functions
-    private func setupDetailsStackView() {
+    private func setup() {
         self.axis = .vertical
         self.alignment = .center
         self.backgroundColor = UIColor(named: AccentColors.backSecondary)

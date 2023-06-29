@@ -6,7 +6,6 @@
 //
 
 import UIKit
-//import Combine
 
 final class TodoItemScrollView: UIScrollView {
   
@@ -17,9 +16,10 @@ final class TodoItemScrollView: UIScrollView {
         super.init(frame: .zero)
         self.viewModel = viewModel
         
-        setupScrollView()
+        setup()
         setupDescriptionView()
         setupDetailsStackView(topView: descriptionView)
+        setupRemoveButton(topView: detailsStackView)
     }
     
     @available(*, unavailable)
@@ -28,7 +28,7 @@ final class TodoItemScrollView: UIScrollView {
     }
     
     // MARK: - Setup Functions
-    private func setupScrollView() {
+    private func setup() {
         self.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -39,8 +39,10 @@ final class TodoItemScrollView: UIScrollView {
             descriptionView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             descriptionView.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -Sizes.margin_2x16),
             descriptionView.topAnchor.constraint(equalTo: self.topAnchor),
+            descriptionView.bottomAnchor.constraint(lessThanOrEqualTo: self.keyboardLayoutGuide.topAnchor, constant: -Sizes.margin_16),
             descriptionView.heightAnchor.constraint(greaterThanOrEqualToConstant: Sizes.descriptionMinHeight),
         ])
+        descriptionView.contentSize = self.bounds.size
     }
     
     private func setupDetailsStackView(topView: UIView) {
@@ -53,8 +55,23 @@ final class TodoItemScrollView: UIScrollView {
         ])
     }
     
+    private func setupRemoveButton(topView: UIView) {
+        self.addSubview(removeButton)
+        
+        NSLayoutConstraint.activate([
+            removeButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            removeButton.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -Sizes.margin_2x16),
+            removeButton.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: Sizes.margin_16),
+            removeButton.heightAnchor.constraint(equalToConstant: Sizes.buttonH),
+            
+            removeButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -Sizes.margin_16),
+        ])
+    }
+    
     // MARK: - UI Elements
     private lazy var descriptionView = TodoItemDescriptionView(with: viewModel)
     
     private lazy var detailsStackView = TodoItemDetailsStackView(with: viewModel)
+    
+    private lazy var removeButton = TodoItemRemoveButton(with: viewModel)
 }

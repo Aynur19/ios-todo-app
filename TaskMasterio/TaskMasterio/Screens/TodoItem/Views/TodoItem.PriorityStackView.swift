@@ -16,7 +16,7 @@ final class TodoItemPriorityStackView: UIStackView {
         super.init(frame: .zero)
         self.viewModel = viewModel
         
-        setupPriorityStackView()
+        setup()
         setupPriorityLabel()
         setupPrioritySegmentedControl()
     }
@@ -27,7 +27,7 @@ final class TodoItemPriorityStackView: UIStackView {
     }
     
     // MARK: - Setup Functions
-    private func setupPriorityStackView() {
+    private func setup() {
         self.axis = .horizontal
         self.spacing = Sizes.margin_16
         self.alignment = .fill

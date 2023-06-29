@@ -41,6 +41,7 @@
 		98F94A122A4C38F400B72704 /* TodoItem.DeadlineStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F94A112A4C38F400B72704 /* TodoItem.DeadlineStackView.swift */; };
 		98F94A192A4C85D000B72704 /* TodoItem.ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F94A182A4C85D000B72704 /* TodoItem.ViewModel.swift */; };
 		98F94A1C2A4D228800B72704 /* TodoItem.DeadlineDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F94A1B2A4D228800B72704 /* TodoItem.DeadlineDatePickerView.swift */; };
+		98F94A1E2A4D820C00B72704 /* TodoItem.RemoveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F94A1D2A4D820C00B72704 /* TodoItem.RemoveButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +100,7 @@
 		98F94A112A4C38F400B72704 /* TodoItem.DeadlineStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.DeadlineStackView.swift; sourceTree = "<group>"; };
 		98F94A182A4C85D000B72704 /* TodoItem.ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.ViewModel.swift; sourceTree = "<group>"; };
 		98F94A1B2A4D228800B72704 /* TodoItem.DeadlineDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.DeadlineDatePickerView.swift; sourceTree = "<group>"; };
+		98F94A1D2A4D820C00B72704 /* TodoItem.RemoveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.RemoveButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -286,6 +288,7 @@
 				98F94A0F2A4C10BF00B72704 /* TodoItem.PriorityStackView.swift */,
 				98F94A112A4C38F400B72704 /* TodoItem.DeadlineStackView.swift */,
 				98F94A1B2A4D228800B72704 /* TodoItem.DeadlineDatePickerView.swift */,
+				98F94A1D2A4D820C00B72704 /* TodoItem.RemoveButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -438,6 +441,7 @@
 				98CE2A1C2A3C7FB800554B7A /* CsvParser.swift in Sources */,
 				98BE0E7F2A3CD61B00EE3B7C /* JsonParser.swift in Sources */,
 				98F283522A3B77BF0008A526 /* FileCache.swift in Sources */,
+				98F94A1E2A4D820C00B72704 /* TodoItem.RemoveButton.swift in Sources */,
 				98F94A192A4C85D000B72704 /* TodoItem.ViewModel.swift in Sources */,
 				98F94A1C2A4D228800B72704 /* TodoItem.DeadlineDatePickerView.swift in Sources */,
 				98F2831E2A350E650008A526 /* SceneDelegate.swift in Sources */,

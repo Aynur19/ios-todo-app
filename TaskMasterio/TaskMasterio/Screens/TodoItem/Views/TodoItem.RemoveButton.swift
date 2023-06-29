@@ -1,5 +1,5 @@
 //
-//  TodoItem.DeadlineDatePickerView.swift
+//  TodoItem.RemoveButton.swift
 //  TaskMasterio
 //
 //  Created by Aynur Nasybullin on 29.06.2023.
@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-final class TodoItemDeadlineDatePickerView: UIDatePicker {
+final class TodoItemRemoveButton: UIButton {
     
     private var viewModel: TodoItemViewModel!
     private var cancellables = Set<AnyCancellable>()
@@ -24,26 +24,22 @@ final class TodoItemDeadlineDatePickerView: UIDatePicker {
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
-        fatalError("Trying to initialize Todo Item Deadline Date Picker View...")
+        fatalError("Trying to initialize Todo Item Remove Button...")
     }
     
     // MARK: - Setup Functions
     private func setup() {
-        self.datePickerMode = .date
-        self.preferredDatePickerStyle = .inline
-        self.isHidden = true
+        self.setTitle(Titles.delete, for: .normal)
+        self.backgroundColor = UIColor(named: AccentColors.backSecondary)
+        self.setTitleColor(UIColor(named: AccentColors.colorRed), for: .normal)
+        self.setTitleColor(UIColor(named: AccentColors.labelTertiary), for: .disabled)
+        self.layer.cornerRadius = Sizes.cornerRadius
         self.translatesAutoresizingMaskIntoConstraints = false
-        
-        self.addTarget(self, action: #selector(deadlineValueChanged(_:)), for: .valueChanged)
     }
     
     private func bindViewModel() {
-        viewModel.$calendarIsHidden
-            .assign(to: \.isHidden, on: self)
+        viewModel.taskIsChanged
+            .assign(to: \.isEnabled, on: self)
             .store(in: &cancellables)
-    }
-    
-    @objc func deadlineValueChanged(_ sender: UIDatePicker) {
-        viewModel.deadline = sender.date
     }
 }

@@ -18,7 +18,7 @@ final class TodoItemDescriptionView: UITextView {
         super.init(frame: .zero, textContainer: .none)
         self.viewModel = viewModel
         
-        setupTextView()
+        setup()
         setupPlaceHolderLabel()
         
         bindViewModel()
@@ -30,7 +30,7 @@ final class TodoItemDescriptionView: UITextView {
     }
     
     // MARK: - Setup Functions
-    private func setupTextView() {
+    private func setup() {
         self.font = Fonts.getFont(named: .body)
         self.tintColor = UIColor(named: AccentColors.backSecondary)
         self.textColor = UIColor(named: AccentColors.labelPrimary)
