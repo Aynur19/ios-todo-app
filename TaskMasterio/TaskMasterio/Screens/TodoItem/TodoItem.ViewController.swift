@@ -11,7 +11,6 @@ import Combine
 final class TodoItemViewController2: UIViewController {
     
     var viewModel: TodoItemViewModel!
-    
     private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Lifesycle Functions
@@ -24,7 +23,7 @@ final class TodoItemViewController2: UIViewController {
         
         setupTapGestureRecognizer()
         
-        configure()
+        bindViewModel()
     }
     
     // MARK: - Setup Functions
@@ -60,9 +59,7 @@ final class TodoItemViewController2: UIViewController {
         view.addGestureRecognizer(tapGestureRecognizer)
     }
     
-    private func configure() {
-//        contentScrollView.configure(with: viewModel)
-        
+    private func bindViewModel() {
         viewModel.taskIsChanged
             .assign(to: \.isEnabled, on: saveButton)
             .store(in: &cancellables)
@@ -86,7 +83,10 @@ final class TodoItemViewController2: UIViewController {
     }()
     
     // MARK: - Handlers
-    @objc private func onCancelButtonTapped() { }
+    @objc private func onCancelButtonTapped() {
+        view.endEditing(true)
+        dismiss(animated: true, completion: nil)
+    }
     
     @objc private func onSaveButtonTapped() {
         viewModel.saveTask()
