@@ -25,6 +25,8 @@ enum Titles {
     static let delete = "Удалить"
     static let priority = "Важность"
     static let deadline = "Сделать до"
+   
+    
 }
 
 enum Margins {

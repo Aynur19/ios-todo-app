@@ -11,6 +11,7 @@ final class TodoListViewController: UIViewController {
     
     var viewModel: TodoListViewModel!
     
+    // MARK: - Lifesycle Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -19,6 +20,7 @@ final class TodoListViewController: UIViewController {
         setupTasksTableView()
     }
     
+    // MARK: - Setup Functions
     private func setup() {
         title = "Мои дела"
         view.backgroundColor = UIColor(named: AccentColors.backPrimary)
@@ -31,18 +33,13 @@ final class TodoListViewController: UIViewController {
     
     private func setupTasksTableView() {
         view.addSubview(tasksTableView)
+        
+        tasksTableView.delegate = self
+        tasksTableView.dataSource = self
     }
     
-    private var tasksTableView: UITableView {
-        let tableView = UITableView(frame: view.bounds, style: .plain)
-        tableView.register(TodoListTableViewCell.self, forCellReuseIdentifier: "CellIdentifier")
-        
-        tableView.dataSource = self
-        tableView.delegate = self
-        
-        
-        return tableView
-    }
+    // MARK: - UI Elements
+    private lazy var tasksTableView = TodoListTableView(for: self.view)
 }
 
 extension TodoListViewController: UITableViewDataSource, UITableViewDelegate {
@@ -54,10 +51,8 @@ extension TodoListViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellIdentifier", for: indexPath) as! TodoListTableViewCell
         
         let task = viewModel.tasks[indexPath.row]
-        // Configure the cell with the data from the view model
         cell.textLabel?.text = Titles.task
         cell.detailTextLabel?.text = task.description
-        // Update other cell UI elements based on the view model data
         
         return cell
     }
