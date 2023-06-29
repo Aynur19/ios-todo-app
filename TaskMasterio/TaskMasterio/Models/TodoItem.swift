@@ -12,6 +12,28 @@ enum Priority: String {
     case high
     case medium
     case low
+    
+    var index: Int {
+        switch self {
+        case .low:
+            return 0
+        case .medium:
+            return 1
+        case .high:
+            return 2
+        }
+    }
+    
+    static func getPriority(_ priorityValue: Int?) -> Priority? {
+        guard let value = priorityValue else { return nil }
+        
+        switch value {
+        case 0: return Priority.low
+        case 1: return Priority.medium
+        case 2: return Priority.high
+        default: return nil
+        }
+    }
 }
 
 struct TodoItem {

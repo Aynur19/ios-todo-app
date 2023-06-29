@@ -177,7 +177,7 @@ final class TodoItemViewController: UIViewController {
             contentStackView.widthAnchor.constraint(equalTo: contentScrollView.widthAnchor, constant: -Sizes.margin2xH),
             
             // description text view
-            descriptionView.heightAnchor.constraint(greaterThanOrEqualToConstant: Sizes.textViewMinHeight),
+            descriptionView.heightAnchor.constraint(greaterThanOrEqualToConstant: Sizes.descriptionMinHeight),
             descriptionView.widthAnchor.constraint(equalTo: contentStackView.widthAnchor),
             
             // description placeholder
@@ -207,7 +207,7 @@ final class TodoItemViewController: UIViewController {
             prioritySegmentedControl.widthAnchor.constraint(equalToConstant: Sizes.prioritySegmentedControlW),
             
             // separator between priority and deadline
-            priorityAndDeadlineSeparator.heightAnchor.constraint(equalToConstant: Sizes.separatorW).with(priority: .defaultHigh),
+            priorityAndDeadlineSeparator.heightAnchor.constraint(equalToConstant: Sizes.separatorH).with(priority: .defaultHigh),
             priorityAndDeadlineSeparator.widthAnchor.constraint(equalTo: optionsStackView.widthAnchor, constant: -Sizes.margin2xH),
             priorityAndDeadlineSeparator.centerXAnchor.constraint(equalTo: optionsStackView.centerXAnchor),
             
@@ -235,7 +235,7 @@ final class TodoItemViewController: UIViewController {
             deadlineSwitcher.centerYAnchor.constraint(equalTo: deadlineStackView.centerYAnchor),
             
             // separator between deadline switcher and deadline date picker
-            deadlineCalendarSeparator.heightAnchor.constraint(equalToConstant: Sizes.separatorW).with(priority: .defaultHigh),
+            deadlineCalendarSeparator.heightAnchor.constraint(equalToConstant: Sizes.separatorH).with(priority: .defaultHigh),
             deadlineCalendarSeparator.widthAnchor.constraint(equalTo: optionsStackView.widthAnchor, constant: -Sizes.margin2xH),
             deadlineCalendarSeparator.centerXAnchor.constraint(equalTo: optionsStackView.centerXAnchor),
             

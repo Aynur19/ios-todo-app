@@ -14,6 +14,10 @@
 		985871582A443A5700066B2E /* TodoItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985871572A443A5700066B2E /* TodoItemViewController.swift */; };
 		9858715B2A444D9800066B2E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9858715A2A444D9800066B2E /* Constants.swift */; };
 		9858715D2A44557700066B2E /* NSLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9858715C2A44557700066B2E /* NSLayoutConstraint.swift */; };
+		987D4E692A4ABE2F00E9507D /* TodoItem.ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D4E682A4ABE2F00E9507D /* TodoItem.ScrollView.swift */; };
+		987D4E6B2A4B01F400E9507D /* TodoItem.ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D4E6A2A4B01F400E9507D /* TodoItem.ViewController.swift */; };
+		987D4E6D2A4B471300E9507D /* TodoItem.DetailsStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D4E6C2A4B471300E9507D /* TodoItem.DetailsStackView.swift */; };
+		987D4E6F2A4B534500E9507D /* TodoItem.DescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D4E6E2A4B534500E9507D /* TodoItem.DescriptionView.swift */; };
 		98BE0E7F2A3CD61B00EE3B7C /* JsonParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BE0E7E2A3CD61B00EE3B7C /* JsonParser.swift */; };
 		98BE0E812A3CD65300EE3B7C /* TodoItem.JsonParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BE0E802A3CD65300EE3B7C /* TodoItem.JsonParser.swift */; };
 		98BE0E832A3CE3DC00EE3B7C /* TodoItem_JsonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BE0E822A3CE3DC00EE3B7C /* TodoItem_JsonTests.swift */; };
@@ -33,6 +37,11 @@
 		98F283562A3B7E060008A526 /* DataCashe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F283552A3B7E060008A526 /* DataCashe.swift */; };
 		98F283582A3B82B90008A526 /* FileCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F283572A3B82B90008A526 /* FileCacheTests.swift */; };
 		98F2835A2A3B862E0008A526 /* TestsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F283592A3B862E0008A526 /* TestsData.swift */; };
+		98F94A102A4C10BF00B72704 /* TodoItem.PriorityStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F94A0F2A4C10BF00B72704 /* TodoItem.PriorityStackView.swift */; };
+		98F94A122A4C38F400B72704 /* TodoItem.DeadlineStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F94A112A4C38F400B72704 /* TodoItem.DeadlineStackView.swift */; };
+		98F94A192A4C85D000B72704 /* TodoItem.ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F94A182A4C85D000B72704 /* TodoItem.ViewModel.swift */; };
+		98F94A1C2A4D228800B72704 /* TodoItem.DeadlineDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F94A1B2A4D228800B72704 /* TodoItem.DeadlineDatePickerView.swift */; };
+		98F94A1E2A4D820C00B72704 /* TodoItem.RemoveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F94A1D2A4D820C00B72704 /* TodoItem.RemoveButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +69,10 @@
 		985871572A443A5700066B2E /* TodoItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemViewController.swift; sourceTree = "<group>"; };
 		9858715A2A444D9800066B2E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		9858715C2A44557700066B2E /* NSLayoutConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraint.swift; sourceTree = "<group>"; };
+		987D4E682A4ABE2F00E9507D /* TodoItem.ScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.ScrollView.swift; sourceTree = "<group>"; };
+		987D4E6A2A4B01F400E9507D /* TodoItem.ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.ViewController.swift; sourceTree = "<group>"; };
+		987D4E6C2A4B471300E9507D /* TodoItem.DetailsStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.DetailsStackView.swift; sourceTree = "<group>"; };
+		987D4E6E2A4B534500E9507D /* TodoItem.DescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.DescriptionView.swift; sourceTree = "<group>"; };
 		98BE0E7E2A3CD61B00EE3B7C /* JsonParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonParser.swift; sourceTree = "<group>"; };
 		98BE0E802A3CD65300EE3B7C /* TodoItem.JsonParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.JsonParser.swift; sourceTree = "<group>"; };
 		98BE0E822A3CE3DC00EE3B7C /* TodoItem_JsonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem_JsonTests.swift; sourceTree = "<group>"; };
@@ -83,6 +96,11 @@
 		98F283552A3B7E060008A526 /* DataCashe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCashe.swift; sourceTree = "<group>"; };
 		98F283572A3B82B90008A526 /* FileCacheTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCacheTests.swift; sourceTree = "<group>"; };
 		98F283592A3B862E0008A526 /* TestsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestsData.swift; sourceTree = "<group>"; };
+		98F94A0F2A4C10BF00B72704 /* TodoItem.PriorityStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.PriorityStackView.swift; sourceTree = "<group>"; };
+		98F94A112A4C38F400B72704 /* TodoItem.DeadlineStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.DeadlineStackView.swift; sourceTree = "<group>"; };
+		98F94A182A4C85D000B72704 /* TodoItem.ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.ViewModel.swift; sourceTree = "<group>"; };
+		98F94A1B2A4D228800B72704 /* TodoItem.DeadlineDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.DeadlineDatePickerView.swift; sourceTree = "<group>"; };
+		98F94A1D2A4D820C00B72704 /* TodoItem.RemoveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.RemoveButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +160,8 @@
 		985871532A442F3C00066B2E /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				98F2831F2A350E650008A526 /* ViewController.swift */,
+				987D4E672A4ABD1800E9507D /* TodoItem */,
 				985871572A443A5700066B2E /* TodoItemViewController.swift */,
 				983AD75B2A462EC2008EA93A /* TodoItemViewController.ViewBuilder.swift */,
 			);
@@ -154,6 +174,16 @@
 				9858715A2A444D9800066B2E /* Constants.swift */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		987D4E672A4ABD1800E9507D /* TodoItem */ = {
+			isa = PBXGroup;
+			children = (
+				98F94A1A2A4CE6DD00B72704 /* Views */,
+				98F94A182A4C85D000B72704 /* TodoItem.ViewModel.swift */,
+				987D4E6A2A4B01F400E9507D /* TodoItem.ViewController.swift */,
+			);
+			path = TodoItem;
 			sourceTree = "<group>";
 		};
 		98CE2A1D2A3C83E700554B7A /* Extentions */ = {
@@ -189,6 +219,7 @@
 		98F2831A2A350E650008A526 /* TaskMasterio */ = {
 			isa = PBXGroup;
 			children = (
+				98F94A132A4C57B800B72704 /* Structs */,
 				985871592A444D7500066B2E /* Resources */,
 				985871532A442F3C00066B2E /* Screens */,
 				985871502A439C1100066B2E /* Application */,
@@ -196,7 +227,6 @@
 				98CE2A1D2A3C83E700554B7A /* Extentions */,
 				98F283532A3B7C040008A526 /* Protocols */,
 				98F2834B2A359C580008A526 /* Models */,
-				98F2831F2A350E650008A526 /* ViewController.swift */,
 				985871512A439C3600066B2E /* SupportingFiles */,
 			);
 			path = TaskMasterio;
@@ -240,6 +270,27 @@
 				98BE0E7E2A3CD61B00EE3B7C /* JsonParser.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		98F94A132A4C57B800B72704 /* Structs */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Structs;
+			sourceTree = "<group>";
+		};
+		98F94A1A2A4CE6DD00B72704 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				987D4E682A4ABE2F00E9507D /* TodoItem.ScrollView.swift */,
+				987D4E6E2A4B534500E9507D /* TodoItem.DescriptionView.swift */,
+				987D4E6C2A4B471300E9507D /* TodoItem.DetailsStackView.swift */,
+				98F94A0F2A4C10BF00B72704 /* TodoItem.PriorityStackView.swift */,
+				98F94A112A4C38F400B72704 /* TodoItem.DeadlineStackView.swift */,
+				98F94A1B2A4D228800B72704 /* TodoItem.DeadlineDatePickerView.swift */,
+				98F94A1D2A4D820C00B72704 /* TodoItem.RemoveButton.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -372,18 +423,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				987D4E6B2A4B01F400E9507D /* TodoItem.ViewController.swift in Sources */,
 				985871482A3D499D00066B2E /* TodoItem.CsvParser.swift in Sources */,
 				98F283202A350E650008A526 /* ViewController.swift in Sources */,
 				98F2831C2A350E650008A526 /* AppDelegate.swift in Sources */,
+				98F94A102A4C10BF00B72704 /* TodoItem.PriorityStackView.swift in Sources */,
 				9858714F2A43311F00066B2E /* FileCache.Errors.swift in Sources */,
+				987D4E6F2A4B534500E9507D /* TodoItem.DescriptionView.swift in Sources */,
 				98F283562A3B7E060008A526 /* DataCashe.swift in Sources */,
+				987D4E692A4ABE2F00E9507D /* TodoItem.ScrollView.swift in Sources */,
 				9858715B2A444D9800066B2E /* Constants.swift in Sources */,
 				98F2834D2A359C7C0008A526 /* TodoItem.swift in Sources */,
+				98F94A122A4C38F400B72704 /* TodoItem.DeadlineStackView.swift in Sources */,
+				987D4E6D2A4B471300E9507D /* TodoItem.DetailsStackView.swift in Sources */,
 				9858715D2A44557700066B2E /* NSLayoutConstraint.swift in Sources */,
 				98CE2A212A3C9A8900554B7A /* StringExt.swift in Sources */,
 				98CE2A1C2A3C7FB800554B7A /* CsvParser.swift in Sources */,
 				98BE0E7F2A3CD61B00EE3B7C /* JsonParser.swift in Sources */,
 				98F283522A3B77BF0008A526 /* FileCache.swift in Sources */,
+				98F94A1E2A4D820C00B72704 /* TodoItem.RemoveButton.swift in Sources */,
+				98F94A192A4C85D000B72704 /* TodoItem.ViewModel.swift in Sources */,
+				98F94A1C2A4D228800B72704 /* TodoItem.DeadlineDatePickerView.swift in Sources */,
 				98F2831E2A350E650008A526 /* SceneDelegate.swift in Sources */,
 				985871582A443A5700066B2E /* TodoItemViewController.swift in Sources */,
 				98BE0E812A3CD65300EE3B7C /* TodoItem.JsonParser.swift in Sources */,
@@ -490,7 +550,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -544,7 +604,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -568,13 +628,13 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "ru.yandex-team.koteika19.TaskMasterio";
+				PRODUCT_BUNDLE_IDENTIFIER = TaskMasterio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -599,13 +659,13 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "ru.yandex-team.koteika19.TaskMasterio";
+				PRODUCT_BUNDLE_IDENTIFIER = TaskMasterio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
