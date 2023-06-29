@@ -22,7 +22,7 @@ final class TodoListViewController: UIViewController {
     
     // MARK: - Setup Functions
     private func setup() {
-        title = "Мои дела"
+        title = Titles.todoList
         view.backgroundColor = UIColor(named: AccentColors.backPrimary)
     }
     
@@ -48,7 +48,7 @@ extension TodoListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CellIdentifier", for: indexPath) as! TodoListTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Titles.todoListCellId, for: indexPath) as! TodoListTableViewCell
         
         let task = viewModel.tasks[indexPath.row]
         cell.textLabel?.text = Titles.task

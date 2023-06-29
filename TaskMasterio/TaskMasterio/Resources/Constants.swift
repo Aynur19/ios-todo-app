@@ -26,7 +26,8 @@ enum Titles {
     static let priority = "Важность"
     static let deadline = "Сделать до"
    
-    
+    static let todoList = "Мои дела"
+    static let todoListCellId = "TodoListTableViewCell"
 }
 
 enum Margins {

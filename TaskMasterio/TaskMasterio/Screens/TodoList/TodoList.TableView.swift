@@ -23,7 +23,7 @@ final class TodoListTableView: UITableView {
     
     // MARK: - Setup Functions
     private func setup() {
-        self.register(TodoListTableViewCell.self, forCellReuseIdentifier: "CellIdentifier")
+        self.register(TodoListTableViewCell.self, forCellReuseIdentifier: Titles.todoListCellId)
         self.backgroundColor = UIColor(named: AccentColors.backPrimary)
     }
 }
