@@ -110,7 +110,8 @@ final class TodoItemDeadlineStackView: UIStackView {
     }()
     
     @objc private func onSwitchTapped(_ sender: UISwitch) {
-        viewModel.setDeadline()
+        let date: Date? = sender.isOn ? Date() : nil
+        viewModel.setDeadline(date)
     }
     
     @objc private func onDeadlineDateLabelTapped() {

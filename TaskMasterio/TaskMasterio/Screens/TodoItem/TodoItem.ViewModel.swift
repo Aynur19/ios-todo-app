@@ -16,7 +16,6 @@ final class TodoItemViewModel: ObservableObject {
     @Published var priority: Priority
     
     @Published var calendarIsHidden = true
-    @Published var isSwitchOn = false
     @Published var taskExists: Bool
     
     private var cancellables = Set<AnyCancellable>()
@@ -92,7 +91,7 @@ final class TodoItemViewModel: ObservableObject {
     }
     
     func showDeadlineCalendar(_ isOn: Bool) {
-        isSwitchOn = isOn
+        calendarIsHidden = isOn
     }
     
     func updatePriority(priorityIndex: Int) {
