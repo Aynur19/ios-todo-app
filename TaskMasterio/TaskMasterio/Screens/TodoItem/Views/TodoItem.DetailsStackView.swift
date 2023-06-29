@@ -21,6 +21,7 @@ final class TodoItemDetailsStackView: UIStackView {
         setupSeparator_1()
         
         setupDeadlineStackView()
+        setupDeadlineDatePicker()
     }
     
     @available(*, unavailable)
@@ -63,12 +64,23 @@ final class TodoItemDetailsStackView: UIStackView {
         ])
     }
     
+    private func setupDeadlineDatePicker() {
+        self.addArrangedSubview(deadlineDatePicker)
+        
+        NSLayoutConstraint.activate([
+            deadlineDatePicker.widthAnchor.constraint(equalTo: self.widthAnchor),
+            deadlineDatePicker.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+        ])
+    }
+    
     // MARK: - UI Elements
     private lazy var priorityStackView = TodoItemPriorityStackView(with: viewModel)
     
+    private lazy var separator_1 = getSeparator()
+    
     private lazy var deadlineStackView = TodoItemDeadlineStackView(with: viewModel)
     
-    private lazy var separator_1 = getSeparator()
+    private lazy var deadlineDatePicker = TodoItemDeadlineDatePickerView(with: viewModel)
     
     private func getSeparator() -> UIView {
         let separator = UIView()

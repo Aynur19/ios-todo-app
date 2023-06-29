@@ -53,11 +53,6 @@ final class TodoItemScrollView: UIScrollView {
         ])
     }
     
-//    func configure(with viewModel: TodoItemViewModel) {
-//        descriptionView.configure(with: viewModel)
-//        detailsStackView.configure(with: viewModel)
-//    }
-    
     // MARK: - UI Elements
     private lazy var descriptionView = TodoItemDescriptionView(with: viewModel)
     

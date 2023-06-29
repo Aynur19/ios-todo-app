@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import Combine
 
 final class TodoItemDeadlineStackView: UIStackView {
     
     private var viewModel: TodoItemViewModel!
+    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Lifesycle Functions
     init(with viewModel: TodoItemViewModel) {
@@ -19,6 +21,8 @@ final class TodoItemDeadlineStackView: UIStackView {
         setupDeadlineStackView()
         setupDeadlineLabelsStackView()
         setupDeadlineSwitcher()
+        
+        bindViewModel()
     }
     
     @available(*, unavailable)
@@ -43,6 +47,8 @@ final class TodoItemDeadlineStackView: UIStackView {
         NSLayoutConstraint.activate([
             deadlineSwitcher.centerYAnchor.constraint(equalTo: self.centerYAnchor),
         ])
+        
+        deadlineSwitcher.isOn = viewModel.deadline != nil
     }
     
     private func setupDeadlineLabelsStackView() {
@@ -56,6 +62,12 @@ final class TodoItemDeadlineStackView: UIStackView {
         ])
     }
     
+    private func bindViewModel() {
+        viewModel.deadlineStr
+            .assign(to: \.text, on: deadlineDateLabel)
+            .store(in: &cancellables)
+    }
+    
     // MARK: - UI Elements
     private lazy var deadlineSwitcher: UISwitch = {
         let switcher = UISwitch()
@@ -63,8 +75,6 @@ final class TodoItemDeadlineStackView: UIStackView {
         switcher.translatesAutoresizingMaskIntoConstraints = false
         
         switcher.addTarget(self, action: #selector(onSwitchTapped(_:)), for: .valueChanged)
-        switcher.isOn = viewModel.deadline != nil
-        
         return switcher
     }()
     
@@ -88,21 +98,24 @@ final class TodoItemDeadlineStackView: UIStackView {
     
     private lazy var deadlineDateLabel: UILabel = {
         var label = UILabel()
-        label.text = "test"
         label.font = Fonts.getFont(named: .footnote)
         label.textColor = UIColor(named: AccentColors.colorBlue)
         label.translatesAutoresizingMaskIntoConstraints = false
+        
+        let deadlineDateLabelTapGesture = UITapGestureRecognizer(target: self, action: #selector(onDeadlineDateLabelTapped))
+        label.addGestureRecognizer(deadlineDateLabelTapGesture)
+        label.isUserInteractionEnabled = true
         
         return label
     }()
     
     @objc private func onSwitchTapped(_ sender: UISwitch) {
-        if sender.isOn {
-            viewModel.deadline = Date()
-        } else {
-            viewModel.deadline = nil
-        }
+        viewModel.isSwitchOn = sender.isOn
         
-        print("deadline: \(String(describing: viewModel.deadline))")
+        if !sender.isOn { viewModel.calendarIsHidden = !sender.isOn }
+    }
+    
+    @objc private func onDeadlineDateLabelTapped() {
+        viewModel.calendarIsHidden = !viewModel.calendarIsHidden
     }
 }
