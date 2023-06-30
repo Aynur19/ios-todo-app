@@ -9,12 +9,18 @@ import UIKit
 
 final class TodoListTableDataSource: NSObject, UITableViewDataSource, UITableViewDelegate {
     
-    var shownTasks = [TodoItemViewModel]()
+    private var shownTasks = [TodoItemViewModel]()
     private var headerView: TodoListTableViewHeader!
     
-    init(with headerView: TodoListTableViewHeader) {
+    init(with viewModel: TodoListViewModel) {
         super.init()
-        self.headerView = headerView
+        self.headerView = TodoListTableViewHeader(with: viewModel)
+        self.reload(data: viewModel.tasks)
+    }
+    
+    func reload(data: [TodoItemViewModel]) {
+        shownTasks.removeAll(keepingCapacity: true)
+        shownTasks.append(contentsOf: data)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -24,6 +30,8 @@ final class TodoListTableDataSource: NSObject, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Titles.todoListCellId, for: indexPath) as! TodoListTableViewCell
         cell.bindViewModel(with: shownTasks[indexPath.row])
+        cell.tag = indexPath.row
+        print("task index: \(indexPath.row)")
         
         return cell
     }

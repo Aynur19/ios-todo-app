@@ -19,7 +19,7 @@ final class TodoListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dataSource = TodoListTableDataSource(with: TodoListTableViewHeader(with: viewModel))
+        dataSource = TodoListTableDataSource(with: viewModel)
         
         setup()
         setupNavBar()
@@ -67,7 +67,7 @@ final class TodoListViewController: UIViewController {
         viewModel.shownTasks
             .receive(on: DispatchQueue.main)
             .sink { [weak self] tasks in
-                self?.dataSource.shownTasks = tasks
+                self?.dataSource.reload(data: tasks)
                 self?.tasksTableView.reloadData()
              }
             .store(in: &cancellables)

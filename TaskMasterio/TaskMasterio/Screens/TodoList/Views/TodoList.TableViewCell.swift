@@ -24,14 +24,20 @@ final class TodoListTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        self.updateDescriptionStyle(for: self.descriptionLabel, while: .none)
+        self.updateCompletiinMarkStyle(for: self.completionMark, while: TasksStates.none)
+        self.updateDescriptionStyle(for: self.descriptionLabel, while: TasksStates.none)
         self.descriptionLabel.text = nil
+    }
+    
+    deinit {
+        completionMark.removeTarget(self, action: #selector(onCompletionMarkTouched), for: .touchUpInside)
     }
     
     func bindViewModel(with viewModel: TodoItemViewModel) {
         self.viewModel = viewModel
         self.descriptionLabel.text = viewModel.description
         
+        self.cancellables.removeAll()
         self.viewModel.$taskState
             .sink { [weak self] taskState in
                 self?.updateCompletiinMarkStyle(for: self?.completionMark, while: taskState)
