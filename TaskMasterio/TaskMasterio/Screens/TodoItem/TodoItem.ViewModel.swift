@@ -123,6 +123,7 @@ final class TodoItemViewModel: ObservableObject {
     
     func changeTaskCompletion() {
         isDone.toggle()
+        updateState(taskIsDone: isDone, taskPriority: priority)
     }
     
     func saveTask() {

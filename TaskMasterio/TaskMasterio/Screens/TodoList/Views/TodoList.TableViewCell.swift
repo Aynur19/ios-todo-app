@@ -90,9 +90,6 @@ final class TodoListTableViewCell: UITableViewCell {
     
     private lazy var completionMark: UIButton = {
         let button = UIButton()
-        let image = UIImage(named: "Mark. Off")
-        button.setImage(image, for: .normal)
-        button.imageView?.contentMode = .scaleAspectFit
         button.translatesAutoresizingMaskIntoConstraints = false
         
         button.addTarget(self, action: #selector(onCompletionMarkTouched), for: .touchUpInside)
@@ -136,6 +133,7 @@ final class TodoListTableViewCell: UITableViewCell {
         }
         
         updatedButton.setImage(image, for: .normal)
+        updatedButton.imageView?.contentMode = .scaleAspectFit
     }
     
     @objc private func onCompletionMarkTouched() {

@@ -319,12 +319,20 @@
 			children = (
 				98F94A272A4DBE3200B72704 /* TodoList.ViewModel.swift */,
 				98F94A252A4DBC5700B72704 /* TodoList.ViewController.swift */,
+				98F94A312A4EF40D00B72704 /* Views */,
+			);
+			path = TodoList;
+			sourceTree = "<group>";
+		};
+		98F94A312A4EF40D00B72704 /* Views */ = {
+			isa = PBXGroup;
+			children = (
 				98F94A2B2A4DF12100B72704 /* TodoList.TableView.swift */,
 				98F94A2F2A4EC85500B72704 /* TodoList.TableDataSource.swift */,
 				98F94A2D2A4EAC4400B72704 /* TodoList.TableViewHeader.swift */,
 				98F94A292A4DE24F00B72704 /* TodoList.TableViewCell.swift */,
 			);
-			path = TodoList;
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
