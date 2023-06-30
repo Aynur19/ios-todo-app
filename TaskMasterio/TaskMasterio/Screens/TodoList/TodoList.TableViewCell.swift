@@ -6,26 +6,48 @@
 //
 
 import UIKit
+import Combine
 
 final class TodoListTableViewCell: UITableViewCell {
     
     var titleLabel = UILabel()
     var subtitleLabel: UILabel!
     
+    private var viewModel: TodoItemViewModel!
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         setup()
-        
-        //        titleLabel = UILabel()
-        //        subtitleLabel = UILabel()
-        //
-        //        contentView.addSubview(titleLabel)
-        //        contentView.addSubview(subtitleLabel)
-        
-        
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        titleLabel.text = nil
+    }
+    
+    func configure(with viewModel: TodoItemViewModel) {
+        self.viewModel = viewModel
+        
+        
+        titleLabel.text = viewModel.description
+    }
+    
+    //    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    //        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    //
+    //        setup()
+    //
+    //        //        titleLabel = UILabel()
+    //        //        subtitleLabel = UILabel()
+    //        //
+    //        //        contentView.addSubview(titleLabel)
+    //        //        contentView.addSubview(subtitleLabel)
+    //
+    //
+    //    }
+    //
     @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
         fatalError("Trying to initialize Todo List Table View Cell...")
@@ -54,7 +76,6 @@ final class TodoListTableViewCell: UITableViewCell {
             completionMark.widthAnchor.constraint(equalToConstant: 24),
             completionMark.centerYAnchor.constraint(equalTo: stackView.centerYAnchor),
         ])
-        
         
     }
     
