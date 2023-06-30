@@ -6,28 +6,38 @@
 //
 
 import UIKit
-
-private let headerLabelText = "Выполнено - "
-private let showCompletedTasks = "Показать"
-private let hideCompletedTasks = "Скрыть"
-
+import Combine
 
 
 final class TodoListTableViewHeader: UIView {
     
+    // MARK: - Properties
     private var viewModel: TodoListViewModel!
-    private var completedTasksIsHidden = true
+    private var cancellables = Set<AnyCancellable>()
     
+    // MARK: - Lifesycle Functions
     init(with viewModel: TodoListViewModel) {
         super.init(frame: .zero)
-        self.viewModel = viewModel
         
         setup()
+        bindViewModel(viewModel)
     }
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("Trying to initialize TodoListTableViewHeader...")
+    }
+    
+    // MARK: - Setup Functions
+    private func bindViewModel(_ viewModel: TodoListViewModel) {
+        self.viewModel = viewModel
+        self.viewModel.showTasksButtonLabel
+            .assign(to: \.text, on: completedTasksVisibilityLabel)
+            .store(in: &cancellables)
+        
+        self.viewModel.completedTasksCountLabel
+            .assign(to: \.text, on: completedTasksLabel)
+            .store(in: &cancellables)
     }
     
     private func setup() {
@@ -45,9 +55,9 @@ final class TodoListTableViewHeader: UIView {
         ])
     }
     
+    // MARK: - UI Elements
     private lazy var completedTasksLabel: UILabel = {
         let label = UILabel()
-        label.text = headerLabelText + String(viewModel.completedTasksCount)
         label.font = Fonts.getFont(named: .subhead)
         label.textColor = UIColor(named: AccentColors.labelTertiary)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -57,7 +67,6 @@ final class TodoListTableViewHeader: UIView {
     
     private lazy var completedTasksVisibilityLabel: UILabel = {
         var label = UILabel()
-        label.text = showCompletedTasks
         label.font = Fonts.getFont(named: .subheadBold)
         label.textColor = UIColor(named: AccentColors.colorBlue)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -69,9 +78,8 @@ final class TodoListTableViewHeader: UIView {
         return label
     }()
     
+    // MARK: - Intents
     @objc private func onDeadlineDateLabelTapped() {
         viewModel.changeCompletedTasksVisibility()
-        completedTasksIsHidden.toggle()
-        completedTasksVisibilityLabel.text = completedTasksIsHidden ? hideCompletedTasks : showCompletedTasks
     }
 }

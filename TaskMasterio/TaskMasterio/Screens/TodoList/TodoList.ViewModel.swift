@@ -8,11 +8,16 @@
 import Foundation
 import Combine
 
+private let completedTasksCountStr = "Выполнено - "
+private let showCompletedTasksStr = "Показать"
+private let hideCompletedTasksStr = "Скрыть"
+
 final class TodoListViewModel: ObservableObject {
     
     private(set) var tasks = [TodoItemViewModel]()
     private var cancellables = Set<AnyCancellable>()
     
+    @Published var completedTasksCount = 0
     @Published var completedTasksIsHidden = false
     
     private let dataCache: FileCache
@@ -31,16 +36,26 @@ final class TodoListViewModel: ObservableObject {
     
     var shownTasks: AnyPublisher<[TodoItemViewModel], Never> {
         return $completedTasksIsHidden
-            .map { completedTasksIsHidden in
-                if completedTasksIsHidden {
+            .map { isHidden in
+                if isHidden {
                     return self.tasks.filter { !$0.isDone }
                 }
                 return self.tasks
             }
             .eraseToAnyPublisher()
     }
-        
-//    private func
+    
+    var showTasksButtonLabel: AnyPublisher<String?, Never> {
+        return $completedTasksIsHidden
+            .map { $0 ? showCompletedTasksStr : hideCompletedTasksStr }
+            .eraseToAnyPublisher()
+    }
+    
+    var completedTasksCountLabel: AnyPublisher<String?, Never> {
+        return $completedTasksCount
+            .map { completedTasksCountStr + String($0) }
+            .eraseToAnyPublisher()
+    }
     
     private func loadData() {
         try? dataCache.load(name: "Tasks 2", as: .json)
@@ -55,13 +70,18 @@ final class TodoListViewModel: ObservableObject {
         for task in dataCache.tasks {
             tasks.append(TodoItemViewModel(task, with: dataCache))
         }
+        
+        refreshList()
+    }
+
+    func refreshList() {
+        completedTasksCount = tasks.filter { $0.isDone }.count
     }
     
-    var completedTasksCount: Int {
-        tasks
-            .filter { $0.isDone }
-            .count
-    }
+//    var completedTasksCount: Int {
+//        tasks
+//
+//    }
     
     
     private func generateTasks() -> [TodoItem] {
