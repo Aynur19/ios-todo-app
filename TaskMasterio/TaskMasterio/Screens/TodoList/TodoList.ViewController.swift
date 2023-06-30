@@ -74,10 +74,15 @@ extension TodoListViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: Titles.todoListCellId, for: indexPath) as! TodoListTableViewCell
         
         let task = viewModel.tasks[indexPath.row]
-        cell.textLabel?.text = Titles.task
-        cell.detailTextLabel?.text = task.description
+        cell.titleLabel.text = Titles.task
+//        cell.textLabel?.text = Titles.task
+//        cell.detailTextLabel?.text = task.description
         
         return cell
     }
+    
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return UITableView.automaticDimension
+//    }
     
 }
