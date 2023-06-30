@@ -64,7 +64,15 @@ final class TodoListViewController: UIViewController {
     }
     
     private func bindViewModel() {
-        viewModel.shownTasks
+//        viewModel.shownTasks
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] tasks in
+//                self?.dataSource.reload(data: tasks)
+//                self?.tasksTableView.reloadData()
+//             }
+//            .store(in: &cancellables)
+        
+        viewModel.$shownTasks
             .receive(on: DispatchQueue.main)
             .sink { [weak self] tasks in
                 self?.dataSource.reload(data: tasks)

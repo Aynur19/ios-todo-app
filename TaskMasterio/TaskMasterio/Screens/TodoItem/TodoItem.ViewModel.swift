@@ -26,6 +26,7 @@ final class TodoItemViewModel: ObservableObject {
     @Published var taskExists: Bool
     @Published var taskState: TasksStates = .none
     
+    private(set) var id: String
     private var cancellables = Set<AnyCancellable>()
     private var task: TodoItem
     
@@ -41,6 +42,7 @@ final class TodoItemViewModel: ObservableObject {
         deadline = task.deadline
         priority = task.priority
         isDone = task.isDone
+        id = task.id
         
         updateState(taskIsDone: isDone, taskPriority: priority)
     }

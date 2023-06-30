@@ -20,6 +20,9 @@ final class TodoListViewModel: ObservableObject {
     
     @Published var completedTasksCount = 0
     @Published var completedTasksIsHidden = true
+    @Published var shownTasksCount = 0
+    
+    @Published var shownTasks = [TodoItemViewModel]()
     
     private let dataCache: FileCache
     
@@ -31,20 +34,19 @@ final class TodoListViewModel: ObservableObject {
     
     func changeCompletedTasksVisibility() {
         completedTasksIsHidden.toggle()
+        updateTodoList()
+    }
         
-        print(shownTasks)
-    }
-    
-    var shownTasks: AnyPublisher<[TodoItemViewModel], Never> {
-        return $completedTasksIsHidden
-            .map { isHidden in
-                if isHidden {
-                    return self.tasks.filter { !$0.isDone }
-                }
-                return self.tasks
-            }
-            .eraseToAnyPublisher()
-    }
+//    var shownTasks: AnyPublisher<[TodoItemViewModel], Never> {
+//        return $completedTasksIsHidden
+//            .map { isHidden in
+//                if isHidden {
+//                    return self.tasks.filter { !$0.isDone }
+//                }
+//                return self.tasks
+//            }
+//            .eraseToAnyPublisher()
+//    }
     
     var showTasksButtonLabel: AnyPublisher<String?, Never> {
         return $completedTasksIsHidden
@@ -56,6 +58,14 @@ final class TodoListViewModel: ObservableObject {
         return $completedTasksCount
             .map { completedTasksCountStr + String($0) }
             .eraseToAnyPublisher()
+    }
+    
+    func updateTodoList() {
+        if completedTasksIsHidden {
+            shownTasks = tasks.filter { !$0.isDone }
+        } else {
+            shownTasks = tasks
+        }
     }
     
     private func loadData() {
@@ -72,12 +82,28 @@ final class TodoListViewModel: ObservableObject {
             tasks.append(TodoItemViewModel(task, with: dataCache))
         }
         
-        refreshList()
+        updateTodoList()
     }
     
+    
     func refreshList() {
+        print("\ncompletedTasksCount: \(completedTasksCount)")
         completedTasksCount = tasks.filter { $0.isDone }.count
+        print("completedTasksCount: \(completedTasksCount)\n")
     }
+    
+    func removeTask(by id: String?) {
+        guard let taskId = id else { return }
+        print("id: \(taskId)")
+        
+        if let idx = tasks.firstIndex(where: { $0.id == taskId }) {
+            tasks.remove(at: idx)
+            dataCache.remove(by: taskId)
+        }
+        
+        updateTodoList()
+    }
+    
     
     private func generateTasks() -> [TodoItem] {
         var tasks = [TodoItem]()
