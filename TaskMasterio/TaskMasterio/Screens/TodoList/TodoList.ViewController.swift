@@ -52,6 +52,8 @@ final class TodoListViewController: UIViewController {
         
         tasksTableView.delegate = self
         tasksTableView.dataSource = self
+        
+        tasksTableView.rowHeight = UITableView.automaticDimension
     }
     
     // MARK: - UI Elements
@@ -74,7 +76,6 @@ extension TodoListViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: Titles.todoListCellId, for: indexPath) as! TodoListTableViewCell
         
         cell.configure(with: viewModel.tasks[indexPath.row])
-        
         return cell
     }
 }

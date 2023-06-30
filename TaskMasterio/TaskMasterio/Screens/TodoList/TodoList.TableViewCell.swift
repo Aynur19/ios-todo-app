@@ -8,10 +8,9 @@
 import UIKit
 import Combine
 
+private let descriptionRowsCount = 3
+
 final class TodoListTableViewCell: UITableViewCell {
-    
-    var titleLabel = UILabel()
-    var subtitleLabel: UILabel!
     
     private var viewModel: TodoItemViewModel!
     
@@ -24,70 +23,64 @@ final class TodoListTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        titleLabel.text = nil
+        descriptionLabel.text = nil
     }
     
     func configure(with viewModel: TodoItemViewModel) {
         self.viewModel = viewModel
         
-        
-        titleLabel.text = viewModel.description
+        descriptionLabel.text = viewModel.description
+        return
     }
     
-    //    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-    //        super.init(style: style, reuseIdentifier: reuseIdentifier)
-    //
-    //        setup()
-    //
-    //        //        titleLabel = UILabel()
-    //        //        subtitleLabel = UILabel()
-    //        //
-    //        //        contentView.addSubview(titleLabel)
-    //        //        contentView.addSubview(subtitleLabel)
-    //
-    //
-    //    }
-    //
     @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
         fatalError("Trying to initialize Todo List Table View Cell...")
     }
     
-    //    override func layoutSubviews() {
-    //        super.layoutSubviews()
-    ////
-    ////        titleLabel.frame = CGRect(x: 10, y: 10, width: contentView.bounds.width - 20, height: 20)
-    ////        subtitleLabel.frame = CGRect(x: 10, y: 30, width: contentView.bounds.width - 20, height: 20)
-    //    }
-    
     // MARK: - Setup Functions
     private func setup() {
-        contentView.addSubview(stackView)
-        stackView.addArrangedSubview(completionMark)
-        stackView.addArrangedSubview(titleLabel)
+        contentView.addSubview(containerView)
+        
+        containerView.addSubview(completionMark)
+        containerView.addSubview(descriptionLabel)
         
         NSLayoutConstraint.activate([
-            stackView.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -Margins._2x16),
-            stackView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Margins._16),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Margins._16),
+            containerView.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -Margins._2x16),
+            containerView.heightAnchor.constraint(equalTo: contentView.heightAnchor, constant: -Margins._2x16),
+            containerView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            containerView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             
             completionMark.heightAnchor.constraint(equalToConstant: 24),
             completionMark.widthAnchor.constraint(equalToConstant: 24),
-            completionMark.centerYAnchor.constraint(equalTo: stackView.centerYAnchor),
+            completionMark.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            completionMark.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            
+            descriptionLabel.leadingAnchor.constraint(equalTo: completionMark.trailingAnchor, constant: Margins._16),
+            descriptionLabel.trailingAnchor.constraint(lessThanOrEqualTo: containerView.trailingAnchor, constant: -Margins._16),
+            descriptionLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            descriptionLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor),
         ])
         
     }
     
-    private lazy var stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = Sizes.margin_16
-        stackView.alignment = .fill
-        stackView.distribution = .fill
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+    // MARK: - UI Elements
+    private lazy var descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = descriptionRowsCount
+        label.font = Fonts.getFont(named: .body)
+        label.textColor = UIColor(named: AccentColors.labelPrimary)
+        label.lineBreakMode = .byTruncatingTail
+        label.translatesAutoresizingMaskIntoConstraints = false
         
-        return stackView
+        return label
+    }()
+    
+    private lazy var containerView: UIView = {
+        let container = UIView()
+        container.translatesAutoresizingMaskIntoConstraints = false
+        
+        return container
     }()
     
     private lazy var completionMark: UIButton = {

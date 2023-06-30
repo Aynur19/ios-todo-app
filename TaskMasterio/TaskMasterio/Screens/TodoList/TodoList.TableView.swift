@@ -14,9 +14,6 @@ final class TodoListTableView: UITableView {
         super.init(frame: view.bounds, style: .insetGrouped)
         
         setup()
-        
-//        self.rowHeight = UITableView.automaticDimension
-//        self.estimatedRowHeight = 100
     }
     
     @available(*, unavailable)
