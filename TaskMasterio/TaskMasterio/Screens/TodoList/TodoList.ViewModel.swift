@@ -79,12 +79,6 @@ final class TodoListViewModel: ObservableObject {
         completedTasksCount = tasks.filter { $0.isDone }.count
     }
     
-//    var completedTasksCount: Int {
-//        tasks
-//
-//    }
-    
-    
     private func generateTasks() -> [TodoItem] {
         var tasks = [TodoItem]()
         
@@ -93,34 +87,34 @@ final class TodoListViewModel: ObservableObject {
                      priority: .low))
         tasks.append(
             TodoItem(text: "Подготовить презентацию для клиента",
-                     priority: .low,
+                     priority: .medium,
                      isDone: true))
         tasks.append(
             TodoItem(text: "Провести анализ рынка и подготовить отчет с рекомендациями",
-                     priority: .low))
+                     priority: .high))
         tasks.append(
             TodoItem(text: "Разработать стратегию маркетинговой кампании, включающую целевую аудиторию, каналы продвижения и бюджет",
                      priority: .low,
                      isDone: true))
         tasks.append(
             TodoItem(text: "Организовать тренинг для сотрудников по повышению навыков коммуникации и эффективного управления временем",
-                     priority: .low))
+                     priority: .medium))
         tasks.append(TodoItem(text: "Отправить письмо",
                               priority: .low))
         tasks.append(
             TodoItem(text: "Организовать встречу с партнерами",
-                     priority: .low,
+                     priority: .high,
                      isDone: true))
         tasks.append(
             TodoItem(text: "Согласовать бюджет проекта с финансовым отделом и утвердить его",
                      priority: .low))
         tasks.append(
             TodoItem(text: "Провести тестирование нового программного обеспечения и составить детальный отчет о найденных ошибках и рекомендациях по исправлению",
-                     priority: .low,
+                     priority: .medium,
                      isDone: true))
         tasks.append(
             TodoItem(text: "Провести аудит информационной безопасности компании и разработать план по устранению выявленных уязвимостей и рисков",
-                     priority: .low))
+                     priority: .high))
         
         return tasks
     }

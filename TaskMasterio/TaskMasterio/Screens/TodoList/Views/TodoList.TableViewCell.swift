@@ -57,6 +57,7 @@ final class TodoListTableViewCell: UITableViewCell {
         
         containerView.addSubview(completionMark)
         containerView.addSubview(descriptionLabel)
+        containerView.addSubview(shevronView)
         
         NSLayoutConstraint.activate([
             containerView.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -Margins._2x16),
@@ -69,10 +70,14 @@ final class TodoListTableViewCell: UITableViewCell {
             completionMark.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
             completionMark.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             
+            
             descriptionLabel.leadingAnchor.constraint(equalTo: completionMark.trailingAnchor, constant: Margins._16),
-            descriptionLabel.trailingAnchor.constraint(lessThanOrEqualTo: containerView.trailingAnchor, constant: -Margins._16),
+            descriptionLabel.trailingAnchor.constraint(lessThanOrEqualTo: shevronView.leadingAnchor, constant: -Margins._16),
             descriptionLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
             descriptionLabel.heightAnchor.constraint(equalTo: containerView.heightAnchor),
+            
+            shevronView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -Margins._16),
+            shevronView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
         ])
         
     }
@@ -97,10 +102,17 @@ final class TodoListTableViewCell: UITableViewCell {
     private lazy var completionMark: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        
         button.addTarget(self, action: #selector(onCompletionMarkTouched), for: .touchUpInside)
         
         return button
+    }()
+    
+    private lazy var shevronView: UIImageView = {
+        let shevron = UIImageView()
+        shevron.image = UIImage(named: "Arrow. Right") ?? UIImage()
+        shevron.translatesAutoresizingMaskIntoConstraints = false
+        
+        return shevron
     }()
     
     private func updateDescriptionStyle(for label: UILabel?, while taskState: TasksStates) {
