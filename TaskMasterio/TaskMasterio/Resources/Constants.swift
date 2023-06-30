@@ -89,6 +89,7 @@ enum Fonts {
     case body
     case bodyBold
     case subhead
+    case subheadBold
     case footnote
     
     static func getFont(named: Fonts) -> UIFont {
@@ -106,6 +107,8 @@ enum Fonts {
             font = UIFont(name: "SFProText-Bold", size: 17) ?? UIFont.systemFont(ofSize: 17, weight: .bold)
         case .subhead:
             font = UIFont(name: "SFProText-Regular", size: 15) ?? UIFont.systemFont(ofSize: 15, weight: .regular)
+        case .subheadBold:
+            font = UIFont(name: "SFProText-Bold", size: 15) ?? UIFont.systemFont(ofSize: 15, weight: .bold)
         case .footnote:
             font = UIFont(name: "SFProText-Semibold", size: 13) ?? UIFont.systemFont(ofSize: 13, weight: .semibold)
         }
