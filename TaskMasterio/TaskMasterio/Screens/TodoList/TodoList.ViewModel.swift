@@ -20,7 +20,6 @@ final class TodoListViewModel: ObservableObject {
     
     @Published var completedTasksCount = 0
     @Published var completedTasksIsHidden = true
-    @Published var shownTasksCount = 0
     
     @Published var shownTasks = [TodoItemViewModel]()
     
@@ -37,17 +36,6 @@ final class TodoListViewModel: ObservableObject {
         updateTodoList()
     }
         
-//    var shownTasks: AnyPublisher<[TodoItemViewModel], Never> {
-//        return $completedTasksIsHidden
-//            .map { isHidden in
-//                if isHidden {
-//                    return self.tasks.filter { !$0.isDone }
-//                }
-//                return self.tasks
-//            }
-//            .eraseToAnyPublisher()
-//    }
-    
     var showTasksButtonLabel: AnyPublisher<String?, Never> {
         return $completedTasksIsHidden
             .map { $0 ? showCompletedTasksStr : hideCompletedTasksStr }
@@ -66,6 +54,18 @@ final class TodoListViewModel: ObservableObject {
         } else {
             shownTasks = tasks
         }
+        
+        completedTasksCount = tasks.filter { $0.isDone }.count
+    }
+    
+    func changeTaskCompletion(by id: String?) {
+        guard let taskId = id else { return }
+        
+        if let task = tasks.first { $0.id == taskId } {
+            task.isDone.toggle()
+            task.updateState()
+        }
+        updateTodoList()
     }
     
     private func loadData() {
@@ -85,12 +85,6 @@ final class TodoListViewModel: ObservableObject {
         updateTodoList()
     }
     
-    
-    func refreshList() {
-        print("\ncompletedTasksCount: \(completedTasksCount)")
-        completedTasksCount = tasks.filter { $0.isDone }.count
-        print("completedTasksCount: \(completedTasksCount)\n")
-    }
     
     func removeTask(by id: String?) {
         guard let taskId = id else { return }

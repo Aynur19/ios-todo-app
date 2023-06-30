@@ -44,13 +44,13 @@ final class TodoItemViewModel: ObservableObject {
         isDone = task.isDone
         id = task.id
         
-        updateState(taskIsDone: isDone, taskPriority: priority)
+        updateState()
     }
     
-    private func updateState(taskIsDone: Bool, taskPriority: Priority) {
-        if taskIsDone { taskState = .isDone }
+    func updateState() {
+        if isDone { taskState = .isDone }
         else {
-            switch taskPriority {
+            switch priority {
             case .low: taskState = .lowPriority
             case .medium: taskState = .mediumPriority
             case .high: taskState = .highPriority
@@ -113,7 +113,8 @@ final class TodoItemViewModel: ObservableObject {
     
     func changeTaskCompletion() {
         isDone.toggle()
-        updateState(taskIsDone: isDone, taskPriority: priority)
+        updateState()
+        saveTask()
     }
     
     func saveTask() {

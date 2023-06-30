@@ -54,38 +54,25 @@ final class TodoListTableDataSource: NSObject, UITableViewDataSource, UITableVie
         }
     }
     
-//    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-//        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completion) in
-//            // Perform deletion logic for the corresponding cell at the indexPath
-//            completion(true)
-//        }
-//
-//        // You can customize the appearance of the action, such as background color and image
-//        deleteAction.backgroundColor = .red
-//        deleteAction.image = UIImage(named: "DeleteIcon")
-//
-//        return UISwipeActionsConfiguration(actions: [deleteAction])
-//    }
-    
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//            // Perform deletion logic for the corresponding item in your view model
-////            viewModel.deleteItem(at: indexPath.row)
-////            // Update the table view after deleting the item
-////            tableView.deleteRows(at: [indexPath], with: .fade)
-//        }
-//    }
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self]  (action, view, completion) in
+            self?.viewModel.changeTaskCompletion(by: self?.shownTasks[indexPath.row].id)
+            completion(true)
+        }
+
+        deleteAction.backgroundColor = UIColor(named: "Color Green") ?? .green
+        deleteAction.image = UIImage(systemName: "checkmark.circle.fill")
+
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] (action, view, completion) in
-            // Perform deletion logic for the corresponding cell at the indexPath
             self?.viewModel.removeTask(by: self?.shownTasks[indexPath.row].id)
             completion(true)
         }
 
-        // Set the image for the delete action
         deleteAction.image = UIImage(systemName: "trash.fill")
-
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }
