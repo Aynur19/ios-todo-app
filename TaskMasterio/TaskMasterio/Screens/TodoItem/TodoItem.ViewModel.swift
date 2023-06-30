@@ -14,7 +14,7 @@ final class TodoItemViewModel: ObservableObject {
     @Published var description: String
     @Published var deadline: Date?
     @Published var priority: Priority
-    
+    @Published var isDone: Bool
     @Published var calendarIsHidden = true
     @Published var taskExists: Bool
     
@@ -32,6 +32,7 @@ final class TodoItemViewModel: ObservableObject {
         description = task.text
         deadline = task.deadline
         priority = task.priority
+        isDone = task.isDone
         
         print("task: \(task)\n")
         print("description: \(description)")

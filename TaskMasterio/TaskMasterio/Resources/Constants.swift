@@ -32,6 +32,7 @@ enum Titles {
 
 enum Margins {
     static let _0: CGFloat = 0
+    static let _8: CGFloat = 8
     static let _10: CGFloat = 10
     static let _12: CGFloat = 12
     static let _16: CGFloat = 16

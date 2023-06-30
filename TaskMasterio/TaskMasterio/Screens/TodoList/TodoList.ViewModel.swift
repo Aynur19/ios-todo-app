@@ -36,6 +36,12 @@ final class TodoListViewModel: ObservableObject {
         }
     }
     
+    var completedTasksCount: Int {
+        tasks
+            .filter { $0.isDone }
+            .count
+    }
+    
     
     private func generateTasks() -> [TodoItem] {
         var tasks = [TodoItem]()

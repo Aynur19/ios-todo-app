@@ -46,6 +46,7 @@
 		98F94A282A4DBE3200B72704 /* TodoList.ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F94A272A4DBE3200B72704 /* TodoList.ViewModel.swift */; };
 		98F94A2A2A4DE25000B72704 /* TodoList.TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F94A292A4DE24F00B72704 /* TodoList.TableViewCell.swift */; };
 		98F94A2C2A4DF12100B72704 /* TodoList.TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F94A2B2A4DF12100B72704 /* TodoList.TableView.swift */; };
+		98F94A2E2A4EAC4500B72704 /* TodoList.TableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F94A2D2A4EAC4400B72704 /* TodoList.TableViewHeader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +110,7 @@
 		98F94A272A4DBE3200B72704 /* TodoList.ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.ViewModel.swift; sourceTree = "<group>"; };
 		98F94A292A4DE24F00B72704 /* TodoList.TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.TableViewCell.swift; sourceTree = "<group>"; };
 		98F94A2B2A4DF12100B72704 /* TodoList.TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.TableView.swift; sourceTree = "<group>"; };
+		98F94A2D2A4EAC4400B72704 /* TodoList.TableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.TableViewHeader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -316,6 +318,7 @@
 				98F94A272A4DBE3200B72704 /* TodoList.ViewModel.swift */,
 				98F94A252A4DBC5700B72704 /* TodoList.ViewController.swift */,
 				98F94A2B2A4DF12100B72704 /* TodoList.TableView.swift */,
+				98F94A2D2A4EAC4400B72704 /* TodoList.TableViewHeader.swift */,
 				98F94A292A4DE24F00B72704 /* TodoList.TableViewCell.swift */,
 			);
 			path = TodoList;
@@ -467,6 +470,7 @@
 				98F94A122A4C38F400B72704 /* TodoItem.DeadlineStackView.swift in Sources */,
 				987D4E6D2A4B471300E9507D /* TodoItem.DetailsStackView.swift in Sources */,
 				9858715D2A44557700066B2E /* NSLayoutConstraint.swift in Sources */,
+				98F94A2E2A4EAC4500B72704 /* TodoList.TableViewHeader.swift in Sources */,
 				98CE2A212A3C9A8900554B7A /* StringExt.swift in Sources */,
 				98CE2A1C2A3C7FB800554B7A /* CsvParser.swift in Sources */,
 				98BE0E7F2A3CD61B00EE3B7C /* JsonParser.swift in Sources */,

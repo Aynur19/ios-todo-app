@@ -78,4 +78,13 @@ extension TodoListViewController: UITableViewDataSource, UITableViewDelegate {
         cell.configure(with: viewModel.tasks[indexPath.row])
         return cell
     }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = TodoListTableViewHeader(with: viewModel)
+        return headerView
+    }
 }
