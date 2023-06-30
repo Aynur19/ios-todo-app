@@ -10,8 +10,10 @@ import Combine
 
 final class TodoListViewModel: ObservableObject {
     
+    private(set) var tasks = [TodoItemViewModel]()
     private var cancellables = Set<AnyCancellable>()
-    var tasks = [TodoItemViewModel]()
+    
+    @Published var completedTasksIsHidden = false
     
     private let dataCache: FileCache
     
@@ -20,6 +22,25 @@ final class TodoListViewModel: ObservableObject {
         
         loadData()
     }
+    
+    func changeCompletedTasksVisibility() {
+        completedTasksIsHidden.toggle()
+        
+        print(shownTasks)
+    }
+    
+    var shownTasks: AnyPublisher<[TodoItemViewModel], Never> {
+        return $completedTasksIsHidden
+            .map { completedTasksIsHidden in
+                if completedTasksIsHidden {
+                    return self.tasks.filter { !$0.isDone }
+                }
+                return self.tasks
+            }
+            .eraseToAnyPublisher()
+    }
+        
+//    private func
     
     private func loadData() {
         try? dataCache.load(name: "Tasks 2", as: .json)

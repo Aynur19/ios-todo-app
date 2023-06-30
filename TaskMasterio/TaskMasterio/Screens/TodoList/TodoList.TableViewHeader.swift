@@ -70,6 +70,7 @@ final class TodoListTableViewHeader: UIView {
     }()
     
     @objc private func onDeadlineDateLabelTapped() {
+        viewModel.changeCompletedTasksVisibility()
         completedTasksIsHidden.toggle()
         completedTasksVisibilityLabel.text = completedTasksIsHidden ? hideCompletedTasks : showCompletedTasks
     }

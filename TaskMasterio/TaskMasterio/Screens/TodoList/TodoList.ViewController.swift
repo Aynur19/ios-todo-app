@@ -6,17 +6,24 @@
 //
 
 import UIKit
+import Combine
 
 final class TodoListViewController: UIViewController {
     
     var viewModel: TodoListViewModel!
+    private var dataSource: TodoListTableDataSource!
+    
+    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Lifesycle Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        dataSource = TodoListTableDataSource(with: TodoListTableViewHeader(with: viewModel))
+        
         setup()
         setupNavBar()
+        bindViewModel()
     }
     
     // MARK: - Setup Functions
@@ -50,10 +57,20 @@ final class TodoListViewController: UIViewController {
             tasksTableView.bottomAnchor.constraint(equalTo: owner.bottomAnchor),
         ])
         
-        tasksTableView.delegate = self
-        tasksTableView.dataSource = self
+        tasksTableView.delegate = dataSource
+        tasksTableView.dataSource = dataSource
         
         tasksTableView.rowHeight = UITableView.automaticDimension
+    }
+    
+    private func bindViewModel() {
+        viewModel.shownTasks
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] tasks in
+                self?.dataSource.shownTasks = tasks
+                self?.tasksTableView.reloadData()
+             }
+            .store(in: &cancellables)
     }
     
     // MARK: - UI Elements
@@ -67,24 +84,3 @@ final class TodoListViewController: UIViewController {
     }()
 }
 
-extension TodoListViewController: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.tasks.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Titles.todoListCellId, for: indexPath) as! TodoListTableViewCell
-        
-        cell.configure(with: viewModel.tasks[indexPath.row])
-        return cell
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = TodoListTableViewHeader(with: viewModel)
-        return headerView
-    }
-}
