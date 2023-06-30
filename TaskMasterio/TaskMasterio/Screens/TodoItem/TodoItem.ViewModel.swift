@@ -8,6 +8,13 @@
 import Combine
 import Foundation
 
+enum TasksStates {
+    case none
+    case isDone
+    case highPriority
+    case mediumPriority
+    case lowPriority
+}
 
 final class TodoItemViewModel: ObservableObject {
     
@@ -17,6 +24,7 @@ final class TodoItemViewModel: ObservableObject {
     @Published var isDone: Bool
     @Published var calendarIsHidden = true
     @Published var taskExists: Bool
+    @Published var taskState: TasksStates = .none
     
     private var cancellables = Set<AnyCancellable>()
     private var task: TodoItem
@@ -34,11 +42,25 @@ final class TodoItemViewModel: ObservableObject {
         priority = task.priority
         isDone = task.isDone
         
+        updateState(taskIsDone: isDone, taskPriority: priority)
+        
         print("task: \(task)\n")
         print("description: \(description)")
         print("deadline: \(deadline)")
         print("priority: \(priority)")
         print("calendarIsHidden: \(calendarIsHidden)")
+        print("taskIsDone: \(taskState)")
+    }
+    
+    private func updateState(taskIsDone: Bool, taskPriority: Priority) {
+        if taskIsDone { taskState = .isDone }
+        else {
+            switch taskPriority {
+            case .low: taskState = .lowPriority
+            case .medium: taskState = .mediumPriority
+            case .high: taskState = .highPriority
+            }
+        }
     }
     
     var taskIsChanged: AnyPublisher<Bool, Never> {

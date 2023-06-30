@@ -24,7 +24,7 @@ final class TodoListTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        self.updateDescriptionStyle(for: self.descriptionLabel, isDone: false)
+        self.updateDescriptionStyle(for: self.descriptionLabel, while: .none)
         self.descriptionLabel.text = nil
     }
     
@@ -32,9 +32,10 @@ final class TodoListTableViewCell: UITableViewCell {
         self.viewModel = viewModel
         self.descriptionLabel.text = viewModel.description
         
-        self.viewModel.$isDone
-            .sink { [weak self] isDone in
-                self?.updateDescriptionStyle(for: self?.descriptionLabel, isDone: isDone)
+        self.viewModel.$taskState
+            .sink { [weak self] taskState in
+                self?.updateCompletiinMarkStyle(for: self?.completionMark, while: taskState)
+                self?.updateDescriptionStyle(for: self?.descriptionLabel, while: taskState)
             }
             .store(in: &cancellables)
     }
@@ -99,18 +100,19 @@ final class TodoListTableViewCell: UITableViewCell {
         return button
     }()
     
-    private func updateDescriptionStyle(for label: UILabel?, isDone: Bool) {
+    private func updateDescriptionStyle(for label: UILabel?, while taskState: TasksStates) {
         guard let updatedLabel = label else { return }
         
         var attributedString: NSMutableAttributedString
         var color: UIColor
         
-        if isDone {
+        switch taskState {
+        case .isDone:
             attributedString = NSMutableAttributedString(string: updatedLabel.text ?? "", attributes: [
                 NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.single.rawValue
             ])
             color = UIColor(named: AccentColors.labelTertiary) ?? .label
-        } else {
+        default:
             attributedString = NSMutableAttributedString(attributedString: updatedLabel.attributedText ?? NSAttributedString(string: ""))
             attributedString.removeAttribute(NSAttributedString.Key.strikethroughStyle, range: NSMakeRange(0, attributedString.length))
             color = UIColor(named: AccentColors.labelPrimary) ?? .secondaryLabel
@@ -118,6 +120,22 @@ final class TodoListTableViewCell: UITableViewCell {
         
         updatedLabel.attributedText = attributedString
         updatedLabel.textColor = color
+    }
+    
+    private func updateCompletiinMarkStyle(for button: UIButton?, while taskState: TasksStates) {
+        guard let updatedButton = button else { return }
+        var image: UIImage?
+        
+        switch taskState {
+        case .isDone:
+            image = UIImage(named: "Mark. On")
+        case .highPriority:
+            image = UIImage(named: "Mark. High Priority")
+        default:
+            image = UIImage(named: "Mark. Off")
+        }
+        
+        updatedButton.setImage(image, for: .normal)
     }
     
     @objc private func onCompletionMarkTouched() {
