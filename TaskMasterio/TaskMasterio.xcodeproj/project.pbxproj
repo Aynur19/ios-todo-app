@@ -48,6 +48,7 @@
 		98F94A2C2A4DF12100B72704 /* TodoList.TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F94A2B2A4DF12100B72704 /* TodoList.TableView.swift */; };
 		98F94A2E2A4EAC4500B72704 /* TodoList.TableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F94A2D2A4EAC4400B72704 /* TodoList.TableViewHeader.swift */; };
 		98F94A302A4EC85500B72704 /* TodoList.TableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F94A2F2A4EC85500B72704 /* TodoList.TableDataSource.swift */; };
+		98F94A332A4F39EA00B72704 /* UIView.Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F94A322A4F39EA00B72704 /* UIView.Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +114,7 @@
 		98F94A2B2A4DF12100B72704 /* TodoList.TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.TableView.swift; sourceTree = "<group>"; };
 		98F94A2D2A4EAC4400B72704 /* TodoList.TableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.TableViewHeader.swift; sourceTree = "<group>"; };
 		98F94A2F2A4EC85500B72704 /* TodoList.TableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.TableDataSource.swift; sourceTree = "<group>"; };
+		98F94A322A4F39EA00B72704 /* UIView.Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.Ext.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,6 +205,7 @@
 				98CE2A1E2A3C83F900554B7A /* DateExt.swift */,
 				98CE2A202A3C9A8900554B7A /* StringExt.swift */,
 				9858715C2A44557700066B2E /* NSLayoutConstraint.swift */,
+				98F94A322A4F39EA00B72704 /* UIView.Ext.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -496,6 +499,7 @@
 				985871582A443A5700066B2E /* TodoItemViewController.swift in Sources */,
 				98BE0E812A3CD65300EE3B7C /* TodoItem.JsonParser.swift in Sources */,
 				983AD75C2A462EC2008EA93A /* TodoItemViewController.ViewBuilder.swift in Sources */,
+				98F94A332A4F39EA00B72704 /* UIView.Ext.swift in Sources */,
 				98CE2A1F2A3C83F900554B7A /* DateExt.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

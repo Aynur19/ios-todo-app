@@ -41,21 +41,35 @@ final class TodoListTableViewHeader: UIView {
     }
     
     private func setup() {
-        self.addSubview(completedTasksLabel)
-        self.addSubview(completedTasksVisibilityLabel)
+        self.addSubview(headerContainerView)
+        
+        headerContainerView.addSubview(completedTasksLabel)
+        headerContainerView.addSubview(completedTasksVisibilityLabel)
         
         NSLayoutConstraint.activate([
-            completedTasksLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Margins._16),
-            completedTasksLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: Margins._8),
-            completedTasksLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -Margins._12),
+            headerContainerView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Margins._16),
+            headerContainerView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Margins._16),
+//            headerContainerView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+//                .with(priority: .defaultHigh),
+            headerContainerView.topAnchor.constraint(equalTo: self.topAnchor, constant: Margins._8),
+            headerContainerView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -Margins._12)
+                .with(priority: .defaultHigh),
             
-            completedTasksVisibilityLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Margins._16),
-            completedTasksVisibilityLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: Margins._8),
-            completedTasksVisibilityLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -Margins._12),
+            
+            completedTasksLabel.leadingAnchor.constraint(equalTo: headerContainerView.leadingAnchor),
+            completedTasksLabel.centerYAnchor.constraint(equalTo: headerContainerView.centerYAnchor),
+            
+            completedTasksVisibilityLabel.trailingAnchor.constraint(equalTo: headerContainerView.trailingAnchor),
+            completedTasksVisibilityLabel.centerYAnchor.constraint(equalTo: headerContainerView.centerYAnchor),
+            
+//            self.heightAnchor.constraint(equalTo: headerContainerView.heightAnchor, constant: 20),
         ])
     }
     
     // MARK: - UI Elements
+    private lazy var headerContainerView = UIView.getContainer()
+//    private lazy var headerЫзфсукй = UIView.getContainer()
+    
     private lazy var completedTasksLabel: UILabel = {
         let label = UILabel()
         label.font = Fonts.getFont(named: .subhead)

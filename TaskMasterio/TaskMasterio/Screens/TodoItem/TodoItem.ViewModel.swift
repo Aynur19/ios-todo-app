@@ -43,13 +43,6 @@ final class TodoItemViewModel: ObservableObject {
         isDone = task.isDone
         
         updateState(taskIsDone: isDone, taskPriority: priority)
-        
-        print("task: \(task)\n")
-        print("description: \(description)")
-        print("deadline: \(deadline)")
-        print("priority: \(priority)")
-        print("calendarIsHidden: \(calendarIsHidden)")
-        print("taskIsDone: \(taskState)")
     }
     
     private func updateState(taskIsDone: Bool, taskPriority: Priority) {
@@ -70,14 +63,12 @@ final class TodoItemViewModel: ObservableObject {
     }
     
     var descriptionIsChanged: AnyPublisher<Bool, Never> {
-        print("descriptionIsChanged: \(description != self.task.text)")
         return $description
             .map { $0 != self.task.text }
             .eraseToAnyPublisher()
     }
     
     var descriptionIsNotEmpty: AnyPublisher<Bool, Never> {
-        print("descriptionIsEmpty: \(description.isEmpty)")
         
         return $description
             .map { !$0.isEmpty }
@@ -85,21 +76,18 @@ final class TodoItemViewModel: ObservableObject {
     }
     
     var priorityIsChanged: AnyPublisher<Bool, Never> {
-        print("priorityIsChanged: \(priority != self.task.priority)")
         return $priority
             .map { $0 != self.task.priority }
             .eraseToAnyPublisher()
     }
     
     var deadlineIsChanged: AnyPublisher<Bool, Never> {
-        print("descriptionIsEmpty: \(description.isEmpty)")
         return $deadline
             .map { $0?.datetime != self.task.deadline?.datetime }
             .eraseToAnyPublisher()
     }
     
     var deadlineStr: AnyPublisher<String?, Never> {
-        print("deadlineStr: \(deadline?.toString())")
         return $deadline
             .map { $0?.toString() }
             .eraseToAnyPublisher()

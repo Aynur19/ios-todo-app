@@ -43,4 +43,12 @@ final class TodoListTableDataSource: NSObject, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return headerView
     }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 40
+        } else {
+            return UITableView.automaticDimension
+        }
+    }
 }

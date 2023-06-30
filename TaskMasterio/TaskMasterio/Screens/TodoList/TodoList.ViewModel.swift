@@ -74,7 +74,7 @@ final class TodoListViewModel: ObservableObject {
         
         refreshList()
     }
-
+    
     func refreshList() {
         completedTasksCount = tasks.filter { $0.isDone }.count
     }
@@ -91,7 +91,8 @@ final class TodoListViewModel: ObservableObject {
                      isDone: true))
         tasks.append(
             TodoItem(text: "Провести анализ рынка и подготовить отчет с рекомендациями",
-                     priority: .high))
+                     priority: .high,
+                     deadline: Date()))
         tasks.append(
             TodoItem(text: "Разработать стратегию маркетинговой кампании, включающую целевую аудиторию, каналы продвижения и бюджет",
                      priority: .low,
@@ -104,7 +105,9 @@ final class TodoListViewModel: ObservableObject {
         tasks.append(
             TodoItem(text: "Организовать встречу с партнерами",
                      priority: .high,
-                     isDone: true))
+                     deadline: Date(),
+                     isDone: true
+                    ))
         tasks.append(
             TodoItem(text: "Согласовать бюджет проекта с финансовым отделом и утвердить его",
                      priority: .low))
@@ -114,7 +117,8 @@ final class TodoListViewModel: ObservableObject {
                      isDone: true))
         tasks.append(
             TodoItem(text: "Провести аудит информационной безопасности компании и разработать план по устранению выявленных уязвимостей и рисков",
-                     priority: .high))
+                     priority: .high,
+                     deadline: Date()))
         
         return tasks
     }
