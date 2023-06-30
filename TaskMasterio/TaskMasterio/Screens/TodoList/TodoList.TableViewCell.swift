@@ -13,6 +13,7 @@ private let descriptionRowsCount = 3
 final class TodoListTableViewCell: UITableViewCell {
     
     private var viewModel: TodoItemViewModel!
+    private var cancellables = Set<AnyCancellable>()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -23,14 +24,19 @@ final class TodoListTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        descriptionLabel.text = nil
+        self.updateDescriptionStyle(for: self.descriptionLabel, isDone: false)
+        self.descriptionLabel.text = nil
     }
     
-    func configure(with viewModel: TodoItemViewModel) {
+    func bindViewModel(with viewModel: TodoItemViewModel) {
         self.viewModel = viewModel
+        self.descriptionLabel.text = viewModel.description
         
-        descriptionLabel.text = viewModel.description
-        return
+        self.viewModel.$isDone
+            .sink { [weak self] isDone in
+                self?.updateDescriptionStyle(for: self?.descriptionLabel, isDone: isDone)
+            }
+            .store(in: &cancellables)
     }
     
     @available(*, unavailable)
@@ -68,8 +74,6 @@ final class TodoListTableViewCell: UITableViewCell {
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = descriptionRowsCount
-        label.font = Fonts.getFont(named: .body)
-        label.textColor = UIColor(named: AccentColors.labelPrimary)
         label.lineBreakMode = .byTruncatingTail
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -87,11 +91,36 @@ final class TodoListTableViewCell: UITableViewCell {
         let button = UIButton()
         let image = UIImage(named: "Mark. Off")
         button.setImage(image, for: .normal)
-        
         button.imageView?.contentMode = .scaleAspectFit
         button.translatesAutoresizingMaskIntoConstraints = false
+        
+        button.addTarget(self, action: #selector(onCompletionMarkTouched), for: .touchUpInside)
         
         return button
     }()
     
+    private func updateDescriptionStyle(for label: UILabel?, isDone: Bool) {
+        guard let updatedLabel = label else { return }
+        
+        var attributedString: NSMutableAttributedString
+        var color: UIColor
+        
+        if isDone {
+            attributedString = NSMutableAttributedString(string: updatedLabel.text ?? "", attributes: [
+                NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.single.rawValue
+            ])
+            color = UIColor(named: AccentColors.labelTertiary) ?? .label
+        } else {
+            attributedString = NSMutableAttributedString(attributedString: updatedLabel.attributedText ?? NSAttributedString(string: ""))
+            attributedString.removeAttribute(NSAttributedString.Key.strikethroughStyle, range: NSMakeRange(0, attributedString.length))
+            color = UIColor(named: AccentColors.labelPrimary) ?? .secondaryLabel
+        }
+        
+        updatedLabel.attributedText = attributedString
+        updatedLabel.textColor = color
+    }
+    
+    @objc private func onCompletionMarkTouched() {
+        viewModel.changeTaskCompletion()
+    }
 }

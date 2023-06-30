@@ -12,13 +12,14 @@ private let completedTasksCountStr = "Выполнено - "
 private let showCompletedTasksStr = "Показать"
 private let hideCompletedTasksStr = "Скрыть"
 
+
 final class TodoListViewModel: ObservableObject {
     
     private(set) var tasks = [TodoItemViewModel]()
     private var cancellables = Set<AnyCancellable>()
     
     @Published var completedTasksCount = 0
-    @Published var completedTasksIsHidden = false
+    @Published var completedTasksIsHidden = true
     
     private let dataCache: FileCache
     

@@ -23,8 +23,8 @@ final class TodoListTableDataSource: NSObject, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Titles.todoListCellId, for: indexPath) as! TodoListTableViewCell
+        cell.bindViewModel(with: shownTasks[indexPath.row])
         
-        cell.configure(with: shownTasks[indexPath.row])
         return cell
     }
     

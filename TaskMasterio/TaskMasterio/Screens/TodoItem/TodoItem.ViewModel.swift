@@ -99,6 +99,10 @@ final class TodoItemViewModel: ObservableObject {
         priority = Priority.getPriority(priorityIndex) ?? .medium
     }
     
+    func changeTaskCompletion() {
+        isDone.toggle()
+    }
+    
     func saveTask() {
         var writtenTask: TodoItem
         if taskExists {
