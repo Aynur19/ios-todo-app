@@ -49,8 +49,13 @@ final class TodoListTableViewCell: UITableViewCell {
         self.viewModel.deadlineStr
             .sink { [weak self] deadlineStr in
                 if deadlineStr != nil, !deadlineStr!.isEmpty {
+                    self?.deadlineImage.isHidden = false
+                    self?.deadlineLabel.isHidden = false
                     self?.deadlineImage.image = UIImage(named: "Calendar")
                     self?.deadlineLabel.text = deadlineStr
+                } else {
+                    self?.deadlineImage.isHidden = true
+                    self?.deadlineLabel.isHidden = true
                 }
             }
             .store(in: &cancellables)
@@ -63,82 +68,35 @@ final class TodoListTableViewCell: UITableViewCell {
     
     // MARK: - Setup Functions
     private func setup() {
-        contentView.addSubview(containerView)
-        
+        let deadlineStack = getStackView(subviews: [deadlineImage, deadlineLabel], spacing: 2)
         NSLayoutConstraint.activate([
-            containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Margins._16),
-            containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Margins._16),
-            containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Margins._16),
-            containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Margins._16),
+            deadlineImage.widthAnchor.constraint(equalToConstant: 16),
+            deadlineImage.heightAnchor.constraint(equalToConstant: 16),
+            deadlineImage.centerYAnchor.constraint(equalTo: deadlineStack.centerYAnchor),
         ])
         
-        let stakV = UIStackView()
-        stakV.axis = .vertical
-        stakV.alignment = .leading
-        stakV.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        
-        
-        let stackH2 = UIStackView(arrangedSubviews: [prioriryImage, descriptionLabel])
-        stackH2.axis = .horizontal
-        stackH2.spacing = 2
-        stackH2.alignment = .center
-        stackH2.translatesAutoresizingMaskIntoConstraints = false
+        let descriptionStack = getStackView(subviews: [descriptionLabel, deadlineStack], axis: .vertical, alignment: .leading)
+        let priorityStack = getStackView(subviews: [prioriryImage, descriptionStack], spacing: 2)
         
         NSLayoutConstraint.activate([
             prioriryImage.widthAnchor.constraint(equalToConstant: 16),
             prioriryImage.heightAnchor.constraint(equalToConstant: 20),
-            prioriryImage.centerYAnchor.constraint(equalTo: stackH2.centerYAnchor),
+            prioriryImage.centerYAnchor.constraint(equalTo: priorityStack.centerYAnchor),
         ])
         
+        let completionMarkStack = getStackView(subviews: [completionMark, priorityStack], spacing: 12)
+        let fullStack = getStackView(subviews: [completionMarkStack, shevronView], spacing: 16)
         
-        let stackH = UIStackView(arrangedSubviews: [deadlineImage, deadlineLabel])
-        stackH.axis = .horizontal
-        stackH.spacing = 2
-        stackH.alignment = .center
-        stackH.translatesAutoresizingMaskIntoConstraints = false
-        
-        
+        contentView.addSubview(fullStack)
         NSLayoutConstraint.activate([
-            deadlineImage.widthAnchor.constraint(equalToConstant: 16),
-            deadlineImage.heightAnchor.constraint(equalToConstant: 16),
-            deadlineImage.centerYAnchor.constraint(equalTo: stackH.centerYAnchor),
+            fullStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Margins._16),
+            fullStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Margins._16),
+            fullStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Margins._16),
+            fullStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Margins._16),
         ])
-        
-        
-        let stackV = UIStackView(arrangedSubviews: [stackH2, stackH])
-        stackV.axis = .vertical
-        stackV.alignment = .leading
-        stackV.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        let stackH3 = UIStackView(arrangedSubviews: [completionMark, stackV])
-        stackH3.axis = .horizontal
-        stackH3.spacing = 12
-        stackH3.alignment = .center
-        stackH3.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        let stackH4 = UIStackView(arrangedSubviews: [stackH3, shevronView])
-        stackH4.axis = .horizontal
-        stackH4.spacing = 16
-        stackH4.alignment = .center
-        stackH4.translatesAutoresizingMaskIntoConstraints = false
-        
-        containerView.addSubview(stackH4)
-        NSLayoutConstraint.activate([
-            stackH4.topAnchor.constraint(equalTo: containerView.topAnchor),
-            stackH4.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
-            stackH4.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            stackH4.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-        ])
-        
     }
     
     // MARK: - UI Elements
-    private lazy var containerView = getContainer()
-    
     private lazy var completionMark: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -147,16 +105,7 @@ final class TodoListTableViewCell: UITableViewCell {
         return button
     }()
     
-    private lazy var detailsContainerView = getContainer()
-    
-    private lazy var descriptionContainerView = getContainer()
-    
-    private lazy var prioriryImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return imageView
-    }()
+    private lazy var prioriryImage = getImageView()
     
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
@@ -167,26 +116,12 @@ final class TodoListTableViewCell: UITableViewCell {
         return label
     }()
     
-    private lazy var deadlineImage: UIImageView = {
-        let shevron = UIImageView()
-//        shevron.image = UIImage(named: "Calendar") ?? UIImage()
-        shevron.translatesAutoresizingMaskIntoConstraints = false
-        
-        return shevron
-    }()
-    
-    private func getImageView() -> UIImageView {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }
+    private lazy var deadlineImage = getImageView()
     
     private lazy var deadlineLabel: UILabel = {
         let label = UILabel()
-        label.text = "30 июня"
         label.textColor = UIColor(named: AccentColors.labelTertiary)
         label.font = Fonts.getFont(named: .subhead)
-        //        shevron.image = UIImage(named: "Calendar") ?? UIImage()
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -194,17 +129,29 @@ final class TodoListTableViewCell: UITableViewCell {
     
     private lazy var shevronView: UIImageView = {
         let shevron = UIImageView()
-        shevron.image = UIImage(named: "Arrow. Right") ?? UIImage()
+        shevron.image = UIImage(named: "Arrow. Right")
         shevron.translatesAutoresizingMaskIntoConstraints = false
         
         return shevron
     }()
-    
-    private func getContainer() -> UIView {
-        let container = UIView()
-        container.translatesAutoresizingMaskIntoConstraints = false
+
+    private func getStackView(subviews: [UIView],
+                              axis: NSLayoutConstraint.Axis = .horizontal,
+                              spacing: CGFloat = 0,
+                              alignment: UIStackView.Alignment = .center) -> UIStackView {
+        let stackView = UIStackView(arrangedSubviews: subviews)
+        stackView.axis = axis
+        stackView.spacing = spacing
+        stackView.alignment = alignment
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         
-        return container
+        return stackView
+    }
+    
+    private func getImageView() -> UIImageView {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }
     
     private func updateCompletiinMarkStyle(for button: UIButton?, while taskState: TasksStates) {
