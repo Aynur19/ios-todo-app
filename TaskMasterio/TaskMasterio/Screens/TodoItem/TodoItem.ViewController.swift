@@ -10,6 +10,7 @@ import Combine
 
 final class TodoItemViewController2: UIViewController {
     
+    var todoListVM: TodoListViewModel!
     var viewModel: TodoItemViewModel!
     private var cancellables = Set<AnyCancellable>()
     
@@ -63,6 +64,20 @@ final class TodoItemViewController2: UIViewController {
         viewModel.taskIsChanged
             .assign(to: \.isEnabled, on: saveButton)
             .store(in: &cancellables)
+        
+        viewModel.$taskState
+            .sink { [weak self] taskState in
+                if taskState == .close {
+                    self?.viewModel.taskState = .none
+                    self?.exit()
+                } else if taskState == .remove {
+                    self?.todoListVM.removeTask(by: self?.viewModel.id)
+                    self?.viewModel.taskState = .none
+                    self?.exit()
+                }
+                
+            }
+            .store(in: &cancellables)
     }
     
     // MARK: - UI Elements
@@ -88,8 +103,21 @@ final class TodoItemViewController2: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    
+    var delegate: TodoListViewModelDelegate?
+    
     @objc private func onSaveButtonTapped() {
         viewModel.saveTask()
+        todoListVM.addTask(todo: viewModel.getTask())
+        todoListVM.updateTodoList()
+        view.endEditing(true)
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func exit() {
+        todoListVM.updateTodoList()
+        view.endEditing(true)
+        dismiss(animated: true, completion: nil)
     }
     
     @objc private func onViewTapped() {

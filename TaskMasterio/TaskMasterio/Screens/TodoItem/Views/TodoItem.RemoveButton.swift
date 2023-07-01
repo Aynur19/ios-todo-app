@@ -10,6 +10,7 @@ import Combine
 
 final class TodoItemRemoveButton: UIButton {
     
+    private var todoListVM: TodoListViewModel!
     private var viewModel: TodoItemViewModel!
     private var cancellables = Set<AnyCancellable>()
     
@@ -43,9 +44,16 @@ final class TodoItemRemoveButton: UIButton {
         viewModel.$taskExists
             .assign(to: \.isEnabled, on: self)
             .store(in: &cancellables)
+        
+        
+    }
+    
+    func configure(with todoListVM: TodoListViewModel) {
+        self.todoListVM = todoListVM
     }
     
     @objc func onRemoveButtonTapped(_ sender: UIButton) {
-        viewModel.removeTask()
+        viewModel.removeTask() 
+        viewModel.taskState = .remove
     }
 }

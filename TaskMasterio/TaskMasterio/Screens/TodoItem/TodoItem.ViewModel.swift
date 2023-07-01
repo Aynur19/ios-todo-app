@@ -14,10 +14,11 @@ enum TasksStates {
     case highPriority
     case mediumPriority
     case lowPriority
+    case close
+    case remove
 }
 
 final class TodoItemViewModel: ObservableObject {
-    
     @Published var description: String
     @Published var deadline: Date?
     @Published var priority: Priority
@@ -31,6 +32,7 @@ final class TodoItemViewModel: ObservableObject {
     private var task: TodoItem
     
     private let dataCache: FileCache
+
     
     init(_ currentTask: TodoItem?, with dataCache: FileCache) {
         self.taskExists = currentTask != nil
@@ -117,7 +119,7 @@ final class TodoItemViewModel: ObservableObject {
         saveTask()
     }
     
-    func saveTask() {
+    func getTask() -> TodoItem {
         var writtenTask: TodoItem
         if taskExists {
             writtenTask = TodoItem(id: task.id,
@@ -135,15 +137,21 @@ final class TodoItemViewModel: ObservableObject {
                                    updatedOn: Date())
         }
         
+        return writtenTask
+    }
+    
+    func saveTask() {
+        var writtenTask = getTask()
+        
         print("task: \(writtenTask)\n")
         dataCache.add(writtenTask)
-        try? dataCache.save(name: "Tasks", as: .json)
+//        try? dataCache.save(name: "Tasks", as: .json)
         
         taskExists = true
     }
     
-    func removeTask() {
-        dataCache.remove(by: task.id)
-        try? dataCache.save(name: "Tasks", as: .json)
+    func removeTask() -> TodoItem? {
+        return dataCache.remove(by: task.id)
+//        try? dataCache.save(name: "Tasks", as: .json)
     }
 }

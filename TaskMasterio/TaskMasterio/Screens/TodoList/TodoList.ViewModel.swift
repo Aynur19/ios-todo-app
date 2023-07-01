@@ -13,8 +13,12 @@ private let showCompletedTasksStr = "Показать"
 private let hideCompletedTasksStr = "Скрыть"
 
 
+protocol TodoListViewModelDelegate: AnyObject {
+    func addViewModelToList()
+}
+
 final class TodoListViewModel: ObservableObject {
-    
+    weak var delegate: TodoListViewModelDelegate?
     private(set) var tasks = [TodoItemViewModel]()
     private var cancellables = Set<AnyCancellable>()
     
@@ -68,6 +72,12 @@ final class TodoListViewModel: ObservableObject {
         updateTodoList()
     }
     
+    
+    func present(by id: String?) {
+        guard let taskId = id else { return }
+        
+    }
+    
     private func loadData() {
         try? dataCache.load(name: "Tasks 2", as: .json)
         
@@ -85,6 +95,16 @@ final class TodoListViewModel: ObservableObject {
         updateTodoList()
     }
     
+    func addTask(todo: TodoItem) {
+        dataCache.add(todo)
+        
+        tasks.removeAll()
+        for task in dataCache.tasks {
+            tasks.append(TodoItemViewModel(task, with: dataCache))
+        }
+        
+        updateTodoList()
+    }
     
     func removeTask(by id: String?) {
         guard let taskId = id else { return }

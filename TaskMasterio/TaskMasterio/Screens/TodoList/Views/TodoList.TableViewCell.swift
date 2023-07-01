@@ -11,6 +11,8 @@ import Combine
 private let descriptionRowsCount = 3
 
 final class TodoListTableViewCell: UITableViewCell {
+    var tapAction: (() -> Void)?
+//    private var tapGesture: UITapGestureRecognizer?
     
     private var viewModel: TodoItemViewModel!
     private var cancellables = Set<AnyCancellable>()
@@ -23,6 +25,10 @@ final class TodoListTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+
+//        if let tapGesture = tapGesture {
+//            self.removeGestureRecognizer(tapGesture)
+//        }
         
         self.updateCompletiinMarkStyle(for: self.completionMark, while: TasksStates.none)
         self.updateDescriptionStyle(for: self.descriptionLabel, while: TasksStates.none)
@@ -59,6 +65,11 @@ final class TodoListTableViewCell: UITableViewCell {
                 }
             }
             .store(in: &cancellables)
+        
+//        tapGesture = UITapGestureRecognizer(target: self, action: #selector(cellTapped))
+//        if let tapGesture = tapGesture {
+//            self.addGestureRecognizer(tapGesture)
+//        }
     }
     
     @available(*, unavailable)
@@ -214,4 +225,12 @@ final class TodoListTableViewCell: UITableViewCell {
     @objc private func onCompletionMarkTouched() {
         viewModel.changeTaskCompletion()
     }
+    
+    @objc private func cellTapped() {
+        tapAction?()
+    }
+    
+    
+    
 }
+

@@ -20,6 +20,8 @@ final class TodoItemScrollView: UIScrollView {
         setupDescriptionView()
         setupDetailsStackView(topView: descriptionView)
         setupRemoveButton(topView: detailsStackView)
+        
+        
     }
     
     @available(*, unavailable)
