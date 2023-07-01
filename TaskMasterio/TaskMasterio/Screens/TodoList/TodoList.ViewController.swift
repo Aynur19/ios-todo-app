@@ -62,9 +62,17 @@ final class TodoListViewController: UIViewController {
         
         tasksTableView.delegate = self
         tasksTableView.dataSource = self
-        //        dataSource.presentingViewController = self
         
         tasksTableView.rowHeight = UITableView.automaticDimension
+        
+        view.addSubview(newTaskButton)
+        view.bringSubviewToFront(newTaskButton)
+        NSLayoutConstraint.activate([
+            newTaskButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -54),
+            newTaskButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            newTaskButton.widthAnchor.constraint(equalToConstant: 44),
+            newTaskButton.heightAnchor.constraint(equalToConstant: 44),
+        ])
     }
     
     private func bindViewModel() {
@@ -79,6 +87,25 @@ final class TodoListViewController: UIViewController {
     }
     
     // MARK: - UI Elements
+    private lazy var newTaskButton: UIButton = {
+        let button = UIButton()
+        let normalImage = UIImage(named: "Add Task")
+        button.setImage(normalImage, for: .normal)
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
+    
+    @objc private func buttonTapped() {
+        let detailViewController = TodoItemViewController2()
+        detailViewController.viewModel = TodoItemViewModel(TodoItem(text: "", priority: .medium), with: viewModel.dataCache)
+        detailViewController.todoListVM = viewModel
+        let todoItemNavigationController = UINavigationController(rootViewController: detailViewController)
+        present(todoItemNavigationController, animated: true, completion: nil)
+    }
+    
     private lazy var tasksTableView = TodoListTableView(for: self.view)
     
     private lazy var tasksTableContainer: UIView = {

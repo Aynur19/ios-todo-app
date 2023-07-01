@@ -27,7 +27,7 @@ final class TodoListViewModel: ObservableObject {
     
     @Published var shownTasks = [TodoItemViewModel]()
     
-    private let dataCache: FileCache
+    let dataCache: FileCache
     
     init(with dataCache: FileCache) {
         self.dataCache = dataCache

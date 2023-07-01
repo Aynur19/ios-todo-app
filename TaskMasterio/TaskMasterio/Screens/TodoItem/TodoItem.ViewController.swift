@@ -52,6 +52,8 @@ final class TodoItemViewController2: UIViewController {
             contentScrollView.bottomAnchor.constraint(equalTo: view.keyboardLayoutGuide.topAnchor, constant: -Sizes.margin_16),
         ])
         contentScrollView.contentSize = view.bounds.size
+        
+        
     }
     
     private func setupTapGestureRecognizer() {
@@ -87,6 +89,8 @@ final class TodoItemViewController2: UIViewController {
         let button = UIBarButtonItem(title: Titles.cancel, style: .plain, target: self, action: #selector(onCancelButtonTapped))
         return button
     }()
+    
+    
     
     private lazy var saveButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: Titles.save, style: .plain, target: self, action: #selector(onSaveButtonTapped))
