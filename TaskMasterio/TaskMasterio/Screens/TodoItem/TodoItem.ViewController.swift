@@ -10,6 +10,7 @@ import Combine
 
 final class TodoItemViewController2: UIViewController {
     
+    var todoListVM: TodoListViewModel!
     var viewModel: TodoItemViewModel!
     private var cancellables = Set<AnyCancellable>()
     
@@ -51,6 +52,8 @@ final class TodoItemViewController2: UIViewController {
             contentScrollView.bottomAnchor.constraint(equalTo: view.keyboardLayoutGuide.topAnchor, constant: -Sizes.margin_16),
         ])
         contentScrollView.contentSize = view.bounds.size
+        
+        
     }
     
     private func setupTapGestureRecognizer() {
@@ -63,6 +66,20 @@ final class TodoItemViewController2: UIViewController {
         viewModel.taskIsChanged
             .assign(to: \.isEnabled, on: saveButton)
             .store(in: &cancellables)
+        
+        viewModel.$taskState
+            .sink { [weak self] taskState in
+                if taskState == .close {
+                    self?.viewModel.taskState = .none
+                    self?.exit()
+                } else if taskState == .remove {
+                    self?.todoListVM.removeTask(by: self?.viewModel.id)
+                    self?.viewModel.taskState = .none
+                    self?.exit()
+                }
+                
+            }
+            .store(in: &cancellables)
     }
     
     // MARK: - UI Elements
@@ -72,6 +89,8 @@ final class TodoItemViewController2: UIViewController {
         let button = UIBarButtonItem(title: Titles.cancel, style: .plain, target: self, action: #selector(onCancelButtonTapped))
         return button
     }()
+    
+    
     
     private lazy var saveButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: Titles.save, style: .plain, target: self, action: #selector(onSaveButtonTapped))
@@ -88,8 +107,21 @@ final class TodoItemViewController2: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    
+    var delegate: TodoListViewModelDelegate?
+    
     @objc private func onSaveButtonTapped() {
         viewModel.saveTask()
+        todoListVM.addTask(todo: viewModel.getTask())
+        todoListVM.updateTodoList()
+        view.endEditing(true)
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func exit() {
+        todoListVM.updateTodoList()
+        view.endEditing(true)
+        dismiss(animated: true, completion: nil)
     }
     
     @objc private func onViewTapped() {

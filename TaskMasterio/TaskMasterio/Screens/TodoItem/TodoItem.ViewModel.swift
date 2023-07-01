@@ -8,20 +8,31 @@
 import Combine
 import Foundation
 
+enum TasksStates {
+    case none
+    case isDone
+    case highPriority
+    case mediumPriority
+    case lowPriority
+    case close
+    case remove
+}
 
 final class TodoItemViewModel: ObservableObject {
-    
     @Published var description: String
     @Published var deadline: Date?
     @Published var priority: Priority
-    
+    @Published var isDone: Bool
     @Published var calendarIsHidden = true
     @Published var taskExists: Bool
+    @Published var taskState: TasksStates = .none
     
+    private(set) var id: String
     private var cancellables = Set<AnyCancellable>()
     private var task: TodoItem
     
     private let dataCache: FileCache
+
     
     init(_ currentTask: TodoItem?, with dataCache: FileCache) {
         self.taskExists = currentTask != nil
@@ -32,12 +43,21 @@ final class TodoItemViewModel: ObservableObject {
         description = task.text
         deadline = task.deadline
         priority = task.priority
+        isDone = task.isDone
+        id = task.id
         
-        print("task: \(task)\n")
-        print("description: \(description)")
-        print("deadline: \(deadline)")
-        print("priority: \(priority)")
-        print("calendarIsHidden: \(calendarIsHidden)")
+        updateState()
+    }
+    
+    func updateState() {
+        if isDone { taskState = .isDone }
+        else {
+            switch priority {
+            case .low: taskState = .lowPriority
+            case .medium: taskState = .mediumPriority
+            case .high: taskState = .highPriority
+            }
+        }
     }
     
     var taskIsChanged: AnyPublisher<Bool, Never> {
@@ -47,14 +67,12 @@ final class TodoItemViewModel: ObservableObject {
     }
     
     var descriptionIsChanged: AnyPublisher<Bool, Never> {
-        print("descriptionIsChanged: \(description != self.task.text)")
         return $description
             .map { $0 != self.task.text }
             .eraseToAnyPublisher()
     }
     
     var descriptionIsNotEmpty: AnyPublisher<Bool, Never> {
-        print("descriptionIsEmpty: \(description.isEmpty)")
         
         return $description
             .map { !$0.isEmpty }
@@ -62,21 +80,18 @@ final class TodoItemViewModel: ObservableObject {
     }
     
     var priorityIsChanged: AnyPublisher<Bool, Never> {
-        print("priorityIsChanged: \(priority != self.task.priority)")
         return $priority
             .map { $0 != self.task.priority }
             .eraseToAnyPublisher()
     }
     
     var deadlineIsChanged: AnyPublisher<Bool, Never> {
-        print("descriptionIsEmpty: \(description.isEmpty)")
         return $deadline
             .map { $0?.datetime != self.task.deadline?.datetime }
             .eraseToAnyPublisher()
     }
     
     var deadlineStr: AnyPublisher<String?, Never> {
-        print("deadlineStr: \(deadline?.toString())")
         return $deadline
             .map { $0?.toString() }
             .eraseToAnyPublisher()
@@ -98,7 +113,13 @@ final class TodoItemViewModel: ObservableObject {
         priority = Priority.getPriority(priorityIndex) ?? .medium
     }
     
-    func saveTask() {
+    func changeTaskCompletion() {
+        isDone.toggle()
+        updateState()
+        saveTask()
+    }
+    
+    func getTask() -> TodoItem {
         var writtenTask: TodoItem
         if taskExists {
             writtenTask = TodoItem(id: task.id,
@@ -116,15 +137,21 @@ final class TodoItemViewModel: ObservableObject {
                                    updatedOn: Date())
         }
         
+        return writtenTask
+    }
+    
+    func saveTask() {
+        var writtenTask = getTask()
+        
         print("task: \(writtenTask)\n")
         dataCache.add(writtenTask)
-        try? dataCache.save(name: "Tasks", as: .json)
+//        try? dataCache.save(name: "Tasks", as: .json)
         
         taskExists = true
     }
     
-    func removeTask() {
-        dataCache.remove(by: task.id)
-        try? dataCache.save(name: "Tasks", as: .json)
+    func removeTask() -> TodoItem? {
+        return dataCache.remove(by: task.id)
+//        try? dataCache.save(name: "Tasks", as: .json)
     }
 }
