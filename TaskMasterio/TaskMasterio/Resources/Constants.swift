@@ -28,6 +28,7 @@ enum Titles {
    
     static let todoList = "Мои дела"
     static let todoListCellId = "TodoListTableViewCell"
+    static let todoListCellLastId = "TodoListTableViewCellLast"
 }
 
 enum Margins {

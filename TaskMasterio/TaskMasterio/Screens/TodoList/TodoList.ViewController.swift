@@ -13,16 +13,12 @@ final class TodoListViewController: UIViewController {
     var viewModel: TodoListViewModel!
     private var shownTasks = [TodoItemViewModel]()
     private var headerView: TodoListTableViewHeader!
-    //    private var dataSource: TodoListTableDataSource!
     
     private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Lifesycle Functions
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        //        dataSource = TodoListTableDataSource(with: viewModel)
         
         setup()
         setupNavBar()
@@ -92,7 +88,7 @@ final class TodoListViewController: UIViewController {
         let normalImage = UIImage(named: "Add Task")
         button.setImage(normalImage, for: .normal)
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-
+        
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -134,12 +130,20 @@ extension TodoListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Titles.todoListCellId, for: indexPath) as! TodoListTableViewCell
-        cell.bindViewModel(with: shownTasks[indexPath.row])
-        cell.tag = indexPath.row
-        print("task index: \(indexPath.row)")
         
-        return cell
+//        if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
+//            let lastCell = tableView.dequeueReusableCell(withIdentifier: Titles.todoListCellLastId, for: indexPath) as! TodoListTableViewCellLast
+//            // Configure the last cell
+//            return lastCell
+//        } else {
+//
+            let cell = tableView.dequeueReusableCell(withIdentifier: Titles.todoListCellId, for: indexPath) as! TodoListTableViewCell
+            cell.bindViewModel(with: shownTasks[indexPath.row])
+            cell.tag = indexPath.row
+            print("task index: \(indexPath.row)")
+            
+            return cell
+//        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -194,8 +198,3 @@ extension TodoListViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-extension TodoListViewController: TodoListViewModelDelegate {
-    func addViewModelToList() {
-        viewModel.updateTodoList()
-    }
-}

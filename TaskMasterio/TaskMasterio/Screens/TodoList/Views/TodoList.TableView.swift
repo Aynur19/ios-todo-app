@@ -24,9 +24,9 @@ final class TodoListTableView: UITableView {
     // MARK: - Setup Functions
     private func setup() {
         self.register(TodoListTableViewCell.self, forCellReuseIdentifier: Titles.todoListCellId)
+        self.register(TodoListTableViewCell.self, forCellReuseIdentifier: Titles.todoListCellLastId)
         self.backgroundColor = UIColor(named: AccentColors.backPrimary)
         self.layer.cornerRadius = Sizes.cornerRadius
-//        self.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0)
         self.translatesAutoresizingMaskIntoConstraints = false
     }
 }

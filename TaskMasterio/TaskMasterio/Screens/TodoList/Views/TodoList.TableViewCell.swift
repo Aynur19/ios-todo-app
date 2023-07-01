@@ -26,10 +26,6 @@ final class TodoListTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
 
-//        if let tapGesture = tapGesture {
-//            self.removeGestureRecognizer(tapGesture)
-//        }
-        
         self.updateCompletiinMarkStyle(for: self.completionMark, while: TasksStates.none)
         self.updateDescriptionStyle(for: self.descriptionLabel, while: TasksStates.none)
         self.descriptionLabel.text = nil
@@ -65,11 +61,6 @@ final class TodoListTableViewCell: UITableViewCell {
                 }
             }
             .store(in: &cancellables)
-        
-//        tapGesture = UITapGestureRecognizer(target: self, action: #selector(cellTapped))
-//        if let tapGesture = tapGesture {
-//            self.addGestureRecognizer(tapGesture)
-//        }
     }
     
     @available(*, unavailable)

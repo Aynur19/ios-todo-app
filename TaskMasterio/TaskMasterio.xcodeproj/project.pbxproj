@@ -49,6 +49,7 @@
 		98F94A2E2A4EAC4500B72704 /* TodoList.TableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F94A2D2A4EAC4400B72704 /* TodoList.TableViewHeader.swift */; };
 		98F94A302A4EC85500B72704 /* TodoList.TableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F94A2F2A4EC85500B72704 /* TodoList.TableDataSource.swift */; };
 		98F94A332A4F39EA00B72704 /* UIView.Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F94A322A4F39EA00B72704 /* UIView.Ext.swift */; };
+		98F94A352A4FBF3300B72704 /* TodoList.TableViewCell.Last.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F94A342A4FBF3200B72704 /* TodoList.TableViewCell.Last.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,6 +116,7 @@
 		98F94A2D2A4EAC4400B72704 /* TodoList.TableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.TableViewHeader.swift; sourceTree = "<group>"; };
 		98F94A2F2A4EC85500B72704 /* TodoList.TableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.TableDataSource.swift; sourceTree = "<group>"; };
 		98F94A322A4F39EA00B72704 /* UIView.Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.Ext.swift; sourceTree = "<group>"; };
+		98F94A342A4FBF3200B72704 /* TodoList.TableViewCell.Last.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.TableViewCell.Last.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -334,6 +336,7 @@
 				98F94A2B2A4DF12100B72704 /* TodoList.TableView.swift */,
 				98F94A2D2A4EAC4400B72704 /* TodoList.TableViewHeader.swift */,
 				98F94A292A4DE24F00B72704 /* TodoList.TableViewCell.swift */,
+				98F94A342A4FBF3200B72704 /* TodoList.TableViewCell.Last.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -501,6 +504,7 @@
 				983AD75C2A462EC2008EA93A /* TodoItemViewController.ViewBuilder.swift in Sources */,
 				98F94A332A4F39EA00B72704 /* UIView.Ext.swift in Sources */,
 				98CE2A1F2A3C83F900554B7A /* DateExt.swift in Sources */,
+				98F94A352A4FBF3300B72704 /* TodoList.TableViewCell.Last.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
