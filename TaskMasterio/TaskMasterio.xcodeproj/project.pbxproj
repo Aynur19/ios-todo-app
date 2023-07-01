@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01E9560C2FED1E422D1CC015 /* Pods_TaskMasterioTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB09A0EF3E7506B65DBF9D07 /* Pods_TaskMasterioTests.framework */; };
+		5AF2AEE16A2D7772D106021A /* Pods_TaskMasterio_TaskMasterioUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D771FA425A439EBEABBFE11 /* Pods_TaskMasterio_TaskMasterioUITests.framework */; };
 		983AD75C2A462EC2008EA93A /* TodoItemViewController.ViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983AD75B2A462EC2008EA93A /* TodoItemViewController.ViewBuilder.swift */; };
 		985871482A3D499D00066B2E /* TodoItem.CsvParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985871472A3D499D00066B2E /* TodoItem.CsvParser.swift */; };
 		9858714A2A3D4CB200066B2E /* TodoItem_CsvTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985871492A3D4CB200066B2E /* TodoItem_CsvTests.swift */; };
@@ -50,6 +52,10 @@
 		98F94A302A4EC85500B72704 /* TodoList.TableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F94A2F2A4EC85500B72704 /* TodoList.TableDataSource.swift */; };
 		98F94A332A4F39EA00B72704 /* UIView.Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F94A322A4F39EA00B72704 /* UIView.Ext.swift */; };
 		98F94A352A4FBF3300B72704 /* TodoList.TableViewCell.Last.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F94A342A4FBF3200B72704 /* TodoList.TableViewCell.Last.swift */; };
+		98F94A3B2A4FD4A400B72704 /* CocoaLumberjack in Frameworks */ = {isa = PBXBuildFile; productRef = 98F94A3A2A4FD4A400B72704 /* CocoaLumberjack */; };
+		98F94A3D2A4FD4A400B72704 /* CocoaLumberjackSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 98F94A3C2A4FD4A400B72704 /* CocoaLumberjackSwift */; };
+		98F94A3F2A4FD4A400B72704 /* CocoaLumberjackSwiftLogBackend in Frameworks */ = {isa = PBXBuildFile; productRef = 98F94A3E2A4FD4A400B72704 /* CocoaLumberjackSwiftLogBackend */; };
+		B0FC218552B298469E47927E /* Pods_TaskMasterio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9107BF7D159B8130839875D8 /* Pods_TaskMasterio.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +76,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4031213A33750255DB2FA8DA /* Pods-TaskMasterio.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskMasterio.debug.xcconfig"; path = "Target Support Files/Pods-TaskMasterio/Pods-TaskMasterio.debug.xcconfig"; sourceTree = "<group>"; };
+		4E0039C488E982B96941135F /* Pods-TaskMasterioTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskMasterioTests.release.xcconfig"; path = "Target Support Files/Pods-TaskMasterioTests/Pods-TaskMasterioTests.release.xcconfig"; sourceTree = "<group>"; };
+		634A3B5936FE64C4495B75A2 /* Pods-TaskMasterio.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskMasterio.release.xcconfig"; path = "Target Support Files/Pods-TaskMasterio/Pods-TaskMasterio.release.xcconfig"; sourceTree = "<group>"; };
+		71D85DB573BAE2EF1DAA7C80 /* Pods-TaskMasterio-TaskMasterioUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskMasterio-TaskMasterioUITests.debug.xcconfig"; path = "Target Support Files/Pods-TaskMasterio-TaskMasterioUITests/Pods-TaskMasterio-TaskMasterioUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		7D771FA425A439EBEABBFE11 /* Pods_TaskMasterio_TaskMasterioUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TaskMasterio_TaskMasterioUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9107BF7D159B8130839875D8 /* Pods_TaskMasterio.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TaskMasterio.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		983AD75B2A462EC2008EA93A /* TodoItemViewController.ViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemViewController.ViewBuilder.swift; sourceTree = "<group>"; };
 		985871472A3D499D00066B2E /* TodoItem.CsvParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.CsvParser.swift; sourceTree = "<group>"; };
 		985871492A3D4CB200066B2E /* TodoItem_CsvTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem_CsvTests.swift; sourceTree = "<group>"; };
@@ -117,6 +129,9 @@
 		98F94A2F2A4EC85500B72704 /* TodoList.TableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.TableDataSource.swift; sourceTree = "<group>"; };
 		98F94A322A4F39EA00B72704 /* UIView.Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.Ext.swift; sourceTree = "<group>"; };
 		98F94A342A4FBF3200B72704 /* TodoList.TableViewCell.Last.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.TableViewCell.Last.swift; sourceTree = "<group>"; };
+		EB09A0EF3E7506B65DBF9D07 /* Pods_TaskMasterioTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TaskMasterioTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ECDCCDAA9D67184511B0B81D /* Pods-TaskMasterioTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskMasterioTests.debug.xcconfig"; path = "Target Support Files/Pods-TaskMasterioTests/Pods-TaskMasterioTests.debug.xcconfig"; sourceTree = "<group>"; };
+		ED760C54E71AD6E71A26B65B /* Pods-TaskMasterio-TaskMasterioUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskMasterio-TaskMasterioUITests.release.xcconfig"; path = "Target Support Files/Pods-TaskMasterio-TaskMasterioUITests/Pods-TaskMasterio-TaskMasterioUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +139,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98F94A3D2A4FD4A400B72704 /* CocoaLumberjackSwift in Frameworks */,
+				98F94A3F2A4FD4A400B72704 /* CocoaLumberjackSwiftLogBackend in Frameworks */,
+				98F94A3B2A4FD4A400B72704 /* CocoaLumberjack in Frameworks */,
+				B0FC218552B298469E47927E /* Pods_TaskMasterio.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,6 +150,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01E9560C2FED1E422D1CC015 /* Pods_TaskMasterioTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,12 +158,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5AF2AEE16A2D7772D106021A /* Pods_TaskMasterio_TaskMasterioUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		80C86E6D25CAC275D114412F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4031213A33750255DB2FA8DA /* Pods-TaskMasterio.debug.xcconfig */,
+				634A3B5936FE64C4495B75A2 /* Pods-TaskMasterio.release.xcconfig */,
+				71D85DB573BAE2EF1DAA7C80 /* Pods-TaskMasterio-TaskMasterioUITests.debug.xcconfig */,
+				ED760C54E71AD6E71A26B65B /* Pods-TaskMasterio-TaskMasterioUITests.release.xcconfig */,
+				ECDCCDAA9D67184511B0B81D /* Pods-TaskMasterioTests.debug.xcconfig */,
+				4E0039C488E982B96941135F /* Pods-TaskMasterioTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		9858714D2A4330DA00066B2E /* Cache */ = {
 			isa = PBXGroup;
 			children = (
@@ -219,6 +253,8 @@
 				98F283312A350E6C0008A526 /* TaskMasterioTests */,
 				98F2833B2A350E6C0008A526 /* TaskMasterioUITests */,
 				98F283192A350E650008A526 /* Products */,
+				98F94A392A4FD4A400B72704 /* Frameworks */,
+				80C86E6D25CAC275D114412F /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -341,6 +377,16 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		98F94A392A4FD4A400B72704 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9107BF7D159B8130839875D8 /* Pods_TaskMasterio.framework */,
+				7D771FA425A439EBEABBFE11 /* Pods_TaskMasterio_TaskMasterioUITests.framework */,
+				EB09A0EF3E7506B65DBF9D07 /* Pods_TaskMasterioTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -348,15 +394,22 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 98F283422A350E6C0008A526 /* Build configuration list for PBXNativeTarget "TaskMasterio" */;
 			buildPhases = (
+				5655EBDF0BD44F2D902B8986 /* [CP] Check Pods Manifest.lock */,
 				98F283142A350E640008A526 /* Sources */,
 				98F283152A350E640008A526 /* Frameworks */,
 				98F283162A350E640008A526 /* Resources */,
+				98E5F95F2A4FDCFB00DD6075 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = TaskMasterio;
+			packageProductDependencies = (
+				98F94A3A2A4FD4A400B72704 /* CocoaLumberjack */,
+				98F94A3C2A4FD4A400B72704 /* CocoaLumberjackSwift */,
+				98F94A3E2A4FD4A400B72704 /* CocoaLumberjackSwiftLogBackend */,
+			);
 			productName = TaskMasterio;
 			productReference = 98F283182A350E650008A526 /* TaskMasterio.app */;
 			productType = "com.apple.product-type.application";
@@ -365,6 +418,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 98F283452A350E6C0008A526 /* Build configuration list for PBXNativeTarget "TaskMasterioTests" */;
 			buildPhases = (
+				DAB536A158716FD6F4ACFD6A /* [CP] Check Pods Manifest.lock */,
 				98F2832A2A350E6C0008A526 /* Sources */,
 				98F2832B2A350E6C0008A526 /* Frameworks */,
 				98F2832C2A350E6C0008A526 /* Resources */,
@@ -383,6 +437,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 98F283482A350E6C0008A526 /* Build configuration list for PBXNativeTarget "TaskMasterioUITests" */;
 			buildPhases = (
+				EDDD053DFABEFF1DB74EA809 /* [CP] Check Pods Manifest.lock */,
 				98F283342A350E6C0008A526 /* Sources */,
 				98F283352A350E6C0008A526 /* Frameworks */,
 				98F283362A350E6C0008A526 /* Resources */,
@@ -429,6 +484,9 @@
 				Base,
 			);
 			mainGroup = 98F2830F2A350E640008A526;
+			packageReferences = (
+				98F94A362A4FCE9D00B72704 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
+			);
 			productRefGroup = 98F283192A350E650008A526 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -465,6 +523,92 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5655EBDF0BD44F2D902B8986 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TaskMasterio-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		98E5F95F2A4FDCFB00DD6075 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
+		DAB536A158716FD6F4ACFD6A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TaskMasterioTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EDDD053DFABEFF1DB74EA809 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TaskMasterio-TaskMasterioUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		98F283142A350E640008A526 /* Sources */ = {
@@ -672,6 +816,7 @@
 		};
 		98F283432A350E6C0008A526 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4031213A33750255DB2FA8DA /* Pods-TaskMasterio.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -703,6 +848,7 @@
 		};
 		98F283442A350E6C0008A526 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 634A3B5936FE64C4495B75A2 /* Pods-TaskMasterio.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -734,6 +880,7 @@
 		};
 		98F283462A350E6C0008A526 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ECDCCDAA9D67184511B0B81D /* Pods-TaskMasterioTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -754,6 +901,7 @@
 		};
 		98F283472A350E6C0008A526 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4E0039C488E982B96941135F /* Pods-TaskMasterioTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -774,6 +922,7 @@
 		};
 		98F283492A350E6C0008A526 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 71D85DB573BAE2EF1DAA7C80 /* Pods-TaskMasterio-TaskMasterioUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -792,6 +941,7 @@
 		};
 		98F2834A2A350E6C0008A526 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ED760C54E71AD6E71A26B65B /* Pods-TaskMasterio-TaskMasterioUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -848,6 +998,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		98F94A362A4FCE9D00B72704 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CocoaLumberjack/CocoaLumberjack.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.8.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		98F94A3A2A4FD4A400B72704 /* CocoaLumberjack */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 98F94A362A4FCE9D00B72704 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
+			productName = CocoaLumberjack;
+		};
+		98F94A3C2A4FD4A400B72704 /* CocoaLumberjackSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 98F94A362A4FCE9D00B72704 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
+			productName = CocoaLumberjackSwift;
+		};
+		98F94A3E2A4FD4A400B72704 /* CocoaLumberjackSwiftLogBackend */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 98F94A362A4FCE9D00B72704 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
+			productName = CocoaLumberjackSwiftLogBackend;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 98F283102A350E640008A526 /* Project object */;
 }
