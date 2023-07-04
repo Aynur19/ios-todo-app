@@ -24,7 +24,6 @@
 		98CE2A1C2A3C7FB800554B7A /* CsvParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CE2A1B2A3C7FB800554B7A /* CsvParser.swift */; };
 		98CE2A1F2A3C83F900554B7A /* DateExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CE2A1E2A3C83F900554B7A /* DateExt.swift */; };
 		98CE2A212A3C9A8900554B7A /* StringExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CE2A202A3C9A8900554B7A /* StringExt.swift */; };
-		98DCE11D2A548E1000B656F3 /* swiftlint in Frameworks */ = {isa = PBXBuildFile; productRef = 98DCE11C2A548E1000B656F3 /* swiftlint */; };
 		98F2831C2A350E650008A526 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2831B2A350E650008A526 /* AppDelegate.swift */; };
 		98F2831E2A350E650008A526 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2831D2A350E650008A526 /* SceneDelegate.swift */; };
 		98F283202A350E650008A526 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2831F2A350E650008A526 /* ViewController.swift */; };
@@ -129,7 +128,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				98F94A3D2A4FD4A400B72704 /* CocoaLumberjackSwift in Frameworks */,
-				98DCE11D2A548E1000B656F3 /* swiftlint in Frameworks */,
 				98F94A3F2A4FD4A400B72704 /* CocoaLumberjackSwiftLogBackend in Frameworks */,
 				98F94A3B2A4FD4A400B72704 /* CocoaLumberjack in Frameworks */,
 			);
@@ -364,8 +362,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 98F283422A350E6C0008A526 /* Build configuration list for PBXNativeTarget "TaskMasterio" */;
 			buildPhases = (
-				98DCE11E2A54923800B656F3 /* ShellScript */,
 				98F283142A350E640008A526 /* Sources */,
+				984687CE2A54C2BC004C76C3 /* ShellScript */,
 				98F283152A350E640008A526 /* Frameworks */,
 				98F283162A350E640008A526 /* Resources */,
 			);
@@ -378,7 +376,6 @@
 				98F94A3A2A4FD4A400B72704 /* CocoaLumberjack */,
 				98F94A3C2A4FD4A400B72704 /* CocoaLumberjackSwift */,
 				98F94A3E2A4FD4A400B72704 /* CocoaLumberjackSwiftLogBackend */,
-				98DCE11C2A548E1000B656F3 /* swiftlint */,
 			);
 			productName = TaskMasterio;
 			productReference = 98F283182A350E650008A526 /* TaskMasterio.app */;
@@ -454,7 +451,6 @@
 			mainGroup = 98F2830F2A350E640008A526;
 			packageReferences = (
 				98F94A362A4FCE9D00B72704 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
-				98DCE11B2A548E0F00B656F3 /* XCRemoteSwiftPackageReference "SwiftLint" */,
 			);
 			productRefGroup = 98F283192A350E650008A526 /* Products */;
 			projectDirPath = "";
@@ -494,7 +490,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		98DCE11E2A54923800B656F3 /* ShellScript */ = {
+		984687CE2A54C2BC004C76C3 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -509,7 +505,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -897,14 +893,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		98DCE11B2A548E0F00B656F3 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/realm/SwiftLint";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.9.2;
-			};
-		};
 		98F94A362A4FCE9D00B72704 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CocoaLumberjack/CocoaLumberjack.git";
@@ -916,11 +904,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		98DCE11C2A548E1000B656F3 /* swiftlint */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 98DCE11B2A548E0F00B656F3 /* XCRemoteSwiftPackageReference "SwiftLint" */;
-			productName = swiftlint;
-		};
 		98F94A3A2A4FD4A400B72704 /* CocoaLumberjack */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 98F94A362A4FCE9D00B72704 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
