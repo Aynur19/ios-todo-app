@@ -174,16 +174,16 @@ final class TodoItemViewController: UIViewController {
             contentStackView.centerXAnchor.constraint(equalTo: contentScrollView.centerXAnchor),
             contentStackView.topAnchor.constraint(equalTo: contentScrollView.topAnchor),
             contentStackView.bottomAnchor.constraint(equalTo: contentScrollView.bottomAnchor),
-            contentStackView.widthAnchor.constraint(equalTo: contentScrollView.widthAnchor, constant: -Sizes.margin2xH),
+            contentStackView.widthAnchor.constraint(equalTo: contentScrollView.widthAnchor, constant: -Margins.mg32),
             
             // description text view
             descriptionView.heightAnchor.constraint(greaterThanOrEqualToConstant: Sizes.descriptionMinHeight),
             descriptionView.widthAnchor.constraint(equalTo: contentStackView.widthAnchor),
             
             // description placeholder
-            descriptionPlaceholder.leadingAnchor.constraint(equalTo: descriptionView.leadingAnchor, constant: Sizes.marginH),
-            descriptionPlaceholder.trailingAnchor.constraint(equalTo: descriptionView.trailingAnchor, constant: -Sizes.marginH),
-            descriptionPlaceholder.topAnchor.constraint(equalTo: descriptionView.topAnchor, constant: Sizes.marginV),
+            descriptionPlaceholder.leadingAnchor.constraint(equalTo: descriptionView.leadingAnchor, constant: Margins.mg16),
+            descriptionPlaceholder.trailingAnchor.constraint(equalTo: descriptionView.trailingAnchor, constant: -Margins.mg16),
+            descriptionPlaceholder.topAnchor.constraint(equalTo: descriptionView.topAnchor, constant: Margins.mg12),
             
             // options stack view
             optionsStackView.centerXAnchor.constraint(equalTo: contentStackView.centerXAnchor),
@@ -194,9 +194,9 @@ final class TodoItemViewController: UIViewController {
             
             // priority stack view
             priorityStackView.centerXAnchor.constraint(equalTo: priorityContainer.centerXAnchor),
-            priorityStackView.widthAnchor.constraint(equalTo: priorityContainer.widthAnchor, constant: -Sizes.margin2xH),
-            priorityStackView.topAnchor.constraint(equalTo: priorityContainer.topAnchor, constant: Sizes.marginH),
-            priorityStackView.bottomAnchor.constraint(equalTo: priorityContainer.bottomAnchor, constant: -Sizes.marginH),
+            priorityStackView.widthAnchor.constraint(equalTo: priorityContainer.widthAnchor, constant: -Margins.mg32),
+            priorityStackView.topAnchor.constraint(equalTo: priorityContainer.topAnchor, constant: Margins.mg16),
+            priorityStackView.bottomAnchor.constraint(equalTo: priorityContainer.bottomAnchor, constant: -Margins.mg16),
             
             // priority label
             priorityLabel.centerYAnchor.constraint(equalTo: priorityStackView.centerYAnchor),
@@ -208,7 +208,7 @@ final class TodoItemViewController: UIViewController {
             
             // separator between priority and deadline
             priorityAndDeadlineSeparator.heightAnchor.constraint(equalToConstant: Sizes.separatorH).with(priority: .defaultHigh),
-            priorityAndDeadlineSeparator.widthAnchor.constraint(equalTo: optionsStackView.widthAnchor, constant: -Sizes.margin2xH),
+            priorityAndDeadlineSeparator.widthAnchor.constraint(equalTo: optionsStackView.widthAnchor, constant: -Margins.mg32),
             priorityAndDeadlineSeparator.centerXAnchor.constraint(equalTo: optionsStackView.centerXAnchor),
             
             // deadline container
@@ -216,9 +216,9 @@ final class TodoItemViewController: UIViewController {
             
             // deadline stack view
             deadlineStackView.centerXAnchor.constraint(equalTo: deadlineContainer.centerXAnchor),
-            deadlineStackView.widthAnchor.constraint(equalTo: deadlineContainer.widthAnchor, constant: -Sizes.margin2xH),
-            deadlineStackView.topAnchor.constraint(equalTo: deadlineContainer.topAnchor, constant: Sizes.marginH),
-            deadlineStackView.bottomAnchor.constraint(equalTo: deadlineContainer.bottomAnchor, constant: -Sizes.marginH),
+            deadlineStackView.widthAnchor.constraint(equalTo: deadlineContainer.widthAnchor, constant: -Margins.mg32),
+            deadlineStackView.topAnchor.constraint(equalTo: deadlineContainer.topAnchor, constant: Margins.mg16),
+            deadlineStackView.bottomAnchor.constraint(equalTo: deadlineContainer.bottomAnchor, constant: -Margins.mg16),
             
             // deadline labels container
             deadlineLabelContainer.centerYAnchor.constraint(equalTo: deadlineStackView.centerYAnchor),
@@ -236,7 +236,7 @@ final class TodoItemViewController: UIViewController {
             
             // separator between deadline switcher and deadline date picker
             deadlineCalendarSeparator.heightAnchor.constraint(equalToConstant: Sizes.separatorH).with(priority: .defaultHigh),
-            deadlineCalendarSeparator.widthAnchor.constraint(equalTo: optionsStackView.widthAnchor, constant: -Sizes.margin2xH),
+            deadlineCalendarSeparator.widthAnchor.constraint(equalTo: optionsStackView.widthAnchor, constant: -Margins.mg32),
             deadlineCalendarSeparator.centerXAnchor.constraint(equalTo: optionsStackView.centerXAnchor),
             
             // date picker

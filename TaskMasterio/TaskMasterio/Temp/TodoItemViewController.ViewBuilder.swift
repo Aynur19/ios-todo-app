@@ -16,7 +16,7 @@ extension TodoItemViewController {
     
     func buildContentStackView(_ stackView: UIStackView) -> UIStackView {
         stackView.axis = .vertical
-        stackView.spacing = Sizes.spacingV
+        stackView.spacing = Margins.mg16
         stackView.alignment = .center
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -29,8 +29,8 @@ extension TodoItemViewController {
         textView.layer.cornerRadius = Sizes.cornerRadius
         textView.textColor = UIColor(named: AccentColors.labelPrimary)
         textView.isScrollEnabled = false
-        textView.textContainerInset = UIEdgeInsets(top: Sizes.marginV, left: Sizes.marginH,
-                                                   bottom: Sizes.marginH, right: Sizes.marginH)
+        textView.textContainerInset = UIEdgeInsets(top: Margins.mg12, left: Margins.mg16,
+                                                   bottom: Margins.mg16, right: Margins.mg16)
         textView.translatesAutoresizingMaskIntoConstraints = false
         
         return textView
@@ -62,7 +62,7 @@ extension TodoItemViewController {
     
     func buildPriorityStackView(_ stackView: UIStackView) -> UIStackView {
         stackView.axis = .horizontal
-        stackView.spacing = Sizes.spacingH
+        stackView.spacing = Margins.mg16
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
@@ -116,7 +116,7 @@ extension TodoItemViewController {
     
     func buildDeadlineStackView(_ stackView: UIStackView) -> UIStackView {
         stackView.axis = .horizontal
-        stackView.spacing = Sizes.spacingV
+        stackView.spacing = Margins.mg16
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView

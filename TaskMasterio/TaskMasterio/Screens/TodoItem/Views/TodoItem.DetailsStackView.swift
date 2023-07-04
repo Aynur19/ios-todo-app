@@ -55,7 +55,7 @@ final class TodoItemDetailsStackView: UIStackView {
         self.addArrangedSubview(separator_1)
         
         NSLayoutConstraint.activate([
-            separator_1.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -Margins._2x16),
+            separator_1.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -Margins.mg32),
             separator_1.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             separator_1.heightAnchor.constraint(equalToConstant: Sizes.separatorH),
         ])
@@ -73,7 +73,7 @@ final class TodoItemDetailsStackView: UIStackView {
         self.addArrangedSubview(separator_2)
         
         NSLayoutConstraint.activate([
-            separator_2.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -Margins._2x16),
+            separator_2.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -Margins.mg32),
             separator_2.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             separator_2.heightAnchor.constraint(equalToConstant: Sizes.separatorH),
         ])

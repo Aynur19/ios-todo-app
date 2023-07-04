@@ -33,11 +33,11 @@ final class TodoItemDeadlineStackView: UIStackView {
     // MARK: - Setup Functions
     private func setup() {
         self.axis = .horizontal
-        self.spacing = Margins._16
+        self.spacing = Margins.mg16
         self.alignment = .fill
         self.distribution = .fill
         self.isLayoutMarginsRelativeArrangement = true
-        self.layoutMargins = UIEdgeInsets(top: Margins._16, left: Margins._16, bottom: Margins._16, right: Margins._12)
+        self.layoutMargins = UIEdgeInsets(top: Margins.mg16, left: Margins.mg16, bottom: Margins.mg16, right: Margins.mg12)
         self.translatesAutoresizingMaskIntoConstraints = false
     }
     

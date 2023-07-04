@@ -29,11 +29,11 @@ final class TodoItemPriorityStackView: UIStackView {
     // MARK: - Setup Functions
     private func setup() {
         self.axis = .horizontal
-        self.spacing = Sizes.margin_16
+        self.spacing = Margins.mg16
         self.alignment = .fill
         self.distribution = .fill
         self.isLayoutMarginsRelativeArrangement = true
-        self.layoutMargins = UIEdgeInsets(top: Sizes.margin_10, left: Sizes.margin_16, bottom: Sizes.margin_10, right: Sizes.margin_12)
+        self.layoutMargins = UIEdgeInsets(top: Margins.mg10, left: Margins.mg16, bottom: Margins.mg10, right: Margins.mg12)
         self.translatesAutoresizingMaskIntoConstraints = false
     }
     

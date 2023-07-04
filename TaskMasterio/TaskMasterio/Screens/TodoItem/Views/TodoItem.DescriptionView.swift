@@ -37,8 +37,8 @@ final class TodoItemDescriptionView: UITextView {
         self.autocorrectionType = .no
         self.layer.cornerRadius = Sizes.cornerRadius
         self.isScrollEnabled = false
-        self.textContainerInset = UIEdgeInsets(top: Sizes.margin_12, left: Sizes.margin_16,
-                                               bottom: Sizes.margin_12, right: Sizes.margin_16)
+        self.textContainerInset = UIEdgeInsets(top: Margins.mg12, left: Margins.mg16,
+                                               bottom: Margins.mg12, right: Margins.mg16)
         self.translatesAutoresizingMaskIntoConstraints = false
         
         self.text = viewModel.description
@@ -48,9 +48,9 @@ final class TodoItemDescriptionView: UITextView {
         self.addSubview(placeholderLabel)
         
         NSLayoutConstraint.activate([
-            placeholderLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Sizes.margin_16),
-            placeholderLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Sizes.margin_16),
-            placeholderLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: Sizes.margin_12),
+            placeholderLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Margins.mg16),
+            placeholderLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Margins.mg16),
+            placeholderLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: Margins.mg12),
         ])
     }
     

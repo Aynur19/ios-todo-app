@@ -91,10 +91,10 @@ final class TodoListTableViewCell: UITableViewCell {
         
         contentView.addSubview(fullStack)
         NSLayoutConstraint.activate([
-            fullStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Margins._16),
-            fullStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Margins._16),
-            fullStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Margins._16),
-            fullStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Margins._16),
+            fullStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Margins.mg16),
+            fullStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Margins.mg16),
+            fullStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Margins.mg16),
+            fullStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Margins.mg16),
         ])
     }
     

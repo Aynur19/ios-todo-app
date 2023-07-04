@@ -32,31 +32,16 @@ enum Titles {
 }
 
 enum Margins {
-    static let _0: CGFloat = 0
-    static let _8: CGFloat = 8
-    static let _10: CGFloat = 10
-    static let _12: CGFloat = 12
-    static let _16: CGFloat = 16
-    static let _2x16: CGFloat = 2 * _16
+    static let mg0: CGFloat = 0
+    static let mg8: CGFloat = 8
+    static let mg10: CGFloat = 10
+    static let mg12: CGFloat = 12
+    static let mg16: CGFloat = 16
+    static let mg32: CGFloat = 32
 }
 
 enum Sizes {
-    static let sero: CGFloat = 0
-    static let margin_10: CGFloat = 10
-    static let margin_12: CGFloat = 12
-    static let margin_16: CGFloat = 16
-    static let margin_2x16: CGFloat = 2 * margin_16
-
     static let buttonH: CGFloat = 56
-    
-    static let zero: CGFloat = 0
-    static let marginV: CGFloat = 12        // margin vertically
-    static let marginV_10: CGFloat = 10     // margin vertically
-    static let marginH: CGFloat = 16        // margin horizontally
-    static let marginTxB: CGFloat = 16      // margin between top and bottom
-    static let margin2xH = 2 * marginH      // margin of 2 horizontally
-    static let spacingV: CGFloat = 16
-    static let spacingH: CGFloat = 16
     static let separatorH: CGFloat = 1
     
     static let descriptionMinHeight: CGFloat = 120

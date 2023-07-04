@@ -47,12 +47,12 @@ final class TodoListTableViewHeader: UIView {
         headerContainerView.addSubview(completedTasksVisibilityLabel)
         
         NSLayoutConstraint.activate([
-            headerContainerView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Margins._16),
-            headerContainerView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Margins._16),
+            headerContainerView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Margins.mg16),
+            headerContainerView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Margins.mg16),
 //            headerContainerView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
 //                .with(priority: .defaultHigh),
-            headerContainerView.topAnchor.constraint(equalTo: self.topAnchor, constant: Margins._8),
-            headerContainerView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -Margins._12)
+            headerContainerView.topAnchor.constraint(equalTo: self.topAnchor, constant: Margins.mg8),
+            headerContainerView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -Margins.mg12)
                 .with(priority: .defaultHigh),
             
             
