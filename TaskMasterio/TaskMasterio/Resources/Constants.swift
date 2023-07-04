@@ -69,41 +69,50 @@ enum AccentColors {
 }
 
 enum Fonts {
-    case largeTitle
-    case title
-    case headline
-    case body
-    case bodyBold
-    case subhead
-    case subheadBold
-    case footnote
+//    case largeTitle
+//    case title
+//    case headline
+//    case body
+//    case bodyBold
+//    case subhead
+//    case subheadBold
+//    case footnote
     
-    static func getFont(named: Fonts) -> UIFont {
-        var font: UIFont
-        switch named {
-        case .largeTitle:
-            font = UIFont.systemFont(ofSize: 38, weight: .bold)
-        case .title:
-            font = UIFont.systemFont(ofSize: 20, weight: .semibold)
-        case .headline:
-            font = UIFont(name: "SFProText-Semibold", size: 17) ?? UIFont.systemFont(ofSize: 17, weight: .semibold)
-        case .body:
-            font = UIFont(name: "SFProText-Regular", size: 17) ?? UIFont.systemFont(ofSize: 17, weight: .regular)
-        case .bodyBold:
-            font = UIFont(name: "SFProText-Bold", size: 17) ?? UIFont.systemFont(ofSize: 17, weight: .bold)
-        case .subhead:
-            font = UIFont(name: "SFProText-Regular", size: 15) ?? UIFont.systemFont(ofSize: 15, weight: .regular)
-        case .subheadBold:
-            font = UIFont(name: "SFProText-Bold", size: 15) ?? UIFont.systemFont(ofSize: 15, weight: .bold)
-        case .footnote:
-            font = UIFont(name: "SFProText-Semibold", size: 13) ?? UIFont.systemFont(ofSize: 13, weight: .semibold)
-        }
-
-        return font
-    }
+    static let largeTitle   = UIFont.systemFont(ofSize: 38, weight: .bold)
+    static let title        = UIFont.systemFont(ofSize: 20, weight: .semibold)
+    static let headline     = UIFont(name: "SFProText-Semibold", size: 17) ?? UIFont.systemFont(ofSize: 17, weight: .semibold)
+    static let body         = UIFont(name: "SFProText-Regular", size: 17) ?? UIFont.systemFont(ofSize: 17, weight: .regular)
+    static let bodyBold     = UIFont(name: "SFProText-Bold", size: 17) ?? UIFont.systemFont(ofSize: 17, weight: .bold)
+    static let subhead      = UIFont(name: "SFProText-Regular", size: 15) ?? UIFont.systemFont(ofSize: 15, weight: .regular)
+    static let subheadBold  = UIFont(name: "SFProText-Bold", size: 15) ?? UIFont.systemFont(ofSize: 15, weight: .bold)
+    static let footnote     = UIFont(name: "SFProText-Semibold", size: 13) ?? UIFont.systemFont(ofSize: 13, weight: .semibold)
     
-    static let sfPro_13 = UIFont(name: "SF Pro", size: 13) ?? UIFont.systemFont(ofSize: 13)
-    static let sfPro_15 = UIFont(name: "SF Pro", size: 15) ?? UIFont.systemFont(ofSize: 15)
-    static let sfPro_17 = UIFont(name: "SF Pro", size: 17) ?? UIFont.systemFont(ofSize: 17)
-    
+//    static func getFont(named: Fonts) -> UIFont {
+//        var font: UIFont
+//        switch named {
+//        case .largeTitle:
+//            font = UIFont.systemFont(ofSize: 38, weight: .bold)
+//        case .title:
+//            font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+//        case .headline:
+//            font = UIFont(name: "SFProText-Semibold", size: 17) ?? UIFont.systemFont(ofSize: 17, weight: .semibold)
+//        case .body:
+//            font = UIFont(name: "SFProText-Regular", size: 17) ?? UIFont.systemFont(ofSize: 17, weight: .regular)
+//        case .bodyBold:
+//            font = UIFont(name: "SFProText-Bold", size: 17) ?? UIFont.systemFont(ofSize: 17, weight: .bold)
+//        case .subhead:
+//            font = UIFont(name: "SFProText-Regular", size: 15) ?? UIFont.systemFont(ofSize: 15, weight: .regular)
+//        case .subheadBold:
+//            font = UIFont(name: "SFProText-Bold", size: 15) ?? UIFont.systemFont(ofSize: 15, weight: .bold)
+//        case .footnote:
+//            font = UIFont(name: "SFProText-Semibold", size: 13) ?? UIFont.systemFont(ofSize: 13, weight: .semibold)
+//        }
+//
+//        return font
+//    }
+//
+//    static let sfPro_13 = UIFont(name: "SF Pro", size: 13) ?? UIFont.systemFont(ofSize: 13)
+//    static let sfPro_15 = UIFont(name: "SF Pro", size: 15) ?? UIFont.systemFont(ofSize: 15)
+//    static let sfPro_17 = UIFont(name: "SF Pro", size: 17) ?? UIFont.systemFont(ofSize: 17)
+//
 }

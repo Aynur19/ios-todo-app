@@ -31,7 +31,7 @@ final class TodoItemDescriptionView: UITextView {
     
     // MARK: - Setup Functions
     private func setup() {
-        self.font = Fonts.getFont(named: .body)
+        self.font = Fonts.body
         self.tintColor = UIColor(named: AccentColors.backSecondary)
         self.textColor = UIColor(named: AccentColors.labelPrimary)
         self.autocorrectionType = .no

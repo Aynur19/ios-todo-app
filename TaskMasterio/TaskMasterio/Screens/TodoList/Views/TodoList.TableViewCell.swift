@@ -123,7 +123,7 @@ final class TodoListTableViewCell: UITableViewCell {
     private lazy var deadlineLabel: UILabel = {
         let label = UILabel()
         label.textColor = UIColor(named: AccentColors.labelTertiary)
-        label.font = Fonts.getFont(named: .subhead)
+        label.font = Fonts.subhead
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label

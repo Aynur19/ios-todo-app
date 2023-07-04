@@ -72,7 +72,7 @@ final class TodoListTableViewHeader: UIView {
     
     private lazy var completedTasksLabel: UILabel = {
         let label = UILabel()
-        label.font = Fonts.getFont(named: .subhead)
+        label.font = Fonts.subhead
         label.textColor = UIColor(named: AccentColors.labelTertiary)
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -81,7 +81,7 @@ final class TodoListTableViewHeader: UIView {
     
     private lazy var completedTasksVisibilityLabel: UILabel = {
         var label = UILabel()
-        label.font = Fonts.getFont(named: .subheadBold)
+        label.font = Fonts.subheadBold
         label.textColor = UIColor(named: AccentColors.colorBlue)
         label.translatesAutoresizingMaskIntoConstraints = false
         

@@ -57,7 +57,7 @@ final class TodoItemPriorityStackView: UIStackView {
     private lazy var priorityLabel: UILabel = {
         let label = UILabel()
         label.text = Titles.priority
-        label.font = Fonts.getFont(named: .body)
+        label.font = Fonts.body
         label.textColor = UIColor(named: AccentColors.labelPrimary)
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -75,7 +75,7 @@ final class TodoItemPriorityStackView: UIStackView {
         segmentedControl.insertSegment(withTitle: Values.priorityMedium, at: 1, animated: false)
         segmentedControl.insertSegment(with: high, at: 2, animated: false)
         
-        let font = [NSAttributedString.Key.font: Fonts.getFont(named: .subhead)]
+        let font = [NSAttributedString.Key.font: Fonts.subhead]
         segmentedControl.setTitleTextAttributes(font, for: .normal)
         segmentedControl.setTitleTextAttributes(font, for: .selected)
         

@@ -87,8 +87,8 @@ extension TodoItemViewController {
         segmentedControl.insertSegment(withTitle: Values.priorityMedium, at: 1, animated: false)
         segmentedControl.insertSegment(with: high, at: 2, animated: false)
         
-        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: Fonts.sfPro_15], for: .normal)
-        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: Fonts.sfPro_15], for: .selected)
+        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: Fonts.subhead], for: .normal)
+        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.font: Fonts.subhead], for: .selected)
         
         segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.gray], for: .disabled)
         
@@ -138,7 +138,7 @@ extension TodoItemViewController {
     
     func buildDeadlineDateLabel(_ label: UILabel) -> UILabel {
         label.text = ""
-        label.font = Fonts.sfPro_13
+        label.font = Fonts.footnote
         label.textColor = UIColor(named: AccentColors.colorBlue)
         label.translatesAutoresizingMaskIntoConstraints = false
         

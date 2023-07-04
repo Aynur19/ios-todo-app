@@ -89,7 +89,7 @@ final class TodoItemDeadlineStackView: UIStackView {
     private lazy var deadlineLabel: UILabel = {
         let label = UILabel()
         label.text = Titles.deadline
-        label.font = Fonts.getFont(named: .body)
+        label.font = Fonts.body
         label.textColor = UIColor(named: AccentColors.labelPrimary)
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -98,7 +98,7 @@ final class TodoItemDeadlineStackView: UIStackView {
     
     private lazy var deadlineDateLabel: UILabel = {
         var label = UILabel()
-        label.font = Fonts.getFont(named: .footnote)
+        label.font = Fonts.footnote
         label.textColor = UIColor(named: AccentColors.colorBlue)
         label.translatesAutoresizingMaskIntoConstraints = false
         

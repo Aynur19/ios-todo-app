@@ -94,8 +94,8 @@ final class TodoItemViewController2: UIViewController {
     
     private lazy var saveButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: Titles.save, style: .plain, target: self, action: #selector(onSaveButtonTapped))
-        button.setTitleTextAttributes([NSAttributedString.Key.font: Fonts.getFont(named: .bodyBold)], for: .normal)
-        button.setTitleTextAttributes([NSAttributedString.Key.font: Fonts.getFont(named: .bodyBold)], for: .disabled)
+        button.setTitleTextAttributes([NSAttributedString.Key.font: Fonts.bodyBold], for: .normal)
+        button.setTitleTextAttributes([NSAttributedString.Key.font: Fonts.bodyBold], for: .disabled)
         button.isEnabled = false
         
         return button
