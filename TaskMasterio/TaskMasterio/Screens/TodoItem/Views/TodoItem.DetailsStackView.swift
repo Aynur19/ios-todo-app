@@ -52,12 +52,12 @@ final class TodoItemDetailsStackView: UIStackView {
     }
     
     private func setupSeparator_1() {
-        self.addArrangedSubview(separator_1)
+        self.addArrangedSubview(separator1)
         
         NSLayoutConstraint.activate([
-            separator_1.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -Margins.mg32),
-            separator_1.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            separator_1.heightAnchor.constraint(equalToConstant: Sizes.separatorH),
+            separator1.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -Margins.mg32),
+            separator1.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            separator1.heightAnchor.constraint(equalToConstant: Sizes.separatorH),
         ])
     }
     
@@ -70,12 +70,12 @@ final class TodoItemDetailsStackView: UIStackView {
     }
     
     private func setupSeparator_2() {
-        self.addArrangedSubview(separator_2)
+        self.addArrangedSubview(separator2)
         
         NSLayoutConstraint.activate([
-            separator_2.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -Margins.mg32),
-            separator_2.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            separator_2.heightAnchor.constraint(equalToConstant: Sizes.separatorH),
+            separator2.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -Margins.mg32),
+            separator2.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            separator2.heightAnchor.constraint(equalToConstant: Sizes.separatorH),
         ])
     }
     
@@ -90,18 +90,18 @@ final class TodoItemDetailsStackView: UIStackView {
     
     private func bindViewModel() {
         viewModel.$calendarIsHidden
-            .assign(to: \.isHidden, on: separator_2)
+            .assign(to: \.isHidden, on: separator2)
             .store(in: &cancellables)
     }
     
     // MARK: - UI Elements
     private lazy var priorityStackView = TodoItemPriorityStackView(with: viewModel)
     
-    private lazy var separator_1 = getSeparator()
+    private lazy var separator1 = getSeparator()
     
     private lazy var deadlineStackView = TodoItemDeadlineStackView(with: viewModel)
     
-    private lazy var separator_2 = getSeparator()
+    private lazy var separator2 = getSeparator()
     
     private lazy var deadlineDatePicker = TodoItemDeadlineDatePickerView(with: viewModel)
     
