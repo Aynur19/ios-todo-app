@@ -29,11 +29,11 @@ final class TodoItemPriorityStackView: UIStackView {
     // MARK: - Setup Functions
     private func setup() {
         self.axis = .horizontal
-        self.spacing = Sizes.margin_16
+        self.spacing = Margins.mg16
         self.alignment = .fill
         self.distribution = .fill
         self.isLayoutMarginsRelativeArrangement = true
-        self.layoutMargins = UIEdgeInsets(top: Sizes.margin_10, left: Sizes.margin_16, bottom: Sizes.margin_10, right: Sizes.margin_12)
+        self.layoutMargins = UIEdgeInsets(top: Margins.mg10, left: Margins.mg16, bottom: Margins.mg10, right: Margins.mg12)
         self.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -57,7 +57,7 @@ final class TodoItemPriorityStackView: UIStackView {
     private lazy var priorityLabel: UILabel = {
         let label = UILabel()
         label.text = Titles.priority
-        label.font = Fonts.getFont(named: .body)
+        label.font = Fonts.body
         label.textColor = UIColor(named: AccentColors.labelPrimary)
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -75,7 +75,7 @@ final class TodoItemPriorityStackView: UIStackView {
         segmentedControl.insertSegment(withTitle: Values.priorityMedium, at: 1, animated: false)
         segmentedControl.insertSegment(with: high, at: 2, animated: false)
         
-        let font = [NSAttributedString.Key.font: Fonts.getFont(named: .subhead)]
+        let font = [NSAttributedString.Key.font: Fonts.subhead]
         segmentedControl.setTitleTextAttributes(font, for: .normal)
         segmentedControl.setTitleTextAttributes(font, for: .selected)
         

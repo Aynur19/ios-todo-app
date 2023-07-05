@@ -7,11 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		01E9560C2FED1E422D1CC015 /* Pods_TaskMasterioTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB09A0EF3E7506B65DBF9D07 /* Pods_TaskMasterioTests.framework */; };
-		5AF2AEE16A2D7772D106021A /* Pods_TaskMasterio_TaskMasterioUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D771FA425A439EBEABBFE11 /* Pods_TaskMasterio_TaskMasterioUITests.framework */; };
 		983AD75C2A462EC2008EA93A /* TodoItemViewController.ViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983AD75B2A462EC2008EA93A /* TodoItemViewController.ViewBuilder.swift */; };
+		984687D32A554EF0004C76C3 /* JsonParseTestsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984687D22A554EF0004C76C3 /* JsonParseTestsData.swift */; };
+		984687D52A555252004C76C3 /* CsvParseTestsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984687D42A555252004C76C3 /* CsvParseTestsData.swift */; };
+		984687D82A55559F004C76C3 /* CocoaLumberjack in Frameworks */ = {isa = PBXBuildFile; productRef = 984687D72A55559F004C76C3 /* CocoaLumberjack */; };
+		984687DA2A55559F004C76C3 /* CocoaLumberjackSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 984687D92A55559F004C76C3 /* CocoaLumberjackSwift */; };
+		984687DC2A55559F004C76C3 /* CocoaLumberjackSwiftLogBackend in Frameworks */ = {isa = PBXBuildFile; productRef = 984687DB2A55559F004C76C3 /* CocoaLumberjackSwiftLogBackend */; };
 		985871482A3D499D00066B2E /* TodoItem.CsvParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985871472A3D499D00066B2E /* TodoItem.CsvParser.swift */; };
-		9858714A2A3D4CB200066B2E /* TodoItem_CsvTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985871492A3D4CB200066B2E /* TodoItem_CsvTests.swift */; };
+		9858714A2A3D4CB200066B2E /* TodoItem.CsvTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985871492A3D4CB200066B2E /* TodoItem.CsvTests.swift */; };
 		9858714F2A43311F00066B2E /* FileCache.Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9858714E2A43311F00066B2E /* FileCache.Errors.swift */; };
 		985871582A443A5700066B2E /* TodoItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985871572A443A5700066B2E /* TodoItemViewController.swift */; };
 		9858715B2A444D9800066B2E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9858715A2A444D9800066B2E /* Constants.swift */; };
@@ -22,7 +25,7 @@
 		987D4E6F2A4B534500E9507D /* TodoItem.DescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D4E6E2A4B534500E9507D /* TodoItem.DescriptionView.swift */; };
 		98BE0E7F2A3CD61B00EE3B7C /* JsonParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BE0E7E2A3CD61B00EE3B7C /* JsonParser.swift */; };
 		98BE0E812A3CD65300EE3B7C /* TodoItem.JsonParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BE0E802A3CD65300EE3B7C /* TodoItem.JsonParser.swift */; };
-		98BE0E832A3CE3DC00EE3B7C /* TodoItem_JsonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BE0E822A3CE3DC00EE3B7C /* TodoItem_JsonTests.swift */; };
+		98BE0E832A3CE3DC00EE3B7C /* TodoItem.JsonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BE0E822A3CE3DC00EE3B7C /* TodoItem.JsonTests.swift */; };
 		98CE2A1C2A3C7FB800554B7A /* CsvParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CE2A1B2A3C7FB800554B7A /* CsvParser.swift */; };
 		98CE2A1F2A3C83F900554B7A /* DateExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CE2A1E2A3C83F900554B7A /* DateExt.swift */; };
 		98CE2A212A3C9A8900554B7A /* StringExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CE2A202A3C9A8900554B7A /* StringExt.swift */; };
@@ -55,7 +58,6 @@
 		98F94A3B2A4FD4A400B72704 /* CocoaLumberjack in Frameworks */ = {isa = PBXBuildFile; productRef = 98F94A3A2A4FD4A400B72704 /* CocoaLumberjack */; };
 		98F94A3D2A4FD4A400B72704 /* CocoaLumberjackSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 98F94A3C2A4FD4A400B72704 /* CocoaLumberjackSwift */; };
 		98F94A3F2A4FD4A400B72704 /* CocoaLumberjackSwiftLogBackend in Frameworks */ = {isa = PBXBuildFile; productRef = 98F94A3E2A4FD4A400B72704 /* CocoaLumberjackSwiftLogBackend */; };
-		B0FC218552B298469E47927E /* Pods_TaskMasterio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9107BF7D159B8130839875D8 /* Pods_TaskMasterio.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,15 +78,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4031213A33750255DB2FA8DA /* Pods-TaskMasterio.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskMasterio.debug.xcconfig"; path = "Target Support Files/Pods-TaskMasterio/Pods-TaskMasterio.debug.xcconfig"; sourceTree = "<group>"; };
-		4E0039C488E982B96941135F /* Pods-TaskMasterioTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskMasterioTests.release.xcconfig"; path = "Target Support Files/Pods-TaskMasterioTests/Pods-TaskMasterioTests.release.xcconfig"; sourceTree = "<group>"; };
-		634A3B5936FE64C4495B75A2 /* Pods-TaskMasterio.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskMasterio.release.xcconfig"; path = "Target Support Files/Pods-TaskMasterio/Pods-TaskMasterio.release.xcconfig"; sourceTree = "<group>"; };
-		71D85DB573BAE2EF1DAA7C80 /* Pods-TaskMasterio-TaskMasterioUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskMasterio-TaskMasterioUITests.debug.xcconfig"; path = "Target Support Files/Pods-TaskMasterio-TaskMasterioUITests/Pods-TaskMasterio-TaskMasterioUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		7D771FA425A439EBEABBFE11 /* Pods_TaskMasterio_TaskMasterioUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TaskMasterio_TaskMasterioUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9107BF7D159B8130839875D8 /* Pods_TaskMasterio.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TaskMasterio.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		983AD75B2A462EC2008EA93A /* TodoItemViewController.ViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemViewController.ViewBuilder.swift; sourceTree = "<group>"; };
+		984687D22A554EF0004C76C3 /* JsonParseTestsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonParseTestsData.swift; sourceTree = "<group>"; };
+		984687D42A555252004C76C3 /* CsvParseTestsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CsvParseTestsData.swift; sourceTree = "<group>"; };
 		985871472A3D499D00066B2E /* TodoItem.CsvParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.CsvParser.swift; sourceTree = "<group>"; };
-		985871492A3D4CB200066B2E /* TodoItem_CsvTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem_CsvTests.swift; sourceTree = "<group>"; };
+		985871492A3D4CB200066B2E /* TodoItem.CsvTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.CsvTests.swift; sourceTree = "<group>"; };
 		9858714E2A43311F00066B2E /* FileCache.Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCache.Errors.swift; sourceTree = "<group>"; };
 		985871572A443A5700066B2E /* TodoItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemViewController.swift; sourceTree = "<group>"; };
 		9858715A2A444D9800066B2E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -95,7 +93,7 @@
 		987D4E6E2A4B534500E9507D /* TodoItem.DescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.DescriptionView.swift; sourceTree = "<group>"; };
 		98BE0E7E2A3CD61B00EE3B7C /* JsonParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonParser.swift; sourceTree = "<group>"; };
 		98BE0E802A3CD65300EE3B7C /* TodoItem.JsonParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.JsonParser.swift; sourceTree = "<group>"; };
-		98BE0E822A3CE3DC00EE3B7C /* TodoItem_JsonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem_JsonTests.swift; sourceTree = "<group>"; };
+		98BE0E822A3CE3DC00EE3B7C /* TodoItem.JsonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.JsonTests.swift; sourceTree = "<group>"; };
 		98CE2A1B2A3C7FB800554B7A /* CsvParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CsvParser.swift; sourceTree = "<group>"; };
 		98CE2A1E2A3C83F900554B7A /* DateExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExt.swift; sourceTree = "<group>"; };
 		98CE2A202A3C9A8900554B7A /* StringExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExt.swift; sourceTree = "<group>"; };
@@ -129,9 +127,6 @@
 		98F94A2F2A4EC85500B72704 /* TodoList.TableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.TableDataSource.swift; sourceTree = "<group>"; };
 		98F94A322A4F39EA00B72704 /* UIView.Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.Ext.swift; sourceTree = "<group>"; };
 		98F94A342A4FBF3200B72704 /* TodoList.TableViewCell.Last.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.TableViewCell.Last.swift; sourceTree = "<group>"; };
-		EB09A0EF3E7506B65DBF9D07 /* Pods_TaskMasterioTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TaskMasterioTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		ECDCCDAA9D67184511B0B81D /* Pods-TaskMasterioTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskMasterioTests.debug.xcconfig"; path = "Target Support Files/Pods-TaskMasterioTests/Pods-TaskMasterioTests.debug.xcconfig"; sourceTree = "<group>"; };
-		ED760C54E71AD6E71A26B65B /* Pods-TaskMasterio-TaskMasterioUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskMasterio-TaskMasterioUITests.release.xcconfig"; path = "Target Support Files/Pods-TaskMasterio-TaskMasterioUITests/Pods-TaskMasterio-TaskMasterioUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,7 +137,6 @@
 				98F94A3D2A4FD4A400B72704 /* CocoaLumberjackSwift in Frameworks */,
 				98F94A3F2A4FD4A400B72704 /* CocoaLumberjackSwiftLogBackend in Frameworks */,
 				98F94A3B2A4FD4A400B72704 /* CocoaLumberjack in Frameworks */,
-				B0FC218552B298469E47927E /* Pods_TaskMasterio.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,7 +144,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				01E9560C2FED1E422D1CC015 /* Pods_TaskMasterioTests.framework in Frameworks */,
+				984687DA2A55559F004C76C3 /* CocoaLumberjackSwift in Frameworks */,
+				984687DC2A55559F004C76C3 /* CocoaLumberjackSwiftLogBackend in Frameworks */,
+				984687D82A55559F004C76C3 /* CocoaLumberjack in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,7 +154,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5AF2AEE16A2D7772D106021A /* Pods_TaskMasterio_TaskMasterioUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,14 +163,15 @@
 		80C86E6D25CAC275D114412F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				4031213A33750255DB2FA8DA /* Pods-TaskMasterio.debug.xcconfig */,
-				634A3B5936FE64C4495B75A2 /* Pods-TaskMasterio.release.xcconfig */,
-				71D85DB573BAE2EF1DAA7C80 /* Pods-TaskMasterio-TaskMasterioUITests.debug.xcconfig */,
-				ED760C54E71AD6E71A26B65B /* Pods-TaskMasterio-TaskMasterioUITests.release.xcconfig */,
-				ECDCCDAA9D67184511B0B81D /* Pods-TaskMasterioTests.debug.xcconfig */,
-				4E0039C488E982B96941135F /* Pods-TaskMasterioTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		984687D62A55559F004C76C3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		9858714D2A4330DA00066B2E /* Cache */ = {
@@ -253,8 +249,8 @@
 				98F283312A350E6C0008A526 /* TaskMasterioTests */,
 				98F2833B2A350E6C0008A526 /* TaskMasterioUITests */,
 				98F283192A350E650008A526 /* Products */,
-				98F94A392A4FD4A400B72704 /* Frameworks */,
 				80C86E6D25CAC275D114412F /* Pods */,
+				984687D62A55559F004C76C3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -290,9 +286,11 @@
 			children = (
 				98F2834E2A35AA610008A526 /* TodoItemTests.swift */,
 				98F283572A3B82B90008A526 /* FileCacheTests.swift */,
+				98BE0E822A3CE3DC00EE3B7C /* TodoItem.JsonTests.swift */,
+				985871492A3D4CB200066B2E /* TodoItem.CsvTests.swift */,
 				98F283592A3B862E0008A526 /* TestsData.swift */,
-				98BE0E822A3CE3DC00EE3B7C /* TodoItem_JsonTests.swift */,
-				985871492A3D4CB200066B2E /* TodoItem_CsvTests.swift */,
+				984687D22A554EF0004C76C3 /* JsonParseTestsData.swift */,
+				984687D42A555252004C76C3 /* CsvParseTestsData.swift */,
 			);
 			path = TaskMasterioTests;
 			sourceTree = "<group>";
@@ -377,16 +375,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		98F94A392A4FD4A400B72704 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				9107BF7D159B8130839875D8 /* Pods_TaskMasterio.framework */,
-				7D771FA425A439EBEABBFE11 /* Pods_TaskMasterio_TaskMasterioUITests.framework */,
-				EB09A0EF3E7506B65DBF9D07 /* Pods_TaskMasterioTests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -394,11 +382,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 98F283422A350E6C0008A526 /* Build configuration list for PBXNativeTarget "TaskMasterio" */;
 			buildPhases = (
-				5655EBDF0BD44F2D902B8986 /* [CP] Check Pods Manifest.lock */,
 				98F283142A350E640008A526 /* Sources */,
+				984687CE2A54C2BC004C76C3 /* ShellScript */,
 				98F283152A350E640008A526 /* Frameworks */,
 				98F283162A350E640008A526 /* Resources */,
-				98E5F95F2A4FDCFB00DD6075 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -418,7 +405,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 98F283452A350E6C0008A526 /* Build configuration list for PBXNativeTarget "TaskMasterioTests" */;
 			buildPhases = (
-				DAB536A158716FD6F4ACFD6A /* [CP] Check Pods Manifest.lock */,
 				98F2832A2A350E6C0008A526 /* Sources */,
 				98F2832B2A350E6C0008A526 /* Frameworks */,
 				98F2832C2A350E6C0008A526 /* Resources */,
@@ -429,6 +415,11 @@
 				98F283302A350E6C0008A526 /* PBXTargetDependency */,
 			);
 			name = TaskMasterioTests;
+			packageProductDependencies = (
+				984687D72A55559F004C76C3 /* CocoaLumberjack */,
+				984687D92A55559F004C76C3 /* CocoaLumberjackSwift */,
+				984687DB2A55559F004C76C3 /* CocoaLumberjackSwiftLogBackend */,
+			);
 			productName = TaskMasterioTests;
 			productReference = 98F2832E2A350E6C0008A526 /* TaskMasterioTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -437,7 +428,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 98F283482A350E6C0008A526 /* Build configuration list for PBXNativeTarget "TaskMasterioUITests" */;
 			buildPhases = (
-				EDDD053DFABEFF1DB74EA809 /* [CP] Check Pods Manifest.lock */,
 				98F283342A350E6C0008A526 /* Sources */,
 				98F283352A350E6C0008A526 /* Frameworks */,
 				98F283362A350E6C0008A526 /* Resources */,
@@ -525,29 +515,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5655EBDF0BD44F2D902B8986 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-TaskMasterio-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		98E5F95F2A4FDCFB00DD6075 /* ShellScript */ = {
+		984687CE2A54C2BC004C76C3 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -562,51 +530,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
-		};
-		DAB536A158716FD6F4ACFD6A /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-TaskMasterioTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EDDD053DFABEFF1DB74EA809 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-TaskMasterio-TaskMasterioUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -657,9 +581,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				98F2834F2A35AA610008A526 /* TodoItemTests.swift in Sources */,
-				98BE0E832A3CE3DC00EE3B7C /* TodoItem_JsonTests.swift in Sources */,
-				9858714A2A3D4CB200066B2E /* TodoItem_CsvTests.swift in Sources */,
+				984687D32A554EF0004C76C3 /* JsonParseTestsData.swift in Sources */,
+				98BE0E832A3CE3DC00EE3B7C /* TodoItem.JsonTests.swift in Sources */,
+				9858714A2A3D4CB200066B2E /* TodoItem.CsvTests.swift in Sources */,
 				98F283582A3B82B90008A526 /* FileCacheTests.swift in Sources */,
+				984687D52A555252004C76C3 /* CsvParseTestsData.swift in Sources */,
 				98F2835A2A3B862E0008A526 /* TestsData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -816,7 +742,6 @@
 		};
 		98F283432A350E6C0008A526 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4031213A33750255DB2FA8DA /* Pods-TaskMasterio.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -848,7 +773,6 @@
 		};
 		98F283442A350E6C0008A526 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 634A3B5936FE64C4495B75A2 /* Pods-TaskMasterio.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -880,7 +804,6 @@
 		};
 		98F283462A350E6C0008A526 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = ECDCCDAA9D67184511B0B81D /* Pods-TaskMasterioTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -901,7 +824,6 @@
 		};
 		98F283472A350E6C0008A526 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4E0039C488E982B96941135F /* Pods-TaskMasterioTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -922,7 +844,6 @@
 		};
 		98F283492A350E6C0008A526 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 71D85DB573BAE2EF1DAA7C80 /* Pods-TaskMasterio-TaskMasterioUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -941,7 +862,6 @@
 		};
 		98F2834A2A350E6C0008A526 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = ED760C54E71AD6E71A26B65B /* Pods-TaskMasterio-TaskMasterioUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1011,6 +931,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		984687D72A55559F004C76C3 /* CocoaLumberjack */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 98F94A362A4FCE9D00B72704 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
+			productName = CocoaLumberjack;
+		};
+		984687D92A55559F004C76C3 /* CocoaLumberjackSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 98F94A362A4FCE9D00B72704 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
+			productName = CocoaLumberjackSwift;
+		};
+		984687DB2A55559F004C76C3 /* CocoaLumberjackSwiftLogBackend */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 98F94A362A4FCE9D00B72704 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
+			productName = CocoaLumberjackSwiftLogBackend;
+		};
 		98F94A3A2A4FD4A400B72704 /* CocoaLumberjack */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 98F94A362A4FCE9D00B72704 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;

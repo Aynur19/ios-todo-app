@@ -38,7 +38,7 @@ final class TodoListTableViewCellLast: UITableViewCell {
     private lazy var titleLable: UILabel = {
         let label = UILabel()
         label.text = "Новое"
-        label.font = Fonts.getFont(named: .body)
+        label.font = Fonts.body
         label.textColor = UIColor(named: AccentColors.labelTertiary)
         label.translatesAutoresizingMaskIntoConstraints = false
         

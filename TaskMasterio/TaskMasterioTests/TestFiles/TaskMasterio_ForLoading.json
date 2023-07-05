@@ -83,15 +83,6 @@
     "updatedOn" : 168656000
   },
   {
-    "priority" : "low",
-    "deadline" : 168660000,
-    "createdOn" : 168655000,
-    "id" : "840E3E53-96FD-4DC5-9515-BFE7B4B76449",
-    "updatedOn" : 168656000,
-    "isDone" : true,
-    "text" : "test 24"
-  },
-  {
     "text" : "test 13",
     "id" : "66FE2F28-E567-49AF-9D0B-8132FEBF3C30",
     "isDone" : false,

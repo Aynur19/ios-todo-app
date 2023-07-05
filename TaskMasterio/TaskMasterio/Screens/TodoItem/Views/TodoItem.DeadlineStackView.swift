@@ -33,11 +33,11 @@ final class TodoItemDeadlineStackView: UIStackView {
     // MARK: - Setup Functions
     private func setup() {
         self.axis = .horizontal
-        self.spacing = Margins._16
+        self.spacing = Margins.mg16
         self.alignment = .fill
         self.distribution = .fill
         self.isLayoutMarginsRelativeArrangement = true
-        self.layoutMargins = UIEdgeInsets(top: Margins._16, left: Margins._16, bottom: Margins._16, right: Margins._12)
+        self.layoutMargins = UIEdgeInsets(top: Margins.mg16, left: Margins.mg16, bottom: Margins.mg16, right: Margins.mg12)
         self.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -89,7 +89,7 @@ final class TodoItemDeadlineStackView: UIStackView {
     private lazy var deadlineLabel: UILabel = {
         let label = UILabel()
         label.text = Titles.deadline
-        label.font = Fonts.getFont(named: .body)
+        label.font = Fonts.body
         label.textColor = UIColor(named: AccentColors.labelPrimary)
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -98,7 +98,7 @@ final class TodoItemDeadlineStackView: UIStackView {
     
     private lazy var deadlineDateLabel: UILabel = {
         var label = UILabel()
-        label.font = Fonts.getFont(named: .footnote)
+        label.font = Fonts.footnote
         label.textColor = UIColor(named: AccentColors.colorBlue)
         label.translatesAutoresizingMaskIntoConstraints = false
         

@@ -39,9 +39,9 @@ final class TodoItemScrollView: UIScrollView {
         
         NSLayoutConstraint.activate([
             descriptionView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            descriptionView.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -Sizes.margin_2x16),
+            descriptionView.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -Margins.mg32),
             descriptionView.topAnchor.constraint(equalTo: self.topAnchor),
-            descriptionView.bottomAnchor.constraint(lessThanOrEqualTo: self.keyboardLayoutGuide.topAnchor, constant: -Sizes.margin_16),
+            descriptionView.bottomAnchor.constraint(lessThanOrEqualTo: self.keyboardLayoutGuide.topAnchor, constant: -Margins.mg16),
             descriptionView.heightAnchor.constraint(greaterThanOrEqualToConstant: Sizes.descriptionMinHeight),
         ])
         descriptionView.contentSize = self.bounds.size
@@ -52,8 +52,8 @@ final class TodoItemScrollView: UIScrollView {
         
         NSLayoutConstraint.activate([
             detailsStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            detailsStackView.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -Sizes.margin_2x16),
-            detailsStackView.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: Sizes.margin_16)
+            detailsStackView.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -Margins.mg32),
+            detailsStackView.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: Margins.mg16)
         ])
     }
     
@@ -62,11 +62,11 @@ final class TodoItemScrollView: UIScrollView {
         
         NSLayoutConstraint.activate([
             removeButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            removeButton.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -Sizes.margin_2x16),
-            removeButton.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: Sizes.margin_16),
+            removeButton.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -Margins.mg32),
+            removeButton.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: Margins.mg16),
             removeButton.heightAnchor.constraint(equalToConstant: Sizes.buttonH),
             
-            removeButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -Sizes.margin_16),
+            removeButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -Margins.mg16),
         ])
     }
     
