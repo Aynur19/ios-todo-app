@@ -131,19 +131,21 @@ extension TodoListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-//        if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
-//            let lastCell = tableView.dequeueReusableCell(withIdentifier: Titles.todoListCellLastId, for: indexPath) as! TodoListTableViewCellLast
-//            // Configure the last cell
-//            return lastCell
-//        } else {
-//
-            let cell = tableView.dequeueReusableCell(withIdentifier: Titles.todoListCellId, for: indexPath) as! TodoListTableViewCell
-            cell.bindViewModel(with: shownTasks[indexPath.row])
-            cell.tag = indexPath.row
-            print("task index: \(indexPath.row)")
-            
-            return cell
-//        }
+        //        if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
+        //            let lastCell = tableView.dequeueReusableCell(withIdentifier: Titles.todoListCellLastId, for: indexPath) as! TodoListTableViewCellLast
+        //            // Configure the last cell
+        //            return lastCell
+        //        } else {
+        //
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Titles.todoListCellId, for: indexPath) as? TodoListTableViewCell
+        else { return UITableViewCell() }
+        
+        cell.bindViewModel(with: shownTasks[indexPath.row])
+        cell.tag = indexPath.row
+        print("task index: \(indexPath.row)")
+        
+        return cell
+        //        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
