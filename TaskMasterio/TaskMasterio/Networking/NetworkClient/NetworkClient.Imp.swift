@@ -15,7 +15,7 @@ final class NetworkClientImp: NetworkClient {
         self.urlSession.configuration.timeoutIntervalForRequest = 15
     }
     
-    func getList<T>(httpRequest: HttpRequest) async -> Result<T, Error> where T : Decodable {
+    func getList<T>(httpRequest: HttpRequest) async -> Result<T, Error> where T: Decodable {
         print("    networkClient.getList() started...")
         var result: Result<T, Error>
         do {

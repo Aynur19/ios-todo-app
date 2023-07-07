@@ -18,7 +18,7 @@ struct TodoItemNetworkDto: Codable {
     var color: String
     var lastUpdatedBy: String
     
-    init(from todoItem: TodoItem) {
+    init(todoItem: TodoItem) {
         id = todoItem.id
         text = todoItem.text
         priority = todoItem.priority.networkValue

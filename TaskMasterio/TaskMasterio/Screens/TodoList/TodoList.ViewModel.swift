@@ -41,10 +41,10 @@ final class TodoListViewModel: ObservableObject {
         
         loadData()
         loadDataFromNetwork()
+        dataSynchronization()
     }
     
     private func loadDataFromNetwork() {
-        
         Task {
             print("load task started...")
             let result = await self.networkService.getTodoList()
@@ -57,8 +57,22 @@ final class TodoListViewModel: ObservableObject {
                 print("  error: \(error.localizedDescription)")
             }
         }
-        //        loadTask?.resume()
+    }
+    
+    private func dataSynchronization() {
+        let list = tasks.map { TodoItemNetworkDto(todoItem: $0.getTask()) }
+        let requestBody = TodoListRequest(list: list)
         
+        Task {
+            print("PATCH TASK STARTED...")
+            let result = await self.networkService.patchTodoList(with: requestBody)
+            switch result {
+            case .success(let list):
+                print("  list: \(list)")
+            case .failure(let error):
+                print("  error: \(error.localizedDescription)")
+            }
+        }
     }
     
     func changeCompletedTasksVisibility() {

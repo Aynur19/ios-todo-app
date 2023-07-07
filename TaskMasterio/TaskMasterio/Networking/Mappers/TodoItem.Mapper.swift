@@ -13,7 +13,7 @@ struct TodoItemMapper {
             throw NetworkDtoMapping.failedMappingToTodoItem(todoItemNetworkDto: dto)
         }
         
-        var deadline: Date? = nil
+        var deadline: Date?
         if let deadlineInterval = dto.deadline {
             deadline = Date(timeIntervalSince1970: TimeInterval(deadlineInterval))
         }

@@ -9,6 +9,8 @@ import Foundation
 
 protocol NetworkService {
     func getTodoList() async -> Result<TodoListResponse, Error>
+    
+    func patchTodoList(with content: TodoListRequest) async -> Result<TodoListResponse, Error>
 }
 
 private let baseUrlPropertyName = "ApiBaseUrl"
@@ -46,10 +48,38 @@ final class NetworkServiceImp: NetworkService {
         return result
     }
     
-    func getHttpRequest(for route: String) throws -> HttpRequest {
+    func patchTodoList(with content: TodoListRequest) async -> Result<TodoListResponse, Error> {
+        var result: Result<TodoListResponse, Error>
+        
+        do {
+            let jsonEncoder = JSONEncoder()
+            let body = try jsonEncoder.encode(content)
+            let httpRequest = try getHttpRequest(for: "/list", method: .patch, revision: "0", body: body)
+            let getListResult: Result<TodoListResponse, Error> = await networkClient.getList(httpRequest: httpRequest)
+            
+            switch getListResult {
+            case .success:
+                let todoListResponse = try getListResult.get()
+                result = .success(todoListResponse)
+            case .failure(let error):
+                result = .failure(error)
+            }
+        } catch {
+            result = .failure(error)
+        }
+        
+        return result
+    }
+    
+    func getHttpRequest(for route: String, method: HttpMethod = .get, revision: String? = nil, body: Data? = nil) throws -> HttpRequest {
         guard let baseUrlStr = baseUrlStr else { throw HttpRequestError.baseUrlNotFound }
         guard let bearerToken = bearerToken else { throw HttpRequestError.bearerTokenNotFound }
         
-        return HttpRequest(route: "\(baseUrlStr)\(route)", headers: ["Authorization": bearerToken])
+        var headers = ["Authorization": bearerToken]
+        if let revision = revision {
+            headers["X-Last-Known-Revision"] = revision
+        }
+        
+        return HttpRequest(route: "\(baseUrlStr)\(route)", headers: headers, body: body, httpMethod: method)
     }
 }
