@@ -1,5 +1,5 @@
 //
-//  TodoItem.NetworkDTO.swift
+//  TodoItem.NetworkDto.swift
 //  TaskMasterio
 //
 //  Created by Aynur Nasybullin on 07.07.2023.
@@ -17,6 +17,18 @@ struct TodoItemNetworkDto: Codable {
     var updatedOn: Int
     var color: String
     var lastUpdatedBy: String
+    
+    init(from todoItem: TodoItem) {
+        id = todoItem.id
+        text = todoItem.text
+        priority = todoItem.priority.networkValue
+        deadline = todoItem.deadline?.datetime
+        isDone = todoItem.isDone
+        createdOn = todoItem.createdOn.datetime
+        updatedOn = todoItem.updatedOn?.datetime ?? createdOn
+        color = "#FFFFFF"
+        lastUpdatedBy = "default"
+    }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -41,5 +53,27 @@ struct TodoItemNetworkDto: Codable {
         case updatedOn = "changed_at"
         case color
         case lastUpdatedBy = "last_updated_by"
+    }
+    
+    func toTodoItem() throws -> TodoItem {
+        guard let priority = Priority.getPriority(networkValue: priority) else {
+            throw NetworkDtoMapping.failedMappingToTodoItem(todoItemNetworkDto: self)
+        }
+        
+        var deadline: Date? = nil
+        if let deadlineInterval = self.deadline {
+            deadline = Date(timeIntervalSince1970: TimeInterval(deadlineInterval))
+        }
+        
+        let createdOn = Date(timeIntervalSince1970: TimeInterval(self.createdOn))
+        let updatedOn = Date(timeIntervalSince1970: TimeInterval(self.updatedOn))
+        
+        return TodoItem(id: id,
+                        text: text,
+                        priority: priority,
+                        deadline: deadline,
+                        isDone: isDone,
+                        createdOn: createdOn,
+                        updatedOn: updatedOn)
     }
 }
