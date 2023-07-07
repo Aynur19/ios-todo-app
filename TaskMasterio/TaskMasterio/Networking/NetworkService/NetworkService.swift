@@ -27,16 +27,11 @@ final class NetworkServiceImp: NetworkService {
     
     func getTodoList() async -> Result<TodoListResponse, Error> {
         var result: Result<TodoListResponse, Error>
-        print("  networkService.getTodoList() started...")
         
-        guard let baseUrlStr = baseUrlStr else { return .failure(HttpRequestError.baseUrlNotFound) }
-        guard let bearerToken = bearerToken else { return .failure(HttpRequestError.bearerTokenNotFound) }
-        
-        let httpRequest = HttpRequest(route: "\(baseUrlStr)/list/", headers: ["Authorization": bearerToken])
-        let getListResult: Result<TodoListResponse, Error> = await networkClient.getList(httpRequest: httpRequest)
-        
-        print("  networkClient.getList() returned result...")
         do {
+            let httpRequest = try getHttpRequest(for: "/list")
+            let getListResult: Result<TodoListResponse, Error> = await networkClient.getList(httpRequest: httpRequest)
+            
             switch getListResult {
             case .success:
                 let todoListResponse = try getListResult.get()
@@ -49,5 +44,12 @@ final class NetworkServiceImp: NetworkService {
         }
         
         return result
+    }
+    
+    func getHttpRequest(for route: String) throws -> HttpRequest {
+        guard let baseUrlStr = baseUrlStr else { throw HttpRequestError.baseUrlNotFound }
+        guard let bearerToken = bearerToken else { throw HttpRequestError.bearerTokenNotFound }
+        
+        return HttpRequest(route: "\(baseUrlStr)\(route)", headers: ["Authorization": bearerToken])
     }
 }
