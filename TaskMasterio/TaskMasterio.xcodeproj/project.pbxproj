@@ -27,6 +27,7 @@
 		98422CD12A5865E500087EC9 /* PrivateConfigs.plist in Resources */ = {isa = PBXBuildFile; fileRef = 98422CD02A5865E500087EC9 /* PrivateConfigs.plist */; };
 		98422CD42A58738C00087EC9 /* TodoList.Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98422CD32A58738C00087EC9 /* TodoList.Request.swift */; };
 		98422CD62A588AE900087EC9 /* TodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98422CD52A588AE900087EC9 /* TodoList.swift */; };
+		98422CDA2A58B26E00087EC9 /* DataCache.Imp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98422CD92A58B26E00087EC9 /* DataCache.Imp.swift */; };
 		984687D32A554EF0004C76C3 /* JsonParseTestsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984687D22A554EF0004C76C3 /* JsonParseTestsData.swift */; };
 		984687D52A555252004C76C3 /* CsvParseTestsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984687D42A555252004C76C3 /* CsvParseTestsData.swift */; };
 		984687D82A55559F004C76C3 /* CocoaLumberjack in Frameworks */ = {isa = PBXBuildFile; productRef = 984687D72A55559F004C76C3 /* CocoaLumberjack */; };
@@ -118,6 +119,7 @@
 		98422CD02A5865E500087EC9 /* PrivateConfigs.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PrivateConfigs.plist; sourceTree = "<group>"; };
 		98422CD32A58738C00087EC9 /* TodoList.Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.Request.swift; sourceTree = "<group>"; };
 		98422CD52A588AE900087EC9 /* TodoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.swift; sourceTree = "<group>"; };
+		98422CD92A58B26E00087EC9 /* DataCache.Imp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCache.Imp.swift; sourceTree = "<group>"; };
 		984687D22A554EF0004C76C3 /* JsonParseTestsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonParseTestsData.swift; sourceTree = "<group>"; };
 		984687D42A555252004C76C3 /* CsvParseTestsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CsvParseTestsData.swift; sourceTree = "<group>"; };
 		984687DE2A55802E004C76C3 /* URLSession.Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.Ext.swift; sourceTree = "<group>"; };
@@ -200,13 +202,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		80C86E6D25CAC275D114412F /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		98422CA92A57E2EE00087EC9 /* TodoNetworkDTOs */ = {
 			isa = PBXGroup;
 			children = (
@@ -314,6 +309,7 @@
 			isa = PBXGroup;
 			children = (
 				98F283552A3B7E060008A526 /* DataCashe.swift */,
+				98422CD92A58B26E00087EC9 /* DataCache.Imp.swift */,
 				98F283512A3B77BF0008A526 /* FileCache.swift */,
 				9858714E2A43311F00066B2E /* FileCache.Errors.swift */,
 			);
@@ -386,7 +382,6 @@
 				98F283312A350E6C0008A526 /* TaskMasterioTests */,
 				98F2833B2A350E6C0008A526 /* TaskMasterioUITests */,
 				98F283192A350E650008A526 /* Products */,
-				80C86E6D25CAC275D114412F /* Pods */,
 				984687D62A55559F004C76C3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -407,7 +402,6 @@
 				98422CC92A58581E00087EC9 /* Utilites */,
 				984687DD2A557FB0004C76C3 /* Networking */,
 				98F94A202A4DA82200B72704 /* Temp */,
-				98F94A132A4C57B800B72704 /* Structs */,
 				985871592A444D7500066B2E /* Resources */,
 				985871502A439C1100066B2E /* Application */,
 				985871532A442F3C00066B2E /* Screens */,
@@ -461,13 +455,6 @@
 				98BE0E7E2A3CD61B00EE3B7C /* JsonParser.swift */,
 			);
 			path = Protocols;
-			sourceTree = "<group>";
-		};
-		98F94A132A4C57B800B72704 /* Structs */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Structs;
 			sourceTree = "<group>";
 		};
 		98F94A1A2A4CE6DD00B72704 /* Views */ = {
@@ -698,6 +685,7 @@
 				98422CB42A57E66800087EC9 /* HttpResponse.Errors.swift in Sources */,
 				98422CD62A588AE900087EC9 /* TodoList.swift in Sources */,
 				98422CCB2A58583500087EC9 /* Configuration.Helper.swift in Sources */,
+				98422CDA2A58B26E00087EC9 /* DataCache.Imp.swift in Sources */,
 				9858715B2A444D9800066B2E /* Constants.swift in Sources */,
 				98F2834D2A359C7C0008A526 /* TodoItem.swift in Sources */,
 				98F94A302A4EC85500B72704 /* TodoList.TableDataSource.swift in Sources */,

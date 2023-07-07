@@ -8,9 +8,11 @@
 import Foundation
 
 protocol NetworkService {
-    func getTodoList() async -> Result<TodoListResponse, Error>
+    func getList() async -> Result<TodoListResponse, Error>
     
-    func patchTodoList(with content: TodoListRequest) async -> Result<TodoListResponse, Error>
+    func patchList(with content: TodoListRequest) async -> Result<TodoListResponse, Error>
+    
+    func getItem(id: String) async -> Result<TodoItemResponse, Error>
 }
 
 private let baseUrlPropertyName = "ApiBaseUrl"
@@ -27,7 +29,7 @@ final class NetworkServiceImp: NetworkService {
         self.bearerToken = Configuration.getPrivateValue(for: bearerTokenPropertyName)
     }
     
-    func getTodoList() async -> Result<TodoListResponse, Error> {
+    func getList() async -> Result<TodoListResponse, Error> {
         var result: Result<TodoListResponse, Error>
         
         do {
@@ -48,7 +50,7 @@ final class NetworkServiceImp: NetworkService {
         return result
     }
     
-    func patchTodoList(with content: TodoListRequest) async -> Result<TodoListResponse, Error> {
+    func patchList(with content: TodoListRequest) async -> Result<TodoListResponse, Error> {
         var result: Result<TodoListResponse, Error>
         
         do {
@@ -61,6 +63,27 @@ final class NetworkServiceImp: NetworkService {
             case .success:
                 let todoListResponse = try getListResult.get()
                 result = .success(todoListResponse)
+            case .failure(let error):
+                result = .failure(error)
+            }
+        } catch {
+            result = .failure(error)
+        }
+        
+        return result
+    }
+    
+    func getItem(id: String) async -> Result<TodoItemResponse, Error> {
+        var result: Result<TodoItemResponse, Error>
+        
+        do {
+            let httpRequest = try getHttpRequest(for: "/list/\(id)")
+            let networkResult: Result<TodoItemResponse, Error> = await networkClient.getList(httpRequest: httpRequest)
+            
+            switch networkResult {
+            case .success:
+                let todoItemResponse = try networkResult.get()
+                result = .success(todoItemResponse)
             case .failure(let error):
                 result = .failure(error)
             }

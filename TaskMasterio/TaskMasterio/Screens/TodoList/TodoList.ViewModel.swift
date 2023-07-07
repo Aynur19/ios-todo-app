@@ -39,22 +39,32 @@ final class TodoListViewModel: ObservableObject {
         self.dataCache = dataCache
         self.networkService = networkService
         
-        loadData()
+        loadDataFromFS()
         loadDataFromNetwork()
-        dataSynchronization()
+        //        dataSynchronization()
+        loadItem(id: tasks[0].id)
+    }
+    
+    private func loadDataFromFS(name: String = "TodoItems", format: DataFormat = .json) {
+        Task {
+            do {
+                print("Loading data rom File System...")
+                try dataCache.load(name: name, as: format)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
     
     private func loadDataFromNetwork() {
         Task {
-            print("load task started...")
-            let result = await self.networkService.getTodoList()
-            
-            print("networkService.getTodoList() returned result...")
+            print("Loading data from Network...")
+            let result = await self.networkService.getList()
             switch result {
             case .success(let list):
-                print("  list: \(list)")
+                print("Success result: \(list)")
             case .failure(let error):
-                print("  error: \(error.localizedDescription)")
+                print(error.localizedDescription)
             }
         }
     }
@@ -65,7 +75,20 @@ final class TodoListViewModel: ObservableObject {
         
         Task {
             print("PATCH TASK STARTED...")
-            let result = await self.networkService.patchTodoList(with: requestBody)
+            let result = await self.networkService.patchList(with: requestBody)
+            switch result {
+            case .success(let list):
+                print("  list: \(list)")
+            case .failure(let error):
+                print("  error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    private func loadItem(id: String) {
+        Task {
+            print("GET ITEM TASK STARTED...")
+            let result = await self.networkService.getItem(id: id)
             switch result {
             case .success(let list):
                 print("  list: \(list)")
@@ -119,15 +142,17 @@ final class TodoListViewModel: ObservableObject {
         
     }
     
+    
+    
     private func loadData() {
-        try? dataCache.load(name: "Tasks 2", as: .json)
-        
-        if dataCache.tasks.isEmpty {
-            var newTasks = generateTasks()
-            for task in newTasks {
-                dataCache.add(task)
-            }
-        }
+//        try? dataCache.load(name: "TodoItems", as: .json)
+//
+//        if dataCache.tasks.isEmpty {
+////            var newTasks = generateTasks()
+////            for task in newTasks {
+////                dataCache.add(task)
+////            }
+//        }
         
         for task in dataCache.tasks {
             tasks.append(TodoItemViewModel(task, with: dataCache))
@@ -160,47 +185,47 @@ final class TodoListViewModel: ObservableObject {
     }
     
     
-    private func generateTasks() -> [TodoItem] {
-        var tasks = [TodoItem]()
-        
-        tasks.append(
-            TodoItem(text: "Позвонить",
-                     priority: .low))
-        tasks.append(
-            TodoItem(text: "Подготовить презентацию для клиента",
-                     priority: .medium,
-                     isDone: true))
-        tasks.append(
-            TodoItem(text: "Провести анализ рынка и подготовить отчет с рекомендациями",
-                     priority: .high,
-                     deadline: Date()))
-        tasks.append(
-            TodoItem(text: "Разработать стратегию маркетинговой кампании, включающую целевую аудиторию, каналы продвижения и бюджет",
-                     priority: .low,
-                     isDone: true))
-        tasks.append(
-            TodoItem(text: "Организовать тренинг для сотрудников по повышению навыков коммуникации и эффективного управления временем",
-                     priority: .medium))
-        tasks.append(TodoItem(text: "Отправить письмо",
-                              priority: .low))
-        tasks.append(
-            TodoItem(text: "Организовать встречу с партнерами",
-                     priority: .high,
-                     deadline: Date(),
-                     isDone: true
-                    ))
-        tasks.append(
-            TodoItem(text: "Согласовать бюджет проекта с финансовым отделом и утвердить его",
-                     priority: .low))
-        tasks.append(
-            TodoItem(text: "Провести тестирование нового программного обеспечения и составить детальный отчет о найденных ошибках и рекомендациях по исправлению",
-                     priority: .medium,
-                     isDone: true))
-        tasks.append(
-            TodoItem(text: "Провести аудит информационной безопасности компании и разработать план по устранению выявленных уязвимостей и рисков",
-                     priority: .high,
-                     deadline: Date()))
-        
-        return tasks
-    }
+    //    private func generateTasks() -> [TodoItem] {
+    //        var tasks = [TodoItem]()
+    //
+    //        tasks.append(
+    //            TodoItem(text: "Позвонить",
+    //                     priority: .low))
+    //        tasks.append(
+    //            TodoItem(text: "Подготовить презентацию для клиента",
+    //                     priority: .medium,
+    //                     isDone: true))
+    //        tasks.append(
+    //            TodoItem(text: "Провести анализ рынка и подготовить отчет с рекомендациями",
+    //                     priority: .high,
+    //                     deadline: Date()))
+    //        tasks.append(
+    //            TodoItem(text: "Разработать стратегию маркетинговой кампании, включающую целевую аудиторию, каналы продвижения и бюджет",
+    //                     priority: .low,
+    //                     isDone: true))
+    //        tasks.append(
+    //            TodoItem(text: "Организовать тренинг для сотрудников по повышению навыков коммуникации и эффективного управления временем",
+    //                     priority: .medium))
+    //        tasks.append(TodoItem(text: "Отправить письмо",
+    //                              priority: .low))
+    //        tasks.append(
+    //            TodoItem(text: "Организовать встречу с партнерами",
+    //                     priority: .high,
+    //                     deadline: Date(),
+    //                     isDone: true
+    //                    ))
+    //        tasks.append(
+    //            TodoItem(text: "Согласовать бюджет проекта с финансовым отделом и утвердить его",
+    //                     priority: .low))
+    //        tasks.append(
+    //            TodoItem(text: "Провести тестирование нового программного обеспечения и составить детальный отчет о найденных ошибках и рекомендациях по исправлению",
+    //                     priority: .medium,
+    //                     isDone: true))
+    //        tasks.append(
+    //            TodoItem(text: "Провести аудит информационной безопасности компании и разработать план по устранению выявленных уязвимостей и рисков",
+    //                     priority: .high,
+    //                     deadline: Date()))
+    //
+    //        return tasks
+    //    }
 }
