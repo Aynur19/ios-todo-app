@@ -18,9 +18,15 @@ protocol TodoListViewModelDelegate: AnyObject {
 }
 
 final class TodoListViewModel: ObservableObject {
+    private let networkService: NetworkService
+    
+    @MainActor
+    private var loadTask: Task<Void, Never>?
     weak var delegate: TodoListViewModelDelegate?
     private(set) var tasks = [TodoItemViewModel]()
     private var cancellables = Set<AnyCancellable>()
+    
+    //    var cancellationSource: Task.CancellationSource?
     
     @Published var completedTasksCount = 0
     @Published var completedTasksIsHidden = true
@@ -29,17 +35,38 @@ final class TodoListViewModel: ObservableObject {
     
     let dataCache: FileCache
     
-    init(with dataCache: FileCache) {
+    init(with dataCache: FileCache, networkService: NetworkService) {
         self.dataCache = dataCache
+        self.networkService = networkService
         
         loadData()
+        loadDataFromNetwork()
+    }
+    
+    private func loadDataFromNetwork() {
+        
+        Task {
+            print("load task started...")
+            let result = await self.networkService.getTodoList()
+            
+            print("networkService.getTodoList() returned result...")
+            switch result {
+            case .success(let list):
+                print("  list: \(list)")
+            case .failure(let error):
+                print("  error: \(error.localizedDescription)")
+            }
+        }
+        //        loadTask?.resume()
+        
     }
     
     func changeCompletedTasksVisibility() {
+        loadDataFromNetwork()
         completedTasksIsHidden.toggle()
         updateTodoList()
     }
-        
+    
     var showTasksButtonLabel: AnyPublisher<String?, Never> {
         return $completedTasksIsHidden
             .map { $0 ? showCompletedTasksStr : hideCompletedTasksStr }

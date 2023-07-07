@@ -8,31 +8,46 @@
 import Foundation
 
 protocol NetworkService {
-    func getTodoList() async -> Result<[TodoItem], Error>
+    func getTodoList() async -> Result<TodoListResponse, Error>
 }
-                         
+
+private let baseUrlPropertyName = "ApiBaseUrl"
+private let bearerTokenPropertyName = "BearerToken"
+
 final class NetworkServiceImp: NetworkService {
     private let networkClient: NetworkClient
+    private let baseUrlStr: String?
+    private let bearerToken: String?
     
     init(with networkClient: NetworkClient) {
         self.networkClient = networkClient
+        self.baseUrlStr = Configuration.getSharedValue(for: baseUrlPropertyName)
+        self.bearerToken = Configuration.getPrivateValue(for: bearerTokenPropertyName)
     }
     
-    func getTodoList() async -> Result<[TodoItem], Error> {
-        let httpRequest = HttpRequest(route: "https://beta.mrdekk.ru/todobackend/list/",
-                                      headers: ["Authorization": "Bearer tailpin"])
+    func getTodoList() async -> Result<TodoListResponse, Error> {
+        var result: Result<TodoListResponse, Error>
+        print("  networkService.getTodoList() started...")
         
-        let result: Result<TodoListResponse, Error> = await networkClient.getList(httpRequest: httpRequest)
+        guard let baseUrlStr = baseUrlStr else { return .failure(HttpRequestError.baseUrlNotFound) }
+        guard let bearerToken = bearerToken else { return .failure(HttpRequestError.bearerTokenNotFound) }
+        
+        let httpRequest = HttpRequest(route: "\(baseUrlStr)/list/", headers: ["Authorization": bearerToken])
+        let getListResult: Result<TodoListResponse, Error> = await networkClient.getList(httpRequest: httpRequest)
+        
+        print("  networkClient.getList() returned result...")
         do {
-            switch result {
+            switch getListResult {
             case .success:
-                let todoList = try TodoItemMapper.mapToTodoList(from: result.get())
-                return .success(todoList)
+                let todoListResponse = try getListResult.get()
+                result = .success(todoListResponse)
             case .failure(let error):
-                return .failure(error)
+                result = .failure(error)
             }
         } catch {
-            return .failure(error)
+            result = .failure(error)
         }
+        
+        return result
     }
 }

@@ -16,7 +16,7 @@ final class NetworkClientImp: NetworkClient {
     }
     
     func getList<T>(httpRequest: HttpRequest) async -> Result<T, Error> where T : Decodable {
-        
+        print("    networkClient.getList() started...")
         var result: Result<T, Error>
         do {
             let urlRequest = try buildUrlRequest(from: httpRequest)
@@ -38,7 +38,6 @@ final class NetworkClientImp: NetworkClient {
         } catch {
             result = .failure(error)
         }
-        
         return result
     }
     

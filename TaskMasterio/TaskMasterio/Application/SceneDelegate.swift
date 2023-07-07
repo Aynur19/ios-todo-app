@@ -11,11 +11,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession,
                options connectionOptions: UIScene.ConnectionOptions) {
         
-        let todoListViewModel = TodoListViewModel(with: FileCache())
+        let networkClient = NetworkClientImp(urlSession: URLSession.shared)
+        let networkService = NetworkServiceImp(with: networkClient)
+        
+        let todoListViewModel = TodoListViewModel(with: FileCache(), networkService: networkService)
         let startController = TodoListViewController()
         startController.viewModel = todoListViewModel
         

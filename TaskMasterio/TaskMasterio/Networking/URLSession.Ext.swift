@@ -10,8 +10,10 @@ import Foundation
 extension URLSession {
     
     func performTask(for urlRequest: URLRequest) async throws -> (data: Data, urlResponse: URLResponse) {
+        print("      performTask() started...")
         return try await withCheckedThrowingContinuation { continuation in
             let task = dataTask(with: urlRequest) { (data, response, error) in
+                print("        dataTask() started...")
                 if let error = error {
                     continuation.resume(throwing: URLSessionError.failedTaskPerformingError(error: error))
                 } else {
