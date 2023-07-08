@@ -9,6 +9,7 @@ import Foundation
 
 final class FileCache {
     private(set) var tasks = [TodoItem]()
+    private(set) var dataStore = TodoList()
     
     func clearTasks() { tasks.removeAll() }
 }
@@ -16,7 +17,7 @@ final class FileCache {
 extension FileCache: DataCache {
     
     func add(_ task: TodoItem) -> TodoItem? {
-        var result: TodoItem? = nil
+        var result: TodoItem?
         if let idx = tasks.firstIndex(where: { $0.id == task.id }) {
             result = tasks[idx]
             tasks[idx] = task
@@ -52,7 +53,7 @@ extension FileCache: DataCache {
         }
         
         let fileURL = try getFileURL(name: name, url: url, as: DataFormat.json.rawValue)
-        do{
+        do {
             try jsonData.write(to: fileURL)
         } catch {
             throw FileCacheError.jsonWritingToFileFailed(path: fileURL.path, error: error)
@@ -106,7 +107,7 @@ extension FileCache: DataCache {
             }
             
             clearTasks()
-            for task in tasksFromJson  {
+            for task in tasksFromJson {
                 if let parsedTask = TodoItem.parse(json: task) {
                     if add(parsedTask) == nil { continue }
                 }
@@ -163,11 +164,10 @@ extension FileCache: DataCache {
         if forSaving {
             if !fileManager.fileExists(atPath: fileURL.path) {
                 do {
-                    try fileManager.createDirectory(atPath: fileURL.path,
-                                                    withIntermediateDirectories: true,
-                                                    attributes: nil)
+                    try fileManager.createDirectory(atPath: fileURL.path, withIntermediateDirectories: true, attributes: nil)
+                } catch {
+                    throw FileCacheError.folderCreatingFailed(path: fileURL.path, error: error)
                 }
-                catch { throw FileCacheError.folderCreatingFailed(path: fileURL.path, error: error) }
             }
         }
         

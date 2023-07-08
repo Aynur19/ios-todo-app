@@ -35,8 +35,11 @@ final class TodoListTableViewHeader: UIView {
             .assign(to: \.text, on: completedTasksVisibilityLabel)
             .store(in: &cancellables)
         
-        self.viewModel.completedTasksCountLabel
-            .assign(to: \.text, on: completedTasksLabel)
+        self.viewModel.$completedTasksCount
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] count in
+                self?.updateCompletedTasksLabel(count: count)
+            }
             .store(in: &cancellables)
     }
     
@@ -94,6 +97,10 @@ final class TodoListTableViewHeader: UIView {
     
     // MARK: - Intents
     @objc private func onDeadlineDateLabelTapped() {
-        viewModel.changeCompletedTasksVisibility()
+        viewModel.changeCompletedItemsVisibility()
+    }
+    
+    private func updateCompletedTasksLabel(count: Int) {
+        completedTasksLabel.text = "Выполнено - \(count)"
     }
 }

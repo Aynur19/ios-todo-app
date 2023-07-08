@@ -26,10 +26,6 @@ final class TodoListViewController: UIViewController {
         bindViewModel()
     }
     
-
-    
-
-    
     // MARK: - Setup Functions
     private func setup() {
         title = Titles.todoList
@@ -78,10 +74,10 @@ final class TodoListViewController: UIViewController {
     
     private func bindViewModel() {
         
-        viewModel.$shownTasks
+        viewModel.$shownItems
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] tasks in
-                self?.reload(data: tasks)
+            .sink { [weak self] items in
+                self?.reload(data: items)
                 self?.tasksTableView.reloadData()
             }
             .store(in: &cancellables)
@@ -92,18 +88,18 @@ final class TodoListViewController: UIViewController {
         let button = UIButton()
         let normalImage = UIImage(named: "Add Task")
         button.setImage(normalImage, for: .normal)
-        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(onNewItemButtonTapped), for: .touchUpInside)
         
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
     }()
     
-    @objc private func buttonTapped() {
-        let detailViewController = TodoItemViewController2()
-        detailViewController.viewModel = TodoItemViewModel(TodoItem(text: "", priority: .medium), with: viewModel.dataCache)
-        detailViewController.todoListVM = viewModel
+    @objc private func onNewItemButtonTapped() {
+        let viewModel = TodoItemViewModel(TodoItem(text: "", priority: .medium), viewModel: viewModel)
+        let detailViewController = TodoItemViewController(viewModel: viewModel)
         let todoItemNavigationController = UINavigationController(rootViewController: detailViewController)
+        
         present(todoItemNavigationController, animated: true, completion: nil)
     }
     
@@ -117,8 +113,7 @@ final class TodoListViewController: UIViewController {
     }()
     
     private func present(with todoItemViewModel: TodoItemViewModel) {
-        let detailViewController = TodoItemViewController2()
-        detailViewController.viewModel = todoItemViewModel
+        let detailViewController = TodoItemViewController(viewModel: todoItemViewModel)
         
         present(detailViewController, animated: true, completion: nil)
     }
@@ -140,7 +135,6 @@ final class TodoListViewController: UIViewController {
             performTask()
         }
     }
-    
     
     private func performTask() {
         task?.cancel()
@@ -183,22 +177,13 @@ extension TodoListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        //        if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
-        //            let lastCell = tableView.dequeueReusableCell(withIdentifier: Titles.todoListCellLastId, for: indexPath) as! TodoListTableViewCellLast
-        //            // Configure the last cell
-        //            return lastCell
-        //        } else {
-        //
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Titles.todoListCellId, for: indexPath) as? TodoListTableViewCell
         else { return UITableViewCell() }
         
         cell.bindViewModel(with: shownTasks[indexPath.row])
         cell.tag = indexPath.row
-        print("task index: \(indexPath.row)")
         
         return cell
-        //        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -219,7 +204,7 @@ extension TodoListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self]  (action, view, completion) in
-            self?.viewModel.changeTaskCompletion(by: self?.shownTasks[indexPath.row].id)
+            self?.viewModel.changeItemCompletion(by: self?.shownTasks[indexPath.row].id)
             completion(true)
         }
         
@@ -231,7 +216,7 @@ extension TodoListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] (action, view, completion) in
-            self?.viewModel.removeTask(by: self?.shownTasks[indexPath.row].id)
+            self?.viewModel.removeItem(by: self?.shownTasks[indexPath.row].id)
             completion(true)
         }
         
@@ -239,17 +224,13 @@ extension TodoListViewController: UITableViewDataSource, UITableViewDelegate {
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
     
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedItem = shownTasks[indexPath.row]
-        
-        let detailViewController = TodoItemViewController2()
-        detailViewController.viewModel = selectedItem
-        detailViewController.todoListVM = viewModel
+        let detailViewController = TodoItemViewController(viewModel: selectedItem)
         let todoItemNavigationController = UINavigationController(rootViewController: detailViewController)
+        
         present(todoItemNavigationController, animated: true, completion: nil)
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
-

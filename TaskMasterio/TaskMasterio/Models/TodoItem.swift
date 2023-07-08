@@ -15,12 +15,17 @@ enum Priority: String {
     
     var index: Int {
         switch self {
-        case .low:
-            return 0
-        case .medium:
-            return 1
-        case .high:
-            return 2
+        case .low: return 0
+        case .medium: return 1
+        case .high: return 2
+        }
+    }
+    
+    var networkValue: String {
+        switch self {
+        case .low: return "low"
+        case .medium: return "basic"
+        case .high: return "important"
         }
     }
     
@@ -31,6 +36,15 @@ enum Priority: String {
         case 0: return Priority.low
         case 1: return Priority.medium
         case 2: return Priority.high
+        default: return nil
+        }
+    }
+    
+    static func getPriority(networkValue: String) -> Priority? {
+        switch networkValue {
+        case "low": return .low
+        case "basic": return .medium
+        case "important": return .high
         default: return nil
         }
     }

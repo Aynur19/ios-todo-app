@@ -15,10 +15,6 @@ final class TodoListTableViewCellLast: UITableViewCell {
         setup()
     }
     
-//    override func prepareForReuse() {
-//        super.prepareForReuse()
-//    }
-    
     @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
         fatalError("Trying to initialize Todo List Table View Cell...")
