@@ -124,26 +124,14 @@ final class TodoListViewModel: ObservableObject {
         print("Изменение завершенности задачи: \(id)")
         guard let itemId = id else { return }
         
-//        if let item = dataCache.dataStore.items.first { $0.id == itemId } {
-//            item.isDone
-//        }
         if let shownItem = shownItems.first { $0.id == itemId } {
             shownItem.changeItemCompletion()
-//            shownItem.isDone.toggle()
-//            shownItem.updateState()
         }
-//        refreshData()
     }
     
     var showTasksButtonLabel: AnyPublisher<String?, Never> {
         return $completedIsHidden.map { $0 ? showCompletedTasksStr : hideCompletedTasksStr }.eraseToAnyPublisher()
     }
-    
-//    var completedTasksCountLabel: AnyPublisher<String?, Never> {
-//        return $completedTasksCount
-//            .map { completedTasksCountStr + String($0) }
-//            .eraseToAnyPublisher()
-//    }
     
     func addTask(item: TodoItem) {
         _ = dataCache.add(item)

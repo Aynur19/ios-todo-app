@@ -113,4 +113,3 @@ final class TodoItemDetailsStackView: UIStackView {
         return separator
     }
 }
-

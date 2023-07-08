@@ -12,7 +12,6 @@ private let descriptionRowsCount = 3
 
 final class TodoListTableViewCell: UITableViewCell {
     var tapAction: (() -> Void)?
-//    private var tapGesture: UITapGestureRecognizer?
     
     private var viewModel: TodoItemViewModel!
     private var cancellables = Set<AnyCancellable>()
@@ -160,7 +159,6 @@ final class TodoListTableViewCell: UITableViewCell {
         guard let updatedButton = button else { return }
         var image: UIImage?
         
-        
         switch taskState {
         case .isDone:
             image = UIImage(named: "Mark. On")
@@ -212,7 +210,6 @@ final class TodoListTableViewCell: UITableViewCell {
         updatedLabel.textColor = color
     }
     
-    
     @objc private func onCompletionMarkTouched() {
         viewModel.changeItemCompletion()
     }
@@ -220,8 +217,4 @@ final class TodoListTableViewCell: UITableViewCell {
     @objc private func cellTapped() {
         tapAction?()
     }
-    
-    
-    
 }
-

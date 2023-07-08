@@ -44,8 +44,6 @@ final class TodoItemRemoveButton: UIButton {
         viewModel.$itemExists
             .assign(to: \.isEnabled, on: self)
             .store(in: &cancellables)
-        
-        
     }
     
     func configure(with todoListVM: TodoListViewModel) {

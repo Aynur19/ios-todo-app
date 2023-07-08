@@ -20,7 +20,7 @@ enum TasksStates {
 
 final class TodoItemViewModel: ObservableObject {
     private weak var viewModel: TodoListViewModel?
-//    private let dataCache: DataCacheImp
+    
     @Published var description: String
     @Published var deadline: Date?
     @Published var priority: Priority
@@ -33,17 +33,11 @@ final class TodoItemViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     private var task: TodoItem
     
-//    private let dataCache: FileCache
-
-    
     init(_ currentTask: TodoItem?, viewModel: TodoListViewModel) {
         self.itemExists = currentTask != nil
-//        self.dataCache = dataCache
         self.viewModel = viewModel
-        
         self.task = currentTask ?? TodoItem(text: "", priority: .medium)
        
-        
         description = task.text
         deadline = task.deadline
         priority = task.priority
@@ -62,8 +56,6 @@ final class TodoItemViewModel: ObservableObject {
             case .high: taskState = .highPriority
             }
         }
-        
-        
     }
     
     func mergeItems() -> TodoItem {
@@ -76,10 +68,6 @@ final class TodoItemViewModel: ObservableObject {
         }
         
         return mergedItem
-    }
-    
-    func updateInDataCache() {
-//        _ = dataCache.add(mergeItems())
     }
     
     var taskIsChanged: AnyPublisher<Bool, Never> {
@@ -138,54 +126,16 @@ final class TodoItemViewModel: ObservableObject {
     func changeItemCompletion() {
         isDone.toggle()
         save()
-//        viewModel?.changeItemCompletion(by: id)
     }
-    
-//    func changeTaskCompletion() {
-//        isDone.toggle()
-//        updateState()
-//        saveTask()
-//    }
-    
-//    func getTask() -> TodoItem {
-//        var writtenTask: TodoItem
-//        if itemExists {
-//            writtenTask = TodoItem(id: task.id,
-//                                   text: description,
-//                                   priority: priority,
-//                                   deadline: deadline,
-//                                   isDone: task.isDone,
-//                                   createdOn: task.createdOn,
-//                                   updatedOn: Date())
-//        } else {
-//            writtenTask = TodoItem(text: description,
-//                                   priority: priority,
-//                                   deadline: deadline,
-//                                   createdOn: Date(),
-//                                   updatedOn: Date())
-//        }
-//
-//        return writtenTask
-//    }
     
     func save() {
         let savedItem = mergeItems()
         print("Сохранение элемента: \(savedItem)")
         viewModel?.addTask(item: savedItem)
-//        print("task: \(writtenTask)\n")
-//        dataCache.add(writtenTask)
-//        try? dataCache.save(name: "Tasks", as: .json)
-        
         itemExists = true
     }
     
     func remove() {
         viewModel?.removeItem(by: id)
     }
-    
-    
-//    func removeTask() -> TodoItem? {
-//        return dataCache.remove(by: task.id)
-////        try? dataCache.save(name: "Tasks", as: .json)
-//    }
 }
