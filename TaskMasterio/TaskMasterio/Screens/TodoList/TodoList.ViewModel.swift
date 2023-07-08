@@ -128,6 +128,29 @@ final class TodoListViewModel: ObservableObject {
         }
     }
     
+    private func putAddItem(id: String) {
+        Task {
+            print("ЗАПРОС НА ИЗМЕНЕНИЕ ЭЛЕМЕНТА...")
+            do {
+                guard let item = dataCache.dataStore.items.first(where: { $0.id == id }) else { return }
+                let requestBody = TodoItemRequest(element: TodoItemNetworkDto(todoItem: item))
+                print("Изменение элемента на сервере...")
+                
+                let result = await self.networkService.putItem(with: requestBody, revision: dataCache.dataStore.revision)
+                switch result {
+                case .success(let element):
+                    updateMetadata(revision: element.revision, isDirty: false)
+                    print("Success result: \(element)")
+                case .failure(let error):
+                    print(error.localizedDescription)
+//                    updateMetadata(revision: element.revision, isDirty: true)
+                }
+            } catch {
+                print("ERROR: \(error.localizedDescription)")
+            }
+        }
+    }
+    
     private func updateMetadata(revision: Int, isDirty: Bool) {
         dataCache.updateMetadata(revision:  revision, isDirty: isDirty)
     }
@@ -167,7 +190,7 @@ final class TodoListViewModel: ObservableObject {
     
     func addTask(item: TodoItem) {
         if let _ = dataCache.add(item) {
-            
+            putAddItem(id: item.id)
         } else {
             postAddItem(id: item.id)
         }
