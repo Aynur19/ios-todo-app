@@ -32,17 +32,20 @@ final class TodoListViewModel: ObservableObject {
         self.dataCache = dataCache
         self.networkService = networkService
         
-        //        loadDataFromFS()
+        //        loadDataFromFileSystem()
         loadDataFromNetwork()
+        saveOnFileSystem()
         //        dataSynchronization()
         //        loadItem(id: tasks[0].id)
     }
     
-    private func loadDataFromFS(name: String = "TodoList", format: DataFormat = .json) {
+    private func loadDataFromFileSystem(name: String = "TodoList", format: DataFormat = .json) {
         Task {
             do {
-                print("Загрузка данных из файловой системы...")
+                print("ЗАГРУЗКА ДАННЫХ ИЗ ФАЙЛОВОЙ СИСТЕМЫ...")
                 try dataCache.load(name: name, as: format)
+//                print(dataCache.dataStore)
+                
             } catch {
                 print(error.localizedDescription)
             }
@@ -52,7 +55,7 @@ final class TodoListViewModel: ObservableObject {
     private func loadDataFromNetwork() {
         Task {
             do {
-                print("Загрузка данных по сети...")
+                print("ЗАГРУЗКА ДАННЫХ С СЕРВЕРА...")
                 let result = await self.networkService.getList()
                 switch result {
                 case .success(let list):
@@ -61,6 +64,7 @@ final class TodoListViewModel: ObservableObject {
                     for item in items {
                         dataCache.add(item)
                     }
+                    updateMetadata(revision: list.revision, isDirty: false)
                     refreshData()
                     print("Success result: \(list)")
                 case .failure(let error):
@@ -72,25 +76,25 @@ final class TodoListViewModel: ObservableObject {
         }
     }
     
-    //    private func dataSynchronization() {
-    //        let list = dataCache.dataStore.items.map { TodoItemNetworkDto(todoItem: $0.getTask()) }
-    //        let requestBody = TodoListRequest(list: list)
-    //
-    //        Task {
-    //            print("Начало синхронизции данных...")
-    //            let result = await self.networkService.patchList(with: requestBody)
-    //            switch result {
-    //            case .success(let list):
-    //                print("  list: \(list)")
-    //            case .failure(let error):
-    //                print("  error: \(error.localizedDescription)")
-    //            }
-    //        }
-    //    }
+    private func dataSynchronization() {
+        let list = dataCache.dataStore.items.map { TodoItemNetworkDto(todoItem: $0) }
+        let requestBody = TodoListRequest(list: list)
+        
+        Task {
+            print("СИНХРОНИЗАЦИЯ ДАННЫХ...")
+            let result = await self.networkService.patchList(with: requestBody)
+            switch result {
+            case .success(let list):
+                print("  list: \(list)")
+            case .failure(let error):
+                print("  error: \(error.localizedDescription)")
+            }
+        }
+    }
     
     private func fetchItem(id: String) {
         Task {
-            print("Получение данных одного элемента по id: \(id)...")
+            print("ЗАПРОС НА ПОЛУЧЕНИЕ ЭЛЕМЕНТА ПО ID: \(id)...")
             let result = await self.networkService.getItem(id: id)
             switch result {
             case .success(let list):
@@ -99,6 +103,33 @@ final class TodoListViewModel: ObservableObject {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    
+    private func postAddItem(id: String) {
+        Task {
+            print("ЗАПРОС НА ДОБАВЛЕНИЕ ЭЛЕМЕНТА...")
+            do {
+                guard let item = dataCache.dataStore.items.first(where: { $0.id == id }) else { return }
+                let requestBody = TodoItemRequest(element: TodoItemNetworkDto(todoItem: item))
+                print("Добавление элемента на сервер...")
+                
+                let result = await self.networkService.postItem(with: requestBody, revision: dataCache.dataStore.revision)
+                switch result {
+                case .success(let element):
+                    let items = try TodoItemMapper.mapToTodoItem(from: element.item)
+                    print("Success result: \(element)")
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            } catch {
+                print("ERROR: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    private func updateMetadata(revision: Int, isDirty: Bool) {
+        dataCache.updateMetadata(revision:  revision, isDirty: isDirty)
     }
     
     private func refreshData() {
@@ -116,7 +147,7 @@ final class TodoListViewModel: ObservableObject {
     }
     
     func changeCompletedItemsVisibility() {
-        //        loadDataFromNetwork()
+        //                loadDataFromNetwork()
         completedIsHidden.toggle()
         refreshData()
     }
@@ -135,7 +166,12 @@ final class TodoListViewModel: ObservableObject {
     }
     
     func addTask(item: TodoItem) {
-        _ = dataCache.add(item)
+        if let _ = dataCache.add(item) {
+            
+        } else {
+            postAddItem(id: item.id)
+        }
+        
         refreshData()
         
         print("Добавлен элемент: \(item)")

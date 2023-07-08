@@ -8,5 +8,5 @@
 import Foundation
 
 protocol NetworkClient {
-    func getList<T: Decodable>(httpRequest: HttpRequest) async -> Result<T, Error>
+    func performRequest<T: Decodable>(httpRequest: HttpRequest) async -> Result<T, Error>
 }

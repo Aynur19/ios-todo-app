@@ -13,6 +13,8 @@ protocol NetworkService {
     func patchList(with content: TodoListRequest) async -> Result<TodoListResponse, Error>
     
     func getItem(id: String) async -> Result<TodoItemResponse, Error>
+    
+    func postItem(with model: TodoItemRequest, revision: Int) async -> Result<TodoItemResponse, Error>
 }
 
 private let baseUrlPropertyName = "ApiBaseUrl"
@@ -31,10 +33,11 @@ final class NetworkServiceImp: NetworkService {
     
     func getList() async -> Result<TodoListResponse, Error> {
         var result: Result<TodoListResponse, Error>
+        print("ЗАПРОС НА ПОЛУЧЕНИЕ СПИСКА ЭЛЕМЕНТОВ...")
         
         do {
             let httpRequest = try getHttpRequest(for: "/list")
-            let getListResult: Result<TodoListResponse, Error> = await networkClient.getList(httpRequest: httpRequest)
+            let getListResult: Result<TodoListResponse, Error> = await networkClient.performRequest(httpRequest: httpRequest)
             
             switch getListResult {
             case .success:
@@ -52,12 +55,13 @@ final class NetworkServiceImp: NetworkService {
     
     func patchList(with content: TodoListRequest) async -> Result<TodoListResponse, Error> {
         var result: Result<TodoListResponse, Error>
+        print("ЗАПРОС НА СИНХРОНИЗАЦИЮ ДАННЫХ...")
         
         do {
             let jsonEncoder = JSONEncoder()
             let body = try jsonEncoder.encode(content)
             let httpRequest = try getHttpRequest(for: "/list", method: .patch, revision: "0", body: body)
-            let getListResult: Result<TodoListResponse, Error> = await networkClient.getList(httpRequest: httpRequest)
+            let getListResult: Result<TodoListResponse, Error> = await networkClient.performRequest(httpRequest: httpRequest)
             
             switch getListResult {
             case .success:
@@ -75,10 +79,35 @@ final class NetworkServiceImp: NetworkService {
     
     func getItem(id: String) async -> Result<TodoItemResponse, Error> {
         var result: Result<TodoItemResponse, Error>
+        print("ЗАПРОС НА ПОЛУЧЕНИЕ КОНКРЕТНОГО ЭЛЕМЕНТА...")
         
         do {
             let httpRequest = try getHttpRequest(for: "/list/\(id)")
-            let networkResult: Result<TodoItemResponse, Error> = await networkClient.getList(httpRequest: httpRequest)
+            let networkResult: Result<TodoItemResponse, Error> = await networkClient.performRequest(httpRequest: httpRequest)
+            
+            switch networkResult {
+            case .success:
+                let todoItemResponse = try networkResult.get()
+                result = .success(todoItemResponse)
+            case .failure(let error):
+                result = .failure(error)
+            }
+        } catch {
+            result = .failure(error)
+        }
+        
+        return result
+    }
+    
+    func postItem(with model: TodoItemRequest, revision: Int) async -> Result<TodoItemResponse, Error> {
+        var result: Result<TodoItemResponse, Error>
+        print("ЗАПРОС НА ДОБАВЛЕНИЕ ЭЛЕМЕНТА...")
+        
+        do {
+            let jsonEncoder = JSONEncoder()
+            let body = try jsonEncoder.encode(model)
+            let httpRequest = try getHttpRequest(for: "/list/", method: .post, revision: "\(revision)", body: body)
+            let networkResult: Result<TodoItemResponse, Error> = await networkClient.performRequest(httpRequest: httpRequest)
             
             switch networkResult {
             case .success:

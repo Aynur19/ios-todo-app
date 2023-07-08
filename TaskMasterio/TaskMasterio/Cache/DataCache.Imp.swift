@@ -12,6 +12,11 @@ final class DataCacheImp: DataCache {
     
     func clearItems() { dataStore.items.removeAll() }
     
+    func updateMetadata(revision: Int, isDirty: Bool) {
+        dataStore.revision = revision
+        dataStore.isDirty = isDirty
+    }
+    
     func add(_ item: TodoItem) -> TodoItem? {
         var result: TodoItem?
         if let idx = dataStore.items.firstIndex(where: { $0.id == item.id }) {

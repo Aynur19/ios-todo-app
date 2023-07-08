@@ -182,7 +182,6 @@ extension TodoListViewController: UITableViewDataSource, UITableViewDelegate {
         
         cell.bindViewModel(with: shownTasks[indexPath.row])
         cell.tag = indexPath.row
-        print("task index: \(indexPath.row)")
         
         return cell
     }
