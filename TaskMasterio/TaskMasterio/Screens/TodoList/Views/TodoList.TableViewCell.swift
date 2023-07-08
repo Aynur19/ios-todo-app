@@ -30,10 +30,6 @@ final class TodoListTableViewCell: UITableViewCell {
         self.descriptionLabel.text = nil
     }
     
-    deinit {
-        completionMark.removeTarget(self, action: #selector(onCompletionMarkTouched), for: .touchUpInside)
-    }
-    
     func bindViewModel(with viewModel: TodoItemViewModel) {
         self.viewModel = viewModel
         self.descriptionLabel.text = viewModel.description
