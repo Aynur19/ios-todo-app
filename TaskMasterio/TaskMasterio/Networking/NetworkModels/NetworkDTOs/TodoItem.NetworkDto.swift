@@ -68,12 +68,7 @@ struct TodoItemNetworkDto: Codable {
         let createdOn = Date(timeIntervalSince1970: TimeInterval(self.createdOn))
         let updatedOn = Date(timeIntervalSince1970: TimeInterval(self.updatedOn))
         
-        return TodoItem(id: id,
-                        text: text,
-                        priority: priority,
-                        deadline: deadline,
-                        isDone: isDone,
-                        createdOn: createdOn,
-                        updatedOn: updatedOn)
+        return TodoItem(id: id, text: text, priority: priority, deadline: deadline,
+                        isDone: isDone, createdOn: createdOn, updatedOn: updatedOn)
     }
 }

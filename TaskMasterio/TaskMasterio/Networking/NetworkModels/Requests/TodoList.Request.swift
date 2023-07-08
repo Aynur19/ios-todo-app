@@ -8,11 +8,9 @@
 import Foundation
 
 struct TodoListRequest: Codable {
-//    var status: String
-    var list: [TodoItemNetworkDto]
+    let list: [TodoItemNetworkDto]
     
     init(list: [TodoItemNetworkDto]) {
-//        self.status = status
         self.list = list
     }
 }

@@ -21,13 +21,8 @@ struct TodoItemMapper {
         let createdOn = Date(timeIntervalSince1970: TimeInterval(dto.createdOn))
         let updatedOn = Date(timeIntervalSince1970: TimeInterval(dto.updatedOn))
         
-        return TodoItem(id: dto.id,
-                        text: dto.text,
-                        priority: priority,
-                        deadline: deadline,
-                        isDone: dto.isDone,
-                        createdOn: createdOn,
-                        updatedOn: updatedOn)
+        return TodoItem(id: dto.id, text: dto.text, priority: priority, deadline: deadline,
+                        isDone: dto.isDone, createdOn: createdOn, updatedOn: updatedOn)
     }
     
     static func mapToTodoList(from response: TodoListResponse) throws -> [TodoItem] {
