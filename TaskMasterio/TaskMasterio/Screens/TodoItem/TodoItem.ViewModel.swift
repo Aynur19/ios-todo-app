@@ -132,6 +132,7 @@ final class TodoItemViewModel: ObservableObject {
         let savedItem = mergeItems()
         print("Сохранение элемента: \(savedItem)")
         viewModel?.addTask(item: savedItem)
+        viewModel?.saveOnFileSystem()
         itemExists = true
     }
     

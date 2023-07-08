@@ -22,7 +22,7 @@ extension TodoList: JsonParser {
         data["isDirty"] = isDirty
         data["lastUpdatedBy"] = lastUpdatedBy
         data["lastUpdatedOn"] = lastUpdatedOn
-        data["items"] = items.map { $0 }
+        data["items"] = items.map { $0.json }
         
         return data
     }
