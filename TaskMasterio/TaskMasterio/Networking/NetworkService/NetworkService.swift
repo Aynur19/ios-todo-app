@@ -23,6 +23,11 @@ protocol NetworkService {
 
 private let baseUrlPropertyName = "ApiBaseUrl"
 private let bearerTokenPropertyName = "BearerToken"
+private let maxRetries = 7
+private let minDelay = 2.0
+private let maxDelay = 2 * 4.0
+private let factor = 1.5
+private let jitter = 0.05
 
 final class NetworkServiceImp: NetworkService {
     private let networkClient: NetworkClient
@@ -35,21 +40,79 @@ final class NetworkServiceImp: NetworkService {
         self.bearerToken = Configuration.getPrivateValue(for: bearerTokenPropertyName)
     }
     
+    func performRequest(httpRequest: HttpRequest, retryCount: Int, lastDelay: Double = 0) async -> Result<TodoListResponse, Error> {
+        var result: Result<TodoListResponse, Error> = .failure(HttpRequestError.baseUrlNotFound)
+        var delay = 0.0
+        for attempt in 0...retryCount {
+            do {
+                let requestResult: Result<TodoListResponse, Error> = await networkClient.performRequest(httpRequest: httpRequest)
+                switch requestResult {
+                case .success:
+                    let requestResponse = try requestResult.get()
+                    return .success(requestResponse)
+                case .failure(let error):
+                    result = .failure(error)
+                    print(error.localizedDescription)
+                    if attempt > retryCount {
+                        delay = getDelay(lastDelay: delay)
+                        await sleep(delay)
+                    } else {
+                        throw error
+                    }
+                }
+            } catch {
+                result = .failure(error)
+            }
+        }
+        return result
+    }
+    
+    func performRequest(httpRequest: HttpRequest, retryCount: Int, lastDelay: Double = 0) async -> Result<TodoItemResponse, Error> {
+        var result: Result<TodoItemResponse, Error> = .failure(HttpRequestError.baseUrlNotFound)
+        var delay = 0.0
+        for attempt in 0...retryCount {
+            do {
+                let requestResult: Result<TodoItemResponse, Error> = await networkClient.performRequest(httpRequest: httpRequest)
+                switch requestResult {
+                case .success:
+                    let requestResponse = try requestResult.get()
+                    return .success(requestResponse)
+                case .failure(let error):
+                    result = .failure(error)
+                    print(error.localizedDescription)
+                    if attempt > retryCount {
+                        delay = getDelay(lastDelay: delay)
+                        await sleep(delay)
+                    } else {
+                        throw error
+                    }
+                }
+            } catch {
+                result = .failure(error)
+            }
+        }
+        return result
+    }
+    
+    func sleep(_ seconds: TimeInterval) async {
+        await Task.sleep(UInt64(seconds * 1_000_000_000))
+    }
+    
+    private func getDelay(lastDelay: Double) -> Double {
+        if lastDelay < 2 {
+            return Double.random(in: minDelay...maxDelay) + jitter
+        }
+            
+        return pow(1.5, lastDelay)
+    }
+    
     func getList() async -> Result<TodoListResponse, Error> {
         var result: Result<TodoListResponse, Error>
         print("ЗАПРОС НА ПОЛУЧЕНИЕ СПИСКА ЭЛЕМЕНТОВ...")
         
         do {
             let httpRequest = try getHttpRequest(for: "/list")
-            let getListResult: Result<TodoListResponse, Error> = await networkClient.performRequest(httpRequest: httpRequest)
-            
-            switch getListResult {
-            case .success:
-                let todoListResponse = try getListResult.get()
-                result = .success(todoListResponse)
-            case .failure(let error):
-                result = .failure(error)
-            }
+            result = await performRequest(httpRequest: httpRequest, retryCount: maxRetries)
         } catch {
             result = .failure(error)
         }
@@ -65,15 +128,7 @@ final class NetworkServiceImp: NetworkService {
             let jsonEncoder = JSONEncoder()
             let body = try jsonEncoder.encode(content)
             let httpRequest = try getHttpRequest(for: "/list", method: .patch, revision: "0", body: body)
-            let getListResult: Result<TodoListResponse, Error> = await networkClient.performRequest(httpRequest: httpRequest)
-            
-            switch getListResult {
-            case .success:
-                let todoListResponse = try getListResult.get()
-                result = .success(todoListResponse)
-            case .failure(let error):
-                result = .failure(error)
-            }
+            result = await performRequest(httpRequest: httpRequest, retryCount: maxRetries)
         } catch {
             result = .failure(error)
         }
@@ -87,15 +142,7 @@ final class NetworkServiceImp: NetworkService {
         
         do {
             let httpRequest = try getHttpRequest(for: "/list/\(id)")
-            let networkResult: Result<TodoItemResponse, Error> = await networkClient.performRequest(httpRequest: httpRequest)
-            
-            switch networkResult {
-            case .success:
-                let todoItemResponse = try networkResult.get()
-                result = .success(todoItemResponse)
-            case .failure(let error):
-                result = .failure(error)
-            }
+            result = await performRequest(httpRequest: httpRequest, retryCount: maxRetries)
         } catch {
             result = .failure(error)
         }
@@ -111,15 +158,7 @@ final class NetworkServiceImp: NetworkService {
             let jsonEncoder = JSONEncoder()
             let body = try jsonEncoder.encode(model)
             let httpRequest = try getHttpRequest(for: "/list/", method: .post, revision: "\(revision)", body: body)
-            let networkResult: Result<TodoItemResponse, Error> = await networkClient.performRequest(httpRequest: httpRequest)
-            
-            switch networkResult {
-            case .success:
-                let todoItemResponse = try networkResult.get()
-                result = .success(todoItemResponse)
-            case .failure(let error):
-                result = .failure(error)
-            }
+            result = await performRequest(httpRequest: httpRequest, retryCount: maxRetries)
         } catch {
             result = .failure(error)
         }
@@ -135,15 +174,7 @@ final class NetworkServiceImp: NetworkService {
             let jsonEncoder = JSONEncoder()
             let body = try jsonEncoder.encode(model)
             let httpRequest = try getHttpRequest(for: "/list/\(model.element.id)", method: .put, revision: "\(revision)", body: body)
-            let networkResult: Result<TodoItemResponse, Error> = await networkClient.performRequest(httpRequest: httpRequest)
-            
-            switch networkResult {
-            case .success:
-                let todoItemResponse = try networkResult.get()
-                result = .success(todoItemResponse)
-            case .failure(let error):
-                result = .failure(error)
-            }
+            result = await performRequest(httpRequest: httpRequest, retryCount: maxRetries)
         } catch {
             result = .failure(error)
         }
@@ -159,15 +190,7 @@ final class NetworkServiceImp: NetworkService {
             let jsonEncoder = JSONEncoder()
             let body = try jsonEncoder.encode(model)
             let httpRequest = try getHttpRequest(for: "/list/\(model.element.id)", method: .delete, revision: "\(revision)", body: body)
-            let networkResult: Result<TodoItemResponse, Error> = await networkClient.performRequest(httpRequest: httpRequest)
-            
-            switch networkResult {
-            case .success:
-                let todoItemResponse = try networkResult.get()
-                result = .success(todoItemResponse)
-            case .failure(let error):
-                result = .failure(error)
-            }
+            result = await performRequest(httpRequest: httpRequest, retryCount: maxRetries)
         } catch {
             result = .failure(error)
         }

@@ -12,7 +12,7 @@ final class NetworkClientImp: NetworkClient {
     
     init(urlSession: URLSession) {
         self.urlSession = urlSession
-        self.urlSession.configuration.timeoutIntervalForRequest = 15
+        self.urlSession.configuration.timeoutIntervalForRequest = 3
     }
     
     func performRequest<T>(httpRequest: HttpRequest) async -> Result<T, Error> where T: Decodable {

@@ -22,12 +22,6 @@ final class TodoListViewModel: ObservableObject {
     @Published var completedTasksCount = 0
     @Published var completedIsHidden = true
     
-    //    @MainActor
-    //    private var loadTask: Task<Void, Never>?
-    //    weak var delegate: TodoListViewModelDelegate?
-    //    private(set) var tasks = [TodoItemViewModel]()
-    
-    
     init(with dataCache: DataCacheImp, networkService: NetworkService) {
         self.dataCache = dataCache
         self.networkService = networkService
