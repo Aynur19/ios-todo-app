@@ -151,6 +151,28 @@ final class TodoListViewModel: ObservableObject {
         }
     }
     
+    private func deleteItem(item: TodoItem) {
+        Task {
+            print("ЗАПРОС НА УДАЛЕНИЕ ЭЛЕМЕНТА...")
+            do {
+                let requestBody = TodoItemRequest(element: TodoItemNetworkDto(todoItem: item))
+                print("Изменение элемента на сервере...")
+                
+                let result = await self.networkService.deleteItem(with: requestBody, revision: dataCache.dataStore.revision)
+                switch result {
+                case .success(let element):
+                    updateMetadata(revision: element.revision, isDirty: false)
+                    print("Success result: \(element)")
+                case .failure(let error):
+                    print(error.localizedDescription)
+//                    updateMetadata(revision: element.revision, isDirty: true)
+                }
+            } catch {
+                print("ERROR: \(error.localizedDescription)")
+            }
+        }
+    }
+    
     private func updateMetadata(revision: Int, isDirty: Bool) {
         dataCache.updateMetadata(revision:  revision, isDirty: isDirty)
     }
@@ -203,7 +225,9 @@ final class TodoListViewModel: ObservableObject {
     func removeItem(by id: String?) {
         guard let itemId = id else { return }
         
+        
         if let removedItem = dataCache.remove(by: itemId) {
+            deleteItem(item: removedItem)
             print("Удален элемент: \(removedItem)")
             refreshData()
         }

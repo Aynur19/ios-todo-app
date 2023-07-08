@@ -17,6 +17,8 @@ protocol NetworkService {
     func postItem(with model: TodoItemRequest, revision: Int) async -> Result<TodoItemResponse, Error>
     
     func putItem(with model: TodoItemRequest, revision: Int) async -> Result<TodoItemResponse, Error>
+    
+    func deleteItem(with model: TodoItemRequest, revision: Int) async -> Result<TodoItemResponse, Error>
 }
 
 private let baseUrlPropertyName = "ApiBaseUrl"
@@ -133,6 +135,30 @@ final class NetworkServiceImp: NetworkService {
             let jsonEncoder = JSONEncoder()
             let body = try jsonEncoder.encode(model)
             let httpRequest = try getHttpRequest(for: "/list/\(model.element.id)", method: .put, revision: "\(revision)", body: body)
+            let networkResult: Result<TodoItemResponse, Error> = await networkClient.performRequest(httpRequest: httpRequest)
+            
+            switch networkResult {
+            case .success:
+                let todoItemResponse = try networkResult.get()
+                result = .success(todoItemResponse)
+            case .failure(let error):
+                result = .failure(error)
+            }
+        } catch {
+            result = .failure(error)
+        }
+        
+        return result
+    }
+    
+    func deleteItem(with model: TodoItemRequest, revision: Int) async -> Result<TodoItemResponse, Error> {
+        var result: Result<TodoItemResponse, Error>
+        print("ЗАПРОС НА УДАЛЕНИЕ ЭЛЕМЕНТА...")
+        
+        do {
+            let jsonEncoder = JSONEncoder()
+            let body = try jsonEncoder.encode(model)
+            let httpRequest = try getHttpRequest(for: "/list/\(model.element.id)", method: .delete, revision: "\(revision)", body: body)
             let networkResult: Result<TodoItemResponse, Error> = await networkClient.performRequest(httpRequest: httpRequest)
             
             switch networkResult {
