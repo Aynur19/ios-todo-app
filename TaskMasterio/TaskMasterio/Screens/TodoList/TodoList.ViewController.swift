@@ -8,6 +8,7 @@
 import UIKit
 import Combine
 
+
 final class TodoListViewController: UIViewController {
     
     var viewModel: TodoListViewModel!
@@ -24,6 +25,10 @@ final class TodoListViewController: UIViewController {
         setupNavBar()
         bindViewModel()
     }
+    
+
+    
+
     
     // MARK: - Setup Functions
     private func setup() {
@@ -116,6 +121,54 @@ final class TodoListViewController: UIViewController {
         detailViewController.viewModel = todoItemViewModel
         
         present(detailViewController, animated: true, completion: nil)
+    }
+    
+    // MARK: For URLSession.performTask(...) testing
+    struct Model: Codable {
+        var setup: String
+        var punchline: String
+        var id: Int
+    }
+    
+    private var task: Task<Void, Never>?
+    private var jokes = [String]()
+    private var jokeId = 0
+    
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            print("Телефон был потрясен!")
+            performTask()
+        }
+    }
+    
+    
+    private func performTask() {
+        task?.cancel()
+        task = Task { [weak self] in
+            do {
+                self?.jokeId += 1
+                let urlStr = "https://official-joke-api.appspot.com/jokes/\(jokeId)"
+                let sleepingInterval = UInt64.random(in: 1000000000...3000000000)
+                print("url: \(urlStr) \n    sleepeng interval: \(sleepingInterval / 1000000000)")
+                try await Task.sleep(nanoseconds: sleepingInterval)
+                let urlSession = URLSession.shared
+                guard let url = URL(string: urlStr) else {
+                    throw URLSessionError.failedTaskPerformingError(error: URLSessionError.failedCreationURL(str: urlStr))
+                }
+                
+                let urlRequest = URLRequest(url: url)
+                let result = try await urlSession.performTask(for: urlRequest)
+                
+                let data = result.data
+                let model = try JSONDecoder().decode(Model.self, from: data)
+                
+                let joke = "Joke #\(model.id): \(model.setup) \(model.punchline)"
+                self?.jokes.append(joke)
+                print(joke)
+            } catch {
+                print("Ошибка: \(error)")
+            }
+        }
     }
 }
 
