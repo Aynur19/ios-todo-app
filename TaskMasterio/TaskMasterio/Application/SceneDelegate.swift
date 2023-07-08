@@ -16,8 +16,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let networkClient = NetworkClientImp(urlSession: URLSession.shared)
         let networkService = NetworkServiceImp(with: networkClient)
-        
-        let todoListViewModel = TodoListViewModel(with: FileCache(), networkService: networkService)
+        let dataCache = DataCacheImp()
+        let todoListViewModel = TodoListViewModel(with: dataCache, networkService: networkService)
         let startController = TodoListViewController()
         startController.viewModel = todoListViewModel
         

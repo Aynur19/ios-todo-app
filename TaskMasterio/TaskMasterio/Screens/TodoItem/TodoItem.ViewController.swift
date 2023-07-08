@@ -10,7 +10,7 @@ import Combine
 
 final class TodoItemViewController2: UIViewController {
     
-    var todoListVM: TodoListViewModel!
+//    var todoListVM: TodoListViewModel!
     var viewModel: TodoItemViewModel!
     private var cancellables = Set<AnyCancellable>()
     
@@ -73,7 +73,8 @@ final class TodoItemViewController2: UIViewController {
                     self?.viewModel.taskState = .none
                     self?.exit()
                 } else if taskState == .remove {
-                    self?.todoListVM.removeTask(by: self?.viewModel.id)
+                    self?.viewModel.remove()
+//                    self?.todoListVM.removeItem(by: self?.viewModel.id)
                     self?.viewModel.taskState = .none
                     self?.exit()
                 }
@@ -108,18 +109,18 @@ final class TodoItemViewController2: UIViewController {
     }
     
     
-    var delegate: TodoListViewModelDelegate?
+//    var delegate: TodoListViewModelDelegate?
     
     @objc private func onSaveButtonTapped() {
-        viewModel.saveTask()
-        todoListVM.addTask(todo: viewModel.getTask())
-        todoListVM.updateTodoList()
+        viewModel.save()
+//        todoListVM.addTask(todo: viewModel.getTask())
+//        todoListVM.updateTodoList()
         view.endEditing(true)
         dismiss(animated: true, completion: nil)
     }
     
     func exit() {
-        todoListVM.updateTodoList()
+//        todoListVM.updateTodoList()
         view.endEditing(true)
         dismiss(animated: true, completion: nil)
     }

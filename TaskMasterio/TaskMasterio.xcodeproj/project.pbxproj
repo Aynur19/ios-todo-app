@@ -28,6 +28,7 @@
 		98422CD42A58738C00087EC9 /* TodoList.Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98422CD32A58738C00087EC9 /* TodoList.Request.swift */; };
 		98422CD62A588AE900087EC9 /* TodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98422CD52A588AE900087EC9 /* TodoList.swift */; };
 		98422CDA2A58B26E00087EC9 /* DataCache.Imp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98422CD92A58B26E00087EC9 /* DataCache.Imp.swift */; };
+		98422CDC2A58C70A00087EC9 /* TodoList.OldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98422CDB2A58C70900087EC9 /* TodoList.OldViewController.swift */; };
 		984687D32A554EF0004C76C3 /* JsonParseTestsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984687D22A554EF0004C76C3 /* JsonParseTestsData.swift */; };
 		984687D52A555252004C76C3 /* CsvParseTestsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984687D42A555252004C76C3 /* CsvParseTestsData.swift */; };
 		984687D82A55559F004C76C3 /* CocoaLumberjack in Frameworks */ = {isa = PBXBuildFile; productRef = 984687D72A55559F004C76C3 /* CocoaLumberjack */; };
@@ -120,6 +121,7 @@
 		98422CD32A58738C00087EC9 /* TodoList.Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.Request.swift; sourceTree = "<group>"; };
 		98422CD52A588AE900087EC9 /* TodoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.swift; sourceTree = "<group>"; };
 		98422CD92A58B26E00087EC9 /* DataCache.Imp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCache.Imp.swift; sourceTree = "<group>"; };
+		98422CDB2A58C70900087EC9 /* TodoList.OldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.OldViewController.swift; sourceTree = "<group>"; };
 		984687D22A554EF0004C76C3 /* JsonParseTestsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonParseTestsData.swift; sourceTree = "<group>"; };
 		984687D42A555252004C76C3 /* CsvParseTestsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CsvParseTestsData.swift; sourceTree = "<group>"; };
 		984687DE2A55802E004C76C3 /* URLSession.Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.Ext.swift; sourceTree = "<group>"; };
@@ -486,6 +488,7 @@
 				98F94A272A4DBE3200B72704 /* TodoList.ViewModel.swift */,
 				98F94A252A4DBC5700B72704 /* TodoList.ViewController.swift */,
 				98F94A2F2A4EC85500B72704 /* TodoList.TableDataSource.swift */,
+				98422CDB2A58C70900087EC9 /* TodoList.OldViewController.swift */,
 				98F94A312A4EF40D00B72704 /* Views */,
 			);
 			path = TodoList;
@@ -674,6 +677,7 @@
 				985871482A3D499D00066B2E /* TodoItem.CsvParser.swift in Sources */,
 				98422CB92A57EED700087EC9 /* NetworkClient.swift in Sources */,
 				98F283202A350E650008A526 /* ViewController.swift in Sources */,
+				98422CDC2A58C70A00087EC9 /* TodoList.OldViewController.swift in Sources */,
 				98F2831C2A350E650008A526 /* AppDelegate.swift in Sources */,
 				98F94A102A4C10BF00B72704 /* TodoItem.PriorityStackView.swift in Sources */,
 				9858714F2A43311F00066B2E /* FileCache.Errors.swift in Sources */,

@@ -214,7 +214,7 @@ final class TodoListTableViewCell: UITableViewCell {
     
     
     @objc private func onCompletionMarkTouched() {
-        viewModel.changeTaskCompletion()
+        viewModel.changeItemCompletion()
     }
     
     @objc private func cellTapped() {

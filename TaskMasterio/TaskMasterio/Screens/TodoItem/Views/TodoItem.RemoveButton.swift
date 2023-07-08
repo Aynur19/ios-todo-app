@@ -41,7 +41,7 @@ final class TodoItemRemoveButton: UIButton {
     }
     
     private func bindViewModel() {
-        viewModel.$taskExists
+        viewModel.$itemExists
             .assign(to: \.isEnabled, on: self)
             .store(in: &cancellables)
         
@@ -53,7 +53,7 @@ final class TodoItemRemoveButton: UIButton {
     }
     
     @objc func onRemoveButtonTapped(_ sender: UIButton) {
-        viewModel.removeTask() 
+        viewModel.remove()
         viewModel.taskState = .remove
     }
 }
