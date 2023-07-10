@@ -15,7 +15,7 @@ struct TodoList {
     var lastUpdatedOn = 0
 }
 
-extension TodoList: JsonParser {
+extension TodoList {//}: JsonParser {
     var json: Any {
         var data = [String: Any]()
         data["revision"] = revision
@@ -23,6 +23,7 @@ extension TodoList: JsonParser {
         data["lastUpdatedBy"] = lastUpdatedBy
         data["lastUpdatedOn"] = lastUpdatedOn
         data["items"] = items.map { $0.json }
+//        data["items"] = items.map { $0.json }
         
         return data
     }

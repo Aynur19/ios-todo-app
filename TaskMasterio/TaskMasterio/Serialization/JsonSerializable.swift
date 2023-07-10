@@ -1,13 +1,13 @@
 //
-//  JsonParser.swift
+//  JsonSerializable.swift
 //  TaskMasterio
 //
-//  Created by Aynur Nasybullin on 16.06.2023.
+//  Created by Aynur Nasybullin on 10.07.2023.
 //
 
 import Foundation
 
-protocol JsonParser {
+protocol JsonSerializable {
     associatedtype Element
     
     var json: Any { get }

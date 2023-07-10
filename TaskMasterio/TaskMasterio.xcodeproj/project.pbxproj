@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		983A5A272A5C253C00A7876D /* JsonSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983A5A262A5C253C00A7876D /* JsonSerializable.swift */; };
+		983A5A292A5C2AEA00A7876D /* JsonSerializator.TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983A5A282A5C2AEA00A7876D /* JsonSerializator.TodoItem.swift */; };
+		983A5A2B2A5C494900A7876D /* JsonSerializator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983A5A2A2A5C494900A7876D /* JsonSerializator.swift */; };
 		98422CA42A5759E700087EC9 /* URLSession.Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98422CA32A5759E700087EC9 /* URLSession.Errors.swift */; };
 		98422CA82A57E27900087EC9 /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98422CA72A57E27900087EC9 /* HttpMethod.swift */; };
 		98422CAB2A57E32C00087EC9 /* TodoItem.NetworkDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98422CAA2A57E32C00087EC9 /* TodoItem.NetworkDto.swift */; };
@@ -43,8 +46,6 @@
 		987D4E6B2A4B01F400E9507D /* TodoItem.ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D4E6A2A4B01F400E9507D /* TodoItem.ViewController.swift */; };
 		987D4E6D2A4B471300E9507D /* TodoItem.DetailsStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D4E6C2A4B471300E9507D /* TodoItem.DetailsStackView.swift */; };
 		987D4E6F2A4B534500E9507D /* TodoItem.DescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D4E6E2A4B534500E9507D /* TodoItem.DescriptionView.swift */; };
-		98BE0E7F2A3CD61B00EE3B7C /* JsonParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BE0E7E2A3CD61B00EE3B7C /* JsonParser.swift */; };
-		98BE0E812A3CD65300EE3B7C /* TodoItem.JsonParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BE0E802A3CD65300EE3B7C /* TodoItem.JsonParser.swift */; };
 		98BE0E832A3CE3DC00EE3B7C /* TodoItem.JsonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BE0E822A3CE3DC00EE3B7C /* TodoItem.JsonTests.swift */; };
 		98CE2A1C2A3C7FB800554B7A /* CsvParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CE2A1B2A3C7FB800554B7A /* CsvParser.swift */; };
 		98CE2A1F2A3C83F900554B7A /* DateExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CE2A1E2A3C83F900554B7A /* DateExt.swift */; };
@@ -96,6 +97,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		983A5A262A5C253C00A7876D /* JsonSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonSerializable.swift; sourceTree = "<group>"; };
+		983A5A282A5C2AEA00A7876D /* JsonSerializator.TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonSerializator.TodoItem.swift; sourceTree = "<group>"; };
+		983A5A2A2A5C494900A7876D /* JsonSerializator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonSerializator.swift; sourceTree = "<group>"; };
 		98422CA32A5759E700087EC9 /* URLSession.Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.Errors.swift; sourceTree = "<group>"; };
 		98422CA72A57E27900087EC9 /* HttpMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
 		98422CAA2A57E32C00087EC9 /* TodoItem.NetworkDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.NetworkDto.swift; sourceTree = "<group>"; };
@@ -129,8 +133,6 @@
 		987D4E6A2A4B01F400E9507D /* TodoItem.ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.ViewController.swift; sourceTree = "<group>"; };
 		987D4E6C2A4B471300E9507D /* TodoItem.DetailsStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.DetailsStackView.swift; sourceTree = "<group>"; };
 		987D4E6E2A4B534500E9507D /* TodoItem.DescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.DescriptionView.swift; sourceTree = "<group>"; };
-		98BE0E7E2A3CD61B00EE3B7C /* JsonParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonParser.swift; sourceTree = "<group>"; };
-		98BE0E802A3CD65300EE3B7C /* TodoItem.JsonParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.JsonParser.swift; sourceTree = "<group>"; };
 		98BE0E822A3CE3DC00EE3B7C /* TodoItem.JsonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.JsonTests.swift; sourceTree = "<group>"; };
 		98CE2A1B2A3C7FB800554B7A /* CsvParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CsvParser.swift; sourceTree = "<group>"; };
 		98CE2A1E2A3C83F900554B7A /* DateExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExt.swift; sourceTree = "<group>"; };
@@ -196,6 +198,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		983A5A252A5C247100A7876D /* Serialization */ = {
+			isa = PBXGroup;
+			children = (
+				983A5A262A5C253C00A7876D /* JsonSerializable.swift */,
+				983A5A2A2A5C494900A7876D /* JsonSerializator.swift */,
+				983A5A282A5C2AEA00A7876D /* JsonSerializator.TodoItem.swift */,
+			);
+			path = Serialization;
+			sourceTree = "<group>";
+		};
 		98422CA92A57E2EE00087EC9 /* NetworkDTOs */ = {
 			isa = PBXGroup;
 			children = (
@@ -394,6 +406,7 @@
 		98F2831A2A350E650008A526 /* TaskMasterio */ = {
 			isa = PBXGroup;
 			children = (
+				983A5A252A5C247100A7876D /* Serialization */,
 				98422CC92A58581E00087EC9 /* Utilites */,
 				984687DD2A557FB0004C76C3 /* Networking */,
 				985871502A439C1100066B2E /* Application */,
@@ -434,7 +447,6 @@
 			isa = PBXGroup;
 			children = (
 				98F2834C2A359C7C0008A526 /* TodoItem.swift */,
-				98BE0E802A3CD65300EE3B7C /* TodoItem.JsonParser.swift */,
 				985871472A3D499D00066B2E /* TodoItem.CsvParser.swift */,
 				98422CD52A588AE900087EC9 /* TodoList.swift */,
 			);
@@ -445,7 +457,6 @@
 			isa = PBXGroup;
 			children = (
 				98CE2A1B2A3C7FB800554B7A /* CsvParser.swift */,
-				98BE0E7E2A3CD61B00EE3B7C /* JsonParser.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -673,13 +684,15 @@
 				98F94A282A4DBE3200B72704 /* TodoList.ViewModel.swift in Sources */,
 				98422CB62A57ECFB00087EC9 /* HttpRequest.swift in Sources */,
 				98F94A122A4C38F400B72704 /* TodoItem.DeadlineStackView.swift in Sources */,
+				983A5A272A5C253C00A7876D /* JsonSerializable.swift in Sources */,
 				98422CC52A5816D800087EC9 /* TodoItem.Mapper.swift in Sources */,
 				987D4E6D2A4B471300E9507D /* TodoItem.DetailsStackView.swift in Sources */,
 				9858715D2A44557700066B2E /* NSLayoutConstraint.swift in Sources */,
+				983A5A2B2A5C494900A7876D /* JsonSerializator.swift in Sources */,
 				98F94A2E2A4EAC4500B72704 /* TodoList.TableViewHeader.swift in Sources */,
 				98CE2A212A3C9A8900554B7A /* StringExt.swift in Sources */,
 				98CE2A1C2A3C7FB800554B7A /* CsvParser.swift in Sources */,
-				98BE0E7F2A3CD61B00EE3B7C /* JsonParser.swift in Sources */,
+				983A5A292A5C2AEA00A7876D /* JsonSerializator.TodoItem.swift in Sources */,
 				98F283522A3B77BF0008A526 /* FileCache.swift in Sources */,
 				98422CC72A5822EB00087EC9 /* NetworkDtoMapping.Errors.swift in Sources */,
 				98F94A1E2A4D820C00B72704 /* TodoItem.RemoveButton.swift in Sources */,
@@ -694,7 +707,6 @@
 				98F2831E2A350E650008A526 /* SceneDelegate.swift in Sources */,
 				98422CD42A58738C00087EC9 /* TodoList.Request.swift in Sources */,
 				98422CAB2A57E32C00087EC9 /* TodoItem.NetworkDto.swift in Sources */,
-				98BE0E812A3CD65300EE3B7C /* TodoItem.JsonParser.swift in Sources */,
 				98422CA82A57E27900087EC9 /* HttpMethod.swift in Sources */,
 				98422CBF2A58009000087EC9 /* HttpResponse.swift in Sources */,
 				98F94A332A4F39EA00B72704 /* UIView.Ext.swift in Sources */,

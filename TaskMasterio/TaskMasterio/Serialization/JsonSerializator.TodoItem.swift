@@ -1,37 +1,38 @@
 //
-//  TodoItem.JsonParser.swift
+//  JsonSerializationStrategy.swift
 //  TaskMasterio
 //
-//  Created by Aynur Nasybullin on 16.06.2023.
+//  Created by Aynur Nasybullin on 10.07.2023.
 //
 
 import Foundation
 
-
-extension TodoItem: JsonParser {
-    var json: Any {
+final class TodoItemJsonSerializator: JsonSerializator {
+    typealias Element = TodoItem
+    
+    static func serialize(object: TodoItem) -> Any {
         var data = [String: Any]()
-        data[TodoItem.Keys.id] = id
-        data[TodoItem.Keys.text] = text
-        data[TodoItem.Keys.priority] = priority != .medium ? priority.rawValue : nil
-        data[TodoItem.Keys.deadline] = deadline?.datetime
-        data[TodoItem.Keys.isDone] = isDone
-        data[TodoItem.Keys.createdOn] = createdOn.datetime
-        data[TodoItem.Keys.updatedOn] = updatedOn?.datetime
+        data[TodoItem.Keys.id] = object.id
+        data[TodoItem.Keys.text] = object.text
+        data[TodoItem.Keys.priority] = object.priority != .medium ? object.priority.rawValue : nil
+        data[TodoItem.Keys.deadline] = object.deadline?.datetime
+        data[TodoItem.Keys.isDone] = object.isDone
+        data[TodoItem.Keys.createdOn] = object.createdOn.datetime
+        data[TodoItem.Keys.updatedOn] = object.updatedOn?.datetime
         
         return data
     }
     
-    static func parse(json: Any) -> TodoItem? {
-        guard let dict = json as? [String: Any],
+    static func deserialize(data: Any) -> TodoItem? {
+        guard let dict = data as? [String: Any],
               let dictId = dict[TodoItem.Keys.id] as? String,
               let dictText = dict[TodoItem.Keys.text] as? String,
               let dictCreatedOn = dict[TodoItem.Keys.createdOn] as? Int,
               let dictIsDone = dict[TodoItem.Keys.isDone] as? Bool
         else { return nil }
         
-        guard let taskId = getId(data: dictId),
-              let dictPriority = getPriorityJson(data: dict)
+        guard UUID(uuidString: dictId) != nil,
+              let dictPriority = getPriority(data: dict)
         else { return nil }
         
         var deadlineValue: Date?
@@ -51,13 +52,13 @@ extension TodoItem: JsonParser {
             else { return nil}
             updatedOnValue = dictUpdatedOn
         }
-
+        
         let createdOnValue = Date(timeIntervalSince1970: TimeInterval(dictCreatedOn))
-        return TodoItem(id: taskId, text: dictText, priority: dictPriority, deadline: deadlineValue,
+        return TodoItem(id: dictId, text: dictText, priority: dictPriority, deadline: deadlineValue,
                         isDone: dictIsDone, createdOn: createdOnValue, updatedOn: updatedOnValue)
     }
     
-    static private func getPriorityJson(data: [String: Any]) -> Priority? {
+    static private func getPriority(data: [String: Any]) -> Priority? {
         if data[TodoItem.Keys.priority] == nil { return .medium }
         else {
             if let priorityData = data[TodoItem.Keys.priority] as? String {

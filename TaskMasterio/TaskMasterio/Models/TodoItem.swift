@@ -90,6 +90,15 @@ struct TodoItem {
     }
 }
 
+extension TodoItem: JsonSerializable {
+    var json: Any { return TodoItemJsonSerializator.serialize(object: self) }
+    
+    static func parse(json: Any) -> TodoItem? {
+        return TodoItemJsonSerializator.deserialize(data: json)
+    }
+}
+
+
 extension TodoItem {
     static func getId(data: String?) -> String? {
         guard let idData = data, idData.count == idLenght else { return nil }
