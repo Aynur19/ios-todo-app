@@ -201,11 +201,19 @@
 		983A5A252A5C247100A7876D /* Serialization */ = {
 			isa = PBXGroup;
 			children = (
+				983A5A2C2A5C51AB00A7876D /* JSON */,
+			);
+			path = Serialization;
+			sourceTree = "<group>";
+		};
+		983A5A2C2A5C51AB00A7876D /* JSON */ = {
+			isa = PBXGroup;
+			children = (
 				983A5A262A5C253C00A7876D /* JsonSerializable.swift */,
 				983A5A2A2A5C494900A7876D /* JsonSerializator.swift */,
 				983A5A282A5C2AEA00A7876D /* JsonSerializator.TodoItem.swift */,
 			);
-			path = Serialization;
+			path = JSON;
 			sourceTree = "<group>";
 		};
 		98422CA92A57E2EE00087EC9 /* NetworkDTOs */ = {
