@@ -239,7 +239,7 @@ final class FileCacheTests: XCTestCase {
         let rows = csv.split(separator: "\n").map({ String($0) })
         XCTAssertNotNil(csv)
         
-        XCTAssertEqual(rows[0], TodoItem.getHeaders())
+        XCTAssertEqual(rows[0], TodoItemCsvSerializator.getHeaders())
         XCTAssertEqual(rows.count, tasks.count + 1)
         
         for row in rows[1...] {
@@ -286,7 +286,7 @@ final class FileCacheTests: XCTestCase {
         let rows = csv.split(separator: "\n").map({ String($0) })
         XCTAssertNotNil(csv)
         
-        XCTAssertEqual(rows[0], TodoItem.getHeaders())
+        XCTAssertEqual(rows[0], TodoItemCsvSerializator.getHeaders())
         XCTAssertEqual(rows.count, tasks.count + 1)
         
         for row in rows[1...] {

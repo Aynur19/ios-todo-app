@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 enum Priority: String {
     case high
     case medium
@@ -98,36 +97,10 @@ extension TodoItem: JsonSerializable {
     }
 }
 
-
-extension TodoItem {
-    static func getId(data: String?) -> String? {
-        guard let idData = data, idData.count == idLenght else { return nil }
-        return idData
-    }
+extension TodoItem: CsvSerializable {
+    var csv: String { return TodoItemCsvSerializator.serialize(object: self) }
     
-    static func getPriority(data: String?) -> Priority? {
-        if let priorityData = data, !priorityData.isEmpty {
-            guard let priorityValue = Priority.init(rawValue: priorityData) else { return nil }
-            return priorityValue
-        }
-        
-        return .medium
-    }
-    
-    static func getDate(data: String?) -> (isValid: Bool, result: Date?) {
-        guard let dateData = data else { return (true, nil) }
-        if dateData.isEmpty { return (true, nil) }
-        
-        guard let dateTime = Int(dateData) else { return (false, nil) }
-        return (true, Date(timeIntervalSince1970: TimeInterval(dateTime)))
-    }
-    
-    static func getBool(data: String?) -> Bool? {
-        guard let boolData = data else { return nil }
-        
-        if boolData == "\(false)" { return false }
-        else if boolData == "\(true)" { return true }
-        
-        return nil
+    static func parse(csv: String) -> TodoItem? {
+        return TodoItemCsvSerializator.deserialize(data: csv)
     }
 }

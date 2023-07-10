@@ -10,6 +10,10 @@
 		983A5A272A5C253C00A7876D /* JsonSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983A5A262A5C253C00A7876D /* JsonSerializable.swift */; };
 		983A5A292A5C2AEA00A7876D /* JsonSerializator.TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983A5A282A5C2AEA00A7876D /* JsonSerializator.TodoItem.swift */; };
 		983A5A2B2A5C494900A7876D /* JsonSerializator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983A5A2A2A5C494900A7876D /* JsonSerializator.swift */; };
+		983A5A2F2A5C524500A7876D /* CsvSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983A5A2E2A5C524500A7876D /* CsvSerializable.swift */; };
+		983A5A312A5C529A00A7876D /* CsvSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983A5A302A5C529A00A7876D /* CsvSeparator.swift */; };
+		983A5A332A5C542100A7876D /* CsvSerializator.TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983A5A322A5C542100A7876D /* CsvSerializator.TodoItem.swift */; };
+		983A5A352A5C548800A7876D /* CsvSerializator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983A5A342A5C548800A7876D /* CsvSerializator.swift */; };
 		98422CA42A5759E700087EC9 /* URLSession.Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98422CA32A5759E700087EC9 /* URLSession.Errors.swift */; };
 		98422CA82A57E27900087EC9 /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98422CA72A57E27900087EC9 /* HttpMethod.swift */; };
 		98422CAB2A57E32C00087EC9 /* TodoItem.NetworkDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98422CAA2A57E32C00087EC9 /* TodoItem.NetworkDto.swift */; };
@@ -37,7 +41,6 @@
 		984687DA2A55559F004C76C3 /* CocoaLumberjackSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 984687D92A55559F004C76C3 /* CocoaLumberjackSwift */; };
 		984687DC2A55559F004C76C3 /* CocoaLumberjackSwiftLogBackend in Frameworks */ = {isa = PBXBuildFile; productRef = 984687DB2A55559F004C76C3 /* CocoaLumberjackSwiftLogBackend */; };
 		984687DF2A55802E004C76C3 /* URLSession.Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984687DE2A55802E004C76C3 /* URLSession.Ext.swift */; };
-		985871482A3D499D00066B2E /* TodoItem.CsvParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985871472A3D499D00066B2E /* TodoItem.CsvParser.swift */; };
 		9858714A2A3D4CB200066B2E /* TodoItem.CsvTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985871492A3D4CB200066B2E /* TodoItem.CsvTests.swift */; };
 		9858714F2A43311F00066B2E /* FileCache.Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9858714E2A43311F00066B2E /* FileCache.Errors.swift */; };
 		9858715B2A444D9800066B2E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9858715A2A444D9800066B2E /* Constants.swift */; };
@@ -47,7 +50,6 @@
 		987D4E6D2A4B471300E9507D /* TodoItem.DetailsStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D4E6C2A4B471300E9507D /* TodoItem.DetailsStackView.swift */; };
 		987D4E6F2A4B534500E9507D /* TodoItem.DescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D4E6E2A4B534500E9507D /* TodoItem.DescriptionView.swift */; };
 		98BE0E832A3CE3DC00EE3B7C /* TodoItem.JsonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BE0E822A3CE3DC00EE3B7C /* TodoItem.JsonTests.swift */; };
-		98CE2A1C2A3C7FB800554B7A /* CsvParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CE2A1B2A3C7FB800554B7A /* CsvParser.swift */; };
 		98CE2A1F2A3C83F900554B7A /* DateExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CE2A1E2A3C83F900554B7A /* DateExt.swift */; };
 		98CE2A212A3C9A8900554B7A /* StringExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CE2A202A3C9A8900554B7A /* StringExt.swift */; };
 		98F2831C2A350E650008A526 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2831B2A350E650008A526 /* AppDelegate.swift */; };
@@ -100,6 +102,10 @@
 		983A5A262A5C253C00A7876D /* JsonSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonSerializable.swift; sourceTree = "<group>"; };
 		983A5A282A5C2AEA00A7876D /* JsonSerializator.TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonSerializator.TodoItem.swift; sourceTree = "<group>"; };
 		983A5A2A2A5C494900A7876D /* JsonSerializator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonSerializator.swift; sourceTree = "<group>"; };
+		983A5A2E2A5C524500A7876D /* CsvSerializable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CsvSerializable.swift; sourceTree = "<group>"; };
+		983A5A302A5C529A00A7876D /* CsvSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CsvSeparator.swift; sourceTree = "<group>"; };
+		983A5A322A5C542100A7876D /* CsvSerializator.TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CsvSerializator.TodoItem.swift; sourceTree = "<group>"; };
+		983A5A342A5C548800A7876D /* CsvSerializator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CsvSerializator.swift; sourceTree = "<group>"; };
 		98422CA32A5759E700087EC9 /* URLSession.Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.Errors.swift; sourceTree = "<group>"; };
 		98422CA72A57E27900087EC9 /* HttpMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
 		98422CAA2A57E32C00087EC9 /* TodoItem.NetworkDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.NetworkDto.swift; sourceTree = "<group>"; };
@@ -124,7 +130,6 @@
 		984687D22A554EF0004C76C3 /* JsonParseTestsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonParseTestsData.swift; sourceTree = "<group>"; };
 		984687D42A555252004C76C3 /* CsvParseTestsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CsvParseTestsData.swift; sourceTree = "<group>"; };
 		984687DE2A55802E004C76C3 /* URLSession.Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.Ext.swift; sourceTree = "<group>"; };
-		985871472A3D499D00066B2E /* TodoItem.CsvParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.CsvParser.swift; sourceTree = "<group>"; };
 		985871492A3D4CB200066B2E /* TodoItem.CsvTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.CsvTests.swift; sourceTree = "<group>"; };
 		9858714E2A43311F00066B2E /* FileCache.Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCache.Errors.swift; sourceTree = "<group>"; };
 		9858715A2A444D9800066B2E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -134,7 +139,6 @@
 		987D4E6C2A4B471300E9507D /* TodoItem.DetailsStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.DetailsStackView.swift; sourceTree = "<group>"; };
 		987D4E6E2A4B534500E9507D /* TodoItem.DescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.DescriptionView.swift; sourceTree = "<group>"; };
 		98BE0E822A3CE3DC00EE3B7C /* TodoItem.JsonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.JsonTests.swift; sourceTree = "<group>"; };
-		98CE2A1B2A3C7FB800554B7A /* CsvParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CsvParser.swift; sourceTree = "<group>"; };
 		98CE2A1E2A3C83F900554B7A /* DateExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExt.swift; sourceTree = "<group>"; };
 		98CE2A202A3C9A8900554B7A /* StringExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExt.swift; sourceTree = "<group>"; };
 		98F283182A350E650008A526 /* TaskMasterio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaskMasterio.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -202,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				983A5A2C2A5C51AB00A7876D /* JSON */,
+				983A5A2D2A5C51FE00A7876D /* СSV */,
 			);
 			path = Serialization;
 			sourceTree = "<group>";
@@ -214,6 +219,17 @@
 				983A5A282A5C2AEA00A7876D /* JsonSerializator.TodoItem.swift */,
 			);
 			path = JSON;
+			sourceTree = "<group>";
+		};
+		983A5A2D2A5C51FE00A7876D /* СSV */ = {
+			isa = PBXGroup;
+			children = (
+				983A5A302A5C529A00A7876D /* CsvSeparator.swift */,
+				983A5A2E2A5C524500A7876D /* CsvSerializable.swift */,
+				983A5A342A5C548800A7876D /* CsvSerializator.swift */,
+				983A5A322A5C542100A7876D /* CsvSerializator.TodoItem.swift */,
+			);
+			path = "СSV";
 			sourceTree = "<group>";
 		};
 		98422CA92A57E2EE00087EC9 /* NetworkDTOs */ = {
@@ -421,7 +437,6 @@
 				985871532A442F3C00066B2E /* Screens */,
 				9858714D2A4330DA00066B2E /* Cache */,
 				98CE2A1D2A3C83E700554B7A /* Extentions */,
-				98F283532A3B7C040008A526 /* Protocols */,
 				98F2834B2A359C580008A526 /* Models */,
 				985871512A439C3600066B2E /* SupportingFiles */,
 			);
@@ -455,18 +470,9 @@
 			isa = PBXGroup;
 			children = (
 				98F2834C2A359C7C0008A526 /* TodoItem.swift */,
-				985871472A3D499D00066B2E /* TodoItem.CsvParser.swift */,
 				98422CD52A588AE900087EC9 /* TodoList.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		98F283532A3B7C040008A526 /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				98CE2A1B2A3C7FB800554B7A /* CsvParser.swift */,
-			);
-			path = Protocols;
 			sourceTree = "<group>";
 		};
 		98F94A1A2A4CE6DD00B72704 /* Views */ = {
@@ -673,7 +679,6 @@
 				98F94A2C2A4DF12100B72704 /* TodoList.TableView.swift in Sources */,
 				98422CBB2A57EFE400087EC9 /* NetworkClient.Imp.swift in Sources */,
 				987D4E6B2A4B01F400E9507D /* TodoItem.ViewController.swift in Sources */,
-				985871482A3D499D00066B2E /* TodoItem.CsvParser.swift in Sources */,
 				98422CB92A57EED700087EC9 /* NetworkClient.swift in Sources */,
 				98F2831C2A350E650008A526 /* AppDelegate.swift in Sources */,
 				98F94A102A4C10BF00B72704 /* TodoItem.PriorityStackView.swift in Sources */,
@@ -681,15 +686,18 @@
 				987D4E6F2A4B534500E9507D /* TodoItem.DescriptionView.swift in Sources */,
 				98422CC22A5810CC00087EC9 /* NetworkService.swift in Sources */,
 				98F283562A3B7E060008A526 /* DataCashe.swift in Sources */,
+				983A5A312A5C529A00A7876D /* CsvSeparator.swift in Sources */,
 				98422CB02A57E47C00087EC9 /* TodoList.Response.swift in Sources */,
 				987D4E692A4ABE2F00E9507D /* TodoItem.ScrollView.swift in Sources */,
 				98422CB42A57E66800087EC9 /* HttpResponse.Errors.swift in Sources */,
 				98422CD62A588AE900087EC9 /* TodoList.swift in Sources */,
+				983A5A2F2A5C524500A7876D /* CsvSerializable.swift in Sources */,
 				98422CCB2A58583500087EC9 /* Configuration.Helper.swift in Sources */,
 				98422CDA2A58B26E00087EC9 /* DataCache.Imp.swift in Sources */,
 				9858715B2A444D9800066B2E /* Constants.swift in Sources */,
 				98F2834D2A359C7C0008A526 /* TodoItem.swift in Sources */,
 				98F94A282A4DBE3200B72704 /* TodoList.ViewModel.swift in Sources */,
+				983A5A352A5C548800A7876D /* CsvSerializator.swift in Sources */,
 				98422CB62A57ECFB00087EC9 /* HttpRequest.swift in Sources */,
 				98F94A122A4C38F400B72704 /* TodoItem.DeadlineStackView.swift in Sources */,
 				983A5A272A5C253C00A7876D /* JsonSerializable.swift in Sources */,
@@ -699,7 +707,6 @@
 				983A5A2B2A5C494900A7876D /* JsonSerializator.swift in Sources */,
 				98F94A2E2A4EAC4500B72704 /* TodoList.TableViewHeader.swift in Sources */,
 				98CE2A212A3C9A8900554B7A /* StringExt.swift in Sources */,
-				98CE2A1C2A3C7FB800554B7A /* CsvParser.swift in Sources */,
 				983A5A292A5C2AEA00A7876D /* JsonSerializator.TodoItem.swift in Sources */,
 				98F283522A3B77BF0008A526 /* FileCache.swift in Sources */,
 				98422CC72A5822EB00087EC9 /* NetworkDtoMapping.Errors.swift in Sources */,
@@ -711,6 +718,7 @@
 				98422CBD2A57F3A100087EC9 /* HttpRequest.Error.swift in Sources */,
 				98F94A1C2A4D228800B72704 /* TodoItem.DeadlineDatePickerView.swift in Sources */,
 				98422CA42A5759E700087EC9 /* URLSession.Errors.swift in Sources */,
+				983A5A332A5C542100A7876D /* CsvSerializator.TodoItem.swift in Sources */,
 				98422CE12A58F72F00087EC9 /* TodoItem.Request.swift in Sources */,
 				98F2831E2A350E650008A526 /* SceneDelegate.swift in Sources */,
 				98422CD42A58738C00087EC9 /* TodoList.Request.swift in Sources */,

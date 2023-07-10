@@ -1,5 +1,5 @@
 //
-//  JsonSerializationStrategy.swift
+//  JsonSerializator.TodoItem.swift
 //  TaskMasterio
 //
 //  Created by Aynur Nasybullin on 10.07.2023.
@@ -59,13 +59,15 @@ final class TodoItemJsonSerializator: JsonSerializator {
     }
     
     static private func getPriority(data: [String: Any]) -> Priority? {
-        if data[TodoItem.Keys.priority] == nil { return .medium }
-        else {
+        if data[TodoItem.Keys.priority] == nil {
+            return .medium
+        } else {
             if let priorityData = data[TodoItem.Keys.priority] as? String {
                 guard let priorityValue = Priority.init(rawValue: priorityData) else { return nil }
                 return priorityValue
+            } else {
+                return nil
             }
-            else { return nil }
         }
     }
     

@@ -72,7 +72,7 @@ extension FileCache: DataCache {
     }
     
     private func getTasksCsv() -> String {
-        let headers = TodoItem.getHeaders().appending(CsvSeparator.newLine.rawValue)
+        let headers = TodoItemCsvSerializator.getHeaders().appending(CsvSeparator.newLine.rawValue)
         let data = tasks.map({ $0.csv.appending(CsvSeparator.newLine.rawValue) })
         
         return headers + data.joined()
@@ -138,7 +138,7 @@ extension FileCache: DataCache {
         let rows = csvData.split(separator: Character(CsvSeparator.newLine.rawValue)).map({ String($0) })
         if rows.isEmpty { return }
         
-        let startRow = rows[0] == TodoItem.getHeaders() ? 1 : 0
+        let startRow = rows[0] == TodoItemCsvSerializator.getHeaders() ? 1 : 0
         var parsingErrorsCount = 0
         clearTasks()
         
