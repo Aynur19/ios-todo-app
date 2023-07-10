@@ -62,5 +62,3 @@ extension TodoItem: CsvSerializable {
         return TodoItemCsvSerializator.deserialize(data: csv)
     }
 }
-
-

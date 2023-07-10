@@ -15,6 +15,7 @@
 		983A5A332A5C542100A7876D /* CsvSerializator.TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983A5A322A5C542100A7876D /* CsvSerializator.TodoItem.swift */; };
 		983A5A352A5C548800A7876D /* CsvSerializator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983A5A342A5C548800A7876D /* CsvSerializator.swift */; };
 		983A5A3A2A5C60BF00A7876D /* TodoItem.Priority.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983A5A392A5C60BF00A7876D /* TodoItem.Priority.swift */; };
+		983A5A3C2A5C776000A7876D /* JsonSerializator.TodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983A5A3B2A5C776000A7876D /* JsonSerializator.TodoList.swift */; };
 		98422CA42A5759E700087EC9 /* URLSession.Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98422CA32A5759E700087EC9 /* URLSession.Errors.swift */; };
 		98422CA82A57E27900087EC9 /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98422CA72A57E27900087EC9 /* HttpMethod.swift */; };
 		98422CAB2A57E32C00087EC9 /* TodoItem.NetworkDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98422CAA2A57E32C00087EC9 /* TodoItem.NetworkDto.swift */; };
@@ -108,6 +109,7 @@
 		983A5A322A5C542100A7876D /* CsvSerializator.TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CsvSerializator.TodoItem.swift; sourceTree = "<group>"; };
 		983A5A342A5C548800A7876D /* CsvSerializator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CsvSerializator.swift; sourceTree = "<group>"; };
 		983A5A392A5C60BF00A7876D /* TodoItem.Priority.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.Priority.swift; sourceTree = "<group>"; };
+		983A5A3B2A5C776000A7876D /* JsonSerializator.TodoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonSerializator.TodoList.swift; sourceTree = "<group>"; };
 		98422CA32A5759E700087EC9 /* URLSession.Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.Errors.swift; sourceTree = "<group>"; };
 		98422CA72A57E27900087EC9 /* HttpMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
 		98422CAA2A57E32C00087EC9 /* TodoItem.NetworkDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.NetworkDto.swift; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 				983A5A262A5C253C00A7876D /* JsonSerializable.swift */,
 				983A5A2A2A5C494900A7876D /* JsonSerializator.swift */,
 				983A5A282A5C2AEA00A7876D /* JsonSerializator.TodoItem.swift */,
+				983A5A3B2A5C776000A7876D /* JsonSerializator.TodoList.swift */,
 			);
 			path = JSON;
 			sourceTree = "<group>";
@@ -239,6 +242,7 @@
 			children = (
 				98F2834C2A359C7C0008A526 /* TodoItem.swift */,
 				983A5A392A5C60BF00A7876D /* TodoItem.Priority.swift */,
+				98422CD52A588AE900087EC9 /* TodoList.swift */,
 			);
 			path = Domains;
 			sourceTree = "<group>";
@@ -481,7 +485,6 @@
 		98F2834B2A359C580008A526 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				98422CD52A588AE900087EC9 /* TodoList.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -706,6 +709,7 @@
 				98422CCB2A58583500087EC9 /* Configuration.Helper.swift in Sources */,
 				98422CDA2A58B26E00087EC9 /* DataCache.Imp.swift in Sources */,
 				9858715B2A444D9800066B2E /* Constants.swift in Sources */,
+				983A5A3C2A5C776000A7876D /* JsonSerializator.TodoList.swift in Sources */,
 				98F2834D2A359C7C0008A526 /* TodoItem.swift in Sources */,
 				98F94A282A4DBE3200B72704 /* TodoList.ViewModel.swift in Sources */,
 				983A5A352A5C548800A7876D /* CsvSerializator.swift in Sources */,
