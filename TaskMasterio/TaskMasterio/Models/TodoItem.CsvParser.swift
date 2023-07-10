@@ -8,7 +8,7 @@
 import Foundation
 
 extension TodoItem: CsvParser {
-    static var separator: CsvSeparator = .semicolon
+    static var csvSeparator: CsvSeparator = .semicolon
     
     var csv: String {
         var fields = [String]()
@@ -17,19 +17,28 @@ extension TodoItem: CsvParser {
         fields.append(id.quote())
         fields.append(text.quote())
         
-        if priority != .medium { fields.append(priority.rawValue) }
-        else { fields.append(empty) }
+        if priority != .medium {
+            fields.append(priority.rawValue)
+        } else {
+            fields.append(empty)
+        }
         
-        if let deadlineTime = deadline?.datetime { fields.append(String(deadlineTime)) }
-        else { fields.append(empty) }
+        if let deadlineTime = deadline?.datetime {
+            fields.append(String(deadlineTime))
+        } else {
+            fields.append(empty)
+        }
         
         fields.append(String(isDone))
         fields.append(String(createdOn.datetime))
         
-        if let updatedOnTime = updatedOn?.datetime { fields.append(String(updatedOnTime)) }
-        else { fields.append(empty) }
+        if let updatedOnTime = updatedOn?.datetime {
+            fields.append(String(updatedOnTime))
+        } else {
+            fields.append(empty)
+        }
         
-        return fields.joined(separator: Self.separator.rawValue).appending(Self.separator.rawValue)
+        return fields.joined(separator: TodoItem.csvSeparator.rawValue).appending(TodoItem.csvSeparator.rawValue)
     }
     
     static func parse(csv: String) -> TodoItem? {

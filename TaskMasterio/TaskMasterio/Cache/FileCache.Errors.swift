@@ -56,7 +56,6 @@ enum FileCacheError: LocalizedError {
         case .folderCreatingFailed(let path, let error):
             return "Error creating a directory in the file system along the path: \(path) \nERROR: \(error.localizedDescription)"
             
-            
         // saving errors
         case .jsonWritingToFileFailed(let path, let error):
             return "Error writing JSON data to file path: \(path) \nERROR: \(error.localizedDescription)"
