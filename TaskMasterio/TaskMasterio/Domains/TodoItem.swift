@@ -7,54 +7,12 @@
 
 import Foundation
 
-enum Priority: String {
-    case high
-    case medium
-    case low
-    
-    var index: Int {
-        switch self {
-        case .low: return 0
-        case .medium: return 1
-        case .high: return 2
-        }
-    }
-    
-    var networkValue: String {
-        switch self {
-        case .low: return "low"
-        case .medium: return "basic"
-        case .high: return "important"
-        }
-    }
-    
-    static func getPriority(_ priorityValue: Int?) -> Priority? {
-        guard let value = priorityValue else { return nil }
-        
-        switch value {
-        case 0: return Priority.low
-        case 1: return Priority.medium
-        case 2: return Priority.high
-        default: return nil
-        }
-    }
-    
-    static func getPriority(networkValue: String) -> Priority? {
-        switch networkValue {
-        case "low": return .low
-        case "basic": return .medium
-        case "important": return .high
-        default: return nil
-        }
-    }
-}
-
 struct TodoItem {
     static let idLenght = 36
     
     let id: String
     let text: String
-    let priority: Priority
+    let priority: TodoItemPriority
     let deadline: Date?
     let isDone: Bool
     let createdOn: Date
@@ -63,7 +21,7 @@ struct TodoItem {
     init(
         id: String = UUID().uuidString,
         text: String,
-        priority: Priority,
+        priority: TodoItemPriority,
         deadline: Date? = nil,
         isDone: Bool = false,
         createdOn: Date = Date(),
@@ -104,3 +62,5 @@ extension TodoItem: CsvSerializable {
         return TodoItemCsvSerializator.deserialize(data: csv)
     }
 }
+
+

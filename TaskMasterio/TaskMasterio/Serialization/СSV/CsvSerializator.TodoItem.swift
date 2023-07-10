@@ -84,9 +84,9 @@ final class TodoItemCsvSerializator: CsvSerializator {
         return id
     }
     
-    static func getPriority(data: String?) -> Priority? {
+    static func getPriority(data: String?) -> TodoItemPriority? {
         if let priorityData = data, !priorityData.isEmpty {
-            guard let priorityValue = Priority.init(rawValue: priorityData) else { return nil }
+            guard let priorityValue = TodoItemPriority.init(rawValue: priorityData) else { return nil }
             return priorityValue
         }
         

@@ -56,7 +56,7 @@ struct TodoItemNetworkDto: Codable {
     }
     
     func toTodoItem() throws -> TodoItem {
-        guard let priority = Priority.getPriority(networkValue: priority) else {
+        guard let priority = TodoItemPriority.getPriority(networkValue: priority) else {
             throw NetworkDtoMapping.failedMappingToTodoItem(todoItemNetworkDto: self)
         }
         

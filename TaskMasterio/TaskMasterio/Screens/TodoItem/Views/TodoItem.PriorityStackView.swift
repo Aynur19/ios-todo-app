@@ -66,9 +66,9 @@ final class TodoItemPriorityStackView: UIStackView {
     
     private lazy var prioritySegmentedControl: UISegmentedControl = {
         let segmentedControl = UISegmentedControl()
-        let low = UIImage(named: Priority.low.rawValue)?
+        let low = UIImage(named: TodoItemPriority.low.rawValue)?
             .withTintColor(UIColor(named: AccentColors.colorGrey) ?? .gray, renderingMode: .alwaysOriginal)
-        let high = UIImage(named: Priority.high.rawValue)?
+        let high = UIImage(named: TodoItemPriority.high.rawValue)?
             .withTintColor(UIColor(named: AccentColors.colorRed) ?? .red, renderingMode: .alwaysOriginal)
         
         segmentedControl.insertSegment(with: low, at: 0, animated: false)
@@ -85,7 +85,7 @@ final class TodoItemPriorityStackView: UIStackView {
         
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         
-        segmentedControl.selectedSegmentIndex = viewModel?.priority.index ?? Priority.medium.index
+        segmentedControl.selectedSegmentIndex = viewModel?.priority.index ?? TodoItemPriority.medium.index
         
         segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged(_:)), for: .valueChanged)
         

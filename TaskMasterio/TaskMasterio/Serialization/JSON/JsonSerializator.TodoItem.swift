@@ -58,12 +58,12 @@ final class TodoItemJsonSerializator: JsonSerializator {
                         isDone: dictIsDone, createdOn: createdOnValue, updatedOn: updatedOnValue)
     }
     
-    static private func getPriority(data: [String: Any]) -> Priority? {
+    static private func getPriority(data: [String: Any]) -> TodoItemPriority? {
         if data[TodoItem.Keys.priority] == nil {
             return .medium
         } else {
             if let priorityData = data[TodoItem.Keys.priority] as? String {
-                guard let priorityValue = Priority.init(rawValue: priorityData) else { return nil }
+                guard let priorityValue = TodoItemPriority.init(rawValue: priorityData) else { return nil }
                 return priorityValue
             } else {
                 return nil

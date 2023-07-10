@@ -23,7 +23,7 @@ final class TodoItemViewModel: ObservableObject {
     
     @Published var description: String
     @Published var deadline: Date?
-    @Published var priority: Priority
+    @Published var priority: TodoItemPriority
     @Published var isDone: Bool
     @Published var calendarIsHidden = true
     @Published var itemExists: Bool
@@ -120,7 +120,7 @@ final class TodoItemViewModel: ObservableObject {
     }
     
     func updatePriority(priorityIndex: Int) {
-        priority = Priority.getPriority(priorityIndex) ?? .medium
+        priority = TodoItemPriority.getPriority(priorityIndex) ?? .medium
     }
     
     func changeItemCompletion() {

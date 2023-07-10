@@ -9,7 +9,7 @@ import Foundation
 
 struct TodoItemMapper {
     static func mapToTodoItem(from dto: TodoItemNetworkDto) throws -> TodoItem {
-        guard let priority = Priority.getPriority(networkValue: dto.priority) else {
+        guard let priority = TodoItemPriority.getPriority(networkValue: dto.priority) else {
             throw NetworkDtoMapping.failedMappingToTodoItem(todoItemNetworkDto: dto)
         }
         
