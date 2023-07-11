@@ -1,5 +1,5 @@
 //
-//  TodoItem.CsvTests.swift
+//  TodoItemTests.CsvSerialization.swift
 //  TaskMasterioTests
 //
 //  Created by Aynur Nasybullin on 17.06.2023.
@@ -8,15 +8,7 @@
 import XCTest
 @testable import TaskMasterio
 
-final class TodoItemCsvTests: XCTestCase {
-    override func setUpWithError() throws {
-        try super.setUpWithError()
-    }
-    
-    override func tearDownWithError() throws {
-        try super.tearDownWithError()
-    }
-    
+final class TodoItemCsvSerializationTests: XCTestCase {
     // MARK: - Tests csv -> String
     func test_Csv_DeadlineAndUpdatedOn_IsNil() throws {
         for data in TestsData.deadlineAndUpdatedOnIsNil {

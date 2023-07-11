@@ -1,5 +1,5 @@
 //
-//  TodoItem.JsonTests.swift
+//  TodoItemTests.JsonSerialization.swift
 //  TaskMasterioTests
 //
 //  Created by Aynur Nasybullin on 16.06.2023.
@@ -8,14 +8,7 @@
 import XCTest
 @testable import TaskMasterio
 
-final class TodoItemJsonTests: XCTestCase {
-    override func setUpWithError() throws {
-        try super.setUpWithError()
-    }
-    
-    override func tearDownWithError() throws {
-        try super.tearDownWithError()
-    }
+final class TodoItemJsonSerializationTests: XCTestCase {
     
     // MARK: - Tests json -> Any
     func test_Json_IdGenerated_DeadlineAndUpdatedOn_IsNil() throws {

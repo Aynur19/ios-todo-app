@@ -16,6 +16,8 @@
 		983A5A352A5C548800A7876D /* CsvSerializator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983A5A342A5C548800A7876D /* CsvSerializator.swift */; };
 		983A5A3A2A5C60BF00A7876D /* TodoItem.Priority.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983A5A392A5C60BF00A7876D /* TodoItem.Priority.swift */; };
 		983A5A3C2A5C776000A7876D /* JsonSerializator.TodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983A5A3B2A5C776000A7876D /* JsonSerializator.TodoList.swift */; };
+		983A5A3F2A5C7CD700A7876D /* DataCachable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983A5A3E2A5C7CD700A7876D /* DataCachable.swift */; };
+		983A5A412A5C813800A7876D /* JsonCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983A5A402A5C813800A7876D /* JsonCache.swift */; };
 		98422CA42A5759E700087EC9 /* URLSession.Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98422CA32A5759E700087EC9 /* URLSession.Errors.swift */; };
 		98422CA82A57E27900087EC9 /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98422CA72A57E27900087EC9 /* HttpMethod.swift */; };
 		98422CAB2A57E32C00087EC9 /* TodoItem.NetworkDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98422CAA2A57E32C00087EC9 /* TodoItem.NetworkDto.swift */; };
@@ -43,7 +45,7 @@
 		984687DA2A55559F004C76C3 /* CocoaLumberjackSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 984687D92A55559F004C76C3 /* CocoaLumberjackSwift */; };
 		984687DC2A55559F004C76C3 /* CocoaLumberjackSwiftLogBackend in Frameworks */ = {isa = PBXBuildFile; productRef = 984687DB2A55559F004C76C3 /* CocoaLumberjackSwiftLogBackend */; };
 		984687DF2A55802E004C76C3 /* URLSession.Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984687DE2A55802E004C76C3 /* URLSession.Ext.swift */; };
-		9858714A2A3D4CB200066B2E /* TodoItem.CsvTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985871492A3D4CB200066B2E /* TodoItem.CsvTests.swift */; };
+		9858714A2A3D4CB200066B2E /* TodoItemTests.CsvSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985871492A3D4CB200066B2E /* TodoItemTests.CsvSerialization.swift */; };
 		9858714F2A43311F00066B2E /* FileCache.Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9858714E2A43311F00066B2E /* FileCache.Errors.swift */; };
 		9858715B2A444D9800066B2E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9858715A2A444D9800066B2E /* Constants.swift */; };
 		9858715D2A44557700066B2E /* NSLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9858715C2A44557700066B2E /* NSLayoutConstraint.swift */; };
@@ -51,7 +53,7 @@
 		987D4E6B2A4B01F400E9507D /* TodoItem.ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D4E6A2A4B01F400E9507D /* TodoItem.ViewController.swift */; };
 		987D4E6D2A4B471300E9507D /* TodoItem.DetailsStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D4E6C2A4B471300E9507D /* TodoItem.DetailsStackView.swift */; };
 		987D4E6F2A4B534500E9507D /* TodoItem.DescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D4E6E2A4B534500E9507D /* TodoItem.DescriptionView.swift */; };
-		98BE0E832A3CE3DC00EE3B7C /* TodoItem.JsonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BE0E822A3CE3DC00EE3B7C /* TodoItem.JsonTests.swift */; };
+		98BE0E832A3CE3DC00EE3B7C /* TodoItemTests.JsonSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BE0E822A3CE3DC00EE3B7C /* TodoItemTests.JsonSerialization.swift */; };
 		98CE2A1F2A3C83F900554B7A /* DateExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CE2A1E2A3C83F900554B7A /* DateExt.swift */; };
 		98CE2A212A3C9A8900554B7A /* StringExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CE2A202A3C9A8900554B7A /* StringExt.swift */; };
 		98F2831C2A350E650008A526 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2831B2A350E650008A526 /* AppDelegate.swift */; };
@@ -61,7 +63,7 @@
 		98F2833D2A350E6C0008A526 /* TaskMasterioUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2833C2A350E6C0008A526 /* TaskMasterioUITests.swift */; };
 		98F2833F2A350E6C0008A526 /* TaskMasterioUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2833E2A350E6C0008A526 /* TaskMasterioUITestsLaunchTests.swift */; };
 		98F2834D2A359C7C0008A526 /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2834C2A359C7C0008A526 /* TodoItem.swift */; };
-		98F2834F2A35AA610008A526 /* TodoItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2834E2A35AA610008A526 /* TodoItemTests.swift */; };
+		98F2834F2A35AA610008A526 /* TodoItemTests.Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2834E2A35AA610008A526 /* TodoItemTests.Init.swift */; };
 		98F283522A3B77BF0008A526 /* FileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F283512A3B77BF0008A526 /* FileCache.swift */; };
 		98F283562A3B7E060008A526 /* DataCashe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F283552A3B7E060008A526 /* DataCashe.swift */; };
 		98F283582A3B82B90008A526 /* FileCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F283572A3B82B90008A526 /* FileCacheTests.swift */; };
@@ -110,6 +112,8 @@
 		983A5A342A5C548800A7876D /* CsvSerializator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CsvSerializator.swift; sourceTree = "<group>"; };
 		983A5A392A5C60BF00A7876D /* TodoItem.Priority.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.Priority.swift; sourceTree = "<group>"; };
 		983A5A3B2A5C776000A7876D /* JsonSerializator.TodoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonSerializator.TodoList.swift; sourceTree = "<group>"; };
+		983A5A3E2A5C7CD700A7876D /* DataCachable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCachable.swift; sourceTree = "<group>"; };
+		983A5A402A5C813800A7876D /* JsonCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonCache.swift; sourceTree = "<group>"; };
 		98422CA32A5759E700087EC9 /* URLSession.Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.Errors.swift; sourceTree = "<group>"; };
 		98422CA72A57E27900087EC9 /* HttpMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
 		98422CAA2A57E32C00087EC9 /* TodoItem.NetworkDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.NetworkDto.swift; sourceTree = "<group>"; };
@@ -134,7 +138,7 @@
 		984687D22A554EF0004C76C3 /* JsonParseTestsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonParseTestsData.swift; sourceTree = "<group>"; };
 		984687D42A555252004C76C3 /* CsvParseTestsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CsvParseTestsData.swift; sourceTree = "<group>"; };
 		984687DE2A55802E004C76C3 /* URLSession.Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.Ext.swift; sourceTree = "<group>"; };
-		985871492A3D4CB200066B2E /* TodoItem.CsvTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.CsvTests.swift; sourceTree = "<group>"; };
+		985871492A3D4CB200066B2E /* TodoItemTests.CsvSerialization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemTests.CsvSerialization.swift; sourceTree = "<group>"; };
 		9858714E2A43311F00066B2E /* FileCache.Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCache.Errors.swift; sourceTree = "<group>"; };
 		9858715A2A444D9800066B2E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		9858715C2A44557700066B2E /* NSLayoutConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraint.swift; sourceTree = "<group>"; };
@@ -142,7 +146,7 @@
 		987D4E6A2A4B01F400E9507D /* TodoItem.ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.ViewController.swift; sourceTree = "<group>"; };
 		987D4E6C2A4B471300E9507D /* TodoItem.DetailsStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.DetailsStackView.swift; sourceTree = "<group>"; };
 		987D4E6E2A4B534500E9507D /* TodoItem.DescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.DescriptionView.swift; sourceTree = "<group>"; };
-		98BE0E822A3CE3DC00EE3B7C /* TodoItem.JsonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.JsonTests.swift; sourceTree = "<group>"; };
+		98BE0E822A3CE3DC00EE3B7C /* TodoItemTests.JsonSerialization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemTests.JsonSerialization.swift; sourceTree = "<group>"; };
 		98CE2A1E2A3C83F900554B7A /* DateExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExt.swift; sourceTree = "<group>"; };
 		98CE2A202A3C9A8900554B7A /* StringExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExt.swift; sourceTree = "<group>"; };
 		98F283182A350E650008A526 /* TaskMasterio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaskMasterio.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -156,7 +160,7 @@
 		98F2833C2A350E6C0008A526 /* TaskMasterioUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskMasterioUITests.swift; sourceTree = "<group>"; };
 		98F2833E2A350E6C0008A526 /* TaskMasterioUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskMasterioUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		98F2834C2A359C7C0008A526 /* TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
-		98F2834E2A35AA610008A526 /* TodoItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemTests.swift; sourceTree = "<group>"; };
+		98F2834E2A35AA610008A526 /* TodoItemTests.Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemTests.Init.swift; sourceTree = "<group>"; };
 		98F283512A3B77BF0008A526 /* FileCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCache.swift; sourceTree = "<group>"; };
 		98F283552A3B7E060008A526 /* DataCashe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCashe.swift; sourceTree = "<group>"; };
 		98F283572A3B82B90008A526 /* FileCacheTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCacheTests.swift; sourceTree = "<group>"; };
@@ -245,6 +249,15 @@
 				98422CD52A588AE900087EC9 /* TodoList.swift */,
 			);
 			path = Domains;
+			sourceTree = "<group>";
+		};
+		983A5A3D2A5C7B9D00A7876D /* Data Cache (App FS) */ = {
+			isa = PBXGroup;
+			children = (
+				983A5A3E2A5C7CD700A7876D /* DataCachable.swift */,
+				983A5A402A5C813800A7876D /* JsonCache.swift */,
+			);
+			path = "Data Cache (App FS)";
 			sourceTree = "<group>";
 		};
 		98422CA92A57E2EE00087EC9 /* NetworkDTOs */ = {
@@ -447,6 +460,7 @@
 			children = (
 				983A5A382A5C60AA00A7876D /* Domains */,
 				983A5A252A5C247100A7876D /* Serialization */,
+				983A5A3D2A5C7B9D00A7876D /* Data Cache (App FS) */,
 				98422CC92A58581E00087EC9 /* Utilites */,
 				984687DD2A557FB0004C76C3 /* Networking */,
 				985871502A439C1100066B2E /* Application */,
@@ -462,10 +476,10 @@
 		98F283312A350E6C0008A526 /* TaskMasterioTests */ = {
 			isa = PBXGroup;
 			children = (
-				98F2834E2A35AA610008A526 /* TodoItemTests.swift */,
+				98F2834E2A35AA610008A526 /* TodoItemTests.Init.swift */,
+				98BE0E822A3CE3DC00EE3B7C /* TodoItemTests.JsonSerialization.swift */,
+				985871492A3D4CB200066B2E /* TodoItemTests.CsvSerialization.swift */,
 				98F283572A3B82B90008A526 /* FileCacheTests.swift */,
-				98BE0E822A3CE3DC00EE3B7C /* TodoItem.JsonTests.swift */,
-				985871492A3D4CB200066B2E /* TodoItem.CsvTests.swift */,
 				98F283592A3B862E0008A526 /* TestsData.swift */,
 				984687D22A554EF0004C76C3 /* JsonParseTestsData.swift */,
 				984687D42A555252004C76C3 /* CsvParseTestsData.swift */,
@@ -731,6 +745,7 @@
 				98F94A262A4DBC5700B72704 /* TodoList.ViewController.swift in Sources */,
 				984687DF2A55802E004C76C3 /* URLSession.Ext.swift in Sources */,
 				98422CBD2A57F3A100087EC9 /* HttpRequest.Error.swift in Sources */,
+				983A5A3F2A5C7CD700A7876D /* DataCachable.swift in Sources */,
 				98F94A1C2A4D228800B72704 /* TodoItem.DeadlineDatePickerView.swift in Sources */,
 				98422CA42A5759E700087EC9 /* URLSession.Errors.swift in Sources */,
 				983A5A332A5C542100A7876D /* CsvSerializator.TodoItem.swift in Sources */,
@@ -745,6 +760,7 @@
 				98422CB22A57E53D00087EC9 /* TodoItem.Response.swift in Sources */,
 				98F94A352A4FBF3300B72704 /* TodoList.TableViewCell.Last.swift in Sources */,
 				983A5A3A2A5C60BF00A7876D /* TodoItem.Priority.swift in Sources */,
+				983A5A412A5C813800A7876D /* JsonCache.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -752,10 +768,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				98F2834F2A35AA610008A526 /* TodoItemTests.swift in Sources */,
+				98F2834F2A35AA610008A526 /* TodoItemTests.Init.swift in Sources */,
 				984687D32A554EF0004C76C3 /* JsonParseTestsData.swift in Sources */,
-				98BE0E832A3CE3DC00EE3B7C /* TodoItem.JsonTests.swift in Sources */,
-				9858714A2A3D4CB200066B2E /* TodoItem.CsvTests.swift in Sources */,
+				98BE0E832A3CE3DC00EE3B7C /* TodoItemTests.JsonSerialization.swift in Sources */,
+				9858714A2A3D4CB200066B2E /* TodoItemTests.CsvSerialization.swift in Sources */,
 				98F283582A3B82B90008A526 /* FileCacheTests.swift in Sources */,
 				984687D52A555252004C76C3 /* CsvParseTestsData.swift in Sources */,
 				98F2835A2A3B862E0008A526 /* TestsData.swift in Sources */,

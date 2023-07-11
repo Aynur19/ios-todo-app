@@ -8,8 +8,6 @@
 import Foundation
 
 struct TodoItem {
-    static let idLenght = 36
-    
     let id: String
     let text: String
     let priority: TodoItemPriority

@@ -1,5 +1,5 @@
 //
-//  TodoItemTests.swift
+//  TodoItemTests.Init.swift
 //  TaskMasterioTests
 //
 //  Created by Aynur Nasybullin on 11.06.2023.
@@ -8,7 +8,7 @@
 import XCTest
 @testable import TaskMasterio
 
-final class TodoItemTests: XCTestCase {
+final class TodoItemTestsInit: XCTestCase {
     // MARK: - Tests init()
     func test_Init_IdGenerated() throws {
         for data in TestsData.forInit {
