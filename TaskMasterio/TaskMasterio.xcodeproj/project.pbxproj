@@ -260,6 +260,16 @@
 			path = "Data Cache (App FS)";
 			sourceTree = "<group>";
 		};
+		983A5A442A5D7E6400A7876D /* TodoItemTests */ = {
+			isa = PBXGroup;
+			children = (
+				98F2834E2A35AA610008A526 /* TodoItemTests.Init.swift */,
+				98BE0E822A3CE3DC00EE3B7C /* TodoItemTests.JsonSerialization.swift */,
+				985871492A3D4CB200066B2E /* TodoItemTests.CsvSerialization.swift */,
+			);
+			path = TodoItemTests;
+			sourceTree = "<group>";
+		};
 		98422CA92A57E2EE00087EC9 /* NetworkDTOs */ = {
 			isa = PBXGroup;
 			children = (
@@ -476,9 +486,7 @@
 		98F283312A350E6C0008A526 /* TaskMasterioTests */ = {
 			isa = PBXGroup;
 			children = (
-				98F2834E2A35AA610008A526 /* TodoItemTests.Init.swift */,
-				98BE0E822A3CE3DC00EE3B7C /* TodoItemTests.JsonSerialization.swift */,
-				985871492A3D4CB200066B2E /* TodoItemTests.CsvSerialization.swift */,
+				983A5A442A5D7E6400A7876D /* TodoItemTests */,
 				98F283572A3B82B90008A526 /* FileCacheTests.swift */,
 				98F283592A3B862E0008A526 /* TestsData.swift */,
 				984687D22A554EF0004C76C3 /* JsonParseTestsData.swift */,
