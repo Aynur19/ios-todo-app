@@ -20,6 +20,7 @@
 		983A5A412A5C813800A7876D /* JsonCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983A5A402A5C813800A7876D /* JsonCache.swift */; };
 		983A5A472A5D7EB100A7876D /* JsonCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983A5A462A5D7EB100A7876D /* JsonCacheTests.swift */; };
 		983A5A492A5D7EDC00A7876D /* JsonCacheTests.Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983A5A482A5D7EDC00A7876D /* JsonCacheTests.Data.swift */; };
+		983A5A4E2A5EF7F300A7876D /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 983A5A4D2A5EF7F300A7876D /* SQLite */; };
 		98422CA42A5759E700087EC9 /* URLSession.Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98422CA32A5759E700087EC9 /* URLSession.Errors.swift */; };
 		98422CA82A57E27900087EC9 /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98422CA72A57E27900087EC9 /* HttpMethod.swift */; };
 		98422CAB2A57E32C00087EC9 /* TodoItem.NetworkDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98422CAA2A57E32C00087EC9 /* TodoItem.NetworkDto.swift */; };
@@ -185,6 +186,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				983A5A4E2A5EF7F300A7876D /* SQLite in Frameworks */,
 				98F94A3D2A4FD4A400B72704 /* CocoaLumberjackSwift in Frameworks */,
 				98F94A3F2A4FD4A400B72704 /* CocoaLumberjackSwiftLogBackend in Frameworks */,
 				98F94A3B2A4FD4A400B72704 /* CocoaLumberjack in Frameworks */,
@@ -484,7 +486,6 @@
 				985871532A442F3C00066B2E /* Screens */,
 				9858714D2A4330DA00066B2E /* Cache */,
 				98CE2A1D2A3C83E700554B7A /* Extentions */,
-				98F2834B2A359C580008A526 /* Models */,
 				985871512A439C3600066B2E /* SupportingFiles */,
 			);
 			path = TaskMasterio;
@@ -510,13 +511,6 @@
 				98F2833E2A350E6C0008A526 /* TaskMasterioUITestsLaunchTests.swift */,
 			);
 			path = TaskMasterioUITests;
-			sourceTree = "<group>";
-		};
-		98F2834B2A359C580008A526 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		98F94A1A2A4CE6DD00B72704 /* Views */ = {
@@ -575,6 +569,7 @@
 				98F94A3A2A4FD4A400B72704 /* CocoaLumberjack */,
 				98F94A3C2A4FD4A400B72704 /* CocoaLumberjackSwift */,
 				98F94A3E2A4FD4A400B72704 /* CocoaLumberjackSwiftLogBackend */,
+				983A5A4D2A5EF7F300A7876D /* SQLite */,
 			);
 			productName = TaskMasterio;
 			productReference = 98F283182A350E650008A526 /* TaskMasterio.app */;
@@ -652,6 +647,7 @@
 			mainGroup = 98F2830F2A350E640008A526;
 			packageReferences = (
 				98F94A362A4FCE9D00B72704 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
+				983A5A4C2A5EF7F300A7876D /* XCRemoteSwiftPackageReference "SQLite" */,
 			);
 			productRefGroup = 98F283192A350E650008A526 /* Products */;
 			projectDirPath = "";
@@ -1125,6 +1121,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		983A5A4C2A5EF7F300A7876D /* XCRemoteSwiftPackageReference "SQLite" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stephencelis/SQLite.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.2;
+			};
+		};
 		98F94A362A4FCE9D00B72704 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CocoaLumberjack/CocoaLumberjack.git";
@@ -1136,6 +1140,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		983A5A4D2A5EF7F300A7876D /* SQLite */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 983A5A4C2A5EF7F300A7876D /* XCRemoteSwiftPackageReference "SQLite" */;
+			productName = SQLite;
+		};
 		98F94A3A2A4FD4A400B72704 /* CocoaLumberjack */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 98F94A362A4FCE9D00B72704 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
