@@ -21,6 +21,11 @@
 		983A5A472A5D7EB100A7876D /* JsonCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983A5A462A5D7EB100A7876D /* JsonCacheTests.swift */; };
 		983A5A492A5D7EDC00A7876D /* JsonCacheTests.Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983A5A482A5D7EDC00A7876D /* JsonCacheTests.Data.swift */; };
 		983A5A4E2A5EF7F300A7876D /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 983A5A4D2A5EF7F300A7876D /* SQLite */; };
+		983A5A502A5EF89400A7876D /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983A5A4F2A5EF89400A7876D /* DatabaseManager.swift */; };
+		983A5A532A5F157A00A7876D /* DatabaseManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983A5A522A5F157A00A7876D /* DatabaseManagerTests.swift */; };
+		983A5A562A5F2C1A00A7876D /* TodoList.Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983A5A552A5F2C1900A7876D /* TodoList.Table.swift */; };
+		983A5A582A5F2E9B00A7876D /* TodoItem.Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983A5A572A5F2E9B00A7876D /* TodoItem.Table.swift */; };
+		983A5A5A2A5F3C4500A7876D /* SqliteTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983A5A592A5F3C4400A7876D /* SqliteTable.swift */; };
 		98422CA42A5759E700087EC9 /* URLSession.Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98422CA32A5759E700087EC9 /* URLSession.Errors.swift */; };
 		98422CA82A57E27900087EC9 /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98422CA72A57E27900087EC9 /* HttpMethod.swift */; };
 		98422CAB2A57E32C00087EC9 /* TodoItem.NetworkDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98422CAA2A57E32C00087EC9 /* TodoItem.NetworkDto.swift */; };
@@ -116,6 +121,11 @@
 		983A5A402A5C813800A7876D /* JsonCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonCache.swift; sourceTree = "<group>"; };
 		983A5A462A5D7EB100A7876D /* JsonCacheTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonCacheTests.swift; sourceTree = "<group>"; };
 		983A5A482A5D7EDC00A7876D /* JsonCacheTests.Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonCacheTests.Data.swift; sourceTree = "<group>"; };
+		983A5A4F2A5EF89400A7876D /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		983A5A522A5F157A00A7876D /* DatabaseManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManagerTests.swift; sourceTree = "<group>"; };
+		983A5A552A5F2C1900A7876D /* TodoList.Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.Table.swift; sourceTree = "<group>"; };
+		983A5A572A5F2E9B00A7876D /* TodoItem.Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.Table.swift; sourceTree = "<group>"; };
+		983A5A592A5F3C4400A7876D /* SqliteTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SqliteTable.swift; sourceTree = "<group>"; };
 		98422CA32A5759E700087EC9 /* URLSession.Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.Errors.swift; sourceTree = "<group>"; };
 		98422CA72A57E27900087EC9 /* HttpMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
 		98422CAA2A57E32C00087EC9 /* TodoItem.NetworkDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.NetworkDto.swift; sourceTree = "<group>"; };
@@ -275,8 +285,20 @@
 			children = (
 				983A5A462A5D7EB100A7876D /* JsonCacheTests.swift */,
 				983A5A482A5D7EDC00A7876D /* JsonCacheTests.Data.swift */,
+				983A5A522A5F157A00A7876D /* DatabaseManagerTests.swift */,
 			);
 			path = DataCachebleTests;
+			sourceTree = "<group>";
+		};
+		983A5A542A5F2BE100A7876D /* SQLite Database */ = {
+			isa = PBXGroup;
+			children = (
+				983A5A4F2A5EF89400A7876D /* DatabaseManager.swift */,
+				983A5A592A5F3C4400A7876D /* SqliteTable.swift */,
+				983A5A552A5F2C1900A7876D /* TodoList.Table.swift */,
+				983A5A572A5F2E9B00A7876D /* TodoItem.Table.swift */,
+			);
+			path = "SQLite Database";
 			sourceTree = "<group>";
 		};
 		98422CA92A57E2EE00087EC9 /* NetworkDTOs */ = {
@@ -477,6 +499,7 @@
 		98F2831A2A350E650008A526 /* TaskMasterio */ = {
 			isa = PBXGroup;
 			children = (
+				983A5A542A5F2BE100A7876D /* SQLite Database */,
 				983A5A382A5C60AA00A7876D /* Domains */,
 				983A5A252A5C247100A7876D /* Serialization */,
 				983A5A3D2A5C7B9D00A7876D /* Data Cache (App FS) */,
@@ -721,6 +744,7 @@
 				98F94A102A4C10BF00B72704 /* TodoItem.PriorityStackView.swift in Sources */,
 				9858714F2A43311F00066B2E /* FileCache.Errors.swift in Sources */,
 				987D4E6F2A4B534500E9507D /* TodoItem.DescriptionView.swift in Sources */,
+				983A5A502A5EF89400A7876D /* DatabaseManager.swift in Sources */,
 				98422CC22A5810CC00087EC9 /* NetworkService.swift in Sources */,
 				98F283562A3B7E060008A526 /* DataCashe.swift in Sources */,
 				983A5A312A5C529A00A7876D /* CsvSeparator.swift in Sources */,
@@ -734,6 +758,7 @@
 				9858715B2A444D9800066B2E /* Constants.swift in Sources */,
 				983A5A3C2A5C776000A7876D /* JsonSerializator.TodoList.swift in Sources */,
 				98F2834D2A359C7C0008A526 /* TodoItem.swift in Sources */,
+				983A5A5A2A5F3C4500A7876D /* SqliteTable.swift in Sources */,
 				98F94A282A4DBE3200B72704 /* TodoList.ViewModel.swift in Sources */,
 				983A5A352A5C548800A7876D /* CsvSerializator.swift in Sources */,
 				98422CB62A57ECFB00087EC9 /* HttpRequest.swift in Sources */,
@@ -746,12 +771,14 @@
 				98F94A2E2A4EAC4500B72704 /* TodoList.TableViewHeader.swift in Sources */,
 				98CE2A212A3C9A8900554B7A /* StringExt.swift in Sources */,
 				983A5A292A5C2AEA00A7876D /* JsonSerializator.TodoItem.swift in Sources */,
+				983A5A582A5F2E9B00A7876D /* TodoItem.Table.swift in Sources */,
 				98F283522A3B77BF0008A526 /* FileCache.swift in Sources */,
 				98422CC72A5822EB00087EC9 /* NetworkDtoMapping.Errors.swift in Sources */,
 				98F94A1E2A4D820C00B72704 /* TodoItem.RemoveButton.swift in Sources */,
 				98F94A2A2A4DE25000B72704 /* TodoList.TableViewCell.swift in Sources */,
 				98F94A192A4C85D000B72704 /* TodoItem.ViewModel.swift in Sources */,
 				98F94A262A4DBC5700B72704 /* TodoList.ViewController.swift in Sources */,
+				983A5A562A5F2C1A00A7876D /* TodoList.Table.swift in Sources */,
 				984687DF2A55802E004C76C3 /* URLSession.Ext.swift in Sources */,
 				98422CBD2A57F3A100087EC9 /* HttpRequest.Error.swift in Sources */,
 				983A5A3F2A5C7CD700A7876D /* DataCachable.swift in Sources */,
@@ -781,6 +808,7 @@
 				98F2834F2A35AA610008A526 /* TodoItemTests.Init.swift in Sources */,
 				984687D32A554EF0004C76C3 /* JsonParseTestsData.swift in Sources */,
 				98BE0E832A3CE3DC00EE3B7C /* TodoItemTests.JsonSerialization.swift in Sources */,
+				983A5A532A5F157A00A7876D /* DatabaseManagerTests.swift in Sources */,
 				9858714A2A3D4CB200066B2E /* TodoItemTests.CsvSerialization.swift in Sources */,
 				983A5A492A5D7EDC00A7876D /* JsonCacheTests.Data.swift in Sources */,
 				98F283582A3B82B90008A526 /* FileCacheTests.swift in Sources */,

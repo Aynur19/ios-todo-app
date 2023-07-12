@@ -8,18 +8,21 @@
 import Foundation
 
 struct TodoList {
-    var items: [TodoItem]
+    let id: String
     var revision: Int
     var isDirty: Bool
     var lastUpdatedBy: String
     var lastUpdatedOn: Int
+    var items: [TodoItem]
     
-    init(items: [TodoItem] = [TodoItem](),
+    init(id: String = UUID().uuidString,
+         items: [TodoItem] = [TodoItem](),
          revision: Int = 0,
          isDirty: Bool = false,
          lastUpdatedBy: String = "",
          lastUpdatedOn: Int = Date().datetime
     ) {
+        self.id = id
         self.items = items
         self.revision = revision
         self.isDirty = isDirty
@@ -28,6 +31,7 @@ struct TodoList {
     }
     
     enum Keys {
+        static let id = "id"
         static let items = "items"
         static let revision = "revision"
         static let isDirty = "isDirty"
