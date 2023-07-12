@@ -19,7 +19,7 @@ final class JsonCache: DataCachable {
         self.url = url
     }
     
-    func configure(name: String, connectionUrl: URL? = nil) throws {
+    func configure(name: String, connectionUrl: URL? = nil) {
         self.name = name
         self.url = connectionUrl
     }
@@ -42,7 +42,7 @@ final class JsonCache: DataCachable {
                 throw FileCacheError.castingToDictionaryFailed
             }
             
-            context.items.removeAll()
+            clearContext()
             context = newContext
             result = .success(())
         } catch {
@@ -50,6 +50,10 @@ final class JsonCache: DataCachable {
         }
         
         return result
+    }
+    
+    func clearContext() {
+        context.items.removeAll()
     }
     
     func get(by id: String) -> TodoItem? {

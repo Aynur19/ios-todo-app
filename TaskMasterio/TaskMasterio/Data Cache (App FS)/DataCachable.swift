@@ -18,20 +18,26 @@ enum DataStoreType: String {
 protocol DataCachable {
     var context: TodoList { get }
     
-    func configure(name: String, connectionUrl: URL?) throws
+    func configure(name: String, connectionUrl: URL?)
     
     func updateMetadata(revision: Int, isDurty: Bool, lastUpdatedBy: String, lastUpdatedOn: Int)
     
     func load() -> Result<Void, Error>
     
+    func clearContext()
+    
     func get(by id: String) -> TodoItem?
     
+    // возвращает дубликат (по ID)
     func insert(_ item: TodoItem) -> TodoItem?
     
+    // возвращает обновленный элемент (до обновления)
     func update(_ item: TodoItem) -> TodoItem?
     
+    // возвращает обновленный элемент (до обновления)
     func insertOrUpdate(_ item: TodoItem) -> TodoItem?
     
+    // возвращает удаленный элемент
     func delete(by id: String) -> TodoItem?
     
     func save() -> Result<Void, Error>
