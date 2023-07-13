@@ -26,6 +26,7 @@
 		983A5A562A5F2C1A00A7876D /* TodoList.Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983A5A552A5F2C1900A7876D /* TodoList.Table.swift */; };
 		983A5A582A5F2E9B00A7876D /* TodoItem.Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983A5A572A5F2E9B00A7876D /* TodoItem.Table.swift */; };
 		983A5A5A2A5F3C4500A7876D /* SqliteTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983A5A592A5F3C4400A7876D /* SqliteTable.swift */; };
+		983A5A5C2A600B5900A7876D /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983A5A5B2A600B5900A7876D /* Helper.swift */; };
 		98422CA42A5759E700087EC9 /* URLSession.Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98422CA32A5759E700087EC9 /* URLSession.Errors.swift */; };
 		98422CA82A57E27900087EC9 /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98422CA72A57E27900087EC9 /* HttpMethod.swift */; };
 		98422CAB2A57E32C00087EC9 /* TodoItem.NetworkDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98422CAA2A57E32C00087EC9 /* TodoItem.NetworkDto.swift */; };
@@ -126,6 +127,7 @@
 		983A5A552A5F2C1900A7876D /* TodoList.Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoList.Table.swift; sourceTree = "<group>"; };
 		983A5A572A5F2E9B00A7876D /* TodoItem.Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.Table.swift; sourceTree = "<group>"; };
 		983A5A592A5F3C4400A7876D /* SqliteTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SqliteTable.swift; sourceTree = "<group>"; };
+		983A5A5B2A600B5900A7876D /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		98422CA32A5759E700087EC9 /* URLSession.Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.Errors.swift; sourceTree = "<group>"; };
 		98422CA72A57E27900087EC9 /* HttpMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
 		98422CAA2A57E32C00087EC9 /* TodoItem.NetworkDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.NetworkDto.swift; sourceTree = "<group>"; };
@@ -348,6 +350,7 @@
 			children = (
 				9858715A2A444D9800066B2E /* Constants.swift */,
 				98422CCA2A58583500087EC9 /* Configuration.Helper.swift */,
+				983A5A5B2A600B5900A7876D /* Helper.swift */,
 			);
 			path = Utilites;
 			sourceTree = "<group>";
@@ -781,6 +784,7 @@
 				983A5A562A5F2C1A00A7876D /* TodoList.Table.swift in Sources */,
 				984687DF2A55802E004C76C3 /* URLSession.Ext.swift in Sources */,
 				98422CBD2A57F3A100087EC9 /* HttpRequest.Error.swift in Sources */,
+				983A5A5C2A600B5900A7876D /* Helper.swift in Sources */,
 				983A5A3F2A5C7CD700A7876D /* DataCachable.swift in Sources */,
 				98F94A1C2A4D228800B72704 /* TodoItem.DeadlineDatePickerView.swift in Sources */,
 				98422CA42A5759E700087EC9 /* URLSession.Errors.swift in Sources */,

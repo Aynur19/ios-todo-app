@@ -19,6 +19,23 @@ struct TestsData {
     static let createdOnTime =  createdOn.datetime
     static let updatedOnTime = updatedOn.datetime
     static let deadlineTime = deadline.datetime
+    
+    static func getFilepath(prefix: String, withDatetime: Bool = false, isTemp: Bool = true) -> (filename: String, url: URL) {
+        var filename: String
+        
+        if withDatetime {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = DatetimeFormats.yyyyMMddTHHmmss
+            filename = "\(prefix)(\(dateFormatter.string(from: Date())))"
+        } else {
+            filename = prefix
+        }
+
+        var testDirUrl = URL(fileURLWithPath: #file).deletingLastPathComponent().appending(component: "TestFiles")
+        if isTemp { testDirUrl.append(component: "Generated") }
+        
+        return (filename, testDirUrl)
+    }
 
     static let forInit = deadlineAndUpdatedOnIsNil + filled + deadlineIsNil + updatedOnIsNil
 

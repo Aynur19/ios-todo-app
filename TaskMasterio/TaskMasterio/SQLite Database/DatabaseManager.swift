@@ -25,6 +25,9 @@ final class DatabaseManager: DataCachable {
         context = TodoList()
     }
     
+    func traceQueries(isOn: Bool = false) {
+        if isOn { dbConnection?.trace { print($0) } }
+    }
 //    private func removeOperation(by id: String) {
 //        inserts[id] = nil
 //        updates[id] = nil
@@ -42,28 +45,37 @@ final class DatabaseManager: DataCachable {
     }
     
     private func configureConnectionString(name: String, connectionUrl: URL? = nil) {
-        let path = connectionUrl?.path ?? NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first
-        let filePath = (path as NSString?)?.appendingPathComponent("\(name).sqlite")
+        var path: String
+        if let url = connectionUrl {
+            path = Helper.getPathFromUrl(url)
+        } else {
+            guard let defaultPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first else {
+                return
+            }
+            path = defaultPath
+        }
         
-        if let filePath = filePath {
-            connectionString = filePath
-            print("Получен путь к файлу базы данных SQLite: \(connectionString)")
+        let filePath = (path as NSString).appendingPathComponent("\(name).sqlite")
+        connectionString = filePath
+        print("Получен путь к файлу базы данных SQLite: \(connectionString)")
+        
+        let fileManager = FileManager.default
+        if !fileManager.fileExists(atPath: connectionString) {
+            do {
+                try Helper.checkAndCreateDirectory(path: path)
+            } catch {
+                print(error)
+            }
+            print("Файл базы данных SQLite не обнаружен по полученному пути!")
+            let success = fileManager.createFile(atPath: connectionString, contents: nil, attributes: nil)
             
-            let fileManager = FileManager.default
-            if !fileManager.fileExists(atPath: connectionString) {
-                print("Файл базы данных SQLite не обнаружен по полученному пути!")
-                let success = fileManager.createFile(atPath: connectionString, contents: nil, attributes: nil)
-                
-                if success {
-                    print("Создан файл базы данных SQLite по полученному пути!")
-                } else {
-                    print("Не удалось создать файл базы дынных SQLite по полученному пути!")
-                }
+            if success {
+                print("Создан файл базы данных SQLite по полученному пути!")
             } else {
-                print("Файл базы данных SQLite обнаружен по полученному пути!")
+                print("Не удалось создать файл базы дынных SQLite по полученному пути!")
             }
         } else {
-            print("Не удалось получить путь к файлу базы данных SQLite!")
+            print("Файл базы данных SQLite обнаружен по полученному пути!")
         }
     }
     
@@ -154,7 +166,6 @@ final class DatabaseManager: DataCachable {
     
     func insertOrUpdate(_ item: TodoItem) -> TodoItem? {
         if let updatedItem = update(item) {
-            updates.append(TodoItemTable.update(item))
             return updatedItem
         }
         

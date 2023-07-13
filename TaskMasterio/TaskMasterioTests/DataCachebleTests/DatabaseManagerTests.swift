@@ -23,33 +23,36 @@ final class DatabaseManagerTests: XCTestCase {
 
     // MARK: - Tests configurate()
     func tests_CreateDatabase_IsNew() throws {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd_HH-mm-ss"
-        let filename = "TaskMasterio_(\(dateFormatter.string(from: Date())))"
-
-        var testDbDirUrl = URL(fileURLWithPath: #file).deletingLastPathComponent()
-                                                    .appending(component: "TestFiles")
-                                                    .appending(component: "Generated")
-        database.configure(name: filename, connectionUrl: testDbDirUrl)
+        print("\n******************************** ТЕСТ *********************************")
+        print("ПРОВЕРКА: СОЗДАНИЕ БАЗЫ ДАННЫХ И ТАБЛИЦ")
+        
+        let filepath = TestsData.getFilepath(prefix: "TodoList_CreateDatabase", withDatetime: true)
+        database.configure(name: filepath.filename, connectionUrl: filepath.url)
+        database.traceQueries(isOn: true)
+        
+        print("************************************************************************\n")
     }
     
-    func tests_CreateDatabase() throws {
-        let filename = "TaskMasterio_ForTesting"
-        var testDbDirUrl = URL(fileURLWithPath: #file).deletingLastPathComponent()
-                                                    .appending(component: "TestFiles")
-        database.configure(name: filename, connectionUrl: testDbDirUrl)
+    func tests_CreateDatabase_IsStored() throws {
+        print("\n******************************** ТЕСТ *********************************")
+        print("ПРОВЕРКА: СОЗДАНИЕ БАЗЫ ДАННЫХ И ТАБЛИЦ ЕДИНОЖДЫ")
+        
+        let filepath = TestsData.getFilepath(prefix: "TodoList", withDatetime: false, isTemp: false)
+        database.configure(name: filepath.filename, connectionUrl: filepath.url)
+        database.traceQueries(isOn: true)
+        
+        print("************************************************************************\n")
     }
     
     // MARK: - Tests insert()
     func tests_Insert_IdIsNotFound() throws {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd_HH-mm-ss"
-        let filename = "TaskMasterio_(\(dateFormatter.string(from: Date())))"
-
-        var testDbDirUrl = URL(fileURLWithPath: #file).deletingLastPathComponent()
-                                                    .appending(component: "TestFiles")
-                                                    .appending(component: "Generated")
-        database.configure(name: filename, connectionUrl: testDbDirUrl)
+        print("\n******************************** ТЕСТ *********************************")
+        print("ПРОВЕРКА: ДОБАВЛЕНИЕ ЗАПИСЕЙ С НОВЫМИ ИДЕНТИФИКАТОРАМИ")
+        
+        let filepath = TestsData.getFilepath(prefix: "TodoList_CreateDatabase", withDatetime: true)
+        database.configure(name: filepath.filename, connectionUrl: filepath.url)
+        database.traceQueries(isOn: true)
         
         var count = 0
         XCTAssertEqual(database.context.items.count, count)
@@ -72,17 +75,16 @@ final class DatabaseManagerTests: XCTestCase {
         }
         
         database.save()
+        print("************************************************************************\n")
     }
 
-    func tests_Insert_IdIsFound() throws {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd_HH-mm-ss"
-        let filename = "TaskMasterio_(\(dateFormatter.string(from: Date())))"
-
-        var testDbDirUrl = URL(fileURLWithPath: #file).deletingLastPathComponent()
-                                                    .appending(component: "TestFiles")
-                                                    .appending(component: "Generated")
-        database.configure(name: filename, connectionUrl: testDbDirUrl)
+    func tests_Insert_IdFound() throws {
+        print("\n******************************** ТЕСТ *********************************")
+        print("ПРОВЕРКА: ДОБАВЛЕНИЕ ЗАПИСЕЙ С ОДИНАКОВЫМИ ИДЕНТИФИКАТОРАМИ")
+        
+        let filepath = TestsData.getFilepath(prefix: "TodoList_Insert_IdFound", withDatetime: true)
+        database.configure(name: filepath.filename, connectionUrl: filepath.url)
+        database.traceQueries(isOn: true)
         
         let item = TodoItem(text: "test", priority: .low, deadline: nil, isDone: false, createdOn: Date(), updatedOn: nil)
         XCTAssertNil(database.insert(item))
@@ -122,18 +124,17 @@ final class DatabaseManagerTests: XCTestCase {
         }
         
         database.save()
+        print("************************************************************************\n")
     }
 
     // MARK: - Tests update()
-    func tests_Update_IdIsNotFound() throws {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd_HH-mm-ss"
-        let filename = "TaskMasterio_Update_IdIsNotFound(\(dateFormatter.string(from: Date())))"
-
-        var testDbDirUrl = URL(fileURLWithPath: #file).deletingLastPathComponent()
-                                                    .appending(component: "TestFiles")
-                                                    .appending(component: "Generated")
-        database.configure(name: filename, connectionUrl: testDbDirUrl)
+    func tests_Update_IdNotFound() throws {
+        print("\n******************************** ТЕСТ *********************************")
+        print("ПРОВЕРКА: ОБНОВЛЕНИЕ ЗАПИСЕЙ С НОВЫМИ ИДЕНТИФИКАТОРАМИ")
+        
+        let filepath = TestsData.getFilepath(prefix: "TodoList_Update_IdNotFound", withDatetime: true)
+        database.configure(name: filepath.filename, connectionUrl: filepath.url)
+        database.traceQueries(isOn: true)
         
         var count = 0
         XCTAssertEqual(database.context.items.count, count)
@@ -147,17 +148,16 @@ final class DatabaseManagerTests: XCTestCase {
         }
         
         _ = database.save()
+        print("************************************************************************\n")
     }
 
     func tests_Update_IdIsFound() throws {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd_HH-mm-ss"
-        let filename = "TaskMasterio_Update_IdIsFound(\(dateFormatter.string(from: Date())))"
-
-        var testDbDirUrl = URL(fileURLWithPath: #file).deletingLastPathComponent()
-                                                    .appending(component: "TestFiles")
-                                                    .appending(component: "Generated")
-        database.configure(name: filename, connectionUrl: testDbDirUrl)
+        print("\n******************************** ТЕСТ *********************************")
+        print("ПРОВЕРКА: ОБНОВЛЕНИЕ ЗАПИСЕЙ С ОДИНАКОВЫМИ ИДЕНТИФИКАТОРАМИ")
+        
+        let filepath = TestsData.getFilepath(prefix: "TodoList_Update_IdFound", withDatetime: true)
+        database.configure(name: filepath.filename, connectionUrl: filepath.url)
+        database.traceQueries(isOn: true)
         
         let data = TestsData.forInit[0]
         let item = TodoItem(id: TestsData.id, text: data.item.text, priority: data.item.priority, deadline: data.item.deadline,
@@ -183,18 +183,18 @@ final class DatabaseManagerTests: XCTestCase {
         }
         
         _ = database.save()
+        
+        print("************************************************************************\n")
     }
 
     // MARK: - Tests insertOrUpdate()
     func tests_InsertOrUpdate_IdIsNotFound() throws {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd_HH-mm-ss"
-        let filename = "TaskMasterio_InsertOrUpdate_IdIsNotFound(\(dateFormatter.string(from: Date())))"
-
-        var testDbDirUrl = URL(fileURLWithPath: #file).deletingLastPathComponent()
-                                                    .appending(component: "TestFiles")
-                                                    .appending(component: "Generated")
-        database.configure(name: filename, connectionUrl: testDbDirUrl)
+        print("\n******************************** ТЕСТ *********************************")
+        print("ПРОВЕРКА: ДОБАВЛЕНИЕ ИЛИ ОБНОВЛЕНИЕ ЗАПИСЕЙ С НОВЫМИ ИДЕНТИФИКАТОРАМИ")
+        
+        let filepath = TestsData.getFilepath(prefix: "TodoList_InsertOrUpdate_IdNotFound", withDatetime: true)
+        database.configure(name: filepath.filename, connectionUrl: filepath.url)
+        database.traceQueries(isOn: true)
         
         var count = 0
         XCTAssertEqual(database.context.items.count, count)
@@ -209,17 +209,16 @@ final class DatabaseManagerTests: XCTestCase {
         }
         
         _ = database.save()
+        print("************************************************************************\n")
     }
 
     func tests_InsertOrUpdate_IdIsFound() throws {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd_HH-mm-ss"
-        let filename = "TaskMasterio_InsertOrUpdate_IdIsNotFound(\(dateFormatter.string(from: Date())))"
-
-        var testDbDirUrl = URL(fileURLWithPath: #file).deletingLastPathComponent()
-                                                    .appending(component: "TestFiles")
-                                                    .appending(component: "Generated")
-        database.configure(name: filename, connectionUrl: testDbDirUrl)
+        print("\n******************************** ТЕСТ *********************************")
+        print("ПРОВЕРКА: ДОБАВЛЕНИЕ ИЛИ ОБНОВЛЕНИЕ ЗАПИСЕЙ С ОДИНАКОВЫМИ ИДЕНТИФИКАТОРАМИ")
+        
+        let filepath = TestsData.getFilepath(prefix: "TodoList_InsertOrUpdate_IdFound", withDatetime: true)
+        database.configure(name: filepath.filename, connectionUrl: filepath.url)
+        database.traceQueries(isOn: true)
         
         let data = TestsData.forInit[0]
         let item = TodoItem(text: data.item.text, priority: data.item.priority, deadline: data.item.deadline,
@@ -257,6 +256,8 @@ final class DatabaseManagerTests: XCTestCase {
         }
         
         _ = database.save()
+        
+        print("************************************************************************\n")
     }
 
 //    // MARK: - Tests delete()
