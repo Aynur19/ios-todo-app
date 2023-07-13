@@ -256,53 +256,72 @@ final class DatabaseManagerTests: XCTestCase {
         }
         
         _ = database.save()
-        
         print("************************************************************************\n")
     }
 
-//    // MARK: - Tests delete()
-//    func tests_Delete_IdIsNotFound() throws {
-//        var count = 0
-//        XCTAssertEqual(database.context.items.count, count)
-//
-//        for data in TestsData.forInit {
-//            let item = TodoItem(text: data.item.text, priority: data.item.priority, deadline: data.item.deadline,
-//                                isDone: data.item.isDone, createdOn: data.item.createdOn, updatedOn: data.item.updatedOn)
-//
-//            XCTAssertNil(database.insert(item))
-//            count += 1
-//            XCTAssertEqual(database.context.items.count, count)
-//        }
-//
-//        for data in TestsData.forInit {
-//            let itemId = data.item.id
-//
-//            XCTAssertNil(database.delete(by: itemId))
-//            XCTAssertEqual(database.context.items.count, count)
-//        }
-//    }
-//
-//    func tests_Delete_IdIsFound() throws {
-//        var count = 0
-//        XCTAssertEqual(database.context.items.count, count)
-//
-//        for data in TestsData.forInit {
-//            let item = TodoItem(id: data.item.id, text: data.item.text, priority: data.item.priority, deadline: data.item.deadline,
-//                                isDone: data.item.isDone, createdOn: data.item.createdOn, updatedOn: data.item.updatedOn)
-//
-//            XCTAssertNil(database.insert(item))
-//            count += 1
-//            XCTAssertEqual(database.context.items.count, count)
-//        }
-//
-//        for data in TestsData.forInit {
-//            let itemId = data.item.id
-//
-//            XCTAssertNotNil(database.delete(by: itemId))
-//            count -= 1
-//            XCTAssertEqual(database.context.items.count, count)
-//        }
-//    }
+    // MARK: - Tests delete()
+    func tests_Delete_IdIsNotFound() throws {
+        print("\n******************************** ТЕСТ *********************************")
+        print("ПРОВЕРКА: УДАЛЕНИЕ ЗАПИСЕЙ КОГДА ИНДЕТИФИКАТОРЫ НЕ СОВПАДАЮТ")
+        
+        let filepath = TestsData.getFilepath(prefix: "TodoList_Delete_IdNotFound", withDatetime: true)
+        database.configure(name: filepath.filename, connectionUrl: filepath.url)
+        database.traceQueries(isOn: true)
+        
+        var count = 0
+        XCTAssertEqual(database.context.items.count, count)
+
+        for data in TestsData.forInit {
+            let item = TodoItem(text: data.item.text, priority: data.item.priority, deadline: data.item.deadline,
+                                isDone: data.item.isDone, createdOn: data.item.createdOn, updatedOn: data.item.updatedOn)
+
+            XCTAssertNil(database.insert(item))
+            count += 1
+            XCTAssertEqual(database.context.items.count, count)
+        }
+
+        for data in TestsData.forInit {
+            let itemId = data.item.id
+
+            XCTAssertNil(database.delete(by: itemId))
+            XCTAssertEqual(database.context.items.count, count)
+        }
+        
+        _ = database.save()
+        print("************************************************************************\n")
+    }
+
+    func tests_Delete_IdIsFound() throws {
+        print("\n******************************** ТЕСТ *********************************")
+        print("ПРОВЕРКА: УДАЛЕНИЕ ЗАПИСЕЙ КОГДА ИНДЕТИФИКАТОРЫ СОВПАДАЮТ")
+        
+        let filepath = TestsData.getFilepath(prefix: "TodoList_Delete_IdFound", withDatetime: true)
+        database.configure(name: filepath.filename, connectionUrl: filepath.url)
+        database.traceQueries(isOn: true)
+        
+        var count = 0
+        XCTAssertEqual(database.context.items.count, count)
+
+        for data in TestsData.forInit {
+            let item = TodoItem(id: data.item.id, text: data.item.text, priority: data.item.priority, deadline: data.item.deadline,
+                                isDone: data.item.isDone, createdOn: data.item.createdOn, updatedOn: data.item.updatedOn)
+
+            XCTAssertNil(database.insert(item))
+            count += 1
+            XCTAssertEqual(database.context.items.count, count)
+        }
+
+        for data in TestsData.forInit {
+            let itemId = data.item.id
+
+            XCTAssertNotNil(database.delete(by: itemId))
+            count -= 1
+            XCTAssertEqual(database.context.items.count, count)
+        }
+        
+        _ = database.save()
+        print("************************************************************************\n")
+    }
 //
 //    // MARK: - Tests save()
 //    func tests_Save_NewFile() throws {

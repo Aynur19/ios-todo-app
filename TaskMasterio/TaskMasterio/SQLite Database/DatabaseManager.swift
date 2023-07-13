@@ -178,10 +178,18 @@ final class DatabaseManager: DataCachable {
     }
     
     func delete(by id: String) -> TodoItem? {
-        return nil
+        var deletedItem: TodoItem?
+        if let idx = context.items.firstIndex(where: { $0.id == id }) {
+            deletedItem = context.items[idx]
+            context.items.remove(at: idx)
+            
+            deletes.append(TodoItemTable.delete(by: id))
+        }
+        
+        return deletedItem
     }
     
-    func save() -> Swift.Result<Void, Error>  {
+    func save() -> Swift.Result<Void, Error> {
         var result: Swift.Result<Void, Error>
         do {
             let count = try dbConnection?.scalar(TodoListTable.table.filter(TodoListTable.id == context.id).count)
@@ -195,7 +203,6 @@ final class DatabaseManager: DataCachable {
                     try dbConnection?.run(insert)
                 }
             }
-            
             
             try dbConnection?.transaction {
                 for insert in inserts { try dbConnection?.run(insert) }

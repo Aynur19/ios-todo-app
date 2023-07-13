@@ -17,4 +17,5 @@ protocol SqliteTable {
     
     static func insert(_ item: Entity, foreingKeys: [String: String]) -> Insert?
     static func update(_ item: Entity) -> Update
+    static func delete(by itemId: String) -> Delete
 }

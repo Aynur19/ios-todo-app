@@ -50,6 +50,13 @@ struct TodoListTable: SqliteTable {
         return updateOperation
     }
     
+    
+    static func delete(by itemId: String) -> Delete {
+        let deleteOperation = table.filter(id == itemId).delete()
+        
+        return deleteOperation
+    }
+    
     static func getName() -> String {
         return name
     }
