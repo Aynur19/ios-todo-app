@@ -46,11 +46,11 @@ final class DatabaseManagerTests: XCTestCase {
     
     // MARK: - Tests insert()
     func tests_Insert_IdIsNotFound() throws {
-        let dateFormatter = DateFormatter()
         print("\n******************************** ТЕСТ *********************************")
         print("ПРОВЕРКА: ДОБАВЛЕНИЕ ЗАПИСЕЙ С НОВЫМИ ИДЕНТИФИКАТОРАМИ")
         
         let filepath = TestsData.getFilepath(prefix: "TodoList_CreateDatabase", withDatetime: true)
+//        let filepath = TestsData.getFilepath(prefix: "TodoList", isTemp: false)
         database.configure(name: filepath.filename, connectionUrl: filepath.url)
         database.traceQueries(isOn: true)
         
@@ -324,35 +324,57 @@ final class DatabaseManagerTests: XCTestCase {
     }
     
     // MARK: - Tests load()
+    func tests_Save_WithConstantId() throws {
+        print("\n******************************** ТЕСТ *********************************")
+        print("ПРОВЕРКА: СОХРАНЕНИЕ СПИСКА С ИНВЕСТНЫМИ ИДЕНТИФИКАТОРАМИ")
+        
+        let filepath = TestsData.getFilepath(prefix: "TodoList", isTemp: false)
+        database.configure(name: filepath.filename, connectionUrl: filepath.url)
+        database.traceQueries(isOn: true)
+        
+        for data in TestsData.forInit {
+            _ = database.insert(data.item)
+        }
+        
+        _ = database.save()
+        database.clearContext()
+        
+        print("************************************************************************\n")
+    }
+    
     func tests_Load() throws {
+        print("\n******************************** ТЕСТ *********************************")
+        print("ПРОВЕРКА: ЗАГРУЗКА ДАННЫХ ИЗ ТАБЛИЦЫ")
+        
+        let filepath = TestsData.getFilepath(prefix: "TodoList", withDatetime: false, isTemp: false)
+        database.configure(name: filepath.filename, connectionUrl: filepath.url)
+        database.traceQueries(isOn: true)
+            
         var items = [TodoItem]()
         for data in TestsData.forInit {
-            let item = TodoItem(id: data.item.id, text: data.item.text, priority: data.item.priority, deadline: data.item.deadline,
-                                isDone: data.item.isDone, createdOn: data.item.createdOn, updatedOn: data.item.updatedOn)
-            items.append(item)
+            items.append(data.item)
+            _ = database.insert(data.item)
         }
-
-        let jsonUrl = URL(fileURLWithPath: #file).deletingLastPathComponent()
-            .appending(component: "TestFiles")
-
-        XCTAssertTrue(FileManager.default.fileExists(atPath: jsonUrl.path))
-
-        database.configure(name: "TaskMasterio_ForLoading", connectionUrl: jsonUrl)
-        let result = database.load()
+        _ = database.save()
+        database.clearContext()
+        
+        _ = database.load()
 
         XCTAssertEqual(database.context.items.count, items.count)
 
         for item in items {
-            let itemFromDataCache = database.get(by: item.id)
+            let itemFromDb = database.get(by: item.id)
 
-            XCTAssertNotNil(itemFromDataCache)
-            XCTAssertEqual(item.id, itemFromDataCache!.id)
-            XCTAssertEqual(item.text, itemFromDataCache!.text)
-            XCTAssertEqual(item.priority, itemFromDataCache!.priority)
-            XCTAssertEqual(item.deadline, itemFromDataCache!.deadline)
-            XCTAssertEqual(item.isDone, itemFromDataCache!.isDone)
-            XCTAssertEqual(item.createdOn, itemFromDataCache!.createdOn)
-            XCTAssertEqual(item.updatedOn, itemFromDataCache!.updatedOn)
+            XCTAssertNotNil(itemFromDb)
+            XCTAssertEqual(item.id, itemFromDb!.id)
+            XCTAssertEqual(item.text, itemFromDb!.text)
+            XCTAssertEqual(item.priority, itemFromDb!.priority)
+            XCTAssertEqual(item.deadline, itemFromDb!.deadline)
+            XCTAssertEqual(item.isDone, itemFromDb!.isDone)
+            XCTAssertEqual(item.createdOn, itemFromDb!.createdOn)
+            XCTAssertEqual(item.updatedOn, itemFromDb!.updatedOn)
         }
+        
+        print("************************************************************************\n")
     }
 }

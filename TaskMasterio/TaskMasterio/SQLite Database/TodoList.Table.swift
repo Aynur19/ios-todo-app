@@ -5,6 +5,7 @@
 //  Created by Aynur Nasybullin on 12.07.2023.
 //
 
+import Foundation
 import SQLite
 
 struct TodoListTable: SqliteTable {
@@ -25,6 +26,10 @@ struct TodoListTable: SqliteTable {
             table.column(lastUpdatedOn)
             table.column(lastUpdatedBy)
         })
+    }
+    
+    static func select(by id: String) -> Table {
+        return table.select(*).filter(self.id == id)
     }
     
     static func insert(_ item: TodoList, foreingKeys: [String: String]) -> Insert? {
@@ -50,7 +55,6 @@ struct TodoListTable: SqliteTable {
         return updateOperation
     }
     
-    
     static func delete(by itemId: String) -> Delete {
         let deleteOperation = table.filter(id == itemId).delete()
         
@@ -63,5 +67,30 @@ struct TodoListTable: SqliteTable {
     
     static func getTable() -> Table {
         return table
+    }
+    
+    static func toDomain(rows: AnySequence<Row>) -> [TodoList] {
+        var items = [TodoList]()
+        
+        for row in rows {
+            if let item = toDomain(row: row) {
+                items.append(item)
+            }
+        }
+        
+        return items
+    }
+    
+    static func toDomain(row: Row) -> TodoList? {
+        let datetime = Helper.stringToDate(dateStr: row[lastUpdatedOn], dateFormat: DatetimeFormats.yyyyMMddTHHmmss)
+        guard let todoListLastUpdatedOn = datetime else { return nil }
+        
+        let todoListId = row[id]
+        let todoListRevision = row[revision]
+        let todoListIsDirty = row[isDirty]
+        let todoListLastUpdatedBy = row[lastUpdatedBy]
+        
+        return TodoList(id: todoListId, revision: todoListRevision, isDirty: todoListIsDirty,
+                        lastUpdatedBy: todoListLastUpdatedBy, lastUpdatedOn: todoListLastUpdatedOn)
     }
 }

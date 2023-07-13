@@ -128,7 +128,29 @@ final class DatabaseManager: DataCachable {
     }
     
     func load() -> Swift.Result<Void, Error> {
-        var result: Swift.Result<Void, Error> = .success(())
+        var result: Swift.Result<Void, Error>
+        
+        let select = TodoListTable.select(by: "C16291BC-E107-4F5B-9E0E-6642DFB4CC0A")
+        let select2 = TodoItemTable.select(with: "C16291BC-E107-4F5B-9E0E-6642DFB4CC0A")
+        
+        do {
+            guard let row = try dbConnection?.pluck(select),
+                  let rows2 = try dbConnection?.prepare(select2)
+            else {
+                throw FileCacheError.castingToDictionaryFailed
+            }
+            
+            guard let todoList = TodoListTable.toDomain(row: row) else {
+                throw FileCacheError.castingToDictionaryFailed
+            }
+            
+            context = todoList
+            context.items.append(contentsOf: TodoItemTable.toDomain(rows: rows2))
+            result = .success(())
+        } catch {
+            print(error)
+            result = .failure(error)
+        }
         
         return result
     }
@@ -138,7 +160,7 @@ final class DatabaseManager: DataCachable {
     }
     
     func get(by id: String) -> TodoItem? {
-        return nil
+        return context.items.first(where: { $0.id == id })
     }
     
     func insert(_ item: TodoItem) -> TodoItem? {

@@ -30,4 +30,12 @@ final class Helper {
             return url.path
         }
     }
+    
+    static func stringToDate(dateStr: String, dateFormat: String) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = dateFormat
+        
+        guard let date = dateFormatter.date(from: dateStr) else { return nil }
+        return date
+    }
 }

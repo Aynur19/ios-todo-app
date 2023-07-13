@@ -5,6 +5,7 @@
 //  Created by Aynur Nasybullin on 12.07.2023.
 //
 
+import Foundation
 import SQLite
 
 struct TodoItemTable: SqliteTable {
@@ -20,7 +21,7 @@ struct TodoItemTable: SqliteTable {
     static let deadline = Expression<String?>(TodoItem.Keys.deadline)
     static let isDone = Expression<Bool>(TodoItem.Keys.isDone)
     static let createdOn = Expression<String>(TodoItem.Keys.createdOn)
-    static let updatedOn = Expression<String>(TodoItem.Keys.updatedOn)
+    static let updatedOn = Expression<String?>(TodoItem.Keys.updatedOn)
     static let color = Expression<String>(TodoItem.Keys.color)
     
     static func createTable(dbConnection: SQLite.Connection?) throws {
@@ -36,6 +37,14 @@ struct TodoItemTable: SqliteTable {
             table.column(color)
             table.foreignKey(todoListId, references: TodoListTable.table, TodoListTable.id)
         })
+    }
+    
+    static func select(by id: String) -> Table {
+        return table.select(*).filter(self.id == id)
+    }
+    
+    static func select(with foreignKey: String) -> Table {
+        return table.select(*).filter(self.todoListId == foreignKey)
     }
     
     static func insert(_ item: TodoItem, foreingKeys: [String: String]) -> Insert? {
@@ -83,6 +92,47 @@ struct TodoItemTable: SqliteTable {
         let deleteOperation = table.filter(id == itemId).delete()
         
         return deleteOperation
+    }
+    
+    static func toDomain(rows: AnySequence<Row>) -> [TodoItem] {
+        var items = [TodoItem]()
+        
+        for row in rows {
+            if let item = toDomain(row: row) {
+                items.append(item)
+            }
+        }
+        
+        return items
+    }
+    
+    static func toDomain(row: Row) -> TodoItem? {
+        var todoDeadline: Date?
+        if let deadlineStr = row[deadline] {
+            todoDeadline = Helper.stringToDate(dateStr: deadlineStr, dateFormat: DatetimeFormats.yyyyMMddTHHmmss)
+        }
+        
+        var todoUpdatedOn: Date?
+        if let updatedOnStr = row[deadline] {
+            todoUpdatedOn = Helper.stringToDate(dateStr: updatedOnStr, dateFormat: DatetimeFormats.yyyyMMddTHHmmss)
+        }
+        
+        let createdOnValue = Helper.stringToDate(dateStr: row[createdOn], dateFormat: DatetimeFormats.yyyyMMddTHHmmss)
+        
+        guard let todoCreatedOn = createdOnValue else {
+            return nil
+        }
+        
+        guard let todoPriority = TodoItemPriority.init(rawValue: row[priority]) else { return nil }
+        
+        let todoId = row[id]
+        let todoText = row[text]
+        let todoIsDone = row[isDone]
+        let todoColor = row[color]
+        
+        return TodoItem(id: todoId, text: todoText, priority: todoPriority,
+                        deadline: todoDeadline, isDone: todoIsDone,
+                        createdOn: todoCreatedOn, updatedOn: todoUpdatedOn, color: todoColor)
     }
     
     static func getName() -> String {
