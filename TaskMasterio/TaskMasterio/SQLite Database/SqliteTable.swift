@@ -16,4 +16,5 @@ protocol SqliteTable {
     static func createTable(dbConnection: Connection?) throws
     
     static func insert(_ item: Entity, foreingKeys: [String: String]) -> Insert?
+    static func update(_ item: Entity) -> Update
 }

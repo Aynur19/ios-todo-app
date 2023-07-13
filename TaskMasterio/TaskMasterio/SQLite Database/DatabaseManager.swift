@@ -16,20 +16,20 @@ final class DatabaseManager: DataCachable {
     private var connectionString = ""
     private var dbConnection: Connection?
     
-    private var inserts = [String: Insert]()
-    private var updates = [String: Update]()
-    private var deletes = [String: Delete]()
+    private var inserts = [Insert]()
+    private var updates = [Update]()
+    private var deletes = [Delete]()
     
     private init() {
         dbConnection = nil
         context = TodoList()
     }
     
-    private func removeOperation(by id: String) {
-        inserts[id] = nil
-        updates[id] = nil
-        deletes[id] = nil
-    }
+//    private func removeOperation(by id: String) {
+//        inserts[id] = nil
+//        updates[id] = nil
+//        deletes[id] = nil
+//    }
     
     func configure(name: String, connectionUrl: URL? = nil) {
         configureConnectionString(name: name, connectionUrl: connectionUrl)
@@ -132,26 +132,24 @@ final class DatabaseManager: DataCachable {
     func insert(_ item: TodoItem) -> TodoItem? {
         if let foundedItem = context.items.first(where: { $0.id == item.id }) { return foundedItem }
         context.items.append(item)
-        
-        inserts[item.id] = TodoItemTable.insert(item, foreingKeys: [TodoItemTable.foreignKey: context.id])
-        
-//        inserts[item.id] = TodoItemTable.table.insert(
-//            TodoItemTable.id <- item.id,
-//            TodoItemTable.todoListId <- context.id,
-//            TodoItemTable.text <- item.text,
-//            TodoItemTable.priority <- item.priority.rawValue,
-//            TodoItemTable.deadline <- item.deadline?.toString(format: datetimeFormat),
-//            TodoItemTable.isDone <- item.isDone,
-//            TodoItemTable.createdOn <- item.createdOn.toString(format: datetimeFormat),
-//            TodoItemTable.updatedOn <- (item.updatedOn ?? item.createdOn).toString(format: datetimeFormat),
-//            TodoItemTable.color <- item.color
-//        )
+    
+        if let insert = TodoItemTable.insert(item, foreingKeys: [TodoItemTable.foreignKey: context.id]) {
+            inserts.append(insert)
+        }
         
         return nil
     }
     
     func update(_ item: TodoItem) -> TodoItem? {
-        return nil
+        var updatedItem: TodoItem?
+        if let idx = context.items.firstIndex(where: { $0.id == item.id }) {
+            updatedItem = context.items[idx]
+            context.items[idx] = item
+            
+            updates.append(TodoItemTable.update(item))
+        }
+        
+        return updatedItem
     }
     
     func insertOrUpdate(_ item: TodoItem) -> TodoItem? {
@@ -166,20 +164,22 @@ final class DatabaseManager: DataCachable {
         var result: Swift.Result<Void, Error>
         do {
             let count = try dbConnection?.scalar(TodoListTable.table.filter(TodoListTable.id == context.id).count)
-                if count! > 0 {
-                    print("Запись с id \(context.id) найдена в таблице")
-                } else {
-                    print("Запись с id \(context.id) не найдена в таблице")
-                    
-                    if let insert = TodoListTable.insert(context, foreingKeys: [:]) {
-                        try dbConnection?.run(insert)
-                    }
+            
+            if let count = count, count > 0 {
+                print("Запись с id \(context.id) найдена в таблице")
+            } else {
+                print("Запись с id \(context.id) не найдена в таблице")
+                
+                if let insert = TodoListTable.insert(context, foreingKeys: [:]) {
+                    try dbConnection?.run(insert)
                 }
+            }
+            
             
             try dbConnection?.transaction {
-                for (_, insert) in inserts { try dbConnection?.run(insert) }
-                for (_, update) in updates { try dbConnection?.run(update) }
-                for (_, delete) in deletes { try dbConnection?.run(delete) }
+                for insert in inserts { try dbConnection?.run(insert) }
+                for update in updates { try dbConnection?.run(update) }
+                for delete in deletes { try dbConnection?.run(delete) }
             }
             
             inserts.removeAll()

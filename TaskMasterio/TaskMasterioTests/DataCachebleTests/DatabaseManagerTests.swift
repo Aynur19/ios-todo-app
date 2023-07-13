@@ -73,84 +73,117 @@ final class DatabaseManagerTests: XCTestCase {
         
         database.save()
     }
-//
-//    func tests_Insert_IdIsFound() throws {
-//        let item = TodoItem(text: "test", priority: .low, deadline: nil, isDone: false, createdOn: Date(), updatedOn: nil)
-//        XCTAssertNil(database.insert(item))
-//        XCTAssertEqual(database.context.items.count, 1)
-//
-//        let data = TestsData.forInit[0]
-//        let item2 = TodoItem(id: TestsData.id, text: data.item.text, priority: data.item.priority, deadline: data.item.deadline,
-//                                  isDone: data.item.isDone, createdOn: data.item.createdOn, updatedOn: data.item.updatedOn)
-//
-//        XCTAssertNil(database.insert(item2))
-//        XCTAssertEqual(database.context.items.count, 2)
-//
-//        for testCase in TestsData.forInit {
-//            let item3 = TodoItem(id: TestsData.id, text: testCase.item.text, priority: testCase.item.priority,
-//                                  deadline: testCase.item.deadline, isDone: testCase.item.isDone,
-//                                  createdOn: testCase.item.createdOn, updatedOn: testCase.item.updatedOn)
-//
-//            XCTAssertNotNil(database.insert(item3))
-//
-//            XCTAssertEqual(database.context.items[0].id, item.id)
-//            XCTAssertEqual(database.context.items[0].text, item.text)
-//            XCTAssertEqual(database.context.items[0].priority, item.priority)
-//            XCTAssertEqual(database.context.items[0].deadline, item.deadline)
-//            XCTAssertEqual(database.context.items[0].isDone, item.isDone)
-//            XCTAssertEqual(database.context.items[0].createdOn, item.createdOn)
-//            XCTAssertEqual(database.context.items[0].updatedOn, item.updatedOn)
-//
-//            XCTAssertEqual(database.context.items[1].id, item2.id)
-//            XCTAssertEqual(database.context.items[1].text, item2.text)
-//            XCTAssertEqual(database.context.items[1].priority, item2.priority)
-//            XCTAssertEqual(database.context.items[1].deadline, item2.deadline)
-//            XCTAssertEqual(database.context.items[1].isDone, item2.isDone)
-//            XCTAssertEqual(database.context.items[1].createdOn, item2.createdOn)
-//            XCTAssertEqual(database.context.items[1].updatedOn, item2.updatedOn)
-//
-//            XCTAssertEqual(database.context.items.count, 2)
-//        }
-//    }
-//
-//    // MARK: - Tests update()
-//    func tests_Update_IdIsNotFound() throws {
-//        var count = 0
-//        XCTAssertEqual(database.context.items.count, count)
-//
-//        for data in TestsData.forInit {
-//            let item = TodoItem(text: data.item.text, priority: data.item.priority, deadline: data.item.deadline,
-//                                isDone: data.item.isDone, createdOn: data.item.createdOn, updatedOn: data.item.updatedOn)
-//
-//            XCTAssertNil(database.update(item))
-//            XCTAssertEqual(database.context.items.count, count)
-//        }
-//    }
-//
-//    func tests_Update_IdIsFound() throws {
-//        let data = TestsData.forInit[0]
-//        let item = TodoItem(id: TestsData.id, text: data.item.text, priority: data.item.priority, deadline: data.item.deadline,
-//                                  isDone: data.item.isDone, createdOn: data.item.createdOn, updatedOn: data.item.updatedOn)
-//        XCTAssertNil(database.insert(item))
-//
-//        for testCase in TestsData.forInit {
-//            let item2 = TodoItem(id: TestsData.id, text: testCase.item.text, priority: testCase.item.priority,
-//                                  deadline: testCase.item.deadline, isDone: testCase.item.isDone,
-//                                  createdOn: testCase.item.createdOn, updatedOn: testCase.item.updatedOn)
-//
-//            XCTAssertNotNil(database.update(item2))
-//
-//            XCTAssertEqual(database.context.items[0].id, item2.id)
-//            XCTAssertEqual(database.context.items[0].text, item2.text)
-//            XCTAssertEqual(database.context.items[0].priority, item2.priority)
-//            XCTAssertEqual(database.context.items[0].deadline, item2.deadline)
-//            XCTAssertEqual(database.context.items[0].isDone, item2.isDone)
-//            XCTAssertEqual(database.context.items[0].createdOn, item2.createdOn)
-//            XCTAssertEqual(database.context.items[0].updatedOn, item2.updatedOn)
-//
-//            XCTAssertEqual(database.context.items.count, 1)
-//        }
-//    }
+
+    func tests_Insert_IdIsFound() throws {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd_HH-mm-ss"
+        let filename = "TaskMasterio_(\(dateFormatter.string(from: Date())))"
+
+        var testDbDirUrl = URL(fileURLWithPath: #file).deletingLastPathComponent()
+                                                    .appending(component: "TestFiles")
+                                                    .appending(component: "Generated")
+        database.configure(name: filename, connectionUrl: testDbDirUrl)
+        
+        let item = TodoItem(text: "test", priority: .low, deadline: nil, isDone: false, createdOn: Date(), updatedOn: nil)
+        XCTAssertNil(database.insert(item))
+        XCTAssertEqual(database.context.items.count, 1)
+
+        let data = TestsData.forInit[0]
+        let item2 = TodoItem(id: TestsData.id, text: data.item.text, priority: data.item.priority, deadline: data.item.deadline,
+                                  isDone: data.item.isDone, createdOn: data.item.createdOn, updatedOn: data.item.updatedOn)
+
+        XCTAssertNil(database.insert(item2))
+        XCTAssertEqual(database.context.items.count, 2)
+
+        for testCase in TestsData.forInit {
+            let item3 = TodoItem(id: TestsData.id, text: testCase.item.text, priority: testCase.item.priority,
+                                  deadline: testCase.item.deadline, isDone: testCase.item.isDone,
+                                  createdOn: testCase.item.createdOn, updatedOn: testCase.item.updatedOn)
+
+            XCTAssertNotNil(database.insert(item3))
+
+            XCTAssertEqual(database.context.items[0].id, item.id)
+            XCTAssertEqual(database.context.items[0].text, item.text)
+            XCTAssertEqual(database.context.items[0].priority, item.priority)
+            XCTAssertEqual(database.context.items[0].deadline, item.deadline)
+            XCTAssertEqual(database.context.items[0].isDone, item.isDone)
+            XCTAssertEqual(database.context.items[0].createdOn, item.createdOn)
+            XCTAssertEqual(database.context.items[0].updatedOn, item.updatedOn)
+
+            XCTAssertEqual(database.context.items[1].id, item2.id)
+            XCTAssertEqual(database.context.items[1].text, item2.text)
+            XCTAssertEqual(database.context.items[1].priority, item2.priority)
+            XCTAssertEqual(database.context.items[1].deadline, item2.deadline)
+            XCTAssertEqual(database.context.items[1].isDone, item2.isDone)
+            XCTAssertEqual(database.context.items[1].createdOn, item2.createdOn)
+            XCTAssertEqual(database.context.items[1].updatedOn, item2.updatedOn)
+
+            XCTAssertEqual(database.context.items.count, 2)
+        }
+        
+        database.save()
+    }
+
+    // MARK: - Tests update()
+    func tests_Update_IdIsNotFound() throws {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd_HH-mm-ss"
+        let filename = "TaskMasterio_Update_IdIsNotFound(\(dateFormatter.string(from: Date())))"
+
+        var testDbDirUrl = URL(fileURLWithPath: #file).deletingLastPathComponent()
+                                                    .appending(component: "TestFiles")
+                                                    .appending(component: "Generated")
+        database.configure(name: filename, connectionUrl: testDbDirUrl)
+        
+        var count = 0
+        XCTAssertEqual(database.context.items.count, count)
+
+        for data in TestsData.forInit {
+            let item = TodoItem(text: data.item.text, priority: data.item.priority, deadline: data.item.deadline,
+                                isDone: data.item.isDone, createdOn: data.item.createdOn, updatedOn: data.item.updatedOn)
+
+            XCTAssertNil(database.update(item))
+            XCTAssertEqual(database.context.items.count, count)
+        }
+        
+        _ = database.save()
+    }
+
+    func tests_Update_IdIsFound() throws {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd_HH-mm-ss"
+        let filename = "TaskMasterio_Update_IdIsFound(\(dateFormatter.string(from: Date())))"
+
+        var testDbDirUrl = URL(fileURLWithPath: #file).deletingLastPathComponent()
+                                                    .appending(component: "TestFiles")
+                                                    .appending(component: "Generated")
+        database.configure(name: filename, connectionUrl: testDbDirUrl)
+        
+        let data = TestsData.forInit[0]
+        let item = TodoItem(id: TestsData.id, text: data.item.text, priority: data.item.priority, deadline: data.item.deadline,
+                                  isDone: data.item.isDone, createdOn: data.item.createdOn, updatedOn: data.item.updatedOn)
+        XCTAssertNil(database.insert(item))
+
+        for testCase in TestsData.forInit {
+            let item2 = TodoItem(id: TestsData.id, text: testCase.item.text, priority: testCase.item.priority,
+                                  deadline: testCase.item.deadline, isDone: testCase.item.isDone,
+                                  createdOn: testCase.item.createdOn, updatedOn: testCase.item.updatedOn)
+
+            XCTAssertNotNil(database.update(item2))
+
+            XCTAssertEqual(database.context.items[0].id, item2.id)
+            XCTAssertEqual(database.context.items[0].text, item2.text)
+            XCTAssertEqual(database.context.items[0].priority, item2.priority)
+            XCTAssertEqual(database.context.items[0].deadline, item2.deadline)
+            XCTAssertEqual(database.context.items[0].isDone, item2.isDone)
+            XCTAssertEqual(database.context.items[0].createdOn, item2.createdOn)
+            XCTAssertEqual(database.context.items[0].updatedOn, item2.updatedOn)
+
+            XCTAssertEqual(database.context.items.count, 1)
+        }
+        
+        _ = database.save()
+    }
 //
 //    // MARK: - Tests insertOrUpdate()
 //    func tests_InsertOrUpdate_IdIsNotFound() throws {

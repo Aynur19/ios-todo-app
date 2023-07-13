@@ -28,7 +28,7 @@ struct TodoListTable: SqliteTable {
     }
     
     static func insert(_ item: TodoList, foreingKeys: [String: String]) -> Insert? {
-        let insert = table.insert(
+        let insertOperation = table.insert(
             id <- item.id,
             revision <- item.revision,
             isDirty <- item.isDirty,
@@ -36,7 +36,18 @@ struct TodoListTable: SqliteTable {
             lastUpdatedBy <- item.lastUpdatedBy
         )
         
-        return insert
+        return insertOperation
+    }
+    
+    static func update(_ item: TodoList) -> Update {
+        let updateOperation = table.update(
+            revision <- item.revision,
+            isDirty <- item.isDirty,
+            lastUpdatedOn <- item.lastUpdatedOn.toString(format: DatetimeFormats.yyyyMMddTHHmmss),
+            lastUpdatedBy <- item.lastUpdatedBy
+        )
+        
+        return updateOperation
     }
     
     static func getName() -> String {
