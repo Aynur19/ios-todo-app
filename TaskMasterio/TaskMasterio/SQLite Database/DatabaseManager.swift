@@ -153,6 +153,16 @@ final class DatabaseManager: DataCachable {
     }
     
     func insertOrUpdate(_ item: TodoItem) -> TodoItem? {
+        if let updatedItem = update(item) {
+            updates.append(TodoItemTable.update(item))
+            return updatedItem
+        }
+        
+        context.items.append(item)
+        if let insert = TodoItemTable.insert(item, foreingKeys: [TodoItemTable.foreignKey: context.id]) {
+            inserts.append(insert)
+        }
+        
         return nil
     }
     
