@@ -78,3 +78,7 @@ enum Fonts {
     static let subheadBold  = UIFont(name: "SFProText-Bold", size: 15) ?? UIFont.systemFont(ofSize: 15, weight: .bold)
     static let footnote     = UIFont(name: "SFProText-Semibold", size: 13) ?? UIFont.systemFont(ofSize: 13, weight: .semibold)
 }
+
+struct DatetimeFormats {
+    static let yyyyMMddTHHmmss = "yyyy-MM-dd HH:mm:ss"
+}

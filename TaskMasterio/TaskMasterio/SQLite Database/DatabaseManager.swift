@@ -9,25 +9,35 @@ import Foundation
 import SQLite
 
 final class DatabaseManager: DataCachable {
-    
-    
+    private let datetimeFormat = "yyyy-MM-dd HH:mm:ss"
     var context: TodoList
     
     static let shared = DatabaseManager()
     private var connectionString = ""
-    private var dbConnection: Connection? = nil
+    private var dbConnection: Connection?
+    
+    private var inserts = [String: Insert]()
+    private var updates = [String: Update]()
+    private var deletes = [String: Delete]()
     
     private init() {
         dbConnection = nil
         context = TodoList()
     }
     
+    private func removeOperation(by id: String) {
+        inserts[id] = nil
+        updates[id] = nil
+        deletes[id] = nil
+    }
+    
     func configure(name: String, connectionUrl: URL? = nil) {
         configureConnectionString(name: name, connectionUrl: connectionUrl)
         
-        if !connectionString.isEmpty,
-           connect() {
-            createDatabase()
+        if !connectionString.isEmpty {
+            if connect() {
+                createDatabase()
+            }
         }
     }
     
@@ -79,37 +89,17 @@ final class DatabaseManager: DataCachable {
         }
     }
     
-    private func createTable<T: SqliteTable>(_ of: T.Type) {
+    private func createTable<T: SqliteTable>(_ type: T.Type) {
         do {
             print("Попытка создания таблицы \(T.getName())...")
             try T.createTable(dbConnection: dbConnection)
-//            try dbConnection?.run(TodoListTable.table.create { table in
-//                table.column(TodoListTable.id, primaryKey: true)
-//                table.column(TodoListTable.revision)
-//                table.column(TodoListTable.isDirty)
-//                table.column(TodoListTable.lastUpdatedOn)
-//                table.column(TodoListTable.lastUpdatedBy)
-//            })
-            
-//            try dbConnection?.run(TodoItemTable.table.create { table in
-//                table.column(TodoItemTable.id, primaryKey: true)
-//                table.foreignKey(TodoItemTable.todoListId,
-//                                 references: TodoListTable.table, TodoListTable.id)
-//                table.column(TodoItemTable.text)
-//                table.column(TodoItemTable.priority)
-//                table.column(TodoItemTable.deadline)
-//                table.column(TodoItemTable.isDone)
-//                table.column(TodoItemTable.createdOn)
-//                table.column(TodoItemTable.updatedOn)
-//            })
-            
             print("  Таблица успешно создана!")
         } catch {
             print("  Не удалось создать таблицу: \(error)")
         }
     }
     
-    func tableExists<T: SqliteTable>(_ of: T.Type) -> Bool {
+    func tableExists<T: SqliteTable>(_ type: T.Type) -> Bool {
         let query = "SELECT name FROM sqlite_master WHERE type='table' AND name='\(T.getName())'"
         do {
             print("Проверка наличия в базе данных таблицы '\(T.getName())'...")
@@ -121,7 +111,7 @@ final class DatabaseManager: DataCachable {
         }
     }
     
-    func updateMetadata(revision: Int, isDurty: Bool, lastUpdatedBy: String, lastUpdatedOn: Int) {
+    func updateMetadata(revision: Int, isDurty: Bool, lastUpdatedBy: String, lastUpdatedOn: Date) {
         
     }
     
@@ -140,6 +130,23 @@ final class DatabaseManager: DataCachable {
     }
     
     func insert(_ item: TodoItem) -> TodoItem? {
+        if let foundedItem = context.items.first(where: { $0.id == item.id }) { return foundedItem }
+        context.items.append(item)
+        
+        inserts[item.id] = TodoItemTable.insert(item, foreingKeys: [TodoItemTable.foreignKey: context.id])
+        
+//        inserts[item.id] = TodoItemTable.table.insert(
+//            TodoItemTable.id <- item.id,
+//            TodoItemTable.todoListId <- context.id,
+//            TodoItemTable.text <- item.text,
+//            TodoItemTable.priority <- item.priority.rawValue,
+//            TodoItemTable.deadline <- item.deadline?.toString(format: datetimeFormat),
+//            TodoItemTable.isDone <- item.isDone,
+//            TodoItemTable.createdOn <- item.createdOn.toString(format: datetimeFormat),
+//            TodoItemTable.updatedOn <- (item.updatedOn ?? item.createdOn).toString(format: datetimeFormat),
+//            TodoItemTable.color <- item.color
+//        )
+        
         return nil
     }
     
@@ -156,6 +163,35 @@ final class DatabaseManager: DataCachable {
     }
     
     func save() -> Swift.Result<Void, Error>  {
-        return .success(())
+        var result: Swift.Result<Void, Error>
+        do {
+            let count = try dbConnection?.scalar(TodoListTable.table.filter(TodoListTable.id == context.id).count)
+                if count! > 0 {
+                    print("Запись с id \(context.id) найдена в таблице")
+                } else {
+                    print("Запись с id \(context.id) не найдена в таблице")
+                    
+                    if let insert = TodoListTable.insert(context, foreingKeys: [:]) {
+                        try dbConnection?.run(insert)
+                    }
+                }
+            
+            try dbConnection?.transaction {
+                for (_, insert) in inserts { try dbConnection?.run(insert) }
+                for (_, update) in updates { try dbConnection?.run(update) }
+                for (_, delete) in deletes { try dbConnection?.run(delete) }
+            }
+            
+            inserts.removeAll()
+            updates.removeAll()
+            deletes.removeAll()
+            
+            result = .success(())
+        } catch {
+            print("ОШИБКА: \(error)")
+            result = .failure(error)
+        }
+        
+        return result
     }
 }

@@ -36,8 +36,10 @@ final class TodoListJsonSerializator: JsonSerializator {
                 items.append(item)
             }
         }
+        
+        let lastUpdatedOnValue = Date(timeIntervalSince1970: Double(lastUpdatedOn))
 
         return TodoList(items: items, revision: revision, isDirty: isDirty,
-                        lastUpdatedBy: lastUpdatedBy, lastUpdatedOn: lastUpdatedOn)
+                        lastUpdatedBy: lastUpdatedBy, lastUpdatedOn: lastUpdatedOnValue)
     }
 }

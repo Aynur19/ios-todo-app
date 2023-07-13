@@ -12,7 +12,7 @@ struct TodoList {
     var revision: Int
     var isDirty: Bool
     var lastUpdatedBy: String
-    var lastUpdatedOn: Int
+    var lastUpdatedOn: Date
     var items: [TodoItem]
     
     init(id: String = UUID().uuidString,
@@ -20,7 +20,7 @@ struct TodoList {
          revision: Int = 0,
          isDirty: Bool = false,
          lastUpdatedBy: String = "",
-         lastUpdatedOn: Int = Date().datetime
+         lastUpdatedOn: Date = Date()
     ) {
         self.id = id
         self.items = items

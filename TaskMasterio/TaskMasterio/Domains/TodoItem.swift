@@ -15,6 +15,7 @@ struct TodoItem {
     let isDone: Bool
     let createdOn: Date
     let updatedOn: Date?
+    let color: String
     
     init(
         id: String = UUID().uuidString,
@@ -23,7 +24,8 @@ struct TodoItem {
         deadline: Date? = nil,
         isDone: Bool = false,
         createdOn: Date = Date(),
-        updatedOn: Date? = nil
+        updatedOn: Date? = nil,
+        color: String = "#FFFFFF"
     ) {
         self.id = id
         self.text = text
@@ -32,6 +34,7 @@ struct TodoItem {
         self.isDone = isDone
         self.createdOn = createdOn
         self.updatedOn = updatedOn
+        self.color = color
     }
     
     enum Keys {
@@ -42,6 +45,7 @@ struct TodoItem {
         static let isDone = "isDone"
         static let createdOn = "createdOn"
         static let updatedOn = "updatedOn"
+        static let color = "color"
     }
 }
 

@@ -24,7 +24,7 @@ final class JsonCache: DataCachable {
         self.url = connectionUrl
     }
     
-    func updateMetadata(revision: Int, isDurty: Bool = false, lastUpdatedBy: String = "default", lastUpdatedOn: Int = Date().datetime) {
+    func updateMetadata(revision: Int, isDurty: Bool = false, lastUpdatedBy: String = "default", lastUpdatedOn: Date = Date()) {
         context.revision = revision
         context.isDirty = isDurty
         context.lastUpdatedOn = lastUpdatedOn

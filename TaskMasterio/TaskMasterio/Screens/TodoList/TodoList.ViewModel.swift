@@ -27,8 +27,8 @@ final class TodoListViewModel: ObservableObject {
         self.networkService = networkService
         
         //        loadDataFromFileSystem()
-        loadDataFromNetwork()
-        saveOnFileSystem()
+//        loadDataFromNetwork()
+//        saveOnFileSystem()
         //        dataSynchronization()
         //        loadItem(id: tasks[0].id)
     }

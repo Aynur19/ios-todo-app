@@ -8,6 +8,12 @@
 import SQLite
 
 protocol SqliteTable {
+    associatedtype Entity
+    
     static func getName() -> String
+    static func getTable() -> Table
+    
     static func createTable(dbConnection: Connection?) throws
+    
+    static func insert(_ item: Entity, foreingKeys: [String: String]) -> Insert?
 }

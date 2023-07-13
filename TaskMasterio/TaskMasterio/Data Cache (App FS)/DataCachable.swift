@@ -20,7 +20,7 @@ protocol DataCachable {
     
     func configure(name: String, connectionUrl: URL?)
     
-    func updateMetadata(revision: Int, isDurty: Bool, lastUpdatedBy: String, lastUpdatedOn: Int)
+    func updateMetadata(revision: Int, isDurty: Bool, lastUpdatedBy: String, lastUpdatedOn: Date)
     
     func load() -> Result<Void, Error>
     

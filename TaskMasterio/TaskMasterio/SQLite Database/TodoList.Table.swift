@@ -10,9 +10,10 @@ import SQLite
 struct TodoListTable: SqliteTable {
     static let name = "todoLists"
     static let table = Table(name)
+    
     static let id = Expression<String>(TodoList.Keys.id)
-    static let revision = Expression<String>(TodoList.Keys.revision)
-    static let isDirty = Expression<String>(TodoList.Keys.isDirty)
+    static let revision = Expression<Int>(TodoList.Keys.revision)
+    static let isDirty = Expression<Bool>(TodoList.Keys.isDirty)
     static let lastUpdatedOn = Expression<String>(TodoList.Keys.lastUpdatedOn)
     static let lastUpdatedBy = Expression<String>(TodoList.Keys.lastUpdatedBy)
     
@@ -26,7 +27,23 @@ struct TodoListTable: SqliteTable {
         })
     }
     
+    static func insert(_ item: TodoList, foreingKeys: [String: String]) -> Insert? {
+        let insert = table.insert(
+            id <- item.id,
+            revision <- item.revision,
+            isDirty <- item.isDirty,
+            lastUpdatedOn <- item.lastUpdatedOn.toString(format: DatetimeFormats.yyyyMMddTHHmmss),
+            lastUpdatedBy <- item.lastUpdatedBy
+        )
+        
+        return insert
+    }
+    
     static func getName() -> String {
         return name
+    }
+    
+    static func getTable() -> Table {
+        return table
     }
 }
