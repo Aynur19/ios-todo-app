@@ -322,133 +322,37 @@ final class DatabaseManagerTests: XCTestCase {
         _ = database.save()
         print("************************************************************************\n")
     }
-//
-//    // MARK: - Tests save()
-//    func tests_Save_NewFile() throws {
-//        var items = [TodoItem]()
-//
-//        for data in TestsData.forInit {
-//            let item = TodoItem(text: data.item.text, priority: data.item.priority, deadline: data.item.deadline,
-//                                isDone: data.item.isDone, createdOn: data.item.createdOn, updatedOn: data.item.updatedOn)
-//            XCTAssertNil(database.insert(item))
-//            items.append(item)
-//        }
-//
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd_HH-mm-ss"
-//        let filename = "TaskMasterio_(\(dateFormatter.string(from: Date())))"
-//
-//        var testFilesDirUrl = URL(fileURLWithPath: #file).deletingLastPathComponent()
-//                                                    .appending(component: "TestFiles")
-//                                                    .appending(component: "Generated")
-//
-//        database.configure(name: filename, connectionUrl: testFilesDirUrl)
-//
-//        let result = database.save()
-//        testFilesDirUrl.append(path: "\(filename).json")
-//
-//        XCTAssertTrue(FileManager.default.fileExists(atPath: testFilesDirUrl.path))
-//
-//        database.clearContext()
-//
-//        let jsonData = try Data(contentsOf: testFilesDirUrl)
-//        XCTAssertNotNil(jsonData)
-//
-//        let jsonObject = try JSONSerialization.jsonObject(with: jsonData)
-//        XCTAssertNotNil(jsonObject)
-//
-//        let todoList = TodoList.parse(json: jsonObject)
-//        for itemDict in todoList!.items {
-//
-//            let itemFromList = items.first(where: { $0.id == itemDict.id })
-//
-//            XCTAssertNotNil(itemFromList)
-//            XCTAssertEqual(itemDict.id, itemFromList!.id)
-//            XCTAssertEqual(itemDict.text, itemFromList!.text)
-//            XCTAssertEqual(itemDict.priority, itemFromList!.priority)
-//            XCTAssertEqual(itemDict.deadline, itemFromList!.deadline)
-//            XCTAssertEqual(itemDict.isDone, itemFromList!.isDone)
-//            XCTAssertEqual(itemDict.createdOn, itemFromList!.createdOn)
-//            XCTAssertEqual(itemDict.updatedOn, itemFromList!.updatedOn)
-//        }
-//
-//        XCTAssertEqual(todoList?.items.count, items.count)
-//    }
-//
-//    func tests_SaveToJson_Rewriting() throws {
-//        var items = [TodoItem]()
-//        for data in TestsData.forInit {
-//            let item = TodoItem(id: data.item.id, text: data.item.text, priority: data.item.priority, deadline: data.item.deadline,
-//                                isDone: data.item.isDone, createdOn: data.item.createdOn, updatedOn: data.item.updatedOn)
-//            XCTAssertNil(database.insert(item))
-//            items.append(item)
-//        }
-//
-//        var testFilesDirUrl = URL(fileURLWithPath: #file).deletingLastPathComponent()
-//            .appending(component: "TestFiles")
-//            .appending(component: "Generated")
-//
-//        database.configure(name: "TaskMasterio", connectionUrl: testFilesDirUrl)
-//        let result = database.save()
-//
-//        testFilesDirUrl.append(path: "TaskMasterio.json")
-//        XCTAssertTrue(FileManager.default.fileExists(atPath: testFilesDirUrl.path()))
-//
-//        database.clearContext()
-//
-//        let jsonData = try Data(contentsOf: testFilesDirUrl)
-//        XCTAssertNotNil(jsonData)
-//
-//        let jsonObject = try JSONSerialization.jsonObject(with: jsonData)
-//        XCTAssertNotNil(jsonObject)
-//
-//        let todoList = TodoList.parse(json: jsonObject)
-//        for itemDict in todoList!.items {
-//            let itemFromList = items.first(where: { $0.id == itemDict.id })
-//
-//            XCTAssertNotNil(itemFromList)
-//            XCTAssertEqual(itemDict.id, itemFromList!.id)
-//            XCTAssertEqual(itemDict.text, itemFromList!.text)
-//            XCTAssertEqual(itemDict.priority, itemFromList!.priority)
-//            XCTAssertEqual(itemDict.deadline, itemFromList!.deadline)
-//            XCTAssertEqual(itemDict.isDone, itemFromList!.isDone)
-//            XCTAssertEqual(itemDict.createdOn, itemFromList!.createdOn)
-//            XCTAssertEqual(itemDict.updatedOn, itemFromList!.updatedOn)
-//        }
-//
-//        XCTAssertEqual(todoList?.items.count, items.count)
-//    }
-//
-//    // MARK: - Tests load()
-//    func tests_Load() throws {
-//        var items = [TodoItem]()
-//        for data in TestsData.forInit {
-//            let item = TodoItem(id: data.item.id, text: data.item.text, priority: data.item.priority, deadline: data.item.deadline,
-//                                isDone: data.item.isDone, createdOn: data.item.createdOn, updatedOn: data.item.updatedOn)
-//            items.append(item)
-//        }
-//
-//        let jsonUrl = URL(fileURLWithPath: #file).deletingLastPathComponent()
-//            .appending(component: "TestFiles")
-//
-//        XCTAssertTrue(FileManager.default.fileExists(atPath: jsonUrl.path))
-//
-//        database.configure(name: "TaskMasterio_ForLoading", connectionUrl: jsonUrl)
-//        let result = database.load()
-//
-//        XCTAssertEqual(database.context.items.count, items.count)
-//
-//        for item in items {
-//            let itemFromDataCache = database.get(by: item.id)
-//
-//            XCTAssertNotNil(itemFromDataCache)
-//            XCTAssertEqual(item.id, itemFromDataCache!.id)
-//            XCTAssertEqual(item.text, itemFromDataCache!.text)
-//            XCTAssertEqual(item.priority, itemFromDataCache!.priority)
-//            XCTAssertEqual(item.deadline, itemFromDataCache!.deadline)
-//            XCTAssertEqual(item.isDone, itemFromDataCache!.isDone)
-//            XCTAssertEqual(item.createdOn, itemFromDataCache!.createdOn)
-//            XCTAssertEqual(item.updatedOn, itemFromDataCache!.updatedOn)
-//        }
-//    }
+    
+    // MARK: - Tests load()
+    func tests_Load() throws {
+        var items = [TodoItem]()
+        for data in TestsData.forInit {
+            let item = TodoItem(id: data.item.id, text: data.item.text, priority: data.item.priority, deadline: data.item.deadline,
+                                isDone: data.item.isDone, createdOn: data.item.createdOn, updatedOn: data.item.updatedOn)
+            items.append(item)
+        }
+
+        let jsonUrl = URL(fileURLWithPath: #file).deletingLastPathComponent()
+            .appending(component: "TestFiles")
+
+        XCTAssertTrue(FileManager.default.fileExists(atPath: jsonUrl.path))
+
+        database.configure(name: "TaskMasterio_ForLoading", connectionUrl: jsonUrl)
+        let result = database.load()
+
+        XCTAssertEqual(database.context.items.count, items.count)
+
+        for item in items {
+            let itemFromDataCache = database.get(by: item.id)
+
+            XCTAssertNotNil(itemFromDataCache)
+            XCTAssertEqual(item.id, itemFromDataCache!.id)
+            XCTAssertEqual(item.text, itemFromDataCache!.text)
+            XCTAssertEqual(item.priority, itemFromDataCache!.priority)
+            XCTAssertEqual(item.deadline, itemFromDataCache!.deadline)
+            XCTAssertEqual(item.isDone, itemFromDataCache!.isDone)
+            XCTAssertEqual(item.createdOn, itemFromDataCache!.createdOn)
+            XCTAssertEqual(item.updatedOn, itemFromDataCache!.updatedOn)
+        }
+    }
 }
