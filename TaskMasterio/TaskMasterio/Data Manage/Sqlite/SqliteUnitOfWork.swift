@@ -1,5 +1,5 @@
 //
-//  UnitOfWork.swift
+//  SqliteUnitOfWork.swift
 //  TaskMasterio
 //
 //  Created by Aynur Nasybullin on 14.07.2023.
@@ -8,21 +8,7 @@
 import Foundation
 import SQLite
 
-protocol UnitOfWork: DataStore {
-    associatedtype TodoListRepoType: TodoListRepository
-    
-    var todoLisrRepo: TodoListRepoType { get }
-    
-    var name: String { get }
-    var connectionUrl: URL? { get }
-    
-    func configure(name: String, connectionUrl: URL?)
-    
-    func load() -> Swift.Result<Void, Error>
-    func save() -> Swift.Result<Void, Error>
-}
-
-class SqliteUnitOfWork: UnitOfWork {
+final class SqliteUnitOfWork: UnitOfWork {
     typealias TodoListRepoType = SqliteTodoListRepository
     
     private(set) var todoListContext: TodoListContext
@@ -57,23 +43,13 @@ class SqliteUnitOfWork: UnitOfWork {
     func load() -> Swift.Result<Void, Error> {
         var result: Swift.Result<Void, Error>
         
-//        let select = TodoListTable.select()
-        //        let select = TodoListTable.select(by: "C16291BC-E107-4F5B-9E0E-6642DFB4CC0A")
-//        let select2 = TodoItemTable.select(with: "C16291BC-E107-4F5B-9E0E-6642DFB4CC0A")
-        
         do {
-            guard let rows = try dbConnection?.prepare(TodoListTable.table)/*,
-                  let rows2 = try dbConnection?.prepare(select2)*/
+            guard let rows = try dbConnection?.prepare(TodoListTable.table)
             else {
                 throw FileCacheError.castingToDictionaryFailed
             }
             
             todoListContext.context = TodoListTable.toDomain(rows: rows)
-//            context
-//            context.todoLists.removeAll()
-//            context1.context.removeAll()
-//            context1.context.append(contentsOf: todoList)
-//            context.items.append(contentsOf: TodoItemTable.toDomain(rows: rows2))
             result = .success(())
         } catch {
             print(error)
@@ -86,18 +62,6 @@ class SqliteUnitOfWork: UnitOfWork {
     func save() -> Swift.Result<Void, Error> {
         var result: Swift.Result<Void, Error>
         do {
-//            let count = try dbConnection?.scalar(TodoListTable.table.filter(TodoListTable.id == context.id).count)
-//
-//            if let count = count, count > 0 {
-//                print("Запись с id \(context.id) найдена в таблице")
-//            } else {
-//                print("Запись с id \(context.id) не найдена в таблице")
-//
-//                if let insert = TodoListTable.insert(context, foreingKeys: [:]) {
-//                    try dbConnection?.run(insert)
-//                }
-//            }
-            
             try dbConnection?.transaction {
                 for insert in todoLisrRepo.inserts { try dbConnection?.run(insert) }
                 for update in todoLisrRepo.updates { try dbConnection?.run(update) }

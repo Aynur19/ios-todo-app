@@ -15,17 +15,8 @@ class SqliteTodoListRepository: TodoListRepository, SqliteRepository {
     private(set) var updates = [Update]()
     private(set) var deletes = [Delete]()
     
-//    func load() -> Swift.Result<Void, Error> {
-//        return .success(())
-//    }
-//    func save() -> Swift.Result<Void, Error> {
-//        return .success(())
-//    }
-    
     func clearInserts() { inserts.removeAll() }
-    
     func clearUpdates() { updates.removeAll() }
-    
     func clearDeletes() { deletes.removeAll() }
     
     override func insert(_ entity: Entity) -> Entity? {
