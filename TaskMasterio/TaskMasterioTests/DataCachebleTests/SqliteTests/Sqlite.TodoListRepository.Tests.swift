@@ -1,61 +1,72 @@
-////
-////  DatabaseManagerTests.swift
-////  TaskMasterioTests
-////
-////  Created by Aynur Nasybullin on 12.07.2023.
-////
 //
-//import XCTest
-//@testable import TaskMasterio
+//  Sqlite.TodoListRepository.Tests.swift
+//  TaskMasterioTests
 //
-//final class DatabaseManagerTests: XCTestCase {
-//    var database: DatabaseManager!
+//  Created by Aynur Nasybullin on 14.07.2023.
 //
-//    override func setUpWithError() throws {
-//        database = DatabaseManager.shared
-//        try super.setUpWithError()
-//    }
-//
-//    override func tearDownWithError() throws {
-//        database = nil
-//        try super.tearDownWithError()
-//    }
-//
-//    // MARK: - Tests configurate()
-//    func tests_CreateDatabase_IsNew() throws {
-//        print("\n******************************** ТЕСТ *********************************")
-//        print("ПРОВЕРКА: СОЗДАНИЕ БАЗЫ ДАННЫХ И ТАБЛИЦ")
-//
+
+import XCTest
+@testable import TaskMasterio
+
+final class SqliteUnitOfWorkTests: XCTestCase {
+    var database: SqliteUnitOfWork!
+    var context: DataContext!
+    var repo: SqliteTodoListRepository!
+    var dataManager: DataManager!
+
+    override func setUpWithError() throws {
+        context = DataContext()
+        repo = SqliteTodoListRepository(dataset: context.todoLists)
+        database = SqliteUnitOfWork(context: context, repo: repo)
+        dataManager = DataManager(unitOfWork: database)
+        try super.setUpWithError()
+    }
+
+    override func tearDownWithError() throws {
+        context = nil
+        repo = nil
+        database = nil
+        dataManager = nil
+        try super.tearDownWithError()
+    }
+
+    // MARK: - Tests configurate()
+    func tests_CreateDatabase_IsNew() throws {
+        print("\n******************************** ТЕСТ *********************************")
+        print("ПРОВЕРКА: СОЗДАНИЕ БАЗЫ ДАННЫХ И ТАБЛИЦ")
+        
+        let filepath = TestsData.getFilepath(prefix: "TodoList_CreateDatabase", withDatetime: true)
+        dataManager.configure(name: filepath.filename, connectionUrl: filepath.url)
+        
+        print("************************************************************************\n")
+    }
+    
+    func tests_CreateDatabase_IsStored() throws {
+        print("\n******************************** ТЕСТ *********************************")
+        print("ПРОВЕРКА: СОЗДАНИЕ БАЗЫ ДАННЫХ И ТАБЛИЦ ЕДИНОЖДЫ")
+
+        let filepath = TestsData.getFilepath(prefix: "TodoList", withDatetime: false, isTemp: false)
+        dataManager.configure(name: filepath.filename, connectionUrl: filepath.url)
+
+        print("************************************************************************\n")
+    }
+
+    // MARK: - Tests insert()
+    func tests_Insert_IdIsNotFound() throws {
+        print("\n******************************** ТЕСТ *********************************")
+        print("ПРОВЕРКА: ДОБАВЛЕНИЕ ЗАПИСЕЙ С НОВЫМИ ИДЕНТИФИКАТОРАМИ")
+
 //        let filepath = TestsData.getFilepath(prefix: "TodoList_CreateDatabase", withDatetime: true)
-//        database.configure(name: filepath.filename, connectionUrl: filepath.url)
-//        database.traceQueries(isOn: true)
-//
-//        print("************************************************************************\n")
-//    }
-//
-//    func tests_CreateDatabase_IsStored() throws {
-//        print("\n******************************** ТЕСТ *********************************")
-//        print("ПРОВЕРКА: СОЗДАНИЕ БАЗЫ ДАННЫХ И ТАБЛИЦ ЕДИНОЖДЫ")
-//
-//        let filepath = TestsData.getFilepath(prefix: "TodoList", withDatetime: false, isTemp: false)
-//        database.configure(name: filepath.filename, connectionUrl: filepath.url)
-//        database.traceQueries(isOn: true)
-//
-//        print("************************************************************************\n")
-//    }
-//
-//    // MARK: - Tests insert()
-//    func tests_Insert_IdIsNotFound() throws {
-//        print("\n******************************** ТЕСТ *********************************")
-//        print("ПРОВЕРКА: ДОБАВЛЕНИЕ ЗАПИСЕЙ С НОВЫМИ ИДЕНТИФИКАТОРАМИ")
-//
-//        let filepath = TestsData.getFilepath(prefix: "TodoList_CreateDatabase", withDatetime: true)
-////        let filepath = TestsData.getFilepath(prefix: "TodoList", isTemp: false)
-//        database.configure(name: filepath.filename, connectionUrl: filepath.url)
-//        database.traceQueries(isOn: true)
-//
-//        var count = 0
-//        XCTAssertEqual(database.context.items.count, count)
+        let filepath = TestsData.getFilepath(prefix: "TodoList", isTemp: false)
+        dataManager.configure(name: filepath.filename, connectionUrl: filepath.url)
+
+        XCTAssertEqual(dataManager.getAll(typeOf: TodoList.self).count, 0)
+        let count = 5
+        for _ in 1...count {
+            let item = TodoList()
+            _ = dataManager.insert(item)
+        }
+        XCTAssertEqual(dataManager.getAll(typeOf: TodoList.self).count, count)
 //
 //        for data in TestsData.forInit {
 //            let item = TodoItem(text: data.item.text, priority: data.item.priority, deadline: data.item.deadline,
@@ -73,10 +84,10 @@
 //            count += 1
 //            XCTAssertEqual(database.context.items.count, count)
 //        }
-//
-//        database.save()
-//        print("************************************************************************\n")
-//    }
+
+        database.save()
+        print("************************************************************************\n")
+    }
 //
 //    func tests_Insert_IdFound() throws {
 //        print("\n******************************** ТЕСТ *********************************")
@@ -377,4 +388,4 @@
 //
 //        print("************************************************************************\n")
 //    }
-//}
+}

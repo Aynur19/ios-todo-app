@@ -55,7 +55,7 @@ final class TodoItemJsonSerializator: JsonSerializator {
         
         let createdOnValue = Date(timeIntervalSince1970: TimeInterval(dictCreatedOn))
         return TodoItem(id: dictId, text: dictText, priority: dictPriority, deadline: deadlineValue,
-                        isDone: dictIsDone, createdOn: createdOnValue, updatedOn: updatedOnValue)
+                        isDone: dictIsDone, createdOn: createdOnValue, updatedOn: updatedOnValue, todoListId: "")
     }
     
     static private func getPriority(data: [String: Any]) -> TodoItemPriority? {

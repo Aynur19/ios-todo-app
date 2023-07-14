@@ -9,6 +9,10 @@ import Foundation
 import SQLite
 
 struct TodoItemTable: SqliteTable {
+    static func insert(_ item: TodoItem, foreingKeys: [String : String]?) -> SQLite.Insert? {
+        return nil
+    }
+    
     static let name = "todoItems"
     static let foreignKey = "todoListId"
     
@@ -129,10 +133,12 @@ struct TodoItemTable: SqliteTable {
         let todoText = row[text]
         let todoIsDone = row[isDone]
         let todoColor = row[color]
+        let todoParentListId = row[todoListId]
         
         return TodoItem(id: todoId, text: todoText, priority: todoPriority,
                         deadline: todoDeadline, isDone: todoIsDone,
-                        createdOn: todoCreatedOn, updatedOn: todoUpdatedOn, color: todoColor)
+                        createdOn: todoCreatedOn, updatedOn: todoUpdatedOn,
+                        color: todoColor, todoListId: todoParentListId)
     }
     
     static func getName() -> String {

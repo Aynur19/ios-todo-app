@@ -7,17 +7,16 @@
 
 import SQLite
 
+
 protocol SqliteTable {
-    associatedtype Entity
+    associatedtype Entity: StringIdentifiable
     
     static func getName() -> String
     static func getTable() -> Table
     
     static func createTable(dbConnection: Connection?) throws
     
-//    static func select(by id: String) -> Select<Table>
-    
-    static func insert(_ item: Entity, foreingKeys: [String: String]) -> Insert?
+    static func insert(_ item: Entity, foreingKeys: [String: String]?) -> Insert?
     
     static func update(_ item: Entity) -> Update
     

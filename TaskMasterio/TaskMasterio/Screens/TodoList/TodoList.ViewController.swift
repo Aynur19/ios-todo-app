@@ -96,7 +96,7 @@ final class TodoListViewController: UIViewController {
     }()
     
     @objc private func onNewItemButtonTapped() {
-        let viewModel = TodoItemViewModel(TodoItem(text: "", priority: .medium), viewModel: viewModel)
+        let viewModel = TodoItemViewModel(TodoItem(text: "", priority: .medium, todoListId: ""), viewModel: viewModel)
         let detailViewController = TodoItemViewController(viewModel: viewModel)
         let todoItemNavigationController = UINavigationController(rootViewController: detailViewController)
         

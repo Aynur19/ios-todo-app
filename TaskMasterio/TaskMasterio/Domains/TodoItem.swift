@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TodoItem {
+struct TodoItem: StringIdentifiable {
     let id: String
     let text: String
     let priority: TodoItemPriority
@@ -16,6 +16,7 @@ struct TodoItem {
     let createdOn: Date
     let updatedOn: Date?
     let color: String
+    let todoListId: String
     
     init(
         id: String = UUID().uuidString,
@@ -25,7 +26,8 @@ struct TodoItem {
         isDone: Bool = false,
         createdOn: Date = Date(),
         updatedOn: Date? = nil,
-        color: String = "#FFFFFF"
+        color: String = "#FFFFFF",
+        todoListId: String
     ) {
         self.id = id
         self.text = text
@@ -35,6 +37,7 @@ struct TodoItem {
         self.createdOn = createdOn
         self.updatedOn = updatedOn
         self.color = color
+        self.todoListId = todoListId
     }
     
     enum Keys {
@@ -46,6 +49,7 @@ struct TodoItem {
         static let createdOn = "createdOn"
         static let updatedOn = "updatedOn"
         static let color = "color"
+        static let todoListId = "todoListId"
     }
 }
 

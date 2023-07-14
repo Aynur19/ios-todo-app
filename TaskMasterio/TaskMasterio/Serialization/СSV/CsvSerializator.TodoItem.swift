@@ -69,7 +69,7 @@ final class TodoItemCsvSerializator: CsvSerializator {
         guard updatedOnCsv.isValid else { return nil }
         
         return TodoItem.Element(id: idCsv, text: textCsv, priority: priorityCsv, deadline: deadlineCsv.result,
-                                isDone: isDoneCsv, createdOn: createdOnResult, updatedOn: updatedOnCsv.result)
+                                isDone: isDoneCsv, createdOn: createdOnResult, updatedOn: updatedOnCsv.result, todoListId: "")
     }
     
     static func getHeaders() -> String {

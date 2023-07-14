@@ -13,7 +13,7 @@ final class TodoItemTestsInit: XCTestCase {
     func test_Init_IdGenerated() throws {
         for data in TestsData.forInit {
             let task = TodoItem(text: data.item.text, priority: data.item.priority, deadline: data.item.deadline,
-                            isDone: data.item.isDone, createdOn: data.item.createdOn, updatedOn: data.item.updatedOn)
+                                isDone: data.item.isDone, createdOn: data.item.createdOn, updatedOn: data.item.updatedOn, todoListId: data.item.todoListId)
             
             XCTAssertNotNil(task)
             XCTAssertNotNil(task.id)
@@ -30,7 +30,7 @@ final class TodoItemTestsInit: XCTestCase {
         
         for data in TestsData.forInit {
             let task = TodoItem(id: TestsData.id, text: data.item.text, priority: data.item.priority, deadline: data.item.deadline,
-                            isDone: data.item.isDone, createdOn: data.item.createdOn, updatedOn: data.item.updatedOn)
+                            isDone: data.item.isDone, createdOn: data.item.createdOn, updatedOn: data.item.updatedOn, todoListId: data.item.todoListId)
         
             XCTAssertNotNil(task)
             XCTAssertEqual(task.id, TestsData.id)

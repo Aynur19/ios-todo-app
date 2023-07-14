@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TodoList {
+struct TodoList: StringIdentifiable {
     let id: String
     var revision: Int
     var isDirty: Bool

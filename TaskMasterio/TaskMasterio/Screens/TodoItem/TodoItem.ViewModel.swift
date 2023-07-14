@@ -36,7 +36,7 @@ final class TodoItemViewModel: ObservableObject {
     init(_ currentTask: TodoItem?, viewModel: TodoListViewModel) {
         self.itemExists = currentTask != nil
         self.viewModel = viewModel
-        self.task = currentTask ?? TodoItem(text: "", priority: .medium)
+        self.task = currentTask ?? TodoItem(text: "", priority: .medium, todoListId: "")
        
         description = task.text
         deadline = task.deadline
@@ -62,9 +62,9 @@ final class TodoItemViewModel: ObservableObject {
         var mergedItem: TodoItem
         if itemExists {
             mergedItem = TodoItem(id: task.id, text: description, priority: priority, deadline: deadline,
-                                  isDone: isDone, createdOn: task.createdOn, updatedOn: Date())
+                                  isDone: isDone, createdOn: task.createdOn, updatedOn: Date(), todoListId: "")
         } else {
-            mergedItem = TodoItem(text: description, priority: priority, deadline: deadline, createdOn: Date(), updatedOn: Date())
+            mergedItem = TodoItem(text: description, priority: priority, deadline: deadline, createdOn: Date(), updatedOn: Date(), todoListId: "")
         }
         
         return mergedItem
