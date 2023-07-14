@@ -1,5 +1,5 @@
 //
-//  SqliteRepository.swift
+//  Sqlite.Repository.swift
 //  TaskMasterio
 //
 //  Created by Aynur Nasybullin on 14.07.2023.

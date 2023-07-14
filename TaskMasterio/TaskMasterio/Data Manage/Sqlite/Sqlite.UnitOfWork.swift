@@ -1,5 +1,5 @@
 //
-//  SqliteUnitOfWork.swift
+//  Sqlite.UnitOfWork.swift
 //  TaskMasterio
 //
 //  Created by Aynur Nasybullin on 14.07.2023.
@@ -10,11 +10,13 @@ import SQLite
 
 final class SqliteUnitOfWork: UnitOfWork {
     typealias TodoListRepoType = SqliteTodoListRepository
+    typealias TodoItemRepoType = SqliteTodoItemRepository
     
     private(set) var todoListContext: TodoListContext
-    private(set) var todoItemContext: TodoItemContext?
+    private(set) var todoItemContext: TodoItemContext
     
-    private(set) var todoLisrRepo: TodoListRepoType
+    private(set) var todoListRepo: TodoListRepoType
+    private(set) var todoItemRepo: TodoItemRepoType
     
     private(set) var name = String()
     private(set) var connectionUrl: URL?
@@ -22,9 +24,12 @@ final class SqliteUnitOfWork: UnitOfWork {
     private var connectionString = String()
     private var dbConnection: Connection?
     
-    init(context1: TodoListContext) {
-        self.todoListContext = context1
-        self.todoLisrRepo = SqliteTodoListRepository(context: self.todoListContext)
+    init(todoListContext: TodoListContext, todoItemContext: TodoItemContext) {
+        self.todoListContext = todoListContext
+        self.todoItemContext = todoItemContext
+        
+        self.todoListRepo = SqliteTodoListRepository(context: self.todoListContext)
+        self.todoItemRepo = SqliteTodoItemRepository(context: self.todoItemContext)
     }
     
     func configure(name: String, connectionUrl: URL? = nil) {
@@ -44,12 +49,20 @@ final class SqliteUnitOfWork: UnitOfWork {
         var result: Swift.Result<Void, Error>
         
         do {
-            guard let rows = try dbConnection?.prepare(TodoListTable.table)
+            guard let todoListRows = try dbConnection?.prepare(TodoListTable.table),
+                  let todoList = TodoListTable.toDomain(rows: todoListRows).first
             else {
                 throw FileCacheError.castingToDictionaryFailed
             }
             
-            todoListContext.context = TodoListTable.toDomain(rows: rows)
+            let select = TodoItemTable.table.select(*).filter(TodoItemTable.todoListId == todoList.id)
+            guard let todoItemRows = try dbConnection?.prepare(select) else {
+                throw FileCacheError.castingToDictionaryFailed
+            }
+                    
+            todoListContext.context.append(todoList)
+            todoItemContext.context = TodoItemTable.toDomain(rows: todoItemRows)
+            
             result = .success(())
         } catch {
             print(error)
@@ -63,14 +76,22 @@ final class SqliteUnitOfWork: UnitOfWork {
         var result: Swift.Result<Void, Error>
         do {
             try dbConnection?.transaction {
-                for insert in todoLisrRepo.inserts { try dbConnection?.run(insert) }
-                for update in todoLisrRepo.updates { try dbConnection?.run(update) }
-                for delete in todoLisrRepo.deletes { try dbConnection?.run(delete) }
+                for insert in todoListRepo.inserts { try dbConnection?.run(insert) }
+                for update in todoListRepo.updates { try dbConnection?.run(update) }
+                for delete in todoListRepo.deletes { try dbConnection?.run(delete) }
+                
+                for insert in todoItemRepo.inserts { try dbConnection?.run(insert) }
+                for update in todoItemRepo.updates { try dbConnection?.run(update) }
+                for delete in todoItemRepo.deletes { try dbConnection?.run(delete) }
             }
             
-            todoLisrRepo.clearInserts()
-            todoLisrRepo.clearUpdates()
-            todoLisrRepo.clearDeletes()
+            todoListRepo.clearInserts()
+            todoListRepo.clearUpdates()
+            todoListRepo.clearDeletes()
+            
+            todoItemRepo.clearInserts()
+            todoItemRepo.clearUpdates()
+            todoItemRepo.clearDeletes()
             
             result = .success(())
         } catch {
@@ -136,9 +157,9 @@ final class SqliteUnitOfWork: UnitOfWork {
             createTable(TodoListTable.self)
         }
         
-//        if !tableExists(TodoItemTable.self) {
-//            createTable(TodoItemTable.self)
-//        }
+        if !tableExists(TodoItemTable.self) {
+            createTable(TodoItemTable.self)
+        }
     }
     
     private func tableExists<T: SqliteTable>(_ type: T.Type) -> Bool {

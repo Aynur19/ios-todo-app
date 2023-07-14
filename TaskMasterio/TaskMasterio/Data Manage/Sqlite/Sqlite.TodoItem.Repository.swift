@@ -1,5 +1,5 @@
 //
-//  SqliteTodoListRepository.swift
+//  Sqlite.TodoItem.Repository.swift
 //  TaskMasterio
 //
 //  Created by Aynur Nasybullin on 14.07.2023.
@@ -8,8 +8,8 @@
 import Foundation
 import SQLite
 
-class SqliteTodoListRepository: TodoListRepository, SqliteRepository {
-    typealias Entity = TodoList
+class SqliteTodoItemRepository: TodoItemRepository, SqliteRepository {
+    typealias Entity = TodoItem
 
     private(set) var inserts = [Insert]()
     private(set) var updates = [Update]()
@@ -24,17 +24,14 @@ class SqliteTodoListRepository: TodoListRepository, SqliteRepository {
             return foundedItem
         }
         
-        if let insert = TodoListTable.insert(entity, foreingKeys: [:]) {
-            inserts.append(insert)
-        }
-        
+        inserts.append(TodoItemTable.insert(entity))
         return nil
     }
     
     override func update(_ entity: Entity) -> Entity? {
         guard let updatedItem = super.update(entity) else { return nil }
     
-        updates.append(TodoListTable.update(entity))
+        updates.append(TodoItemTable.update(entity))
         return updatedItem
     }
     

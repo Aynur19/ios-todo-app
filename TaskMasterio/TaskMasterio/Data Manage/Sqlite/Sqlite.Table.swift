@@ -12,11 +12,12 @@ protocol SqliteTable {
     associatedtype Entity: StringIdentifiable
     
     static func getName() -> String
+    
     static func getTable() -> Table
     
     static func createTable(dbConnection: Connection?) throws
     
-    static func insert(_ item: Entity, foreingKeys: [String: String]?) -> Insert?
+    static func insert(_ item: Entity) -> Insert
     
     static func update(_ item: Entity) -> Update
     

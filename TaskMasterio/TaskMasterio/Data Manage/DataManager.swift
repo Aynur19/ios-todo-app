@@ -23,28 +23,28 @@ final class DataManager {
     }
     
     func get(by id: String) -> TodoList? {
-        return unitOfWork.todoLisrRepo.get(by: id)
+        return unitOfWork.todoListRepo.get(by: id)
     }
     
     
     func getAll() -> [TodoList] {
-        return unitOfWork.todoLisrRepo.getAll()
+        return unitOfWork.todoListRepo.getAll()
     }
     
     func insert(_ entity: TodoList) -> TodoList? {
-        return unitOfWork.todoLisrRepo.insert(entity)
+        return unitOfWork.todoListRepo.insert(entity)
     }
     
     func update(_ entity: TodoList) -> TodoList? {
-        return unitOfWork.todoLisrRepo.update(entity)
+        return unitOfWork.todoListRepo.update(entity)
     }
     
     func upsert(_ entity: TodoList) -> TodoList? {
-        return unitOfWork.todoLisrRepo.upsert(entity)
+        return unitOfWork.todoListRepo.upsert(entity)
     }
     
     func delete(by id: String) -> TodoList? {
-        return unitOfWork.todoLisrRepo.delete(by: id)
+        return unitOfWork.todoListRepo.delete(by: id)
     }
     
     func getItem(by id: String) -> TodoItem? { return nil }

@@ -10,8 +10,10 @@ import SQLite
 
 protocol UnitOfWork: DataStore {
     associatedtype TodoListRepoType: TodoListRepository
+    associatedtype TodoItemRepoType: TodoItemRepository
     
-    var todoLisrRepo: TodoListRepoType { get }
+    var todoListRepo: TodoListRepoType { get }
+    var todoItemRepo: TodoItemRepoType { get }
     
     var name: String { get }
     var connectionUrl: URL? { get }

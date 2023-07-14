@@ -1,5 +1,5 @@
 //
-//  BaseRepository.swift
+//  TodoItem.Repository.swift
 //  TaskMasterio
 //
 //  Created by Aynur Nasybullin on 14.07.2023.
@@ -7,12 +7,12 @@
 
 import Foundation
 
-class TodoListRepository: Repository {
-    typealias Entity = TodoList
+class TodoItemRepository: Repository {
+    typealias Entity = TodoItem
     
-    private(set) var context: TodoListContext
+    private(set) var context: TodoItemContext
 
-    init(context: TodoListContext) {
+    init(context: TodoItemContext) {
         self.context = context
     }
     
