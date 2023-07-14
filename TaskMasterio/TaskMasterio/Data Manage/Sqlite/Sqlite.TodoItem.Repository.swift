@@ -45,7 +45,7 @@ class SqliteTodoItemRepository: TodoItemRepository, SqliteRepository {
     
     override func delete(by id: String) -> Entity? {
         guard let deletedItem = super.delete(by: id) else { return nil }
-        deletes.append(TodoListTable.delete(by: id))
+        deletes.append(TodoItemTable.delete(by: id))
         
         return deletedItem
     }

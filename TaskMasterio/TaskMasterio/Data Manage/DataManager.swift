@@ -47,12 +47,30 @@ final class DataManager {
         return unitOfWork.todoListRepo.delete(by: id)
     }
     
-    func getItem(by id: String) -> TodoItem? { return nil }
-    func getItems(typeOf: TodoItem.Type) -> [TodoItem] { return [] }
-    func insertItem(_ entity: TodoItem) -> TodoItem? { return nil }
-    func updateItem(_ entity: TodoItem) -> TodoItem? { return nil }
-    func upsertItem(_ entity: TodoItem) -> TodoItem? { return nil }
-    func deleteItem(by id: String) -> TodoItem? { return nil }
+    
+    func getItem(by id: String) -> TodoItem? {
+        return unitOfWork.todoItemRepo.get(by: id)
+    }
+    
+    func getItems() -> [TodoItem] {
+        return unitOfWork.todoItemRepo.getAll()
+    }
+    
+    func insertItem(_ entity: TodoItem) -> TodoItem? {
+        return unitOfWork.todoItemRepo.insert(entity)
+    }
+    
+    func updateItem(_ entity: TodoItem) -> TodoItem? {
+        return unitOfWork.todoItemRepo.update(entity)
+    }
+    
+    func upsertItem(_ entity: TodoItem) -> TodoItem? {
+        return unitOfWork.todoItemRepo.upsert(entity)
+    }
+    
+    func deleteItem(by id: String) -> TodoItem? {
+        return unitOfWork.todoItemRepo.delete(by: id)
+    }
 
     func load() -> Result<Void, Error> {
         return unitOfWork.load()

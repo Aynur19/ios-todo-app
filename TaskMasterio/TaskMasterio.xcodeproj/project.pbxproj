@@ -72,6 +72,7 @@
 		989707492A61B75200D7AE8E /* Sqlite.UnitOfWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989707482A61B75200D7AE8E /* Sqlite.UnitOfWork.swift */; };
 		9897074B2A61BDEE00D7AE8E /* Sqlite.TodoItem.Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9897074A2A61BDEE00D7AE8E /* Sqlite.TodoItem.Repository.swift */; };
 		9897074D2A61BE9000D7AE8E /* TodoItem.Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9897074C2A61BE9000D7AE8E /* TodoItem.Repository.swift */; };
+		9897074F2A61C57F00D7AE8E /* Sqlite.TodoItem.DataManager.Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9897074E2A61C57F00D7AE8E /* Sqlite.TodoItem.DataManager.Tests.swift */; };
 		98BE0E832A3CE3DC00EE3B7C /* TodoItemTests.JsonSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BE0E822A3CE3DC00EE3B7C /* TodoItemTests.JsonSerialization.swift */; };
 		98CE2A1F2A3C83F900554B7A /* DateExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CE2A1E2A3C83F900554B7A /* DateExt.swift */; };
 		98CE2A212A3C9A8900554B7A /* StringExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CE2A202A3C9A8900554B7A /* StringExt.swift */; };
@@ -186,6 +187,7 @@
 		989707482A61B75200D7AE8E /* Sqlite.UnitOfWork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sqlite.UnitOfWork.swift; sourceTree = "<group>"; };
 		9897074A2A61BDEE00D7AE8E /* Sqlite.TodoItem.Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sqlite.TodoItem.Repository.swift; sourceTree = "<group>"; };
 		9897074C2A61BE9000D7AE8E /* TodoItem.Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.Repository.swift; sourceTree = "<group>"; };
+		9897074E2A61C57F00D7AE8E /* Sqlite.TodoItem.DataManager.Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sqlite.TodoItem.DataManager.Tests.swift; sourceTree = "<group>"; };
 		98BE0E822A3CE3DC00EE3B7C /* TodoItemTests.JsonSerialization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemTests.JsonSerialization.swift; sourceTree = "<group>"; };
 		98CE2A1E2A3C83F900554B7A /* DateExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExt.swift; sourceTree = "<group>"; };
 		98CE2A202A3C9A8900554B7A /* StringExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExt.swift; sourceTree = "<group>"; };
@@ -332,6 +334,7 @@
 			isa = PBXGroup;
 			children = (
 				983A5A6E2A615CAF00A7876D /* Sqlite.TodoList.DataManager.Tests.swift */,
+				9897074E2A61C57F00D7AE8E /* Sqlite.TodoItem.DataManager.Tests.swift */,
 			);
 			path = SqliteTests;
 			sourceTree = "<group>";
@@ -890,6 +893,7 @@
 				983A5A532A5F157A00A7876D /* DatabaseManagerTests.swift in Sources */,
 				9858714A2A3D4CB200066B2E /* TodoItemTests.CsvSerialization.swift in Sources */,
 				983A5A492A5D7EDC00A7876D /* JsonCacheTests.Data.swift in Sources */,
+				9897074F2A61C57F00D7AE8E /* Sqlite.TodoItem.DataManager.Tests.swift in Sources */,
 				98F283582A3B82B90008A526 /* FileCacheTests.swift in Sources */,
 				984687D52A555252004C76C3 /* CsvParseTestsData.swift in Sources */,
 				983A5A6F2A615CAF00A7876D /* Sqlite.TodoList.DataManager.Tests.swift in Sources */,

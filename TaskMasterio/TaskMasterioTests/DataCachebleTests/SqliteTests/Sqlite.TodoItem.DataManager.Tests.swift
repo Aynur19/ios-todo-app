@@ -1,5 +1,5 @@
 //
-//  Sqlite.TodoList.DataManager.Tests.swift
+//  Sqlite.TodoItem.DataManager.Tests.swift
 //  TaskMasterioTests
 //
 //  Created by Aynur Nasybullin on 14.07.2023.
@@ -8,7 +8,7 @@
 import XCTest
 @testable import TaskMasterio
 
-final class SqliteTodoListDataManagerTests: XCTestCase {
+final class SqliteTodoItemDataManagerTests: XCTestCase {
     var dataManager: DataManager!
 
     override func setUpWithError() throws {
@@ -50,7 +50,7 @@ final class SqliteTodoListDataManagerTests: XCTestCase {
         dataManager.configure(name: filepath.filename, connectionUrl: filepath.url)
         _ = dataManager.load()
 
-        let items = dataManager.getAll()
+        let items = dataManager.getItems()
         print("Количество записей в таблице: \(items.count)")
         
         for item in items { print("  \(item)") }
@@ -66,13 +66,13 @@ final class SqliteTodoListDataManagerTests: XCTestCase {
         dataManager.configure(name: filepath.filename, connectionUrl: filepath.url)
         _ = dataManager.load()
 
-        let items = dataManager.getAll()
+        let items = dataManager.getItems()
         print("Количество записей в таблице: \(items.count)")
         
         let id = UUID().uuidString
         print("Идентификатор для получения записи: \(id)")
         
-        let item = dataManager.get(by: id)
+        let item = dataManager.getItem(by: id)
         XCTAssertNil(item)
         print("Результат получения конкретной записи: \(String(describing: item))")
         print("************************************************************************\n")
@@ -86,13 +86,13 @@ final class SqliteTodoListDataManagerTests: XCTestCase {
         dataManager.configure(name: filepath.filename, connectionUrl: filepath.url)
         _ = dataManager.load()
 
-        let items = dataManager.getAll()
+        let items = dataManager.getItems()
         print("Количество записей в таблице: \(items.count)")
         
         let id = items[0].id
         print("Идентификатор для получения записи: \(id)")
         
-        let item = dataManager.get(by: id)
+        let item = dataManager.getItem(by: id)
         XCTAssertNotNil(item)
         print("Результат получения конкретной записи: \(String(describing: item))")
         print("************************************************************************\n")
@@ -107,17 +107,26 @@ final class SqliteTodoListDataManagerTests: XCTestCase {
         dataManager.configure(name: filepath.filename, connectionUrl: filepath.url)
         _ = dataManager.load()
         
-        var count = dataManager.getAll().count
+        var count = dataManager.getItems().count
         print("Количество записей в таблице до операции INSERT: \(count)")
         
-        for _ in count...(count + 5) {
-            let item = TodoList()
-            _ = dataManager.insert(item)
+        let todoList = dataManager.getAll()[0]
+        
+        for idx in count...(count + 5) {
+            var item: TodoItem
+            if idx <  TestsData.forInit.count {
+                let dataItem = TestsData.forInit[idx].item
+                item = TodoItem(id: dataItem.id, text: dataItem.text, priority: dataItem.priority, todoListId: todoList.id)
+            } else {
+                item = TodoItem(text: "", priority: .medium, todoListId: todoList.id)
+            }
+            
+            _ = dataManager.insertItem(item)
         }
         
         _ = dataManager.save()
         _ = dataManager.load()
-        let allCount = dataManager.getAll().count
+        let allCount = dataManager.getItems().count
         
         print("Количество записей в таблице после опреации INSERT: \(allCount)")
         print("Количество добавленных записей в таблицу: \(allCount - count)")
@@ -132,17 +141,17 @@ final class SqliteTodoListDataManagerTests: XCTestCase {
         dataManager.configure(name: filepath.filename, connectionUrl: filepath.url)
         _ = dataManager.load()
         
-        let items = dataManager.getAll()
+        let items = dataManager.getItems()
         var count = items.count
         print("Количество записей в таблице до операции INSERT: \(count)")
 
         for item in items {
-            let foundedItem = dataManager.insert(item)
+            let foundedItem = dataManager.insertItem(item)
         }
         
         _ = dataManager.save()
         _ = dataManager.load()
-        let allCount = dataManager.getAll().count
+        let allCount = dataManager.getItems().count
         
         print("Количество записей в таблице после операции INSERT: \(allCount)")
         print("Количество добавленных записей в таблицу: \(allCount - count)")
@@ -158,18 +167,19 @@ final class SqliteTodoListDataManagerTests: XCTestCase {
         dataManager.configure(name: filepath.filename, connectionUrl: filepath.url)
         _ = dataManager.load()
         
-        let items = dataManager.getAll()
+        let todoList = dataManager.getAll()[0]
+        let items = dataManager.getItems()
         print("Количество записей в таблице до операции UPDATE: \(items.count)")
         var count = 0
         for _ in 0...5 {
-            let item = TodoList()
-            let updateResult = dataManager.update(item)
+            let item = TodoItem(text: "Todo Item", priority: .medium, todoListId: todoList.id)
+            let updateResult = dataManager.updateItem(item)
             if updateResult != nil { count += 1 }
         }
         
         _ = dataManager.save()
         _ = dataManager.load()
-        let allCount = dataManager.getAll().count
+        let allCount = dataManager.getItems().count
         
         print("Количество записей в таблице после операции UPDATE: \(allCount)")
         print("Количество обновленных записей в таблице: \(count)")
@@ -183,21 +193,23 @@ final class SqliteTodoListDataManagerTests: XCTestCase {
         let filepath = TestsData.getFilepath(prefix: "TodoList", isTemp: false)
         dataManager.configure(name: filepath.filename, connectionUrl: filepath.url)
         _ = dataManager.load()
+        
+        let todoList = dataManager.getAll()[0]
 
         var count = 0
-        let items = dataManager.getAll()
+        let items = dataManager.getItems()
         print("Количество записей в таблице до операции UPDATE: \(items.count)")
         
         for item in items {
-            let updatedItem = TodoList(id: item.id, items: item.items, revision: item.revision + 1,
-                                       isDirty: item.isDirty, lastUpdatedBy: "simulator", lastUpdatedOn: Date())
-            let updateResult = dataManager.update(updatedItem)
+            let updatedItem = TodoItem(id: item.id, text: item.text, priority: item.priority, deadline: item.deadline,
+                                       isDone: true, createdOn: item.createdOn, updatedOn: Date(), todoListId: todoList.id)
+            let updateResult = dataManager.updateItem(updatedItem)
             if updateResult != nil { count += 1 }
         }
         
         _ = dataManager.save()
         _ = dataManager.load()
-        let allCount = dataManager.getAll().count
+        let allCount = dataManager.getItems().count
         
         print("Количество записей в таблице после операции UPDATE: \(allCount)")
         print("Количество обновленных записей в таблице: \(count)")
@@ -213,18 +225,19 @@ final class SqliteTodoListDataManagerTests: XCTestCase {
         dataManager.configure(name: filepath.filename, connectionUrl: filepath.url)
         _ = dataManager.load()
         
-        let items = dataManager.getAll()
+        let todoList = dataManager.getAll()[0]
+        let items = dataManager.getItems()
         var count = items.count
         print("Количество записей в таблице до операции UPSERT: \(count)")
         
         for _ in count...(count + 5) {
-            let item = TodoList()
-            _ = dataManager.upsert(item)
+            let item = TodoItem(text: "Todo Item", priority: .medium, todoListId: todoList.id)
+            let updateResult = dataManager.upsertItem(item)
         }
         
         _ = dataManager.save()
         _ = dataManager.load()
-        let allCount = dataManager.getAll().count
+        let allCount = dataManager.getItems().count
         
         print("Количество записей в таблице после операции UPSERT: \(allCount)")
         print("Количество добавленных записей: \(allCount - count)")
@@ -238,20 +251,21 @@ final class SqliteTodoListDataManagerTests: XCTestCase {
         let filepath = TestsData.getFilepath(prefix: "TodoList", isTemp: false)
         dataManager.configure(name: filepath.filename, connectionUrl: filepath.url)
         _ = dataManager.load()
-
-        let items = dataManager.getAll()
+        
+        let todoList = dataManager.getAll()[0]
+        let items = dataManager.getItems()
         var count = items.count
         print("Количество записей в таблице до операций UPSERT: \(count)")
         
         for item in items {
-            let newItem = TodoList(id: item.id, items: item.items, revision: item.revision + 1,
-                                   isDirty: item.isDirty, lastUpdatedBy: "simulator", lastUpdatedOn: Date())
-            _ = dataManager.upsert(newItem)
+            let updatedItem = TodoItem(id: item.id, text: item.text, priority: item.priority, deadline: item.deadline,
+                                       isDone: true, createdOn: item.createdOn, updatedOn: Date(), todoListId: todoList.id)
+            let updateResult = dataManager.upsertItem(updatedItem)
         }
         
         _ = dataManager.save()
         _ = dataManager.load()
-        let allCount = dataManager.getAll().count
+        let allCount = dataManager.getItems().count
         
         print("Количество записей в таблице после операции UPSERT: \(allCount)")
         print("Количество добавленных в таблице: \(allCount - count)")
@@ -267,17 +281,16 @@ final class SqliteTodoListDataManagerTests: XCTestCase {
         dataManager.configure(name: filepath.filename, connectionUrl: filepath.url)
         _ = dataManager.load()
 
-        var count = dataManager.getAll().count
+        var count = dataManager.getItems().count
         print("Количество записей в таблице до выполенения операций DELETE: \(count)")
         
         for idx in 1...count where idx % 2 == 0 {
-            let newItem = TodoList()
-            _ = dataManager.delete(by: newItem.id)
+            _ = dataManager.deleteItem(by: UUID().uuidString)
         }
         
         _ = dataManager.save()
         _ = dataManager.load()
-        let allCount = dataManager.getAll().count
+        let allCount = dataManager.getItems().count
         
         print("Количество записей в таблице после операции DELETE: \(allCount)")
         print("Количество удаленных записей в таблице: \(count - allCount)")
@@ -292,17 +305,17 @@ final class SqliteTodoListDataManagerTests: XCTestCase {
         dataManager.configure(name: filepath.filename, connectionUrl: filepath.url)
         _ = dataManager.load()
 
-        let items = dataManager.getAll()
+        let items = dataManager.getItems()
         let count = items.count
         print("Количество записей в таблице до операций DELETE: \(count)")
         
         for idx in 0..<count where idx % 2 == 0 {
-            _ = dataManager.delete(by: items[idx].id)
+            _ = dataManager.deleteItem(by: items[idx].id)
         }
         
         _ = dataManager.save()
         _ = dataManager.load()
-        let allCount = dataManager.getAll().count
+        let allCount = dataManager.getItems().count
         
         print("Количество записей в таблице : \(allCount)")
         print("Количество удаленных записей в таблице : \(count - allCount)")
