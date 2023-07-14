@@ -9,9 +9,9 @@ import Foundation
 import SQLite
 
 protocol UnitOfWork: DataStore {
-    associatedtype RepoType: BaseRepository<TodoList>
-//    var context: DataContext { get }
-    var repo: RepoType { get }
+    associatedtype TodoListRepoType: TodoListRepository
+    
+    var todoLisrRepo: TodoListRepoType { get }
     
     var name: String { get }
     var connectionUrl: URL? { get }
@@ -23,9 +23,12 @@ protocol UnitOfWork: DataStore {
 }
 
 class SqliteUnitOfWork: UnitOfWork {
-    typealias RepoType = SqliteTodoListRepository
-    private(set) var context: DataContext
-    private(set) var repo: RepoType
+    typealias TodoListRepoType = SqliteTodoListRepository
+    
+    private(set) var todoListContext: TodoListContext
+    private(set) var todoItemContext: TodoItemContext?
+    
+    private(set) var todoLisrRepo: TodoListRepoType
     
     private(set) var name = String()
     private(set) var connectionUrl: URL?
@@ -33,9 +36,9 @@ class SqliteUnitOfWork: UnitOfWork {
     private var connectionString = String()
     private var dbConnection: Connection?
     
-    init(context: DataContext, repo: RepoType) {
-        self.context = context
-        self.repo = repo
+    init(context1: TodoListContext) {
+        self.todoListContext = context1
+        self.todoLisrRepo = SqliteTodoListRepository(context: self.todoListContext)
     }
     
     func configure(name: String, connectionUrl: URL? = nil) {
@@ -65,10 +68,11 @@ class SqliteUnitOfWork: UnitOfWork {
                 throw FileCacheError.castingToDictionaryFailed
             }
             
-            let todoList = TodoListTable.toDomain(rows: rows)
-            
+            todoListContext.context = TodoListTable.toDomain(rows: rows)
+//            context
 //            context.todoLists.removeAll()
-//            context.todoLists.append(contentsOf: todoList)
+//            context1.context.removeAll()
+//            context1.context.append(contentsOf: todoList)
 //            context.items.append(contentsOf: TodoItemTable.toDomain(rows: rows2))
             result = .success(())
         } catch {
@@ -95,14 +99,14 @@ class SqliteUnitOfWork: UnitOfWork {
 //            }
             
             try dbConnection?.transaction {
-                for insert in repo.inserts { try dbConnection?.run(insert) }
-                for update in repo.updates { try dbConnection?.run(update) }
-                for delete in repo.deletes { try dbConnection?.run(delete) }
+                for insert in todoLisrRepo.inserts { try dbConnection?.run(insert) }
+                for update in todoLisrRepo.updates { try dbConnection?.run(update) }
+                for delete in todoLisrRepo.deletes { try dbConnection?.run(delete) }
             }
             
-            repo.clearInserts()
-            repo.clearUpdates()
-            repo.clearDeletes()
+            todoLisrRepo.clearInserts()
+            todoLisrRepo.clearUpdates()
+            todoLisrRepo.clearDeletes()
             
             result = .success(())
         } catch {

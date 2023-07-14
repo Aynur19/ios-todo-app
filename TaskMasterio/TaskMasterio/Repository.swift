@@ -10,7 +10,7 @@ import Foundation
 protocol Repository {
     associatedtype Entity: StringIdentifiable
 
-    var dataset: [DataContext] { get }
+//    var dataset: DataContext { get set }
     
     func get(by id: String) -> Entity?
     func getAll() -> [Entity]
