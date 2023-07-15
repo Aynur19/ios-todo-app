@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 protocol DataContext {
     associatedtype Entity: StringIdentifiable
@@ -31,5 +32,34 @@ final class TodoItemContext: DataContext {
     
     private init() {
         context = [Entity]()
+    }
+}
+
+
+
+protocol CoreDataContext {
+    associatedtype Object: NSManagedObject
+    var context: [Object] { get set }
+}
+
+final class TodoListCoreDataContext: CoreDataContext {
+    typealias Object = TodoListManagedObject
+    var context: [Object]
+
+    static let shared = TodoListCoreDataContext()
+
+    private init() {
+        context = [Object]()
+    }
+}
+
+final class TodoItemCoreDataContext: CoreDataContext {
+    typealias Object = TodoItemManagedObject
+    var context: [Object]
+    
+    static let shared = TodoItemCoreDataContext()
+    
+    private init() {
+        context = [Object]()
     }
 }
