@@ -116,16 +116,16 @@ final class CoreDataTodoListDataManagerTests: XCTestCase {
         print("Количество записей в таблице до операции UPDATE: \(items.count)")
         var count = 0
         for _ in 0...5 {
-            let item = TodoList()
+            let item = TodoList(revision: 7)
             let updateResult = coreDataManager.update(item)
             if updateResult != nil { count += 1 }
         }
 
-        _ = coreDataManager.save()
-        _ = coreDataManager.load()
-        let allCount = coreDataManager.getAll().count
+        let allCount = coreDataManager.getAll()
+        allCount.map({ print($0) })
 
-        print("Количество записей в таблице после операции UPDATE: \(allCount)")
+
+        print("Количество записей в таблице после операции UPDATE: \(allCount.count)")
         print("Количество обновленных записей в таблице: \(count)")
         print("************************************************************************\n")
     }

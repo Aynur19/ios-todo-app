@@ -66,13 +66,19 @@ final class TodoListCoreDataRepository: Repository {
     }
     //
     func update(_ entity: Entity) -> Entity? {
-        //        var updatedItem: Entity?
-        //        if let idx = context.context.firstIndex(where: { $0.id == entity.id }) {
-        //            updatedItem = context.context[idx]
-        //            context.context[idx] = entity
-        //        }
-        //
-        //        return updatedItem
+        let fetchRequest: NSFetchRequest<TodoListManagedObject> = TodoListManagedObject.fetchRequest()
+        fetchRequest.fetchLimit = 1
+        do {
+            let todoLists = try mainContext.fetch(fetchRequest).first
+            todoLists?.revision = Int64(entity.revision)
+            todoLists?.lastUpdatedOn = entity.lastUpdatedOn
+            todoLists?.lastUpdatedBy = entity.lastUpdatedBy
+            todoLists?.isDirty = entity.isDirty
+            
+            try backgroundContext.save()
+        } catch {
+            print("Failed to fetch TodoLists: \(error)")
+        }
         return nil
     }
     //

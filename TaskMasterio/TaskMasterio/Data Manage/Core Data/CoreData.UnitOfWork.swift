@@ -79,9 +79,9 @@ final class CoreDataUnitOfWork {//: UnitOfWork {
         return todoListRepo.insert(entity)
     }
 //
-//    func update(_ entity: TodoList) -> TodoList? {
-//        return unitOfWork.todoListRepo.update(entity)
-//    }
+    func update(_ entity: TodoList) -> TodoList? {
+        return todoListRepo.update(entity)
+    }
 //
 //    func upsert(_ entity: TodoList) -> TodoList? {
 //        return unitOfWork.todoListRepo.upsert(entity)
