@@ -216,7 +216,7 @@ extension TodoListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] (action, view, completion) in
-            self?.viewModel.removeItem(by: self?.shownTasks[indexPath.row].id)
+            self?.viewModel.deleteTodoItem(by: self?.shownTasks[indexPath.row].id)
             completion(true)
         }
         
@@ -234,3 +234,4 @@ extension TodoListViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
+

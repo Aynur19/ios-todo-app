@@ -41,6 +41,10 @@ struct TodoItemTable: SqliteTable {
         return table.select(*).filter(self.id == id)
     }
     
+    static func select(with todoListid: String) -> Table {
+        return table.select(*).filter(self.todoListId == todoListid)
+    }
+    
     static func insert(_ item: TodoItem) -> Insert {
         let deadlineValue = item.deadline?.toString(format: DatetimeFormats.yyyyMMddTHHmmss)
         let createdOnValue = item.createdOn.toString(format: DatetimeFormats.yyyyMMddTHHmmss)
@@ -65,7 +69,7 @@ struct TodoItemTable: SqliteTable {
         let deadlineValue = item.deadline?.toString(format: DatetimeFormats.yyyyMMddTHHmmss)
         let updatedOnValue = (item.updatedOn ?? item.createdOn).toString(format: DatetimeFormats.yyyyMMddTHHmmss)
         
-        let updateOperation = table.update(
+        let updateOperation = table.filter(id == item.id).update(
             text <- item.text,
             priority <- item.priority.rawValue,
             deadline <- deadlineValue,

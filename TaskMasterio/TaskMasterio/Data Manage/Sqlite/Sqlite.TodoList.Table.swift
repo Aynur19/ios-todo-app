@@ -45,7 +45,7 @@ struct TodoListTable: SqliteTable {
     }
     
     static func update(_ item: TodoList) -> Update {
-        let updateOperation = table.update(
+        let updateOperation = table.filter(id == item.id).update(
             revision <- item.revision,
             isDirty <- item.isDirty,
             lastUpdatedOn <- item.lastUpdatedOn.toString(format: DatetimeFormats.yyyyMMddTHHmmss),

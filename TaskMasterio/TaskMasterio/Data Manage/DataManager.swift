@@ -18,14 +18,14 @@ final class DataManager {
         self.unitOfWork = unitOfWork
     }
     
-    func configure(name: String, connectionUrl: URL?) {
+    func configure(name: String, connectionUrl: URL? = nil) {
         unitOfWork.configure(name: name, connectionUrl: connectionUrl)
     }
     
+    // MARK: TodoList
     func get(by id: String) -> TodoList? {
         return unitOfWork.todoListRepo.get(by: id)
     }
-    
     
     func getAll() -> [TodoList] {
         return unitOfWork.todoListRepo.getAll()
@@ -47,7 +47,7 @@ final class DataManager {
         return unitOfWork.todoListRepo.delete(by: id)
     }
     
-    
+    // MARK: - TodoItem
     func getItem(by id: String) -> TodoItem? {
         return unitOfWork.todoItemRepo.get(by: id)
     }
@@ -72,8 +72,13 @@ final class DataManager {
         return unitOfWork.todoItemRepo.delete(by: id)
     }
 
+    // MARK: Load & Save
     func load() -> Result<Void, Error> {
-        return unitOfWork.load()
+        return unitOfWork.load(with: nil)
+    }
+    
+    func load(with primaryKey: String? = nil) -> Result<Void, Error> {
+        return unitOfWork.load(with: primaryKey)
     }
     
     func save() -> Result<Void, Error> {

@@ -13,6 +13,6 @@ protocol DataStore {
     
     func configure(name: String, connectionUrl: URL?)
     
-    func load() -> Result<Void, Error>
+    func load(with primaryKey: String?) -> Result<Void, Error>
     func save() -> Result<Void, Error>
 }

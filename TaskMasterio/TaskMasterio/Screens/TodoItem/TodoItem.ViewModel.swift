@@ -26,23 +26,22 @@ final class TodoItemViewModel: ObservableObject {
     @Published var priority: TodoItemPriority
     @Published var isDone: Bool
     @Published var calendarIsHidden = true
-    @Published var itemExists: Bool
+//    @Published var itemExists: Bool
     @Published var taskState: TasksStates = .none
     
     private(set) var id: String
     private var cancellables = Set<AnyCancellable>()
-    private var task: TodoItem
+    private var todoItem: TodoItem
     
-    init(_ currentTask: TodoItem?, viewModel: TodoListViewModel) {
-        self.itemExists = currentTask != nil
+    init(_ currentTask: TodoItem, viewModel: TodoListViewModel) {
         self.viewModel = viewModel
-        self.task = currentTask ?? TodoItem(text: "", priority: .medium, todoListId: "")
+        self.todoItem = currentTask
        
-        description = task.text
-        deadline = task.deadline
-        priority = task.priority
-        isDone = task.isDone
-        id = task.id
+        description = todoItem.text
+        deadline = todoItem.deadline
+        priority = todoItem.priority
+        isDone = todoItem.isDone
+        id = todoItem.id
         
         updateState()
     }
@@ -58,15 +57,9 @@ final class TodoItemViewModel: ObservableObject {
         }
     }
     
-    func mergeItems() -> TodoItem {
-        var mergedItem: TodoItem
-        if itemExists {
-            mergedItem = TodoItem(id: task.id, text: description, priority: priority, deadline: deadline,
-                                  isDone: isDone, createdOn: task.createdOn, updatedOn: Date(), todoListId: "")
-        } else {
-            mergedItem = TodoItem(text: description, priority: priority, deadline: deadline, createdOn: Date(), updatedOn: Date(), todoListId: "")
-        }
-        
+    func mergeItems(with foreignKey: String) -> TodoItem {
+        let mergedItem = TodoItem(id: todoItem.id, text: description, priority: priority, deadline: deadline,
+                                  isDone: isDone, createdOn: todoItem.createdOn, updatedOn: Date(), todoListId: foreignKey)
         return mergedItem
     }
     
@@ -78,7 +71,7 @@ final class TodoItemViewModel: ObservableObject {
     
     var descriptionIsChanged: AnyPublisher<Bool, Never> {
         return $description
-            .map { $0 != self.task.text }
+            .map { $0 != self.todoItem.text }
             .eraseToAnyPublisher()
     }
     
@@ -91,13 +84,13 @@ final class TodoItemViewModel: ObservableObject {
     
     var priorityIsChanged: AnyPublisher<Bool, Never> {
         return $priority
-            .map { $0 != self.task.priority }
+            .map { $0 != self.todoItem.priority }
             .eraseToAnyPublisher()
     }
     
     var deadlineIsChanged: AnyPublisher<Bool, Never> {
         return $deadline
-            .map { $0?.datetime != self.task.deadline?.datetime }
+            .map { $0?.datetime != self.todoItem.deadline?.datetime }
             .eraseToAnyPublisher()
     }
     
@@ -129,14 +122,15 @@ final class TodoItemViewModel: ObservableObject {
     }
     
     func save() {
-        let savedItem = mergeItems()
-        print("Сохранение элемента: \(savedItem)")
-        viewModel?.addTask(item: savedItem)
-        viewModel?.saveOnFileSystem()
-        itemExists = true
+        guard let foreignkey = viewModel?.currentTodoList.id else { return }
+        let savedItem = mergeItems(with: foreignkey)
+    
+        viewModel?.updateTodoItem(item: savedItem)
+        viewModel?.saveDataToDevice()
     }
     
     func remove() {
-        viewModel?.removeItem(by: id)
+        viewModel?.deleteTodoItem(by: id)
+        save()
     }
 }

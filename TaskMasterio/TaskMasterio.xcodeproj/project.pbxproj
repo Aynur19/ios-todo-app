@@ -284,10 +284,10 @@
 		983A5A382A5C60AA00A7876D /* Domains */ = {
 			isa = PBXGroup;
 			children = (
+				983A5A5F2A609D5000A7876D /* StringIdentifiable.swift */,
 				98F2834C2A359C7C0008A526 /* TodoItem.swift */,
 				983A5A392A5C60BF00A7876D /* TodoItem.Priority.swift */,
 				98422CD52A588AE900087EC9 /* TodoList.swift */,
-				983A5A5F2A609D5000A7876D /* StringIdentifiable.swift */,
 			);
 			path = Domains;
 			sourceTree = "<group>";

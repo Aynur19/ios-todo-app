@@ -45,23 +45,31 @@ final class SqliteUnitOfWork: UnitOfWork {
         }
     }
     
-    func load() -> Swift.Result<Void, Error> {
+    func load(with primaryKey: String? = nil) -> Swift.Result<Void, Error> {
         var result: Swift.Result<Void, Error>
         
+        var todoListTable: Table
+        var todoItemTable: Table
+        if let primaryKey = primaryKey {
+            todoListTable = TodoListTable.table.filter(TodoListTable.id == primaryKey)
+            todoItemTable = TodoItemTable.table.filter(TodoItemTable.todoListId == primaryKey)
+        } else {
+            todoListTable = TodoListTable.table
+            todoItemTable = TodoItemTable.table
+        }
+        
         do {
-            guard let todoListRows = try dbConnection?.prepare(TodoListTable.table),
-                  let todoList = TodoListTable.toDomain(rows: todoListRows).first
+            guard let todoListRows = try dbConnection?.prepare(todoListTable),
+                  let todoItemRows = try dbConnection?.prepare(todoItemTable)
             else {
                 throw FileCacheError.castingToDictionaryFailed
             }
             
-            let select = TodoItemTable.table.select(*).filter(TodoItemTable.todoListId == todoList.id)
-            guard let todoItemRows = try dbConnection?.prepare(select) else {
-                throw FileCacheError.castingToDictionaryFailed
-            }
-                    
-            todoListContext.context.append(todoList)
-            todoItemContext.context = TodoItemTable.toDomain(rows: todoItemRows)
+            todoListContext.context.removeAll()
+            todoListContext.context.append(contentsOf: TodoListTable.toDomain(rows: todoListRows))
+            
+            todoItemContext.context.removeAll()
+            todoItemContext.context.append(contentsOf: TodoItemTable.toDomain(rows: todoItemRows))
             
             result = .success(())
         } catch {

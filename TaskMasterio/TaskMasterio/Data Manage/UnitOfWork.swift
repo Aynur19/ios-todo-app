@@ -20,6 +20,6 @@ protocol UnitOfWork: DataStore {
     
     func configure(name: String, connectionUrl: URL?)
     
-    func load() -> Swift.Result<Void, Error>
+    func load(with primaryKey: String?) -> Swift.Result<Void, Error>
     func save() -> Swift.Result<Void, Error>
 }

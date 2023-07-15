@@ -8,19 +8,19 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
     var window: UIWindow?
+    var dataManager: DataManager?
 
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession,
-               options connectionOptions: UIScene.ConnectionOptions) {
+    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
+        dataManager = DataManager(unitOfWork: SqliteUnitOfWork(todoListContext: TodoListContext.shared,
+                                                               todoItemContext: TodoItemContext.shared))
         let networkClient = NetworkClientImp(urlSession: URLSession.shared)
         let networkService = NetworkServiceImp(with: networkClient)
-        let dataCache = DataCacheImp()
-        let todoListViewModel = TodoListViewModel(with: dataCache, networkService: networkService)
+        
+        let todoListViewModel = TodoListViewModel(with: dataManager, networkService: networkService)
         let startController = TodoListViewController()
         startController.viewModel = todoListViewModel
-        
         let todoListNavigationController = UINavigationController(rootViewController: startController)
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
@@ -28,5 +28,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         window?.rootViewController = todoListNavigationController
         window?.makeKeyAndVisible()
+        
+        NotificationCenter.default.post(name: NSNotification.Name("DataManagerSetup"), object: nil)
     }
 }
