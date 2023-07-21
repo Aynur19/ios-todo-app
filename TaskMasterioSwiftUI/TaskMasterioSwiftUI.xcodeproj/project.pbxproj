@@ -14,6 +14,10 @@
 		981668632A6A983E006FB04A /* TaskMasterioSwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981668622A6A983E006FB04A /* TaskMasterioSwiftUITests.swift */; };
 		9816686D2A6A983E006FB04A /* TaskMasterioSwiftUIUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9816686C2A6A983E006FB04A /* TaskMasterioSwiftUIUITests.swift */; };
 		9816686F2A6A983E006FB04A /* TaskMasterioSwiftUIUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9816686E2A6A983E006FB04A /* TaskMasterioSwiftUIUITestsLaunchTests.swift */; };
+		981668932A6ABE86006FB04A /* TodoItemCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981668922A6ABE86006FB04A /* TodoItemCellView.swift */; };
+		982703FC2A6B1206009BF299 /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982703FB2A6B1206009BF299 /* TodoItem.swift */; };
+		982703FE2A6B1290009BF299 /* TodoItem.Priority.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982703FD2A6B1290009BF299 /* TodoItem.Priority.swift */; };
+		982704012A6B1353009BF299 /* TodoItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982704002A6B1353009BF299 /* TodoItemViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +48,10 @@
 		981668682A6A983E006FB04A /* TaskMasterioSwiftUIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TaskMasterioSwiftUIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9816686C2A6A983E006FB04A /* TaskMasterioSwiftUIUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskMasterioSwiftUIUITests.swift; sourceTree = "<group>"; };
 		9816686E2A6A983E006FB04A /* TaskMasterioSwiftUIUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskMasterioSwiftUIUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		981668922A6ABE86006FB04A /* TodoItemCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemCellView.swift; sourceTree = "<group>"; };
+		982703FB2A6B1206009BF299 /* TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
+		982703FD2A6B1290009BF299 /* TodoItem.Priority.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.Priority.swift; sourceTree = "<group>"; };
+		982704002A6B1353009BF299 /* TodoItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +102,9 @@
 		981668502A6A9839006FB04A /* TaskMasterioSwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				982703FF2A6B133A009BF299 /* ViewModels */,
+				982703FA2A6B11E3009BF299 /* Domains */,
+				981668912A6ABE6A006FB04A /* Views */,
 				981668512A6A9839006FB04A /* TaskMasterioSwiftUIApp.swift */,
 				981668532A6A9839006FB04A /* ContentView.swift */,
 				981668552A6A983D006FB04A /* Assets.xcassets */,
@@ -125,6 +136,31 @@
 				9816686E2A6A983E006FB04A /* TaskMasterioSwiftUIUITestsLaunchTests.swift */,
 			);
 			path = TaskMasterioSwiftUIUITests;
+			sourceTree = "<group>";
+		};
+		981668912A6ABE6A006FB04A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				981668922A6ABE86006FB04A /* TodoItemCellView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		982703FA2A6B11E3009BF299 /* Domains */ = {
+			isa = PBXGroup;
+			children = (
+				982703FB2A6B1206009BF299 /* TodoItem.swift */,
+				982703FD2A6B1290009BF299 /* TodoItem.Priority.swift */,
+			);
+			path = Domains;
+			sourceTree = "<group>";
+		};
+		982703FF2A6B133A009BF299 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				982704002A6B1353009BF299 /* TodoItemViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,7 +293,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				982703FE2A6B1290009BF299 /* TodoItem.Priority.swift in Sources */,
 				981668542A6A9839006FB04A /* ContentView.swift in Sources */,
+				981668932A6ABE86006FB04A /* TodoItemCellView.swift in Sources */,
+				982703FC2A6B1206009BF299 /* TodoItem.swift in Sources */,
+				982704012A6B1353009BF299 /* TodoItemViewModel.swift in Sources */,
 				981668522A6A9839006FB04A /* TaskMasterioSwiftUIApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
