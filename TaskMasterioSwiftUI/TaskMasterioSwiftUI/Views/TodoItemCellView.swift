@@ -21,12 +21,7 @@ struct TodoItemCellView: View {
             
             VStack(alignment: .leading) {
                 titleAndPriority
-                HStack(spacing: 2) {
-                    Image("Calendar")
-                    Text("21 июля")
-                        .foregroundColor(.gray)
-                    
-                }
+                deadline
             }
         }
         .padding(.horizontal, 16)
@@ -58,6 +53,20 @@ struct TodoItemCellView: View {
             
             Text(todoItemVM.text)
                 .lineLimit(3)
+                .font(Fonts.body)
+                .foregroundColor(todoItemVM.isDone ? Colors.labelTertiary :  Colors.labelPrimary)
+                .strikethrough(todoItemVM.isDone, color: Colors.labelTertiary)
+        }
+    }
+    
+    var deadline: some View {
+        HStack(spacing: 2) {
+            if let deadline = todoItemVM.deadline {
+                Image("Calendar")
+                Text(deadline.toString(format: DatetimeFormats.deadline))
+                    .foregroundColor(.gray)
+            }
+            
         }
     }
 }

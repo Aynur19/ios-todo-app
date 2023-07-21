@@ -23,6 +23,7 @@ class TodoItemViewModel: ObservableObject {
         self.id = todoItem.id
         self.text = todoItem.text
         self.priority = todoItem.priority
+        self.deadline = todoItem.deadline
         self.isDone = todoItem.isDone
         self.createdOn = todoItem.createdOn
         self.updatedOn = todoItem.updatedOn

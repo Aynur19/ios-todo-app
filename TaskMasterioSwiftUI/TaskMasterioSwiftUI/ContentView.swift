@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+
+
 struct ContentView: View {
     var body: some View {
         VStack {
@@ -21,6 +23,12 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        
+        var todoList = [TodoItem]()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
+        todoList.append(TodoItem(text: "Купить продукты", priority: .medium, deadline: dateFormatter.date(from: "2023/07/22 10:00")!, isDone: false))
+        
+        return ContentView()
     }
 }
