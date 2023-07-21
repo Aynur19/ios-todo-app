@@ -16,29 +16,34 @@ struct TodoItemCellView: View {
     }
     
     var body: some View {
-        HStack(spacing: 12) {
-            markButton
-            
-            VStack(alignment: .leading) {
-                titleAndPriority
-                deadline
+        HStack(spacing: 16) {
+            HStack() {
+                markButton
+                
+                VStack(alignment: .leading, spacing: 0) {
+                    titleAndPriority
+                    deadline
+                }
             }
+            
+            Spacer(minLength: 12)
+            
+            Image("Arrow. Right")
         }
         .padding(.horizontal, 16)
+        .padding(.vertical, 12)
     }
     
     var markButton: some View {
         Button(action: {
             todoItemVM.isDone.toggle()
         }) {
-            if todoItemVM.priority == .high {
-                Image("Mark. High Priority")
+            if todoItemVM.isDone {
+                Image("Mark. On")
             } else {
-                if todoItemVM.isDone {
-                    Image("Mark. On")
-                } else {
-                    Image("Mark. Off")
-                }
+                todoItemVM.priority == .high
+                    ? Image("Mark. High Priority")
+                    : Image("Mark. Off")
             }
         }
     }
@@ -64,7 +69,8 @@ struct TodoItemCellView: View {
             if let deadline = todoItemVM.deadline {
                 Image("Calendar")
                 Text(deadline.toString(format: DatetimeFormats.deadline))
-                    .foregroundColor(.gray)
+                    .foregroundColor(Colors.labelTertiary)
+                    .font(Fonts.subhead)
             }
             
         }

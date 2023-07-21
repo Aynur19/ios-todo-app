@@ -62,8 +62,5 @@ struct MockData {
         ,TodoItem(text: "Сделать ремонт", priority: .high, deadline: Utilites.date(from: "2023/07/28 17:00", as: format), isDone: false)
         ,TodoItem(text: "Поблагодарить", priority: .medium, deadline: Utilites.date(from: "2023/07/30 08:30", as: format), isDone: true)
         ,TodoItem(text: "Закончить документ", priority: .low, deadline: Utilites.date(from: "2023/07/24 13:00", as: format), isDone: false)
-
     ]
-    
-    
 }

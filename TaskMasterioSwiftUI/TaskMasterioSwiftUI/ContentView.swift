@@ -10,24 +10,36 @@ import SwiftUI
 
 
 struct ContentView: View {
+    let todoList = MockData.todoList
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationView {
+            ScrollView(.vertical) {
+                LazyVStack(alignment: .leading) {
+                    ForEach(todoList, id: \.id) { item in
+                        TodoItemCellView(todoItemVM: TodoItemViewModel(todoItem: item))
+                        Divider()
+                            .foregroundColor(Colors.supportSeparator)
+                            .frame(height: 1)
+                    }
+                }
+                .background(Colors.backSecondary)
+                .cornerRadius(16)
+                .frame(maxWidth: .infinity)
+            }
+            
+            .cornerRadius(16)
+            .padding(16)
+            .frame(maxWidth: .infinity)
+            .background(Colors.backPrimary)
+            .navigationTitle("Мои дела")
         }
-        .padding()
+        .background(Colors.backPrimary)
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        
-        var todoList = [TodoItem]()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy/MM/dd HH:mm"
-        todoList.append(TodoItem(text: "Купить продукты", priority: .medium, deadline: dateFormatter.date(from: "2023/07/22 10:00")!, isDone: false))
         
         return ContentView()
     }
