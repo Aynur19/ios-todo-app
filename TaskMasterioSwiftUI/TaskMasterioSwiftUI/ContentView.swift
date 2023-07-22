@@ -40,7 +40,11 @@ struct ContentView: View {
                         Divider()
                             .foregroundColor(Colors.supportSeparator)
                             .frame(height: 1)
+                            .padding(.leading, 52)
                     }
+                    
+                    TodoItemLastCellView()
+                        .frame(minHeight: 56)
                 }
                 .background(Colors.backSecondary)
                 .cornerRadius(16)
@@ -60,6 +64,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         
-        return ContentView(todoListVM: TodoListViewModel(todoItems: MockData.todoList))
+        return ContentView(todoListVM: TodoListViewModel(todoItems: Array(MockData.todoList[0..<5])))
     }
 }

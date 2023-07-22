@@ -25,6 +25,7 @@
 		9827040D2A6B363C009BF299 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9827040C2A6B363C009BF299 /* MockData.swift */; };
 		982704122A6B3BC8009BF299 /* Utilites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982704112A6B3BC8009BF299 /* Utilites.swift */; };
 		982704142A6B4CA1009BF299 /* TodoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982704132A6B4CA1009BF299 /* TodoListViewModel.swift */; };
+		982704162A6B6AC7009BF299 /* TodoItemLastCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982704152A6B6AC7009BF299 /* TodoItemLastCellView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		9827040C2A6B363C009BF299 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		982704112A6B3BC8009BF299 /* Utilites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilites.swift; sourceTree = "<group>"; };
 		982704132A6B4CA1009BF299 /* TodoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewModel.swift; sourceTree = "<group>"; };
+		982704152A6B6AC7009BF299 /* TodoItemLastCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemLastCellView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				981668922A6ABE86006FB04A /* TodoItemCellView.swift */,
+				982704152A6B6AC7009BF299 /* TodoItemLastCellView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -341,6 +344,7 @@
 				982704072A6B1D99009BF299 /* DatetimeFormats.swift in Sources */,
 				982704012A6B1353009BF299 /* TodoItemViewModel.swift in Sources */,
 				982704092A6B2AE6009BF299 /* Fonts.swift in Sources */,
+				982704162A6B6AC7009BF299 /* TodoItemLastCellView.swift in Sources */,
 				9827040D2A6B363C009BF299 /* MockData.swift in Sources */,
 				981668522A6A9839006FB04A /* TaskMasterioSwiftUIApp.swift in Sources */,
 			);
