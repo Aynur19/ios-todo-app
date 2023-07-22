@@ -10,14 +10,34 @@ import SwiftUI
 
 
 struct ContentView: View {
-    let todoList = MockData.todoList
+    @ObservedObject var todoListVM: TodoListViewModel
+//    let todoList = MockData.todoList
     
     var body: some View {
         NavigationView {
             ScrollView(.vertical) {
+                
+                HStack {
+                    Text("Выполенено - \(todoListVM.completedCount)")
+                        .font(Fonts.subhead)
+                        .foregroundColor(Colors.labelTertiary)
+                    
+                    Spacer(minLength: 16)
+                    
+                    Text("Скрыть")
+                        .font(Fonts.subheadBold)
+                        .foregroundColor(Colors.blue)
+                        .onTapGesture {
+                            todoListVM.withCompleted.toggle()
+                            todoListVM.filterList()
+                        }
+                }
+                .padding(.horizontal, 16)
+                
                 LazyVStack(alignment: .leading) {
-                    ForEach(todoList, id: \.id) { item in
-                        TodoItemCellView(todoItemVM: TodoItemViewModel(todoItem: item))
+                    ForEach(todoListVM.shownList, id: \.id) { item in
+                        TodoItemCellView(todoItemVM: item)
+                        
                         Divider()
                             .foregroundColor(Colors.supportSeparator)
                             .frame(height: 1)
@@ -41,6 +61,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         
-        return ContentView()
+        return ContentView(todoListVM: TodoListViewModel(todoItems: MockData.todoList))
     }
 }

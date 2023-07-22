@@ -10,8 +10,9 @@ import SwiftUI
 @main
 struct TaskMasterioSwiftUIApp: App {
     var body: some Scene {
+        let todoListVM = TodoListViewModel(todoItems: MockData.todoList)
         WindowGroup {
-            ContentView()
+            ContentView(todoListVM: todoListVM)
         }
     }
 }
