@@ -24,12 +24,11 @@ struct ContentView: View {
                     
                     Spacer(minLength: 16)
                     
-                    Text("Скрыть")
+                    Text(todoListVM.withCompleted ? "Скрыть" : "Показать")
                         .font(Fonts.subheadBold)
                         .foregroundColor(Colors.blue)
                         .onTapGesture {
                             todoListVM.withCompleted.toggle()
-                            todoListVM.filterList()
                         }
                 }
                 .padding(.horizontal, 16)

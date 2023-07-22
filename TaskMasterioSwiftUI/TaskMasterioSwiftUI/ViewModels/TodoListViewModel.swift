@@ -6,7 +6,7 @@
 //
 
 import Foundation
-//import Combine
+import Combine
 
 class TodoListViewModel: ObservableObject {
     
@@ -19,18 +19,34 @@ class TodoListViewModel: ObservableObject {
     }
     
     @Published var shownList = [TodoItemViewModel]()
-    @Published var completedCount: Int = 0
+    @Published var completedCount: Int = 0 {
+        didSet {
+            filterList()
+        }
+    }
+    
+    private var cancellables = Set<AnyCancellable>()
         
     init(todoItems: [TodoItem]) {
-        for item in todoItems {
-            list.append(TodoItemViewModel(todoItem: item))
-        }
+        list = todoItems.map { TodoItemViewModel(todoItem: $0) }
         
-        filterList()
+        list.forEach({ itemVM in
+            itemVM.$isDone
+                .sink { [weak self] isDone in
+                    
+                    if isDone {
+                        self?.completedCount += 1
+                    } else {
+                        self?.completedCount -= 1
+                    }
+                }
+                .store(in: &cancellables)
+        })
+        
+        completedCount = list.filter { $0.isDone }.count
     }
     
     func filterList() {
         shownList = withCompleted ? list : list.filter { !$0.isDone }
-        completedCount = list.filter { $0.isDone }.count
     }
 }
